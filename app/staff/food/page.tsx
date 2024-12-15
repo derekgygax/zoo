@@ -1,16 +1,19 @@
 
 // layouts
-import { PageSection } from "@/app/_layouts/pageSection/PageSection";
 
 // components
-import { BackToStaffPage } from "../_components/backToStaffPage/BackToStaffPage";
+import { Title } from "../../_components/title/Title";
+
+// data
+import { title } from "../_data/food/food";
 
 export default function StaffFoodPage() {
   return (
     <main>
-      <PageSection>
-        <div>Staff Food Page</div>
-      </PageSection>
+      <Title
+        title={title.label}
+        level={title.level}
+      />
     </main>
   )
 }

@@ -3,7 +3,12 @@
 import { ROLE, SITE_URLS } from "@/config";
 
 // types
-import { Task } from "../types/staff";
+import { Task } from "../types";
+
+export const title = {
+  label: "Zoo Staff",
+  level: 1
+}
 
 export const tasks: Task[] = [
   {

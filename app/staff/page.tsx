@@ -1,16 +1,16 @@
 import Link from "next/link";
 
 // types
-import { Task } from "./types/staff";
-
-// config
-import { SITE_URLS } from "@/config";
+import { Task } from "./types";
 
 // layouts
 import { PageSection } from "../_layouts/pageSection/PageSection";
 
+// components
+import { Title } from "../_components/title/Title";
+
 // data
-import { tasks } from "./data/staff";
+import { tasks, title } from "./_data/staff";
 
 // styles
 import styles from "./page.module.scss";
@@ -18,15 +18,17 @@ import styles from "./page.module.scss";
 export default function StaffPage() {
   return (
     <main>
-      <PageSection>
-        <h1 className={styles.header}>Zoo Staff</h1>
-      </PageSection>
+      <Title
+        title={title.label}
+        level={title.level}
+      />
       <PageSection>
         <ul className={styles.options}>
-          {tasks.map((task: Task) => {
+          {tasks.map((task: Task, index: number) => {
             // TODO Incorporate the role based on who is signed in
             return (
-              <li>
+              // Remember this key is NEEDED but only remembered locally so index is good enough, unless you have nested
+              <li key={index}>
                 <Link
                   href={task.url}
                 >
