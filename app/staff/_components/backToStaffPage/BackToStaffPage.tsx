@@ -1,10 +1,12 @@
-import Link from "next/link"
+import Link from "next/link";
 
 // config
-import { SITE_URLS } from "@/config"
+import { SITE_URLS } from "@/config";
 
 // layouts
-import { PageSection } from "@/app/_layouts/pageSection/PageSection"
+import { PageSection } from "@/app/_layouts/pageSection/PageSection";
+
+// TODO PROBABLY ERASE THIS!!
 
 export const BackToStaffPage = () => {
   return (
