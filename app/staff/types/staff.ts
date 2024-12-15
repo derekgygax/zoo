@@ -1,0 +1,7 @@
+import { ROLE } from "@/config";
+
+export interface Task {
+  label: string;
+  url: string;
+  roles: ROLE[]
+}

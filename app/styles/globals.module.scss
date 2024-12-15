@@ -1,0 +1,33 @@
+@use './variables' as vars;
+
+// Global for defining the width of any container for the website based on media queries
+.containerFullPage {
+  padding-left: 4rem;
+  padding-right: 4rem;
+  max-width: vars.$page-max-width;
+  margin: 0 auto;
+
+  @media screen and (max-width: vars.$large-width ) {
+    padding-left: 3vw;
+    padding-right: 3vw;
+  }
+
+  @media screen and (max-width: vars.$small-width ) {
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+}
+
+// This is screen reader only for accessibility
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
