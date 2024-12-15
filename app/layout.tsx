@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 
+
+// PREEMPTIVE OPTIMIZATION IS THE ROOT OF EVIL
+
 // global base styles to whole webiste
-import '@/app/styles/_base.scss'
+import '@/styles/_base.scss'
 
 export const metadata: Metadata = {
   title: "Zoo",

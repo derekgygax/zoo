@@ -5,3 +5,14 @@ export interface Task {
   url: string;
   roles: ROLE[]
 }
+
+export interface Title {
+  label: string;
+  level: number;
+}
+
+export interface AnimalEnumResponse {
+  type: string;
+  label: string;
+  values: string[]
+}

@@ -3,8 +3,13 @@
 export const SITE_URLS = {
   staff: {
     base: "/staff",
-    animals: "/staff/animals",
-    food: "/staff/food"
+    animals: {
+      base: "/staff/animals",
+      add: "/staff/animals/add"
+    },
+    food: {
+      base: "/staff/food"
+    }
   }
 };
 

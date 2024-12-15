@@ -1,7 +1,7 @@
 import classNames from "classnames";
 
 // styles
-import globalStyles from '@/app/styles/globals.module.scss';
+import globalStyles from '@/styles/globals.module.scss';
 import styles from './PageSection.module.scss';
 
 interface SectionProps {
