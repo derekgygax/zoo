@@ -1,26 +1,26 @@
 
+// lib
+import { getAPIRequest } from "@/lib/utils/server";
+
 // components
 import { Title } from "@/app/_components/title/Title";
+
+// client components
+import { Form } from "@/app/client_components/form/Form";
 
 // data
 import { title } from "../../_data/animals/add";
 
 // styles
-import styles from './page.module.scss';
-import { PageSection } from "@/app/_layouts/pageSection/PageSection";
-import { AnimalEnumResponse } from "../../types";
-import { getAPIRequest } from "@/lib/utils/server";
+// import styles from './page.module.scss';
 
 export default async function StaffAddAnimalPage() {
 
-  const animalEnums: AnimalEnumResponse[] = await getAPIRequest(
-    process.env.API_ANIMALS_ENUM_ANIMAL ?? "",
+  const animalMetadata = await getAPIRequest(
+    process.env.API_ANIMALS_METADATA ?? "",
     [],
     null
   );
-
-  console.log(animalEnums);
-
 
   return (
     <main>
@@ -28,29 +28,9 @@ export default async function StaffAddAnimalPage() {
         title={title.label}
         level={title.level}
       />
-      <PageSection>
-        <form className={styles.form}>
-          <label>
-            Name:
-            <input type="text" name="name" />
-          </label>
-          <label>
-            Species:
-            <input type="text" name="species" />
-          </label>
-          <label>
-            Gender:
-            <input type="text" name="gender" />
-          </label>
-          <label>
-            Health:
-            <input type="text" name="health" />
-          </label>
-          <button type="submit">
-            Submit
-          </button>
-        </form>
-      </PageSection>
+      <Form
+        fields={animalMetadata}
+      />
     </main>
   )
 }
