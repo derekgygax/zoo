@@ -41,16 +41,16 @@ npm install
 
 ---
 
-### Generate OpenAPI Types and Zod Schemas
+### Generate Types and Zod Schemas to match the API microservices
 
-To ensure everything is up-to-date with the backend's OpenAPI schema, run:
+To ensure everything is up-to-date with the microservices, run:
 
 ```bash
-bun run generate-types-zod
+bun run generate-api-contracts
 ```
 
 This will:
-1. Fetch the latest OpenAPI specification.
+1. Fetch the latest microservice specifications.
 2. Generate TypeScript client code for API calls.
 3. Generate Zod schemas for front-end validation.
 
@@ -76,10 +76,11 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 | `bun run build`           | Build the project for production.                       |
 | `bun run start`           | Start the production server.                            |
 | `bun run lint`            | Run ESLint for code quality checks.                     |
-| `bun run fetch-openapi`   | Fetch the latest OpenAPI schema.                        |
-| `bun run generate-ts-client` | Generate TypeScript API client from OpenAPI schema.  |
+| `bun run fetch-openapi`   | Fetch the latest OpenAPI schemas.                       |
+| `bun run generate-ts-client` | Generate TypeScript API client from OpenAPI schemas. |
+| `bun run generate-types`  | Generate TypeScript from OpenAPI schemas.               |
 | `bun run generate-zod-schemas` | Generate Zod schemas for validation.               |
-| `bun run generate-types-zod`  | Run all OpenAPI-related scripts sequentially.       |
+| `bun run generate-api-contracts`  | Run all OpenAPI-related scripts sequentially.   |
 
 ---
 
@@ -89,9 +90,8 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 - **Language**: TypeScript
 - **Validation**: Zod
 - **API Integration**: OpenAPI-driven (TypeScript client)
-- **State Management**: React Hooks and Server Actions
+- **State Management**: React Hooks, Redux, and Server Actions
 - **Styling**: Sass
-- **Forms**: react-jsonschema-form (RJSF)
 
 ---
 
@@ -131,5 +131,5 @@ For any inquiries or issues, please reach out via [GitHub Issues](https://github
 ### Notes
 
 - **Recommended**: Use `bun` for all scripts to ensure speed and compatibility.
-- Run `bun run generate-types-zod` whenever the backend schema changes.
+- Run `bun run generate-api-contracts` whenever the backend schemas change.
 
