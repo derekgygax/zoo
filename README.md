@@ -83,21 +83,6 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 
 ---
 
-## Deployment
-
-To deploy the project on [Vercel](https://vercel.com):
-
-1. Install the [Vercel CLI](https://vercel.com/docs/cli).
-2. Run:
-
-   ```bash
-   vercel
-   ```
-
-3. Follow the instructions to deploy.
-
----
-
 ## Tech Stack
 
 - **Framework**: Next.js
