@@ -70,17 +70,18 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 
 ### Scripts Overview
 
-| Command                   | Description                                             |
-|---------------------------|---------------------------------------------------------|
-| `bun run dev`             | Start the development server with linting.              |
-| `bun run build`           | Build the project for production.                       |
-| `bun run start`           | Start the production server.                            |
-| `bun run lint`            | Run ESLint for code quality checks.                     |
-| `bun run fetch-openapi`   | Fetch the latest OpenAPI schemas.                       |
-| `bun run generate-ts-client` | Generate TypeScript API client from OpenAPI schemas. |
-| `bun run generate-types`  | Generate TypeScript from OpenAPI schemas.               |
-| `bun run generate-zod-schemas` | Generate Zod schemas for validation.               |
-| `bun run generate-api-contracts`  | Run all OpenAPI-related scripts sequentially.   |
+| Command                                | Description                                                   |
+|----------------------------------------|---------------------------------------------------------------|
+| `bun run dev`                          | Start the development server with linting.                    |
+| `bun run build`                        | Build the project for production.                             |
+| `bun run start`                        | Start the production server.                                  |
+| `bun run lint`                         | Run ESLint for code quality checks.                           |
+| `bun run animal:fetch-openapi`         | Fetch the latest schema for the Animal Service.               |
+| `bun run animal:generate-types-openapi-client` | Generate TypeScript API client for the Animal Service. |
+| `bun run animal:generate-types`        | Generate TypeScript types for the Animal Service.             |
+| `bun run animal:generate-zod-schemas`  | Generate Zod schemas for the Animal Service.                  |
+| `bun run animal:generate-api-contracts`| Run all scripts for the Animal Service sequentially.          |
+| `bun run generate-all-api-contracts`   | Run all API contract generation scripts for all services.     |
 
 ---
 
@@ -131,5 +132,5 @@ For any inquiries or issues, please reach out via [GitHub Issues](https://github
 ### Notes
 
 - **Recommended**: Use `bun` for all scripts to ensure speed and compatibility.
-- Run `bun run generate-api-contracts` whenever the backend schemas change.
+- Run `bun run generate-all-api-contracts` whenever the backend schemas change.
 

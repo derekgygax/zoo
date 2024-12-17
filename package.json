@@ -6,14 +6,22 @@
     "dev": "next lint && next dev",
     "build": "next lint && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "animal:fetch-openapi": "curl http://127.0.0.1:8000/api/v1/open-api/ -o api-contracts/animal/openapi.json",
+    "animal:generate-types-openapi-client": "bunx openapi-generator-cli generate -i api-contracts/animal/openapi.json -g typescript-fetch -o api-contracts/animal/openApi",
+    "animal:generate-types": "bunx openapi-typescript api-contracts/animal/openapi.json -o api-contracts/animal/types.ts",
+    "animal:generate-zod-schemas": "bunx openapi-zod-client api-contracts/animal/openapi.json --output api-contracts/animal/zodSchemas.ts",
+    "animal:generate-api-contracts": "bun run animal:fetch-openapi && bun run animal:generate-types && bun run animal:generate-zod-schemas",
+    "generate-all-api-contracts": "bun run animal:generate-api-contracts"
   },
   "dependencies": {
     "classnames": "^2.5.1",
     "next": "15.0.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sass": "latest"
+    "sass": "latest",
+    "swagger-client": "^3.32.2",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -21,6 +29,8 @@
     "@types/react-dom": "^19.0.2",
     "eslint": "^8",
     "eslint-config-next": "15.0.4",
+    "openapi-typescript": "^7.4.4",
+    "openapi-zod-client": "^1.18.2",
     "typescript": "^5"
   }
 }
