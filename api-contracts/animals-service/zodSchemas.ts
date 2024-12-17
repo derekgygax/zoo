@@ -45,17 +45,6 @@ const HTTPValidationError = z
   .object({ detail: z.array(ValidationError) })
   .partial()
   .passthrough();
-const FormFieldConfig = z
-  .object({
-    name: z.string(),
-    type: z.string(),
-    label: z.string(),
-    values: z.union([z.array(z.string()), z.null()]).optional(),
-    maxLength: z.union([z.number(), z.null()]).optional(),
-    required: z.boolean(),
-  })
-  .passthrough();
-const FormConfig = z.object({ fields: z.array(FormFieldConfig) }).passthrough();
 
 export const schemas = {
   SPECIE,
@@ -65,8 +54,6 @@ export const schemas = {
   AnimalBase,
   ValidationError,
   HTTPValidationError,
-  FormFieldConfig,
-  FormConfig,
 };
 
 const endpoints = makeApi([
@@ -104,20 +91,6 @@ const endpoints = makeApi([
         schema: HTTPValidationError,
       },
     ],
-  },
-  {
-    method: "get",
-    path: "/api/v1/animals/form-config",
-    alias: "get_form_config_api_v1_animals_form_config_get",
-    requestFormat: "json",
-    response: FormConfig,
-  },
-  {
-    method: "get",
-    path: "/api/v1/open-api/",
-    alias: "get_metadata_service_api_v1_open_api__get",
-    requestFormat: "json",
-    response: z.object({}).partial().passthrough(),
   },
 ]);
 

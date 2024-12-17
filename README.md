@@ -53,6 +53,7 @@ This will:
 1. Fetch the latest microservice specifications.
 2. Generate TypeScript client code for API calls.
 3. Generate Zod schemas for front-end validation.
+4. Generate form configurations for dynamic form rendering.
 
 ---
 
@@ -80,6 +81,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 | `bun run animal:generate-types-openapi-client` | Generate TypeScript API client for the Animal Service. |
 | `bun run animal:generate-types`        | Generate TypeScript types for the Animal Service.             |
 | `bun run animal:generate-zod-schemas`  | Generate Zod schemas for the Animal Service.                  |
+| `bun run animal:generate-form-config`  | Generate the form configuration for the Animal Service.       |
 | `bun run animal:generate-api-contracts`| Run all scripts for the Animal Service sequentially.          |
 | `bun run generate-all-api-contracts`   | Run all API contract generation scripts for all services.     |
 

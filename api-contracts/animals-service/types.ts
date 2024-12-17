@@ -22,40 +22,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/animals/form-config": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get Form Config */
-        get: operations["get_form_config_api_v1_animals_form_config_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/open-api/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get Metadata Service */
-        get: operations["get_metadata_service_api_v1_open_api__get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/": {
         parameters: {
             query?: never;
@@ -139,26 +105,6 @@ export interface components {
              * Format: date
              */
             acquisition_date: string;
-        };
-        /** FormConfig */
-        FormConfig: {
-            /** Fields */
-            fields: components["schemas"]["FormFieldConfig"][];
-        };
-        /** FormFieldConfig */
-        FormFieldConfig: {
-            /** Name */
-            name: string;
-            /** Type */
-            type: string;
-            /** Label */
-            label: string;
-            /** Values */
-            values?: string[] | null;
-            /** Maxlength */
-            maxLength?: number | null;
-            /** Required */
-            required: boolean;
         };
         /**
          * GENDER
@@ -247,46 +193,6 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    get_form_config_api_v1_animals_form_config_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FormConfig"];
-                };
-            };
-        };
-    };
-    get_metadata_service_api_v1_open_api__get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": Record<string, never>;
                 };
             };
         };

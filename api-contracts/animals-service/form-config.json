@@ -1,0 +1,64 @@
+{
+  "AnimalBase": {
+    "properties": {
+      "name": {
+        "type": "string",
+        "maxLength": 100,
+        "title": "Name",
+        "description": "The name of the animal"
+      },
+      "specie": {
+        "type": "string",
+        "enum": [
+          "TIGER",
+          "SHARK",
+          "PARROT",
+          "ELEPHANT"
+        ],
+        "title": "Specie"
+      },
+      "dob": {
+        "type": "string",
+        "format": "date",
+        "title": "DOB"
+      },
+      "gender": {
+        "type": "string",
+        "enum": [
+          "MALE",
+          "FEMALE",
+          "HERMAPHRODITE",
+          "ASEXUAL"
+        ],
+        "title": "Gender"
+      },
+      "health": {
+        "type": "string",
+        "enum": [
+          "HEALTHY",
+          "SICK",
+          "UNDER_OBSERVATION",
+          "INJURED",
+          "RECOVERING",
+          "DECEASED"
+        ],
+        "title": "Health"
+      },
+      "acquisition_date": {
+        "type": "string",
+        "format": "date",
+        "title": "Aquisition Date"
+      }
+    },
+    "type": "object",
+    "required": [
+      "name",
+      "specie",
+      "dob",
+      "gender",
+      "health",
+      "acquisition_date"
+    ],
+    "title": "AnimalBase"
+  }
+}

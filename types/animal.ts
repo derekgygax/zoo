@@ -1,4 +1,4 @@
-import { components } from "@/api-contracts/animal/types";
+import { components } from "@/api-contracts/animals-service/types";
 
 export type HEALTH_TYPE = components["schemas"]["HEALTH_TYPE"];
 export type GENDER = components["schemas"]["GENDER"];
