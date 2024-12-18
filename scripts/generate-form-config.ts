@@ -3,7 +3,7 @@ import SwaggerClient from "swagger-client";
 import { OpenAPIV3 } from "openapi-types";
 
 // cofig
-import { SERVICES } from "@/config";
+import { SERVICES } from "@/config/services";
 
 const getPaths = (serviceName: string): { in: string; out: string } => {
   return {
@@ -25,7 +25,7 @@ const generateFormConfig = async () => {
 
       for (let j = 0; j < service.forms.length; j++) {
         const form = service.forms[j];
-        formConfigs[form.name] = client.spec.components.schemas[form.name];
+        formConfigs[form] = client.spec.components.schemas[form];
       }
 
       fs.writeFileSync(paths.out, JSON.stringify(formConfigs, null, 2));

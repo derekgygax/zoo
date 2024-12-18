@@ -1,7 +1,6 @@
+import { FORM_NAME } from "./form";
+
 export interface Service {
   name: string;
-  forms: {
-    name: string;
-    label: string;
-  }[]
+  forms: FORM_NAME[]
 }
