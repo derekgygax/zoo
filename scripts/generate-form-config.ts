@@ -5,6 +5,10 @@ import { OpenAPIV3 } from "openapi-types";
 // cofig
 import { SERVICES } from "@/config/services";
 
+// types
+import { Service } from "@/types/service";
+import { FORM_SCHEMA } from "@/types/form";
+
 const getPaths = (serviceName: string): { in: string; out: string } => {
   return {
     in: `api-contracts/${serviceName}/openapi.json`,
@@ -15,7 +19,7 @@ const getPaths = (serviceName: string): { in: string; out: string } => {
 const generateFormConfig = async () => {
   for (let i = 0; i < SERVICES.length; i++) {
     try {
-      const service = SERVICES[i];
+      const service: Service = SERVICES[i];
       const paths: { in: string, out: string } = getPaths(service.name);
 
       const openApiSchema = JSON.parse(fs.readFileSync(paths.in, "utf-8"));
@@ -23,9 +27,9 @@ const generateFormConfig = async () => {
 
       const formConfigs: Record<string, OpenAPIV3.SchemaObject> = {};
 
-      for (let j = 0; j < service.forms.length; j++) {
-        const form = service.forms[j];
-        formConfigs[form] = client.spec.components.schemas[form];
+      for (let j = 0; j < service.schemas.length; j++) {
+        const schema: FORM_SCHEMA = service.schemas[j];
+        formConfigs[schema] = client.spec.components.schemas[schema];
       }
 
       fs.writeFileSync(paths.out, JSON.stringify(formConfigs, null, 2));

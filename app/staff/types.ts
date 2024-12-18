@@ -1,4 +1,4 @@
-import { ROLE } from "@/config";
+import { ROLE } from "@/config/config";
 
 export interface Task {
   label: string;

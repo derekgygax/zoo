@@ -1,6 +1,6 @@
-import { FORM_NAME } from "./form";
+import { FORM_SCHEMA } from "./form";
 
 export interface Service {
   name: string;
-  forms: FORM_NAME[]
+  schemas: FORM_SCHEMA[]
 }
