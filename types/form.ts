@@ -1,4 +1,5 @@
 import { OpenAPIV3 } from "openapi-types";
+import { ZodObject } from "zod";
 
 export enum FORM_SCHEMA {
   ANIMAL_BASE = "AnimalBase"
@@ -36,5 +37,6 @@ export type FormConfig = {
     label: string;
     schema: FORM_SCHEMA;
     config: OpenAPIV3.SchemaObject
+    zodSchema: ZodObject<any>
   }
 }

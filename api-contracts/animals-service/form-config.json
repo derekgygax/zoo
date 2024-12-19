@@ -17,11 +17,6 @@
         ],
         "title": "Specie"
       },
-      "dob": {
-        "type": "string",
-        "format": "date",
-        "title": "DOB"
-      },
       "gender": {
         "type": "string",
         "enum": [
@@ -44,6 +39,11 @@
         ],
         "title": "Health"
       },
+      "dob": {
+        "type": "string",
+        "format": "date",
+        "title": "DOB"
+      },
       "acquisition_date": {
         "type": "string",
         "format": "date",
@@ -54,9 +54,9 @@
     "required": [
       "name",
       "specie",
-      "dob",
       "gender",
       "health",
+      "dob",
       "acquisition_date"
     ],
     "title": "AnimalBase"

@@ -4,7 +4,7 @@ import { Tasks } from "./_components/tasks/Tasks";
 import { Title } from "../_components/title/Title";
 
 // content
-import { tasks, title } from "@/_content/app/staff/page";
+import { tasks, title } from "@/content/app/staff/page";
 
 // styles
 // import styles from "./page.module.scss";

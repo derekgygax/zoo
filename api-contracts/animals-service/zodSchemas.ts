@@ -15,9 +15,9 @@ const Animal = z
   .object({
     name: z.string().max(100),
     specie: SPECIE,
-    dob: z.string(),
     gender: GENDER,
     health: HEALTH_TYPE,
+    dob: z.string(),
     acquisition_date: z.string(),
     id: z.string().uuid(),
     created_at: z.string().datetime({ offset: true }),
@@ -28,9 +28,9 @@ const AnimalBase = z
   .object({
     name: z.string().max(100),
     specie: SPECIE,
-    dob: z.string(),
     gender: GENDER,
     health: HEALTH_TYPE,
+    dob: z.string(),
     acquisition_date: z.string(),
   })
   .passthrough();

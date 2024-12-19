@@ -52,15 +52,15 @@ export interface components {
             name: string;
             /** Specie */
             specie: components["schemas"]["SPECIE"];
+            /** Gender */
+            gender: components["schemas"]["GENDER"];
+            /** Health */
+            health: components["schemas"]["HEALTH_TYPE"];
             /**
              * DOB
              * Format: date
              */
             dob: string;
-            /** Gender */
-            gender: components["schemas"]["GENDER"];
-            /** Health */
-            health: components["schemas"]["HEALTH_TYPE"];
             /**
              * Aquisition Date
              * Format: date
@@ -91,15 +91,15 @@ export interface components {
             name: string;
             /** Specie */
             specie: components["schemas"]["SPECIE"];
+            /** Gender */
+            gender: components["schemas"]["GENDER"];
+            /** Health */
+            health: components["schemas"]["HEALTH_TYPE"];
             /**
              * DOB
              * Format: date
              */
             dob: string;
-            /** Gender */
-            gender: components["schemas"]["GENDER"];
-            /** Health */
-            health: components["schemas"]["HEALTH_TYPE"];
             /**
              * Aquisition Date
              * Format: date
