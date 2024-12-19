@@ -9,26 +9,6 @@ export enum FORM_NAME {
   EDIT_ANIMAL = "EditAnimal"
 }
 
-export enum OPEN_API_FIELD_TYPE {
-  STRING = "string",
-  NUMBER = "number",
-  INTEGER = "integer",
-  BOOLEAN = "boolean",
-  OBJECT = "object",
-  ARRAY = "array",
-}
-
-export enum OPEN_API_STRING_FORMAT {
-  DATE = "date",
-  DATE_TIME = "date-time",
-  PASSWORD = "password",
-  BYTE = "byte",
-  BINARY = "binary",
-  EMAIL = "email",
-  UUID = "uuid",
-  URI = "uri",
-}
-
 export enum FORM_FIELD_TYPE {
   TEXT = "TEXT",
   SELECTOR = "SELECTOR",
