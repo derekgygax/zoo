@@ -1,8 +1,10 @@
 // config
-import { ROLE, SITE_URLS } from "@/config";
+import { SITE_URLS } from "@/config/siteUrls";
 
 // types
-import { Task, Title } from "../../types";
+import { ROLE } from '@/types/role';
+import { Task } from "@/types/staff";
+import { Title } from "@/types/general";
 
 export const title: Title = {
   label: "Staff Animal Page",
