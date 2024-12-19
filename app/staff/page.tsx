@@ -3,8 +3,8 @@
 import { Tasks } from "./_components/tasks/Tasks";
 import { Title } from "../_components/title/Title";
 
-// data
-import { tasks, title } from "./_data/base";
+// content
+import { tasks, title } from "@/_content/app/staff/page";
 
 // styles
 // import styles from "./page.module.scss";

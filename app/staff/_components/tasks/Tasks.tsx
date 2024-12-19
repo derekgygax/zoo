@@ -2,7 +2,7 @@
 import Link from "next/link";
 
 // types
-import { Task } from "../../types";
+import { Task } from "@/types/staff";
 
 // layouts
 import { PageSection } from "@/app/_layouts/pageSection/PageSection";

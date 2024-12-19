@@ -5,8 +5,8 @@
 import { Title } from "../../_components/title/Title";
 import { Tasks } from "../_components/tasks/Tasks";
 
-// data
-import { tasks, title } from "../_data/animals/base";
+// content
+import { tasks, title } from "../../../_content/app/staff/animals/page";
 
 // TODO I think all the pages within STAFF is going to be the same
 // unorder list so you can make one component. but do that after
