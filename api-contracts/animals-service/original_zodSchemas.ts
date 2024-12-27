@@ -17,8 +17,8 @@ const Animal = z
     specie: SPECIE,
     gender: GENDER,
     health: HEALTH_TYPE,
-    dob: z.date(),
-    acquisition_date: z.date(),
+    dob: z.string(),
+    acquisition_date: z.string(),
     id: z.string().uuid(),
     created_at: z.string().datetime({ offset: true }),
     updated_at: z.string().datetime({ offset: true }),
@@ -30,8 +30,8 @@ const AnimalBase = z
     specie: SPECIE,
     gender: GENDER,
     health: HEALTH_TYPE,
-    dob: z.date(),
-    acquisition_date: z.date(),
+    dob: z.string(),
+    acquisition_date: z.string(),
   })
   .passthrough();
 const ValidationError = z
