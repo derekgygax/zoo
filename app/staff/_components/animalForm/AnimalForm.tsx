@@ -10,7 +10,7 @@ import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 import { PageSection } from "@/app/_layouts/pageSection/PageSection";
 
 // client components
-import { ZodForm } from "@/app/client_components/zodForm/ZodForm";
+import { ZodForm } from "@/app/_client_components/zodForm/ZodForm";
 
 
 // server actions
