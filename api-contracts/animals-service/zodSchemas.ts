@@ -13,32 +13,32 @@ const HEALTH_TYPE = z.enum([
 ]);
 const Animal = z
   .object({
-    name: z.string().max(100),
+    name: z.string().trim().max(100),
     specie: SPECIE,
     gender: GENDER,
     health: HEALTH_TYPE,
-    dob: z.date(),
-    acquisition_date: z.date(),
-    id: z.string().uuid(),
-    created_at: z.string().datetime({ offset: true }),
-    updated_at: z.string().datetime({ offset: true }),
+    dob: z.string().trim().refine((value) => !isNaN(Date.parse(value)), { message: "Invalid date" }).describe("date"),
+    acquisition_date: z.string().trim().refine((value) => !isNaN(Date.parse(value)), { message: "Invalid date" }).describe("date"),
+    id: z.string().trim().uuid(),
+    created_at: z.string().trim().datetime({ offset: true }),
+    updated_at: z.string().trim().datetime({ offset: true }),
   })
   .passthrough();
 const AnimalBase = z
   .object({
-    name: z.string().max(100),
+    name: z.string().trim().max(100),
     specie: SPECIE,
     gender: GENDER,
     health: HEALTH_TYPE,
-    dob: z.date(),
-    acquisition_date: z.date(),
+    dob: z.string().trim().refine((value) => !isNaN(Date.parse(value)), { message: "Invalid date" }).describe("date"),
+    acquisition_date: z.string().trim().refine((value) => !isNaN(Date.parse(value)), { message: "Invalid date" }).describe("date"),
   })
   .passthrough();
 const ValidationError = z
   .object({
-    loc: z.array(z.union([z.string(), z.number()])),
-    msg: z.string(),
-    type: z.string(),
+    loc: z.array(z.union([z.string().trim(), z.number()])),
+    msg: z.string().trim(),
+    type: z.string().trim(),
   })
   .passthrough();
 const HTTPValidationError = z

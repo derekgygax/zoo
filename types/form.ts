@@ -31,12 +31,13 @@ export interface FormFieldConfig {
   required: boolean;
 }
 
-export type FormConfig = {
-  [K in FORM_NAME]: {
-    name: K,
-    label: string;
-    schema: FORM_SCHEMA;
-    config: OpenAPIV3.SchemaObject
-    zodSchema: ZodObject<any>
-  }
-}
+export type FormConfig<K extends FORM_NAME> = {
+  name: K;
+  label: string;
+  schema: FORM_SCHEMA;
+  zodSchemaName: FORM_SCHEMA;
+};
+
+export type FormConfigs = {
+  [K in FORM_NAME]: FormConfig<K>;
+};

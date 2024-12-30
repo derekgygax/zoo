@@ -20,6 +20,7 @@ interface Paths {
 // To match the schemas in the zod file
 const SCHEMA_REG_EX = /const\s([A-Za-z0-9_]+)\s*=\s*z/;
 const PASSTHROUGH_REG_EX = /\s+.passthrough/;
+const Z_STRING_REG_EX = /(z\.string\(\))/;
 
 const getPaths = (serviceName: string): Paths => {
   return {
@@ -61,6 +62,8 @@ function getDateFields(openApiSpec: OpenAPIV3.Document): Record<string, string[]
 // THIS IS ONLY WRITTEN TO WORK FOR data RIGHT NOW!!!
 // THIS IS ONLY WRITTEN TO WORK FOR data RIGHT NOW!!!
 // THIS IS ONLY WRITTEN TO WORK FOR data RIGHT NOW!!!
+// AND
+// Puts a trim() if its a string
 async function updateZodSchemas(): Promise<void> {
 
   // Go through every service to clean up the zod schema
@@ -102,11 +105,17 @@ async function updateZodSchemas(): Promise<void> {
           const regex = new RegExp(`(${field}\\s*:\\s*).*?(?=,)`);
           if (regex.test(line)) {
             // put z.date() at the end
-            modifiedLine = modifiedLine.replace(regex, `$1z.date()`);
+            modifiedLine = modifiedLine.replace(regex, `$1z.string().refine((value) => !isNaN(Date.parse(value)), { message: "Invalid date" }).describe("date")`);
             break;
           }
         }
       }
+
+      // make z.string() z.string().trim()
+      if (Z_STRING_REG_EX.test(line)) {
+        modifiedLine = modifiedLine.replace(Z_STRING_REG_EX, "z.string().trim()");
+      }
+
       return modifiedLine;
     });
 

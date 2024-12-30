@@ -4,7 +4,7 @@
 import { FORM_CONFIGS } from "@/config/formConfigs";
 
 // types
-import { FORM_NAME } from "@/types/form";
+import { FORM_NAME, FormConfig } from "@/types/form";
 
 // global components
 import { Title } from "@/app/_components/title/Title";
@@ -19,17 +19,18 @@ import { title } from "@/content/app/staff/animals/add";
 // import styles from './page.module.scss';
 
 export default async function AddAnimalPage() {
+  const formConfig: FormConfig<FORM_NAME.ADD_ANIMAL> = FORM_CONFIGS[FORM_NAME.ADD_ANIMAL];
+
   return (
     <main>
       <Title
         title={title.label}
         level={title.level}
       />
-      {/* TODO are you ok with config not having a name?? */}
       <AnimalForm
-        formName={FORM_CONFIGS[FORM_NAME.ADD_ANIMAL].name}
-        formLabel={FORM_CONFIGS[FORM_NAME.ADD_ANIMAL].label}
-        fieldsConfig={FORM_CONFIGS[FORM_NAME.ADD_ANIMAL].config}
+        formName={formConfig.name}
+        formLabel={formConfig.label}
+        zodSchemaName={formConfig.zodSchemaName}
       />
     </main>
   )
