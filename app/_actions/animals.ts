@@ -1,30 +1,27 @@
 "use server"
 
 // types
-import { FormState } from "@/types/form";
+import { FORM_SCHEMA, FormState } from "@/types/form";
 
 // utils
-import { actionProcessing } from "./utils_server"
+import { actionProcessing } from "./utils/server"
+import { deserializeFormData } from "./utils/general";
+
+// types
+import { AnimalBase } from "@/types/animal";
 
 // zod schemas
-import { schemas as zodSchemas } from "@/api-contracts/animals-service/zodSchemas";
+import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 
 // The functional part of the action
 const addAnimal = async (prevState: FormState, formData: FormData) => {
+  const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA.ANIMAL_BASE];
 
-  console.log(prevState);
-  console.log(formData);
-  const result = zodSchemas.AnimalBase.safeParse(Object.fromEntries(formData));
+  const animal: AnimalBase = deserializeFormData(formData, zodSchema) as AnimalBase;
 
+  console.log(animal);
 
-  if (result.success) {
-    // const ass: AnimalBase = result.data as AnimalBase; // Parsed and validated data
-    console.log("Parsed Animal:");
-  } else {
-    console.error("Validation failed:", result.error);
-  }
-
-  // const animal: AnimalBase = animalZodSchema.safeParse(Object.fromEntries(formData));
+  throw new Error("I HATE YOU!");
 
   return [];
 }
