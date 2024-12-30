@@ -54,47 +54,46 @@ export const getAPIRequest = async <T>(
 
 }
 
-// TODO FIX!!
-// This is ONLY for requests that require a JWT
-// export const sendAPIRequest = async (
-//   url: string,
-//   method: string,
-//   sessionToken: any,
-//   body: any
-// ): Promise<void> => {
+// Send the API request
+export const sendAPIRequest = async (
+  url: string,
+  method: string,
+  body: unknown,
+  // sessionToken: any,
+): Promise<void> => {
 
-//   const secretKey = process.env.AUTH_SECRET ?? "";
+  const secretKey = process.env.AUTH_SECRET ?? "";
 
-//   console.log({
-//     secretKey,
-//     sessionToken,
-//     url,
-//     body
-//   });
+  console.log({
+    secretKey,
+    // sessionToken,
+    url,
+    body
+  });
 
-//   const signedToken = jwt.sign(
-//     sessionToken,
-//     secretKey,
-//     {
-//       algorithm: (process.env.AUTH_ALGORITHM ?? "HS256") as jwt.Algorithm
-//     }
-//   ).trim();
+  // const signedToken = jwt.sign(
+  //   sessionToken,
+  //   secretKey,
+  //   {
+  //     algorithm: (process.env.AUTH_ALGORITHM ?? "HS256") as jwt.Algorithm
+  //   }
+  // ).trim();
 
-//   const response = await fetch(
-//     url,
-//     {
-//       method: method,
-//       headers: {
-//         'Authorization': `Bearer ${signedToken}`,
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(body)
-//     });
+  const response = await fetch(
+    url,
+    {
+      method: method,
+      headers: {
+        // 'Authorization': `Bearer ${signedToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body)
+    });
 
-//   if (response.ok) {
-//     // console.log('Response data:', response);
-//   } else {
-//     const errorText = await response.text();
-//     throw new Error(`Error: ${response.status} ${response.statusText} - ${errorText}`);
-//   }
-// }
+  if (response.ok) {
+    console.log('Response data:', response);
+  } else {
+    const errorText = await response.text();
+    throw new Error(`Error: ${response.status} ${response.statusText} - ${errorText}`);
+  }
+}

@@ -1,11 +1,17 @@
 "use server"
 
+// API endpoints
+import { APIS } from "@/config/api";
+
 // types
 import { FORM_SCHEMA, FormState } from "@/types/form";
 
-// utils
+// action utils
 import { actionProcessing } from "./utils/server"
 import { deserializeFormData } from "./utils/general";
+
+// lib utils
+import { sendAPIRequest } from "@/lib/utils/server";
 
 // types
 import { AnimalBase } from "@/types/animal";
@@ -19,11 +25,15 @@ const addAnimal = async (prevState: FormState, formData: FormData) => {
 
   const animal: AnimalBase = deserializeFormData(formData, zodSchema) as AnimalBase;
 
-  console.log(animal);
+  sendAPIRequest(
+    APIS.animalsService.animals,
+    'POST',
+    animal
+  );
 
-  throw new Error("I HATE YOU!");
-
-  return [];
+  return [
+    `${animal.name} the ${animal.specie} added.`
+  ];
 }
 
 
