@@ -11,6 +11,7 @@
     "animal:generate-types-openapi-client": "bunx openapi-generator-cli generate -i api-contracts/animals-service/openapi.json -g typescript-fetch -o api-contracts/animals-service/openApi",
     "animal:generate-types": "bunx openapi-typescript api-contracts/animals-service/openapi.json -o api-contracts/animals-service/types.ts",
     "animal:generate-zod-schemas": "bunx openapi-zod-client api-contracts/animals-service/openapi.json --output api-contracts/animals-service/original_zodSchemas.ts",
+    "animal:generate-form-config": "bun run scripts/generate-form-config.ts",
     "animal:generate-api-contracts": "bun run animal:fetch-openapi && bun run animal:generate-types && bun run animal:generate-zod-schemas",
     "clean-zod": "bun run scripts/clean-zod.ts",
     "generate-all-api-contracts": "bun run animal:generate-api-contracts && bun run clean-zod"
