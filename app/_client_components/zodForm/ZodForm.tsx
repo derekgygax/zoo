@@ -1,7 +1,7 @@
 "use client"
 
 import classNames from "classnames";
-import { useActionState, startTransition, useRef } from "react";
+import { useActionState, startTransition, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ZodObject, ZodRawShape, ZodTypeAny } from "zod";
@@ -36,12 +36,21 @@ export const ZodForm = ({ formName, formServerAction, zodSchema }: ZodFormProps)
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    reset,
+    formState: { errors, isSubmitSuccessful }
   } = useForm({
     resolver: zodResolver(zodSchema),
   });
   const fields = Object.entries(zodSchema.shape);
 
+
+  useEffect(() => {
+
+    if (isSubmitSuccessful && state.success) {
+      reset();
+    }
+
+  }, [reset, state, isSubmitSuccessful]);
 
   return (
     <form
