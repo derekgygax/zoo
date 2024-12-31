@@ -1,5 +1,3 @@
-import { OpenAPIV3 } from "openapi-types";
-import { ZodObject } from "zod";
 
 export enum FORM_SCHEMA {
   ANIMAL_BASE = "AnimalBase"

@@ -10,10 +10,11 @@ import { FORM_NAME, FormConfig } from "@/types/form";
 import { Title } from "@/app/_components/title/Title";
 
 // local components
-import { AnimalForm } from "../../_components/animalForm/AnimalForm";
+import { AnimalForm } from "../../_client_components/animalForm/AnimalForm";
 
 // content
 import { title } from "@/content/app/staff/animals/add";
+import { PageSection } from "@/app/_layouts/pageSection/PageSection";
 
 // styles
 // import styles from './page.module.scss';
@@ -27,11 +28,13 @@ export default async function AddAnimalPage() {
         title={title.label}
         level={title.level}
       />
-      <AnimalForm
-        formName={formConfig.name}
-        formLabel={formConfig.label}
-        zodSchemaName={formConfig.zodSchemaName}
-      />
+      <PageSection>
+        <AnimalForm
+          formName={formConfig.name}
+          formLabel={formConfig.label}
+          zodSchemaName={formConfig.zodSchemaName}
+        />
+      </PageSection>
     </main>
   )
 }

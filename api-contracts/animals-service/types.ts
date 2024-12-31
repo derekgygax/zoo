@@ -22,6 +22,41 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/animals/ids": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Animals */
+        get: operations["get_animals_api_v1_animals_ids_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/animals/{animalId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Animal Base By Id */
+        get: operations["get_animal_base_by_id_api_v1_animals__animalId__get"];
+        put?: never;
+        /** Update Animal */
+        post: operations["update_animal_api_v1_animals__animalId__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/": {
         parameters: {
             query?: never;
@@ -106,6 +141,22 @@ export interface components {
              */
             acquisition_date: string;
         };
+        /** AnimalIdentifier */
+        AnimalIdentifier: {
+            /**
+             * ID
+             * Format: uuid
+             * @description The unique identifier for the animal
+             */
+            id: string;
+            /**
+             * Name
+             * @description The name of the animal
+             */
+            name: string;
+            /** Specie */
+            specie: components["schemas"]["SPECIE"];
+        };
         /**
          * GENDER
          * @enum {string}
@@ -185,6 +236,90 @@ export interface operations {
                 content: {
                     "application/json": unknown;
                 };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_animals_api_v1_animals_ids_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AnimalIdentifier"][];
+                };
+            };
+        };
+    };
+    get_animal_base_by_id_api_v1_animals__animalId__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                animalId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AnimalBase"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_animal_api_v1_animals__animalId__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                animalId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AnimalBase"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Validation Error */
             422: {

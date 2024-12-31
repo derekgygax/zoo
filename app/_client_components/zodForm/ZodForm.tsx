@@ -2,9 +2,9 @@
 
 import classNames from "classnames";
 import { useActionState, startTransition, useRef, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, DefaultValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ZodObject, ZodRawShape, ZodTypeAny } from "zod";
+import { z, ZodObject, ZodRawShape, ZodTypeAny } from "zod";
 
 // types
 import { FormState } from "@/types/form";
@@ -22,13 +22,19 @@ const initialState: FormState = {
   message: []
 }
 
-interface ZodFormProps {
+interface ZodFormProps<Schema extends ZodObject<ZodRawShape>> {
   formName: string;
   formServerAction: (prevState: FormState, formData: FormData) => Promise<FormState>;
-  zodSchema: ZodObject<ZodRawShape>
+  zodSchema: Schema;
+  hiddenFields?: {
+    name: string;
+    value: string;
+  }[];
+  defaultValues?: z.infer<Schema>;
+  callBack?: (success: boolean) => void;
 }
 
-export const ZodForm = ({ formName, formServerAction, zodSchema }: ZodFormProps) => {
+export const ZodForm = <Schema extends ZodObject<ZodRawShape>>({ formName, formServerAction, zodSchema, hiddenFields, defaultValues, callBack }: ZodFormProps<Schema>) => {
 
   const [state, action] = useActionState(formServerAction, initialState);
   const formRef = useRef<HTMLFormElement>(null);
@@ -40,17 +46,25 @@ export const ZodForm = ({ formName, formServerAction, zodSchema }: ZodFormProps)
     formState: { errors, isSubmitSuccessful }
   } = useForm({
     resolver: zodResolver(zodSchema),
+    defaultValues: defaultValues as DefaultValues<z.infer<Schema>>
   });
+
   const fields = Object.entries(zodSchema.shape);
 
 
   useEffect(() => {
-
+    // TODO this is fucked
+    // technically teh call back could reset or erase the form but we don't  know that
+    // TODO: fix this later
     if (isSubmitSuccessful && state.success) {
-      reset();
+      if (callBack) {
+        callBack(true);
+      } else {
+        reset();
+      }
     }
 
-  }, [reset, state, isSubmitSuccessful]);
+  }, [reset, callBack, state, isSubmitSuccessful]);
 
   return (
     <form
@@ -64,6 +78,14 @@ export const ZodForm = ({ formName, formServerAction, zodSchema }: ZodFormProps)
         })(evt);
       }}
     >
+      {/* hidden fields in the form */}
+      {hiddenFields && hiddenFields.map((field: { name: string, value: string }, index: number) => {
+        return (
+          <input key={index} type="hidden" name={field.name} value={field.value} />
+        )
+      })}
+
+      {/* fields defined by the zod schema */}
       {fields.map(([fieldName, fieldSchema], index: number) => {
 
         return (
@@ -77,6 +99,7 @@ export const ZodForm = ({ formName, formServerAction, zodSchema }: ZodFormProps)
         )
       })}
 
+      {/* Report the state of the form form useActionState */}
       <div
         className={
           classNames(
@@ -93,6 +116,8 @@ export const ZodForm = ({ formName, formServerAction, zodSchema }: ZodFormProps)
           );
         })}
       </div>
+
+      {/* submit button */}
       <SubmitFormButton
         className={styles.submitButton}
       />

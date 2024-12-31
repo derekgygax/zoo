@@ -13,7 +13,7 @@ export const BackToStaffPage = () => {
     <PageSection>
       <h2>
         <Link
-          href={SITE_URLS.staff.base}
+          href={SITE_URLS.staff.index}
         >
           Back to Staff Page
         </Link>

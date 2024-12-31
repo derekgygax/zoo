@@ -1,5 +1,8 @@
 export const APIS = {
   animalsService: {
-    animals: `${process.env.ANIMALS_SERVICE ?? ""}/api/v1/animals`
+    animals: {
+      index: `${process.env.ANIMALS_SERVICE ?? ""}/api/v1/animals`,
+      ids: `${process.env.ANIMALS_SERVICE ?? ""}/api/v1/animals/ids`,
+    }
   }
 }

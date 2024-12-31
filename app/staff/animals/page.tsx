@@ -6,7 +6,7 @@ import { Title } from "../../_components/title/Title";
 import { Tasks } from "../_components/tasks/Tasks";
 
 // content
-import { tasks, title } from "../../../content/app/staff/animals/page";
+import { tasks, title } from "../../../content/app/staff/animals/index";
 
 // TODO I think all the pages within STAFF is going to be the same
 // unorder list so you can make one component. but do that after

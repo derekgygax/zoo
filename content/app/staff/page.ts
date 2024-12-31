@@ -16,12 +16,12 @@ export const title: Title = {
 export const tasks: Task[] = [
   {
     label: "Animals",
-    url: SITE_URLS.staff.animals.base,
+    url: SITE_URLS.staff.animals.index,
     roles: [ROLE.ADMIN, ROLE.STAFF]
   },
   {
     label: "Food",
-    url: SITE_URLS.staff.food.base,
+    url: SITE_URLS.staff.food.index,
     roles: [ROLE.ADMIN, ROLE.STAFF]
   }
 ];

@@ -13,8 +13,13 @@ export const title: Title = {
 
 export const tasks: Task[] = [
   {
-    label: "Add Animals",
+    label: "Add Animal",
     url: SITE_URLS.staff.animals.add,
+    roles: [ROLE.ADMIN]
+  },
+  {
+    label: "Edit Animal",
+    url: SITE_URLS.staff.animals.edit,
     roles: [ROLE.ADMIN]
   }
 ]

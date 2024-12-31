@@ -1,12 +1,13 @@
 export const SITE_URLS = {
   staff: {
-    base: "/staff",
+    index: "/staff",
     animals: {
-      base: "/staff/animals",
-      add: "/staff/animals/add"
+      index: "/staff/animals",
+      add: "/staff/animals/add",
+      edit: "/staff/animals/edit"
     },
     food: {
-      base: "/staff/food"
+      index: "/staff/food"
     }
   }
 };

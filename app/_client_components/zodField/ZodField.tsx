@@ -84,7 +84,6 @@ export const ZodField = ({ fieldName, fieldSchema, errors, register }: ZodFieldP
       className={styles.field}
     >
       <span className={styles.label}>{fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}:</span>
-
       {field}
 
       {errors[fieldName] && (

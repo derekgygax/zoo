@@ -62,14 +62,14 @@ export const sendAPIRequest = async (
   // sessionToken: any,
 ): Promise<void> => {
 
-  const secretKey = process.env.AUTH_SECRET ?? "";
+  // const secretKey = process.env.AUTH_SECRET ?? "";
 
-  console.log({
-    secretKey,
-    // sessionToken,
-    url,
-    body
-  });
+  // console.log({
+  //   secretKey,
+  //   // sessionToken,
+  //   url,
+  //   body
+  // });
 
   // const signedToken = jwt.sign(
   //   sessionToken,
@@ -88,7 +88,8 @@ export const sendAPIRequest = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body)
-    });
+    }
+  );
 
   if (response.ok) {
     console.log('Response data:', response);
