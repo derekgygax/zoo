@@ -66,10 +66,12 @@ function getDateFields(openApiSpec: OpenAPIV3.Document): Record<string, string[]
 // Puts a trim() if its a string
 async function updateZodSchemas(): Promise<void> {
 
+  const SERVICE_NAMES = Object.keys(SERVICES);
+
   // Go through every service to clean up the zod schema
-  for (let i = 0; i < SERVICES.length; i++) {
-    const service: Service = SERVICES[i];
-    const paths: Paths = getPaths(service.name);
+  for (let i = 0; i < SERVICE_NAMES.length; i++) {
+    const service: string = SERVICE_NAMES[i];
+    const paths: Paths = getPaths(service);
 
     // Read and parse the OpenAPI spec
     const openApiSpec: OpenAPIV3.Document = JSON.parse(fs.readFileSync(paths.openApi, "utf8"));

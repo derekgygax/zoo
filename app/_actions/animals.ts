@@ -1,7 +1,7 @@
 "use server"
 
 // API endpoints
-import { APIS } from "@/config/api";
+import { API_ENDPOINTS } from "@/config/api";
 
 // types
 import { FORM_SCHEMA, FormState } from "@/types/form";
@@ -23,7 +23,7 @@ import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 export const getAnimal = async (animalId: string): Promise<AnimalBase | undefined> => {
 
   const animal: AnimalBase | undefined = await getAPIRequest(
-    `${APIS.animalsService.animals.index}/${animalId}`,
+    `${API_ENDPOINTS.animalsService.animals.index}/${animalId}`,
     undefined
   );
 
@@ -39,7 +39,7 @@ const addAnimal = async (prevState: FormState, formData: FormData) => {
   const animal: AnimalBase = deserializeFormData(formData, zodSchema) as AnimalBase;
 
   sendAPIRequest(
-    APIS.animalsService.animals.index,
+    API_ENDPOINTS.animalsService.animals.index,
     'POST',
     animal
   );
@@ -56,7 +56,7 @@ const editAnimal = async (prevState: FormState, formData: FormData) => {
   const animal: AnimalBase = deserializeFormData(formData, zodSchema) as AnimalBase;
 
   sendAPIRequest(
-    `${APIS.animalsService.animals.index}/${animalId}`,
+    `${API_ENDPOINTS.animalsService.animals.index}/${animalId}`,
     'POST',
     animal
   );

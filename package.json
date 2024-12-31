@@ -14,7 +14,8 @@
     "animal:generate-form-config": "bun run scripts/generate-form-config.ts",
     "animal:generate-api-contracts": "bun run animal:fetch-openapi && bun run animal:generate-types && bun run animal:generate-zod-schemas",
     "clean-zod": "bun run scripts/clean-zod.ts",
-    "generate-all-api-contracts": "bun run animal:generate-api-contracts && bun run clean-zod"
+    "generate-all-api-contracts": "bun run animal:generate-api-contracts && bun run clean-zod",
+    "script-generate-api-contracts": "bun run scripts/build-api-contracts.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

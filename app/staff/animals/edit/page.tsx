@@ -1,7 +1,7 @@
 
 // config
 // import { FORM_CONFIGS } from "@/config/formConfigs";
-import { APIS } from "@/config/api";
+import { API_ENDPOINTS } from "@/config/api";
 import { FORM_CONFIGS } from "@/config/formConfigs";
 
 // types
@@ -29,7 +29,7 @@ export default async function EditAnimalPage() {
   console.log(formConfig);
 
   const animals: AnimalIdentifier[] = await getAPIRequest<AnimalIdentifier[]>(
-    APIS.animalsService.animals.ids,
+    API_ENDPOINTS.animalsService.animals.ids,
     []
   );
 

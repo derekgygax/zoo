@@ -84,6 +84,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 | `bun run animal:generate-form-config`  | Generate the form configuration for the Animal Service.       |
 | `bun run animal:generate-api-contracts`| Run all scripts for the Animal Service sequentially.          |
 | `bun run generate-all-api-contracts`   | Run all API contract generation scripts for all services.     |
+| `bun run script-generate-api-contracts`   | Generate the API contract using a script. First argument service names by , no white space or all.     |
 
 ---
 
