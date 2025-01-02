@@ -89,7 +89,6 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
   ```bash
   bun run script-generate-api-contracts -- -s animals-service food-service -t openapi types
   ```
-```
 
 ---
 
