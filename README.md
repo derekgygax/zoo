@@ -81,13 +81,17 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 
 
 ### Example Usage for `generate-api-contracts`
-- Generate for all services and all tasks:
+- Default does all services and all tasks:
   ```bash
-  bun run script-generate-api-contracts -- -s all -t openapi types zod clean-zod
+  bun run script-generate-api-contracts
   ```
-- Generate for specific services and tasks:
+- Be explicit to do all services and all tasks:
   ```bash
-  bun run script-generate-api-contracts -- -s animals-service food-service -t openapi types
+  bun run script-generate-api-contracts -s all -t all
+  ```
+- Just do the tasks of building and cleaning the zod for animals-service and food-service:
+  ```bash
+  bun run script-generate-api-contracts -s animals-service food-service -t zod clean-zod
   ```
 
 ---
