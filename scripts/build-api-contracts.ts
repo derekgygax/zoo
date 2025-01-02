@@ -8,6 +8,9 @@ import { SERVICES } from "@/config/services";
 import { SCRIPTS_CONFIG } from "@/config/scripts";
 import { API_BASE_URLS } from "@/config/api";
 
+// scripts
+import { cleanZodSchemas } from "./clean-zod";
+
 
 const OPENAPI_ENDPOINTS: Record<string, string> = {
   fastApi: "openapi.json",
@@ -106,6 +109,10 @@ for (const service of services) {
   if (tasks.includes("zod")) {
     // build zod schemas
     execSync(`bunx openapi-zod-client ${openApiPath} --output ${originalZodPath}`, { stdio: "inherit" });
+  }
+
+  if (tasks.includes("clean-zod")) {
+    cleanZodSchemas(service, openApiPath, originalZodPath, cleanedZodPath);
   }
 
   console.log("\n\n");
