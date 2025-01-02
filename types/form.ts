@@ -32,7 +32,6 @@ export interface FormFieldConfig {
 export type FormConfig<K extends FORM_NAME> = {
   name: K;
   label: string;
-  schema: FORM_SCHEMA;
   zodSchemaName: FORM_SCHEMA;
 };
 
