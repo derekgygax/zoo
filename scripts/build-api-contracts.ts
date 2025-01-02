@@ -1,27 +1,30 @@
-// run command line stuff
+// command line stuff
 import { execSync } from "child_process";
-
 import { Command } from "commander";
+
+// types
+import { SERVICE } from "@/types/service";
+import { TASK } from "@/types/script";
 
 // cofig
 import { SERVICES } from "@/config/services";
-import { SCRIPTS_CONFIG } from "@/config/scripts";
+import { SCRIPTS_CONFIG, TASKS, OPENAPI_ENDPOINTS } from "@/config/scripts";
 import { API_BASE_URLS } from "@/config/api";
 
 // scripts
 import { cleanZodSchemas } from "./clean-zod";
 
+// check if the input string is a valid service
+const isService = (value: string): value is SERVICE => {
+  return Object.values(SERVICE).includes(value as SERVICE);
+};
 
-const OPENAPI_ENDPOINTS: Record<string, string> = {
-  fastApi: "openapi.json",
-  springBoot: "v3/api-docs",
-  nestJS: "api-json"
-}
+// check if the input string is a valid service
+const isTask = (value: string): value is TASK => {
+  return Object.values(TASKS).includes(value as TASK);
+};
 
-const SERVICE_NAMES = Object.keys(SERVICES);
-
-// Services and tasks definitions
-const TASKS = ["openapi", "types", "zod", "clean-zod"];
+const SERVICE_NAMES = Object.keys(SERVICES) as SERVICE[];
 
 const program = new Command();
 
@@ -48,11 +51,19 @@ console.log("\n");
 const isVerbose: boolean = options.verbose ? true : false;
 
 // Validate services
-const services = !options.services || options.services.includes("all")
-  ? SERVICE_NAMES
-  : options.services;
-
-const invalidServices = services.filter((service: string) => !SERVICE_NAMES.includes(service) && service !== "all");
+let services: SERVICE[] = [];
+const invalidServices: string[] = [];
+if (!options.services || options.services.includes("all")) {
+  services = [...SERVICE_NAMES];
+} else {
+  options.services.forEach((service: string) => {
+    if (isService(service)) {
+      services.push(service);
+    } else {
+      invalidServices.push(service);
+    }
+  });
+}
 if (invalidServices.length > 0) {
   console.error(`Error: Invalid service(s): ${invalidServices.join(", ")}.`);
   console.log(`Valid services are: ${SERVICE_NAMES.join(", ")}, or use "all".`);
@@ -60,11 +71,19 @@ if (invalidServices.length > 0) {
 }
 
 // Validate tasks
-const tasks = !options.tasks || options.tasks.includes("all")
-  ? TASKS
-  : options.tasks;
-
-const invalidTasks = tasks.filter((task: string) => !TASKS.includes(task));
+let tasks: TASK[] = [];
+const invalidTasks: string[] = [];
+if (!options.tasks || options.tasks.includes("all")) {
+  tasks = TASKS;
+} else {
+  options.tasks.forEach((task: string) => {
+    if (isTask(task)) {
+      tasks.push(task);
+    } else {
+      invalidTasks.push(task);
+    }
+  })
+}
 if (invalidTasks.length > 0) {
   console.error(`Error: Invalid task(s): ${invalidTasks.join(", ")}.`);
   console.log(`Valid tasks are: ${TASKS.join(", ")}.`);
@@ -96,29 +115,24 @@ for (const service of services) {
     console.log(`  cleanedZodPath: ${cleanedZodPath}\n`);
   }
 
-  if (tasks.includes("openapi")) {
+  if (tasks.includes(TASK.OPEN_API)) {
     // get the open api from the endpoint
     execSync(`curl ${openAPI_Url} -o ${openApiPath}`, { stdio: "inherit" });
   }
 
-  if (tasks.includes("types")) {
+  if (tasks.includes(TASK.TYPES)) {
     // build the types
     execSync(`bunx openapi-typescript ${openApiPath} -o ${typesPath}`, { stdio: "inherit" });
   }
 
-  if (tasks.includes("zod")) {
+  if (tasks.includes(TASK.ZOD)) {
     // build zod schemas
     execSync(`bunx openapi-zod-client ${openApiPath} --output ${originalZodPath}`, { stdio: "inherit" });
   }
 
-  if (tasks.includes("clean-zod")) {
+  if (tasks.includes(TASK.CLEAN_ZOD)) {
     cleanZodSchemas(service, openApiPath, originalZodPath, cleanedZodPath);
   }
 
-  console.log("\n\n");
-}
-
-if (tasks.includes("clean-zod")) {
-  // clean zod
-  execSync(`bun run scripts/clean-zod.ts`);
+  console.log("\n");
 }

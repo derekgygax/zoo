@@ -1,37 +1,30 @@
-import { Service } from "@/types/service";
-// import { FORM_SCHEMA } from "@/types/form";
-
-// TODO schemas is OLD
-// to build the form config from a schema
-// and then the form from that
-// NOW you are using the zod to do that
-// in the future delete this but keep for now just in case
-// its faster than having to search through git history for now
-// export const SERVICES: Service[] = [
-//   {
-//     name: "animals-service",
-//     schemas: [FORM_SCHEMA.ANIMAL_BASE]
-//   }
-// ];
+import { Service, FRAMEWORK, SERVICE } from "@/types/service";
 
 
-export const SERVICES: Record<string, { framework: string }> = {
-  ["animals-service"]: {
-    framework: "fastApi"
+
+export const SERVICES: Record<SERVICE, Service> = {
+  [SERVICE.ANIMALS]: {
+    name: SERVICE.ANIMALS,
+    framework: FRAMEWORK.FAST_API
   },
-  ["food-service"]: {
-    framework: "fastApi"
+  [SERVICE.FOOD]: {
+    name: SERVICE.FOOD,
+    framework: FRAMEWORK.FAST_API
   },
-  // ["staff-service"]: {
-  //   framework: "nestJS"
-  // },
-  ["breeding-service"]: {
-    framework: "fastApi"
+  [SERVICE.STAFF]: {
+    name: SERVICE.STAFF,
+    framework: FRAMEWORK.NEST_JS
   },
-  ["enclosures-service"]: {
-    framework: "springBoot"
+  [SERVICE.BREEDING]: {
+    name: SERVICE.BREEDING,
+    framework: FRAMEWORK.FAST_API
   },
-  ["reports-service"]: {
-    framework: "fastApi"
+  [SERVICE.ENCLOSURES]: {
+    name: SERVICE.ENCLOSURES,
+    framework: FRAMEWORK.SPRING_BOOT
+  },
+  [SERVICE.REPORTS]: {
+    name: SERVICE.REPORTS,
+    framework: FRAMEWORK.FAST_API
   }
 };
