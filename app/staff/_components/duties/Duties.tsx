@@ -2,31 +2,31 @@
 import Link from "next/link";
 
 // types
-import { Task } from "@/types/staff";
+import { Duty } from "@/types/staff";
 
 // layouts
 import { PageSection } from "@/app/_layouts/pageSection/PageSection";
 
 // styles
-import styles from "./Tasks.module.scss";
+import styles from "./Duties.module.scss";
 
-interface TasksProps {
-  tasks: Task[]
+interface DutiesProps {
+  duties: Duty[]
 }
 
-export const Tasks = ({ tasks }: TasksProps) => {
+export const Duties = ({ duties }: DutiesProps) => {
   return (
     <PageSection>
-      <ul className={styles.tasks}>
-        {tasks.map((task: Task, index: number) => {
+      <ul className={styles.duties}>
+        {duties.map((duty: Duty, index: number) => {
           // TODO Incorporate the role based on who is signed in
           return (
             // Remember this key is NEEDED but only remembered locally so index is good enough, unless you have nested
             <li key={index}>
               <Link
-                href={task.url}
+                href={duty.url}
               >
-                {task.label}
+                {duty.label}
               </Link>
             </li>
           )

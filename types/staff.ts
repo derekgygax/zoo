@@ -1,6 +1,6 @@
 import { ROLE } from '@/types/role';
 
-export interface Task {
+export interface Duty {
   label: string;
   url: string;
   roles: ROLE[]

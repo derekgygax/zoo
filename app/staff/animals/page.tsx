@@ -2,11 +2,11 @@
 // layouts
 
 // components
+import { Duties } from "../_components/duties/Duties";
 import { Title } from "../../_components/title/Title";
-import { Tasks } from "../_components/tasks/Tasks";
 
 // content
-import { tasks, title } from "../../../content/app/staff/animals/index";
+import { duties, title } from "../../../content/app/staff/animals/index";
 
 // TODO I think all the pages within STAFF is going to be the same
 // unorder list so you can make one component. but do that after
@@ -19,8 +19,8 @@ export default function StaffAnimalsPage() {
         title={title.label}
         level={title.level}
       />
-      <Tasks
-        tasks={tasks}
+      <Duties
+        duties={duties}
       />
     </main>
   )

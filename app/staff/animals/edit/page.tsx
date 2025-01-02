@@ -1,6 +1,5 @@
 
 // config
-// import { FORM_CONFIGS } from "@/config/formConfigs";
 import { API_ENDPOINTS } from "@/config/api";
 import { FORM_CONFIGS } from "@/config/formConfigs";
 

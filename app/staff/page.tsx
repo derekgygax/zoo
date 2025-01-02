@@ -1,10 +1,10 @@
 
 // components
-import { Tasks } from "./_components/tasks/Tasks";
+import { Duties } from "./_components/duties/Duties";
 import { Title } from "../_components/title/Title";
 
 // content
-import { tasks, title } from "@/content/app/staff/page";
+import { duties, title } from "@/content/app/staff/page";
 
 // styles
 // import styles from "./page.module.scss";
@@ -16,8 +16,8 @@ export default function StaffPage() {
         title={title.label}
         level={title.level}
       />
-      <Tasks
-        tasks={tasks}
+      <Duties
+        duties={duties}
       />
     </main>
   )

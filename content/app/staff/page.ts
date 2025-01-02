@@ -5,7 +5,7 @@ import { SITE_URLS } from '@/config/siteUrls';
 // types
 import { ROLE } from '@/types/role'
 import { Title } from "@/types/general";
-import { Task } from "@/types/staff";
+import { Duty } from "@/types/staff";
 
 
 export const title: Title = {
@@ -13,7 +13,7 @@ export const title: Title = {
   level: 1
 }
 
-export const tasks: Task[] = [
+export const duties: Duty[] = [
   {
     label: "Animals",
     url: SITE_URLS.staff.animals.index,
