@@ -1,31 +1,28 @@
 "use client"
 
-
-
-// TODO
-// can you do this here!!??
-import { SITE_URLS } from "@/config/siteUrls";
-
-
-
-
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
-import { FORM_NAME } from "@/types/form";
-
-import { useState, useRef } from "react";
-
-import { ZodForm } from "@/app/_client_components/zodForm/ZodForm";
-
-import { PageSection } from "@/app/_layouts/pageSection/PageSection";
+// types
 import { AnimalIdentifier, AnimalBase } from "@/types/animal"
+import { FORM_NAME, FormConfig } from "@/types/form";
 
-import { getAnimal } from "@/app/_actions/animals";
-import { FormConfig } from "@/types/form";
-
-import { editAnimalAction } from "@/app/_actions/animals";
-
+// TODO
+// can you do this here!!?? Like pull config stuff in a client component??? DAANNNGGGG
+// Like is it good practice ... maybe need to set it up for protection
+// Next.js lets you do so much you can get messy
+// config
+import { SITE_URLS } from "@/config/siteUrls";
 import { ZOD_SCHEMAS } from "@/config/zodSchemas";
+
+// server actions
+import { editAnimalAction, getAnimal } from "@/app/_actions/animals";
+
+// layouts
+import { PageSection } from "@/app/_layouts/pageSection/PageSection";
+
+// client components
+import { ZodForm } from "@/app/_client_components/zodForm/ZodForm";
 
 interface AnimalUpdate {
   id: string,

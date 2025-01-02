@@ -25,7 +25,6 @@ import { EditAnimal } from "../../_client_components/editAnimal/EditAnimal";
 
 export default async function EditAnimalPage() {
   const formConfig: FormConfig<FORM_NAME.EDIT_ANIMAL> = FORM_CONFIGS[FORM_NAME.EDIT_ANIMAL];
-  console.log(formConfig);
 
   const animals: AnimalIdentifier[] = await getAPIRequest<AnimalIdentifier[]>(
     API_ENDPOINTS.animalsService.animals.ids,
