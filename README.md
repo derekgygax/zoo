@@ -71,20 +71,25 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 
 ### Scripts Overview
 
-| Command                                | Description                                                   |
-|----------------------------------------|---------------------------------------------------------------|
-| `bun run dev`                          | Start the development server with linting.                    |
-| `bun run build`                        | Build the project for production.                             |
-| `bun run start`                        | Start the production server.                                  |
-| `bun run lint`                         | Run ESLint for code quality checks.                           |
-| `bun run animal:fetch-openapi`         | Fetch the latest schema for the Animal Service.               |
-| `bun run animal:generate-types-openapi-client` | Generate TypeScript API client for the Animal Service. |
-| `bun run animal:generate-types`        | Generate TypeScript types for the Animal Service.             |
-| `bun run animal:generate-zod-schemas`  | Generate Zod schemas for the Animal Service.                  |
-| `bun run animal:generate-form-config`  | Generate the form configuration for the Animal Service.       |
-| `bun run animal:generate-api-contracts`| Run all scripts for the Animal Service sequentially.          |
-| `bun run generate-all-api-contracts`   | Run all API contract generation scripts for all services.     |
-| `bun run script-generate-api-contracts`   | Generate the API contract using a script. First argument service names by , no white space or all.     |
+| Command                                | Description                                                                                     |
+|----------------------------------------|-------------------------------------------------------------------------------------------------|
+| `bun run dev`                          | Start the development server with linting.                                                     |
+| `bun run build`                        | Build the project for production.                                                              |
+| `bun run start`                        | Start the production server.                                                                   |
+| `bun run lint`                         | Run ESLint for code quality checks.                                                            |
+| `bun run generate-api-contracts`| Generate API contracts. Use `-s` to specify services (space-separated or `all`) and `-t` for tasks (e.g., `openapi`, `types`, `zod`, `clean-zod`). |
+
+
+### Example Usage for `generate-api-contracts`
+- Generate for all services and all tasks:
+  ```bash
+  bun run script-generate-api-contracts -- -s all -t openapi types zod clean-zod
+  ```
+- Generate for specific services and tasks:
+  ```bash
+  bun run script-generate-api-contracts -- -s animals-service food-service -t openapi types
+  ```
+```
 
 ---
 
