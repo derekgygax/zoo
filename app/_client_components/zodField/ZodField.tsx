@@ -9,8 +9,10 @@ import {
   ZodNumber,
   ZodDate,
   ZodBoolean,
-  ZodEffects
 } from "zod";
+
+// types
+import { FormFieldDescription } from "@/types/form";
 
 // styles
 import styles from './ZodField.module.scss';
@@ -30,15 +32,16 @@ export const ZodField = ({ fieldName, fieldSchema, errors, register }: ZodFieldP
     ...register(fieldName),
     required: isRequired
   }
+  const fieldDescription: FormFieldDescription = JSON.parse(fieldSchema.description as string);
 
   const getField = () => {
+    if (fieldDescription.isDate) {
+      // Render a date input for ZodDate fields
+      return <input type="date" {...sharedProps} />;
+    }
     if (fieldSchema instanceof ZodString) {
       // Handle specific formats for strings if needed
       return <input type="text" {...sharedProps} />;
-    }
-    if (fieldSchema instanceof ZodEffects && fieldSchema.description === "date") {
-      // Render a date input for ZodDate fields
-      return <input type="date" {...sharedProps} />;
     }
     if (fieldSchema instanceof ZodEnum) {
       // Render a select dropdown for enums
@@ -78,12 +81,13 @@ export const ZodField = ({ fieldName, fieldSchema, errors, register }: ZodFieldP
   }
 
   const field = getField();
+  const fieldLabel = fieldDescription.title ?? fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
 
   return (
     <label
       className={styles.field}
     >
-      <span className={styles.label}>{fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}:</span>
+      <span className={styles.label}>{fieldLabel}:</span>
       {field}
 
       {errors[fieldName] && (

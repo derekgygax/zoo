@@ -1,7 +1,6 @@
 import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 
-const SPECIE = z.enum(["TIGER", "SHARK", "PARROT", "ELEPHANT"]);
 const GENDER = z.enum(["MALE", "FEMALE", "HERMAPHRODITE", "ASEXUAL"]);
 const HEALTH_TYPE = z.enum([
   "HEALTHY",
@@ -14,7 +13,7 @@ const HEALTH_TYPE = z.enum([
 const Animal = z
   .object({
     name: z.string().max(100),
-    specie: SPECIE,
+    specie_name: z.string().max(100),
     gender: GENDER,
     health: HEALTH_TYPE,
     dob: z.string(),
@@ -27,7 +26,7 @@ const Animal = z
 const AnimalBase = z
   .object({
     name: z.string().max(100),
-    specie: SPECIE,
+    specie_name: z.string().max(100),
     gender: GENDER,
     health: HEALTH_TYPE,
     dob: z.string(),
@@ -46,11 +45,25 @@ const HTTPValidationError = z
   .partial()
   .passthrough();
 const AnimalIdentifier = z
-  .object({ id: z.string().uuid(), name: z.string().max(100), specie: SPECIE })
+  .object({
+    id: z.string().uuid(),
+    name: z.string().max(100),
+    specie_name: z.string().max(100),
+  })
+  .passthrough();
+const Specie = z
+  .object({
+    name: z.string().max(100),
+    description: z.string().max(500),
+    created_at: z.string().datetime({ offset: true }),
+    updated_at: z.string().datetime({ offset: true }),
+  })
+  .passthrough();
+const SpecieBase = z
+  .object({ name: z.string().max(100), description: z.string().max(500) })
   .passthrough();
 
 export const schemas = {
-  SPECIE,
   GENDER,
   HEALTH_TYPE,
   Animal,
@@ -58,6 +71,8 @@ export const schemas = {
   ValidationError,
   HTTPValidationError,
   AnimalIdentifier,
+  Specie,
+  SpecieBase,
 };
 
 const endpoints = makeApi([
@@ -149,6 +164,67 @@ const endpoints = makeApi([
     alias: "get_animals_api_v1_animals_ids_get",
     requestFormat: "json",
     response: z.array(AnimalIdentifier),
+  },
+  {
+    method: "get",
+    path: "/api/v1/species/",
+    alias: "get_species_api_v1_species__get",
+    requestFormat: "json",
+    response: z.array(Specie),
+  },
+  {
+    method: "post",
+    path: "/api/v1/species/",
+    alias: "add_specie_api_v1_species__post",
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "body",
+        type: "Body",
+        schema: SpecieBase,
+      },
+    ],
+    response: z.unknown(),
+    errors: [
+      {
+        status: 422,
+        description: `Validation Error`,
+        schema: HTTPValidationError,
+      },
+    ],
+  },
+  {
+    method: "post",
+    path: "/api/v1/species/:specie_name",
+    alias: "update_animal_api_v1_species__specie_name__post",
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "body",
+        type: "Body",
+        schema: Specie,
+      },
+      {
+        name: "specie_name",
+        type: "Path",
+        schema: z.string(),
+      },
+    ],
+    response: z.void(),
+    errors: [
+      {
+        status: 422,
+        description: `Validation Error`,
+        schema: HTTPValidationError,
+      },
+    ],
+  },
+  {
+    method: "get",
+    path: "/api/v1/species/base",
+    alias: "get_species_base_api_v1_species_base_get",
+    requestFormat: "json",
+    response: z.array(SpecieBase),
   },
 ]);
 

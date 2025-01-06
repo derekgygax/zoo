@@ -1,11 +1,14 @@
 
 export enum FORM_SCHEMA {
-  ANIMAL_BASE = "AnimalBase"
+  ANIMAL_BASE = "AnimalBase",
+  SPECIE_BASE = "SpecieBase"
 }
 
 export enum FORM_NAME {
   ADD_ANIMAL = "AddAnimal",
-  EDIT_ANIMAL = "EditAnimal"
+  EDIT_ANIMAL = "EditAnimal",
+  ADD_SPECIE = "AddSpecie",
+  EDIT_SPECIE = "EditSpecie"
 }
 
 export enum FORM_FIELD_TYPE {
@@ -13,6 +16,11 @@ export enum FORM_FIELD_TYPE {
   SELECTOR = "SELECTOR",
   DATE = "DATE",
   NUMBER = "NUMBER"
+}
+
+export interface FormFieldDescription {
+  title: string;
+  isDate?: boolean;
 }
 
 export interface FormState {
