@@ -7,9 +7,19 @@ export const FORM_CONFIGS: FormConfigs = {
     label: "Add Animal",
     zodSchemaName: FORM_SCHEMA.ANIMAL_BASE
   },
-  [FORM_NAME.EDIT_ANIMAL]: {
-    name: FORM_NAME.EDIT_ANIMAL,
-    label: "Edit Animal",
+  [FORM_NAME.UPDATE_ANIMAL]: {
+    name: FORM_NAME.UPDATE_ANIMAL,
+    label: "UPDATE Animal",
     zodSchemaName: FORM_SCHEMA.ANIMAL_BASE
+  },
+  [FORM_NAME.ADD_SPECIE]: {
+    name: FORM_NAME.ADD_SPECIE,
+    label: "Add Specie",
+    zodSchemaName: FORM_SCHEMA.SPECIE_BASE
+  },
+  [FORM_NAME.UPDATE_SPECIE]: {
+    name: FORM_NAME.UPDATE_SPECIE,
+    label: "UPDATE Specie",
+    zodSchemaName: FORM_SCHEMA.SPECIE_BASE
   }
 }

@@ -11,7 +11,8 @@ export enum SERVICE {
 export enum FRAMEWORK {
   FAST_API = "fastApi",
   SPRING_BOOT = "springBoot",
-  NEST_JS = "nestJS"
+  NEST_JS = "nestJS",
+  QUARKUS = "quarkus"
 }
 
 export interface Service {

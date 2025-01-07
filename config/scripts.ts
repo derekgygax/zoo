@@ -23,5 +23,6 @@ export const SCRIPTS_CONFIG = {
 export const OPENAPI_ENDPOINTS: Record<FRAMEWORK, string> = {
   [FRAMEWORK.FAST_API]: "openapi.json",
   [FRAMEWORK.SPRING_BOOT]: "v3/api-docs",
-  [FRAMEWORK.NEST_JS]: "api-json"
+  [FRAMEWORK.NEST_JS]: "api-json",
+  [FRAMEWORK.QUARKUS]: "q/openapi"
 };

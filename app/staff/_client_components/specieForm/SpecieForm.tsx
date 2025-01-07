@@ -2,7 +2,6 @@
 
 // types
 import { FORM_SCHEMA } from "@/types/form";
-import { SpecieBase } from "@/types/animals-service";
 
 // config
 import { ZOD_SCHEMAS } from "@/config/zodSchemas";
@@ -10,23 +9,21 @@ import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 // client components
 import { ZodForm } from "@/app/_client_components/zodForm/ZodForm";
 
-
 // server actions
-import { addAnimalAction } from "@/app/_actions/animals-service/animals";
+import { addSpecieAction } from "@/app/_actions/animals-service/specie";
 
-interface AnimalFormProps {
-  species: SpecieBase[];
+interface SpecieFormProps {
   formName: string;
   formLabel: string;
   zodSchemaName: FORM_SCHEMA;
 }
 
-export const AnimalForm = ({ species, formName, zodSchemaName }: AnimalFormProps) => {
+export const SpecieForm = ({ formName, zodSchemaName }: SpecieFormProps) => {
 
   return (
     <ZodForm
       formName={formName}
-      formServerAction={addAnimalAction}
+      formServerAction={addSpecieAction}
       zodSchema={ZOD_SCHEMAS[zodSchemaName]}
     />
   );

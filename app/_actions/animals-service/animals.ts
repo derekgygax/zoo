@@ -7,14 +7,14 @@ import { API_ENDPOINTS } from "@/config/api";
 import { FORM_SCHEMA, FormState } from "@/types/form";
 
 // action utils
-import { actionProcessing } from "./utils/server"
-import { deserializeFormData } from "./utils/general";
+import { actionProcessing } from "../utils/server"
+import { deserializeFormData } from "../utils/general";
 
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server";
 
 // types
-import { AnimalBase } from "@/types/animal";
+import { AnimalBase } from "@/types/animals-service";
 
 // zod schemas
 import { ZOD_SCHEMAS } from "@/config/zodSchemas";
@@ -38,35 +38,35 @@ const addAnimal = async (prevState: FormState, formData: FormData) => {
 
   const animal: AnimalBase = deserializeFormData(formData, zodSchema) as AnimalBase;
 
-  sendAPIRequest(
+  await sendAPIRequest(
     API_ENDPOINTS.animalsService.animals.index,
     'POST',
     animal
   );
 
   return [
-    `${animal.name} the ${animal.specie} added.`
+    `${animal.name} the ${animal.specie_name} added.`
   ];
 }
 
-const editAnimal = async (prevState: FormState, formData: FormData) => {
+const updateAnimal = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA.ANIMAL_BASE];
 
   const animalId = formData.get("id");
   const animal: AnimalBase = deserializeFormData(formData, zodSchema) as AnimalBase;
 
-  sendAPIRequest(
+  await sendAPIRequest(
     `${API_ENDPOINTS.animalsService.animals.index}/${animalId}`,
     'POST',
     animal
   );
 
   return [
-    `${animal.name} the ${animal.specie} added.`
+    `${animal.name} the ${animal.specie_name} added.`
   ];
 }
 
 
 // Add the catch wrapping and processing the state returning
 export const addAnimalAction = await actionProcessing(addAnimal);
-export const editAnimalAction = await actionProcessing(editAnimal);
+export const updateAnimalAction = await actionProcessing(updateAnimal);

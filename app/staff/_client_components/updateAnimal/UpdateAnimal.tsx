@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 // types
-import { AnimalIdentifier, AnimalBase } from "@/types/animal"
+import { AnimalIdentifier, AnimalBase } from "@/types/animals-service"
 import { FORM_NAME, FormConfig } from "@/types/form";
 
 // TODO
@@ -16,7 +16,7 @@ import { SITE_URLS } from "@/config/siteUrls";
 import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 
 // server actions
-import { editAnimalAction, getAnimal } from "@/app/_actions/animals";
+import { updateAnimalAction, getAnimal } from "@/app/_actions/animals-service/animals";
 
 // layouts
 import { PageSection } from "@/app/_layouts/pageSection/PageSection";
@@ -29,12 +29,12 @@ interface AnimalUpdate {
   animal: AnimalBase | undefined
 }
 
-interface EditAnimalProps {
+interface UpdateAnimalProps {
   animals: AnimalIdentifier[];
-  formConfig: FormConfig<FORM_NAME.EDIT_ANIMAL>
+  formConfig: FormConfig<FORM_NAME.UPDATE_ANIMAL>
 }
 
-export const EditAnimal = ({ animals, formConfig }: EditAnimalProps) => {
+export const UpdateAnimal = ({ animals, formConfig }: UpdateAnimalProps) => {
 
   const router = useRouter();
 
@@ -74,7 +74,7 @@ export const EditAnimal = ({ animals, formConfig }: EditAnimalProps) => {
                 key={animal.id}
                 value={animal.id}
               >
-                {`${animal.name} (${animal.specie})`}
+                {`${animal.name} (${animal.specie_name})`}
               </option>
             )
           })}
@@ -84,7 +84,7 @@ export const EditAnimal = ({ animals, formConfig }: EditAnimalProps) => {
         <PageSection>
           <ZodForm
             formName={formConfig.name}
-            formServerAction={editAnimalAction}
+            formServerAction={updateAnimalAction}
             zodSchema={ZOD_SCHEMAS[formConfig.zodSchemaName]}
             hiddenFields={[
               {

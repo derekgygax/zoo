@@ -6,9 +6,9 @@ export enum FORM_SCHEMA {
 
 export enum FORM_NAME {
   ADD_ANIMAL = "AddAnimal",
-  EDIT_ANIMAL = "EditAnimal",
+  UPDATE_ANIMAL = "UpdateAnimal",
   ADD_SPECIE = "AddSpecie",
-  EDIT_SPECIE = "EditSpecie"
+  UPDATE_SPECIE = "UpdateSpecie"
 }
 
 export enum FORM_FIELD_TYPE {

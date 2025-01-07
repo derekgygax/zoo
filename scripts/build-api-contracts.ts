@@ -12,7 +12,7 @@ import { SCRIPTS_CONFIG, TASKS, OPENAPI_ENDPOINTS } from "@/config/scripts";
 import { API_BASE_URLS } from "@/config/api";
 
 // scripts
-import { cleanZodSchemas } from "./clean-zod";
+import { enhanceZodSchemas } from "./enhace-zod";
 
 // check if the input string is a valid service
 const isService = (value: string): value is SERVICE => {
@@ -131,7 +131,7 @@ for (const service of services) {
   }
 
   if (tasks.includes(TASK.CLEAN_ZOD)) {
-    cleanZodSchemas(service, openApiPath, originalZodPath, cleanedZodPath);
+    enhanceZodSchemas(service, openApiPath, originalZodPath, cleanedZodPath);
   }
 
   console.log("\n");

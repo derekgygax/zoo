@@ -9,18 +9,20 @@ import { FORM_NAME, FormConfig } from "@/types/form";
 // global components
 import { Title } from "@/app/_components/title/Title";
 
+// layouts
+import { PageSection } from "@/app/_layouts/pageSection/PageSection";
+
 // local components
-import { AnimalForm } from "../../_client_components/animalForm/AnimalForm";
+import { SpecieForm } from "../../_client_components/specieForm/SpecieForm";
 
 // content
-import { title } from "@/content/app/staff/animals/add";
-import { PageSection } from "@/app/_layouts/pageSection/PageSection";
+import { title } from "@/content/app/staff/animals/add-specie";
 
 // styles
 // import styles from './page.module.scss';
 
-export default async function AddAnimalPage() {
-  const formConfig: FormConfig<FORM_NAME.ADD_ANIMAL> = FORM_CONFIGS[FORM_NAME.ADD_ANIMAL];
+export default async function AddSpeciePage() {
+  const formConfig: FormConfig<FORM_NAME.ADD_SPECIE> = FORM_CONFIGS[FORM_NAME.ADD_SPECIE];
 
   return (
     <main>
@@ -29,7 +31,7 @@ export default async function AddAnimalPage() {
         level={title.level}
       />
       <PageSection>
-        <AnimalForm
+        <SpecieForm
           formName={formConfig.name}
           formLabel={formConfig.label}
           zodSchemaName={formConfig.zodSchemaName}

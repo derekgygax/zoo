@@ -3,8 +3,10 @@ export const SITE_URLS = {
     index: "/staff",
     animals: {
       index: "/staff/animals",
-      add: "/staff/animals/add",
-      edit: "/staff/animals/edit"
+      add_animal: "/staff/animals/add-animal",
+      update_animal: "/staff/animals/update-animal",
+      add_specie: "/staff/animals/add-specie",
+      update_specie: "/staff/animals/update-specie"
     },
     food: {
       index: "/staff/food"

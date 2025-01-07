@@ -12,6 +12,10 @@ export const API_ENDPOINTS = {
     animals: {
       index: `${process.env.ANIMALS_SERVICE ?? ""}/api/v1/animals`,
       ids: `${process.env.ANIMALS_SERVICE ?? ""}/api/v1/animals/ids`,
+    },
+    species: {
+      index: `${process.env.ANIMALS_SERVICE ?? ""}/api/v1/species`,
+      base: `${process.env.ANIMALS_SERVICE ?? ""}/api/v1/species/base`
     }
   }
 }

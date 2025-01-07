@@ -14,12 +14,22 @@ export const title: Title = {
 export const duties: Duty[] = [
   {
     label: "Add Animal",
-    url: SITE_URLS.staff.animals.add,
+    url: SITE_URLS.staff.animals.add_animal,
     roles: [ROLE.ADMIN]
   },
   {
-    label: "Edit Animal",
-    url: SITE_URLS.staff.animals.edit,
+    label: "Update Animal",
+    url: SITE_URLS.staff.animals.update_animal,
+    roles: [ROLE.ADMIN]
+  },
+  {
+    label: "Add Specie",
+    url: SITE_URLS.staff.animals.add_specie,
+    roles: [ROLE.ADMIN]
+  },
+  {
+    label: "Update Specie",
+    url: SITE_URLS.staff.animals.update_specie,
     roles: [ROLE.ADMIN]
   }
 ]
