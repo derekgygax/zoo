@@ -65,7 +65,7 @@ const addSpecie = async (prevState: FormState, formData: FormData) => {
   );
 
   return [
-    `${specie.name} added.`
+    `${specie.specie} added.`
   ];
 }
 
@@ -87,7 +87,7 @@ const addSpecie = async (prevState: FormState, formData: FormData) => {
 //   );
 
 //   return [
-//     `${animal.name} the ${animal.specie_name} added.`
+//     `${animal.name} the ${animal.specie} added.`
 //   ];
 // }
 

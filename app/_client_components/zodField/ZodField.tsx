@@ -1,6 +1,16 @@
 "use client"
 
-import { UseFormRegister, FieldValues, FieldErrors } from "react-hook-form";
+
+// TODO YOU GET WORRIED ABOUT WHAT IS IN THE CLIENT AND WHAT IS IN THE SERVER!!!
+// TODO YOU GET WORRIED ABOUT WHAT IS IN THE CLIENT AND WHAT IS IN THE SERVER!!!
+// TODO YOU GET WORRIED ABOUT WHAT IS IN THE CLIENT AND WHAT IS IN THE SERVER!!!
+// TODO YOU GET WORRIED ABOUT WHAT IS IN THE CLIENT AND WHAT IS IN THE SERVER!!!
+// TODO YOU GET WORRIED ABOUT WHAT IS IN THE CLIENT AND WHAT IS IN THE SERVER!!!
+// TODO YOU GET WORRIED ABOUT WHAT IS IN THE CLIENT AND WHAT IS IN THE SERVER!!!
+// TODO YOU GET WORRIED ABOUT WHAT IS IN THE CLIENT AND WHAT IS IN THE SERVER!!!
+// TODO YOU GET WORRIED ABOUT WHAT IS IN THE CLIENT AND WHAT IS IN THE SERVER!!!
+
+import { UseFormRegister, UseFormRegisterReturn, FieldValues, FieldErrors } from "react-hook-form";
 import {
   ZodObject,
   ZodTypeAny,
@@ -9,52 +19,92 @@ import {
   ZodNumber,
   ZodDate,
   ZodBoolean,
+  ZodEffects
 } from "zod";
 
+// config
+import { DEFAULT_MAX_LEGNTH } from "@/config/scripts";
+
+// utiles
+import { capitalizeFirstLetter } from "@/lib/utils/general";
+
 // types
-import { FormFieldDescription } from "@/types/form";
+import { FieldSchemaMeta } from "@/types/script";
+import { SelectorOption } from "@/types/form";
 
 // styles
 import styles from './ZodField.module.scss';
 
+
+const buildSelector = (
+  sharedProps: UseFormRegisterReturn & { required?: boolean },
+  title: string,
+  options: string[] | SelectorOption[]
+) => {
+  return (
+    <select {...sharedProps} defaultValue="">
+      <option value="" disabled>Select {title}</option>
+      {options.map((option: string | SelectorOption) => (
+        typeof option === "string" ? (
+          <option key={option} value={option}>
+            {capitalizeFirstLetter(option)}
+          </option>
+        ) : (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        )
+      ))}
+    </select>
+  )
+}
+
 interface ZodFieldProps {
   fieldName: string;
   fieldSchema: ZodTypeAny;
+  selectorOptions?: string[] | SelectorOption[];
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors<FieldValues>;
 }
 
-export const ZodField = ({ fieldName, fieldSchema, errors, register }: ZodFieldProps) => {
+export const ZodField = ({ fieldName, fieldSchema, selectorOptions = [], errors, register }: ZodFieldProps) => {
 
   const isRequired = !fieldSchema.isOptional();
 
-  const sharedProps = {
+  const sharedProps: UseFormRegisterReturn & { required?: boolean } = {
     ...register(fieldName),
     required: isRequired
   }
-  const fieldDescription: FormFieldDescription = JSON.parse(fieldSchema.description as string);
+  const fieldDescription: FieldSchemaMeta = JSON.parse(fieldSchema.description as string);
+  console.log(fieldDescription);
 
   const getField = () => {
-    if (fieldDescription.isDate) {
-      // Render a date input for ZodDate fields
-      return <input type="date" {...sharedProps} />;
+    if (fieldSchema instanceof ZodEffects) {
+      if (fieldDescription.stringMeta?.isDate) {
+        // Render a date input for ZodDate fields
+        return <input type="date" {...sharedProps} />;
+      }
     }
     if (fieldSchema instanceof ZodString) {
-      // Handle specific formats for strings if needed
+      if (fieldDescription.stringMeta) {
+        if (fieldDescription.stringMeta.isSelector) {
+          return buildSelector(sharedProps, fieldDescription.title, selectorOptions);
+        } else if (fieldDescription.stringMeta.maxLength > DEFAULT_MAX_LEGNTH) {
+          return (
+            <textarea
+              {...sharedProps}
+              placeholder={`Enter ${fieldDescription.title}`}
+            />
+          );
+        }
+      }
+
       return <input type="text" {...sharedProps} />;
+
     }
     if (fieldSchema instanceof ZodEnum) {
       // Render a select dropdown for enums
-      return (
-        <select {...sharedProps} defaultValue="">
-          <option value="" disabled>Select {fieldName}</option>
-          {fieldSchema.options.map((option: string) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      );
+      return buildSelector(sharedProps, fieldDescription.title, fieldSchema.options);
     }
     if (fieldSchema instanceof ZodNumber) {
       // Render a number input

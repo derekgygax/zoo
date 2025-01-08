@@ -18,9 +18,16 @@ export enum FORM_FIELD_TYPE {
   NUMBER = "NUMBER"
 }
 
+export interface SelectorOption {
+  value: string;
+  label: string;
+};
+
+
 export interface FormFieldDescription {
   title: string;
   isDate?: boolean;
+  isSelector?: boolean;
 }
 
 export interface FormState {

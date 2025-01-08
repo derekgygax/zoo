@@ -3,9 +3,6 @@
 // types
 import { FORM_SCHEMA } from "@/types/form";
 
-// config
-import { ZOD_SCHEMAS } from "@/config/zodSchemas";
-
 // client components
 import { ZodForm } from "@/app/_client_components/zodForm/ZodForm";
 
@@ -24,7 +21,7 @@ export const SpecieForm = ({ formName, zodSchemaName }: SpecieFormProps) => {
     <ZodForm
       formName={formName}
       formServerAction={addSpecieAction}
-      zodSchema={ZOD_SCHEMAS[zodSchemaName]}
+      zodSchemaName={zodSchemaName}
     />
   );
 }

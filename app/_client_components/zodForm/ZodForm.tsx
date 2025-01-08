@@ -6,8 +6,12 @@ import { useForm, DefaultValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodObject, ZodRawShape, ZodTypeAny } from "zod";
 
+// TODO SHOUDL THIS HAPPEN IN "use client"
+// configs
+import { ZOD_SCHEMAS } from "@/config/zodSchemas";
+
 // types
-import { FormState } from "@/types/form";
+import { FORM_SCHEMA, FormState, SelectorOption } from "@/types/form";
 
 // components
 import { SubmitFormButton } from "../submitFormButton/SubmitFormButton"
@@ -22,9 +26,10 @@ const initialState: FormState = {
   message: []
 }
 
-interface ZodFormProps<Schema extends ZodObject<ZodRawShape>> {
+interface ZodFormContentProps<Schema extends ZodObject<ZodRawShape>> {
   formName: string;
   formServerAction: (prevState: FormState, formData: FormData) => Promise<FormState>;
+  selectorOptions?: Partial<Record<keyof z.infer<Schema>, SelectorOption[]>>;
   zodSchema: Schema;
   hiddenFields?: {
     name: string;
@@ -34,7 +39,7 @@ interface ZodFormProps<Schema extends ZodObject<ZodRawShape>> {
   callBack?: (success: boolean) => void;
 }
 
-export const ZodForm = <Schema extends ZodObject<ZodRawShape>>({ formName, formServerAction, zodSchema, hiddenFields, defaultValues, callBack }: ZodFormProps<Schema>) => {
+const ZodFormContent = <Schema extends ZodObject<ZodRawShape>>({ formName, formServerAction, selectorOptions, zodSchema, hiddenFields, defaultValues, callBack }: ZodFormContentProps<Schema>) => {
 
   const [state, action] = useActionState(formServerAction, initialState);
   const formRef = useRef<HTMLFormElement>(null);
@@ -87,13 +92,14 @@ export const ZodForm = <Schema extends ZodObject<ZodRawShape>>({ formName, formS
 
       {/* fields defined by the zod schema */}
       {fields.map(([fieldName, fieldSchema], index: number) => {
-
+        const options = selectorOptions?.[fieldName as keyof z.infer<Schema>];
         return (
           <ZodField
             key={index}
             fieldName={fieldName}
             fieldSchema={fieldSchema as ZodTypeAny}
             register={register}
+            selectorOptions={options}
             errors={errors}
           />
         )
@@ -124,3 +130,32 @@ export const ZodForm = <Schema extends ZodObject<ZodRawShape>>({ formName, formS
     </form >
   );
 }
+
+
+// The way this extends Omit thing works if that ZodForm
+// gets all the same input properties as ZodFormContent
+// EXCEPT zodSchema. That only exists in ZodFormContent
+interface ZodFormProps<Schema extends z.ZodObject<z.ZodRawShape>>
+  extends Omit<ZodFormContentProps<Schema>, "zodSchema"> {
+  zodSchemaName: FORM_SCHEMA;
+}
+
+export const ZodForm = <Schema extends z.ZodObject<z.ZodRawShape>>({
+  zodSchemaName,
+  ...props
+}: ZodFormProps<Schema>) => {
+
+  const zodSchema = ZOD_SCHEMAS[zodSchemaName] as Schema;
+
+  if (!zodSchema) {
+    console.error(`Schema not found for name: ${zodSchemaName}`);
+    return <div>Invalid schema configuration. Please contact support.</div>;
+  }
+
+  return (
+    <ZodFormContent
+      {...props}
+      zodSchema={zodSchema}
+    />
+  );
+};

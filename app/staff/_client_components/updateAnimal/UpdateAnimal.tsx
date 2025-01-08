@@ -13,7 +13,6 @@ import { FORM_NAME, FormConfig } from "@/types/form";
 // Next.js lets you do so much you can get messy
 // config
 import { SITE_URLS } from "@/config/siteUrls";
-import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 
 // server actions
 import { updateAnimalAction, getAnimal } from "@/app/_actions/animals-service/animals";
@@ -23,6 +22,19 @@ import { PageSection } from "@/app/_layouts/pageSection/PageSection";
 
 // client components
 import { ZodForm } from "@/app/_client_components/zodForm/ZodForm";
+
+
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// FUUUUCCCCKKKKK you made this a fucking "use client"!!!
+// ARE YOU FUKCING KIDDING ME!!!
+// FIX THIS TOMORROW!!! IT DOES NOT NEED THIS SHIT!!
+// USE AnimalForm because that is retrieving the specie now!
+// god fucking dammit
 
 interface AnimalUpdate {
   id: string,
@@ -74,7 +86,7 @@ export const UpdateAnimal = ({ animals, formConfig }: UpdateAnimalProps) => {
                 key={animal.id}
                 value={animal.id}
               >
-                {`${animal.name} (${animal.specie_name})`}
+                {`${animal.name} (${animal.specie})`}
               </option>
             )
           })}
@@ -85,7 +97,7 @@ export const UpdateAnimal = ({ animals, formConfig }: UpdateAnimalProps) => {
           <ZodForm
             formName={formConfig.name}
             formServerAction={updateAnimalAction}
-            zodSchema={ZOD_SCHEMAS[formConfig.zodSchemaName]}
+            zodSchemaName={formConfig.zodSchemaName}
             hiddenFields={[
               {
                 name: "id",
