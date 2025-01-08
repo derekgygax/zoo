@@ -4,23 +4,31 @@ import traverse from '@babel/traverse';
 import * as t from '@babel/types';
 import generate from '@babel/generator';
 import { OpenAPIV3 } from 'openapi-types';
+import { FieldSchemaMeta } from '@/types/script';
+import { DEFAULT_MAX_LEGNTH } from '@/config/scripts';
 
-const extractSchemaFieldMetadata = (openApiSpec: OpenAPIV3.Document): Record<string, Record<string, { isDateField: boolean, title: string }>> => {
-  const fields: Record<string, Record<string, { isDateField: boolean, title: string }>> = {};
+const extractSchemaFieldMetadata = (openApiSpec: OpenAPIV3.Document): Record<string, Record<string, FieldSchemaMeta>> => {
+  const fields: Record<string, Record<string, FieldSchemaMeta>> = {};
 
   for (const [schemaName, schema] of Object.entries(
     openApiSpec.components?.schemas || {}
   )) {
     const schemaObject = schema as OpenAPIV3.SchemaObject;
     if (schemaObject.type === "object" && schemaObject.properties) {
-      const schema: Record<string, { isDateField: boolean, title: string }> = {};
+      const schema: Record<string, FieldSchemaMeta> = {};
       const fieldNames: string[] = Object.keys(schemaObject.properties);
       for (let i = 0; i < fieldNames.length; i++) {
         const fieldName = fieldNames[i];
         const properties = schemaObject.properties[fieldName] as OpenAPIV3.SchemaObject;
         schema[fieldName] = {
-          isDateField: properties.type === "string" && properties.format === "date",
-          title: properties.title ?? fieldName
+          stringMeta: properties.type === "string"
+            ? {
+              isDate: properties.format === "date",
+              isSelector: properties.format === "selector",
+              maxLength: properties.maxLength ?? DEFAULT_MAX_LEGNTH
+            }
+            : undefined,
+          title: properties.title ?? fieldName,
         }
       }
       fields[schemaName] = schema;
@@ -96,7 +104,7 @@ export const enhanceZodSchemas = (
   cleanedZodPath: string
 ) => {
 
-  console.log(`Cleaning the zod file for the service: ${service}`)
+  console.log(`Enhancing the zod file for the service: ${service}`)
 
   // Read and parse the OpenAPI spec
   const openApiSpec: OpenAPIV3.Document = JSON.parse(fs.readFileSync(openApiPath, "utf8"));
@@ -133,14 +141,14 @@ export const enhanceZodSchemas = (
 
           // Add `.meta` with title and `.trim` if applicable
           if (schemasMeta[schemaName][fieldName]) {
-            const { isDateField, title } = schemasMeta[schemaName][fieldName];
+            const fieldMeta: FieldSchemaMeta = schemasMeta[schemaName][fieldName];
             // For testing
             // if (fieldName !== "name") return;
             // Check if property.value is a CallExpression
             if (t.isCallExpression(property.value)) {
               const callee = property.value.callee;
               if (
-                isDateField &&
+                fieldMeta.stringMeta?.isDate &&
                 t.isMemberExpression(callee) &&
                 t.isIdentifier(callee.object) &&
                 callee.object.name === 'z' &&
@@ -216,19 +224,14 @@ export const enhanceZodSchemas = (
               // Add `.meta({ title: ... })` to string fields
               property.value = t.callExpression(
                 t.memberExpression(property.value, t.identifier('describe')),
-                [t.stringLiteral(JSON.stringify({
-                  title: title,
-                  isDate: isDateField
-                }))]
+                [t.stringLiteral(JSON.stringify(fieldMeta))]
               );
 
             } else if (t.isIdentifier(property.value)) {
-              // Add `.meta({ title: ... })` to string fields to enums
+              // Add `.meta({ title: ... })` to enums
               property.value = t.callExpression(
                 t.memberExpression(property.value, t.identifier('describe')),
-                [t.stringLiteral(JSON.stringify({
-                  title: title
-                }))]
+                [t.stringLiteral(JSON.stringify(fieldMeta))]
               );
             }
           }

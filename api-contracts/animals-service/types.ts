@@ -138,10 +138,11 @@ export interface components {
              */
             name: string;
             /**
-             * Specie Name
+             * Specie
+             * Format: selector
              * @description The name of the specie of the animal
              */
-            specie_name: string;
+            specie: string;
             /** Gender */
             gender: components["schemas"]["GENDER"];
             /** Health */
@@ -180,10 +181,11 @@ export interface components {
              */
             name: string;
             /**
-             * Specie Name
+             * Specie
+             * Format: selector
              * @description The name of the specie of the animal
              */
-            specie_name: string;
+            specie: string;
             /** Gender */
             gender: components["schemas"]["GENDER"];
             /** Health */
@@ -213,10 +215,10 @@ export interface components {
              */
             name: string;
             /**
-             * Specie Name
+             * Specie
              * @description The name of the specie of the animal
              */
-            specie_name: string;
+            specie: string;
         };
         /**
          * GENDER
@@ -236,10 +238,10 @@ export interface components {
         /** Specie */
         Specie: {
             /**
-             * Specie Name
+             * Specie
              * @description The name of the specie
              */
-            name: string;
+            specie: string;
             /**
              * Specie Description
              * @description A short description about the specie
@@ -259,10 +261,10 @@ export interface components {
         /** SpecieBase */
         SpecieBase: {
             /**
-             * Specie Name
+             * Specie
              * @description The name of the specie
              */
-            name: string;
+            specie: string;
             /**
              * Specie Description
              * @description A short description about the specie

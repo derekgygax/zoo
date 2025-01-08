@@ -1,11 +1,13 @@
 import { FRAMEWORK } from "@/types/service"
 import { TASK } from "@/types/script";
 
+export const DEFAULT_MAX_LEGNTH = 100;
+
 export const TASKS: TASK[] = [
   TASK.OPEN_API,
   TASK.TYPES,
   TASK.ZOD,
-  TASK.CLEAN_ZOD
+  TASK.ENHANCE_ZOD
 ];
 
 export const SCRIPTS_CONFIG = {

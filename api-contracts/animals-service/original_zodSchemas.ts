@@ -13,7 +13,7 @@ const HEALTH_TYPE = z.enum([
 const Animal = z
   .object({
     name: z.string().max(100),
-    specie_name: z.string().max(100),
+    specie: z.string().max(100),
     gender: GENDER,
     health: HEALTH_TYPE,
     dob: z.string(),
@@ -26,7 +26,7 @@ const Animal = z
 const AnimalBase = z
   .object({
     name: z.string().max(100),
-    specie_name: z.string().max(100),
+    specie: z.string().max(100),
     gender: GENDER,
     health: HEALTH_TYPE,
     dob: z.string(),
@@ -48,19 +48,19 @@ const AnimalIdentifier = z
   .object({
     id: z.string().uuid(),
     name: z.string().max(100),
-    specie_name: z.string().max(100),
+    specie: z.string().max(100),
   })
   .passthrough();
 const Specie = z
   .object({
-    name: z.string().max(100),
+    specie: z.string().max(100),
     description: z.string().max(500),
     created_at: z.string().datetime({ offset: true }),
     updated_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
 const SpecieBase = z
-  .object({ name: z.string().max(100), description: z.string().max(500) })
+  .object({ specie: z.string().max(100), description: z.string().max(500) })
   .passthrough();
 
 export const schemas = {
