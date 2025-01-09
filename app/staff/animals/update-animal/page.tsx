@@ -8,7 +8,7 @@ import { FORM_NAME, FormConfig } from "@/types/form";
 import { AnimalIdentifier } from "@/types/animals-service";
 
 // lib utils
-import { getAPIRequest } from "@/lib/utils/server";
+import { getAPIRequest } from "@/lib/utils/server/api";
 
 // global components
 import { Title } from "@/app/_components/title/Title";

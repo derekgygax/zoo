@@ -11,7 +11,7 @@ import { actionProcessing } from "../utils/server"
 import { deserializeFormData } from "../utils/general";
 
 // lib utils
-import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server";
+import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
 // types
 import { Specie, SpecieBase } from "@/types/animals-service";
