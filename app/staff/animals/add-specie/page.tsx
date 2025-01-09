@@ -6,14 +6,17 @@ import { FORM_CONFIGS } from "@/config/formConfigs";
 // types
 import { FORM_NAME, FormConfig } from "@/types/form";
 
+// server actions
+import { addSpecieAction } from "@/app/_actions/animals-service/specie";
+
 // global components
 import { Title } from "@/app/_components/title/Title";
 
+// client components
+import { ZodForm } from "@/app/_client_components/zodForm/ZodForm";
+
 // layouts
 import { PageSection } from "@/app/_layouts/pageSection/PageSection";
-
-// local components
-import { SpecieForm } from "../../_client_components/specieForm/SpecieForm";
 
 // content
 import { title } from "@/content/app/staff/animals/add-specie";
@@ -31,9 +34,9 @@ export default async function AddSpeciePage() {
         level={title.level}
       />
       <PageSection>
-        <SpecieForm
+        <ZodForm
           formName={formConfig.name}
-          formLabel={formConfig.label}
+          formServerAction={addSpecieAction}
           zodSchemaName={formConfig.zodSchemaName}
         />
       </PageSection>
