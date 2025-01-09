@@ -26,5 +26,7 @@ export enum SCRIPT_VARIABLE {
 }
 
 export enum SCRIPT_TYPE_NAME {
-  SCHEMAS_SELECTORS = "SchemasSelectors"
+  SCHEMAS_SELECTORS = "SchemasSelectors",
+  SCHEMA_META = "SchemaMeta",
+  SCHEMAS_META = "SchemasMeta",
 }

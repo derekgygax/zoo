@@ -11,7 +11,7 @@ import { z, ZodObject, ZodRawShape, ZodTypeAny } from "zod";
 import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 
 // types
-import { FORM_SCHEMA, FormState, SelectorOption } from "@/types/form";
+import { FORM_SCHEMA_NAME, FormState, SelectorOption } from "@/types/form";
 
 // components
 import { SubmitFormButton } from "../submitFormButton/SubmitFormButton"
@@ -137,7 +137,7 @@ const ZodFormContent = <Schema extends ZodObject<ZodRawShape>>({ formName, formS
 // EXCEPT zodSchema. That only exists in ZodFormContent
 interface ZodFormProps<Schema extends z.ZodObject<z.ZodRawShape>>
   extends Omit<ZodFormContentProps<Schema>, "zodSchema"> {
-  zodSchemaName: FORM_SCHEMA;
+  zodSchemaName: FORM_SCHEMA_NAME;
 }
 
 export const ZodForm = <Schema extends z.ZodObject<z.ZodRawShape>>({

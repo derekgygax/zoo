@@ -7,7 +7,7 @@ import { toSelectorOptions } from "@/lib/utils/general";
 import { getSpeciesBase } from "@/app/_actions/animals-service/specie";
 
 // types
-import { FORM_SCHEMA } from "@/types/form";
+import { FORM_SCHEMA_NAME } from "@/types/form";
 import { SelectorOption } from "@/types/form";
 import { SpecieBase } from "@/types/animals-service";
 
@@ -21,7 +21,7 @@ import { addAnimalAction } from "@/app/_actions/animals-service/animals";
 interface AnimalFormProps {
   formName: string;
   formLabel: string;
-  zodSchemaName: FORM_SCHEMA;
+  zodSchemaName: FORM_SCHEMA_NAME;
 }
 
 export const AnimalForm = async ({ formName, zodSchemaName }: AnimalFormProps) => {

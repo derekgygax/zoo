@@ -4,7 +4,7 @@
 import { API_ENDPOINTS } from "@/config/api";
 
 // types
-import { FORM_SCHEMA, FormState } from "@/types/form";
+import { FORM_SCHEMA_NAME, FormState } from "@/types/form";
 
 // action utils
 import { actionProcessing } from "../utils/server"
@@ -54,7 +54,7 @@ export const getSpeciesBase = async (): Promise<SpecieBase[]> => {
 // Server Actions to forms
 // The functional part of the action
 const addSpecie = async (prevState: FormState, formData: FormData) => {
-  const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA.SPECIE_BASE];
+  const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.SPECIE_BASE];
 
   const specie: SpecieBase = deserializeFormData(formData, zodSchema) as SpecieBase;
 
@@ -75,7 +75,7 @@ const addSpecie = async (prevState: FormState, formData: FormData) => {
 // TODO FIX THIS!!
 // TODO FIX THIS!!
 // const udpateAnimal = async (prevState: FormState, formData: FormData) => {
-//   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA.SPECIE_BASE];
+//   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.SPECIE_BASE];
 
 //   const animalId = formData.get("id");
 //   const animal: AnimalBase = deserializeFormData(formData, zodSchema) as AnimalBase;

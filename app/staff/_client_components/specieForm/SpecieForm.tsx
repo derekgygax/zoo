@@ -1,7 +1,7 @@
 "use client"
 
 // types
-import { FORM_SCHEMA } from "@/types/form";
+import { FORM_SCHEMA_NAME } from "@/types/form";
 
 // client components
 import { ZodForm } from "@/app/_client_components/zodForm/ZodForm";
@@ -12,7 +12,7 @@ import { addSpecieAction } from "@/app/_actions/animals-service/specie";
 interface SpecieFormProps {
   formName: string;
   formLabel: string;
-  zodSchemaName: FORM_SCHEMA;
+  zodSchemaName: FORM_SCHEMA_NAME;
 }
 
 export const SpecieForm = ({ formName, zodSchemaName }: SpecieFormProps) => {

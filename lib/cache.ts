@@ -1,5 +1,5 @@
 // types
-import { FORM_SCHEMA, FormConfig } from "@/types/form";
+import { FORM_SCHEMA_NAME, FormConfig } from "@/types/form";
 
 // This is a global cache that will be used across the project
 // to store info to prevent repeat requests
@@ -11,12 +11,12 @@ export class GlobalCache {
   //    key = key for the item
   //    value = value for the item
   //    timeToLive = how long before the item is deleted (passed back in seconds)
-  static setCache = (key: FORM_SCHEMA, value: FormConfig, timeToLive: number = 600) => {
+  static setCache = (key: FORM_SCHEMA_NAME, value: FormConfig, timeToLive: number = 600) => {
     const expiresAt = Date.now() + timeToLive * 1000;
     this.cache.set(key, { value, expiresAt });
   };
 
-  static getCache = (key: FORM_SCHEMA): FormConfig | undefined => {
+  static getCache = (key: FORM_SCHEMA_NAME): FormConfig | undefined => {
     const item = this.cache.get(key);
     if (!item) {
       return undefined
@@ -31,7 +31,7 @@ export class GlobalCache {
     return item.value;
   };
 
-  static deleteCache = (key: FORM_SCHEMA) => {
+  static deleteCache = (key: FORM_SCHEMA_NAME) => {
     this.cache.delete(key);
   };
 

@@ -1,5 +1,5 @@
 
-export enum FORM_SCHEMA {
+export enum FORM_SCHEMA_NAME {
   ANIMAL_BASE = "AnimalBase",
   SPECIE_BASE = "SpecieBase"
 }
@@ -48,7 +48,7 @@ export interface FormFieldConfig {
 export type FormConfig<K extends FORM_NAME> = {
   name: K;
   label: string;
-  zodSchemaName: FORM_SCHEMA;
+  zodSchemaName: FORM_SCHEMA_NAME;
   fieldsRequiringFetcheData: FIELD_REQUIRING_FETCHED_DATA[]
 };
 
