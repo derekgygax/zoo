@@ -50,6 +50,15 @@ export const getSpeciesBase = async (): Promise<SpecieBase[]> => {
   return species
 }
 
+export const getSpecieKeys = async (): Promise<string[]> => {
+  const species: string[] = await getAPIRequest(
+    API_ENDPOINTS.animalsService.species.keys,
+    []
+  );
+
+  return species
+}
+
 
 // Server Actions to forms
 // The functional part of the action

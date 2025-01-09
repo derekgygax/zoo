@@ -5,14 +5,10 @@ import { FORM_CONFIGS } from "@/config/formConfigs";
 
 // types
 import { FORM_NAME, FormConfig, SelectorOption } from "@/types/form";
-import { SpecieBase } from "@/types/animals-service";
 
 // server actions
 import { addAnimalAction } from "@/app/_actions/animals-service/animals";
-import { getSpeciesBase } from "@/app/_actions/animals-service/specie";
-
-// utils
-import { toSelectorOptions } from "@/lib/utils/general";
+import { fetchFormDependencies } from "@/app/_actions/utils/server/fetchFormDependencies";
 
 // global components
 import { Title } from "@/app/_components/title/Title";
@@ -33,17 +29,9 @@ export default async function AddAnimalPage() {
 
   const formConfig: FormConfig<FORM_NAME.ADD_ANIMAL> = FORM_CONFIGS[FORM_NAME.ADD_ANIMAL];
 
-
-  // TODO MAKE THE NAME OF THE FIELD THAT NEEDS A SELECTOR DYNAMIC!!
-  // TODO I HATE the hard coding of "specie" here but you gotta move forward
-  // for now and come back and fix later
-  const species: SpecieBase[] = await getSpeciesBase();
-  const selectorOptions: Record<string, SelectorOption[]> = {
-    specie: toSelectorOptions(species, "specie", "specie")
-  };
-
-  // console.log(formConfig.fieldsRequiringFetcheData);
-
+  // Right here the string in the Record could be FIELD_REQUIRING_FETCHED_DATA
+  // but that might make things werid later so just don't do it
+  const selectorOptions: Record<string, SelectorOption[]> = await fetchFormDependencies(formConfig.fieldsRequiringFetchedData);
 
   return (
     <main>
@@ -52,7 +40,6 @@ export default async function AddAnimalPage() {
         level={title.level}
       />
       <PageSection>
-        <div></div>
         <ZodForm
           formName={formConfig.name}
           formServerAction={addAnimalAction}

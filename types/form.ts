@@ -14,8 +14,16 @@ export enum FORM_NAME {
 // TODO do you want to change this name!
 // TODO do you want to change this name!
 // TODO do you want to change this name!
+// TODO you may need to fix the variable names going all over
+// fieldsRequiringDependencies vs fieldsRequiringFetchedData
+// make it consistent ... BUT not for now, do that when it becomes a problem
 export enum FIELD_REQUIRING_FETCHED_DATA {
   SPECIE = "specie"
+}
+
+export interface FetchDataKey<T> {
+  value: keyof T;
+  label: keyof T;
 }
 
 export enum FORM_FIELD_TYPE {
@@ -49,7 +57,7 @@ export type FormConfig<K extends FORM_NAME> = {
   name: K;
   label: string;
   zodSchemaName: FORM_SCHEMA_NAME;
-  fieldsRequiringFetcheData: FIELD_REQUIRING_FETCHED_DATA[]
+  fieldsRequiringFetchedData: FIELD_REQUIRING_FETCHED_DATA[]
 };
 
 export type FormConfigs = {

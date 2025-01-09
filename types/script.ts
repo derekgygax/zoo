@@ -21,6 +21,9 @@ export type SchemaMeta = Record<string, FieldSchemaMeta>;
 export type SchemasMeta = Record<string, SchemaMeta>;
 export type SchemasSelectors = Record<string, FIELD_REQUIRING_FETCHED_DATA[]>;
 
+// TODO you may need to fix the variable names going all over
+// fieldsRequiringDependencies vs fieldsRequiringFetchedData
+// make it consistent ... BUT not for now, do that when it becomes a problem
 export enum SCRIPT_VARIABLE {
   FIELDS_REQUIRING_FETCHED_DATA = "fieldsRequiringFetchedData"
 }

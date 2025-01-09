@@ -6,19 +6,36 @@ export const capitalizeFirstLetter = (s: string): string => {
 };
 
 export const toSelectorOptions = <T>(
-  items: T[],
-  valueKey: keyof T,
-  labelKey: keyof T
+  field: string,
+  items: T[] | string[],
+  valueKey?: keyof T,
+  labelKey?: keyof T,
 ): SelectorOption[] => {
   return items.map((item) => {
-    const value = String(item[valueKey]);
-    const label =
-      typeof item[labelKey] === "string"
-        ? capitalizeFirstLetter(item[labelKey] as string)
-        : String(item[labelKey]);
-    return {
-      value: value,
-      label: label
-    };
+    if (typeof item === "string") {
+      // Handle string[] case
+      return {
+        value: item,
+        label: capitalizeFirstLetter(item),
+      };
+    } else if (valueKey && labelKey) {
+      // Handle T[] case with valid valueKey and labelKey
+      const value = item[valueKey] !== undefined ? String(item[valueKey]) : "";
+      const label =
+        item[labelKey] !== undefined
+          ? typeof item[labelKey] === "string"
+            ? capitalizeFirstLetter(item[labelKey] as string)
+            : String(item[labelKey])
+          : "";
+      return {
+        value,
+        label,
+      };
+    } else {
+      throw new Error(
+        `Missing valueKey or labelKey for non-string items in toSelectorOptions for '${field}'`
+      );
+    }
   });
 };
+

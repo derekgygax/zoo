@@ -1,4 +1,3 @@
-import { FIELD_REQUIRING_FETCHED_DATA } from "@/types/form";
 import { SERVICE } from "@/types/service";
 
 export const API_BASE_URLS: Record<SERVICE, string> = {
@@ -30,8 +29,3 @@ export const API_ENDPOINTS = {
     }
   }
 };
-
-// TODO you do NOT like that specie is hardcoded here!!!
-export const API_FIELD_REQUIRING_FETCH_ENDPOINTS: Record<FIELD_REQUIRING_FETCHED_DATA, string> = {
-  [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: API_ENDPOINTS.animalsService.species.keys
-}
