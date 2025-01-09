@@ -4,8 +4,11 @@ import { API_ENDPOINTS } from "@/config/api";
 import { FORM_CONFIGS } from "@/config/formConfigs";
 
 // types
-import { FORM_NAME, FormConfig } from "@/types/form";
+import { FORM_NAME, FormConfig, SelectorOption } from "@/types/form";
 import { AnimalIdentifier } from "@/types/animals-service";
+
+// server action utils
+import { fetchFormDependencies } from "@/app/_actions/utils/server/fetchFormDependencies";
 
 // lib utils
 import { getAPIRequest } from "@/lib/utils/server/api";
@@ -15,7 +18,6 @@ import { Title } from "@/app/_components/title/Title";
 
 // local components
 import { UpdateAnimal } from "../../_client_components/updateAnimal/UpdateAnimal";
-// import { AnimalForm } from "../../_components/animalForm/AnimalForm";
 
 // content
 import { title } from "@/content/app/staff/animals/update-animal";
@@ -25,6 +27,10 @@ import { title } from "@/content/app/staff/animals/update-animal";
 
 export default async function UpdateAnimalPage() {
   const formConfig: FormConfig<FORM_NAME.UPDATE_ANIMAL> = FORM_CONFIGS[FORM_NAME.UPDATE_ANIMAL];
+
+  // Right here the string in the Record could be FIELD_REQUIRING_FETCHED_DATA
+  // but that might make things werid later so just don't do it
+  const selectorOptions: Record<string, SelectorOption[]> = await fetchFormDependencies(formConfig.fieldsRequiringFetchedData);
 
   const animals: AnimalIdentifier[] = await getAPIRequest<AnimalIdentifier[]>(
     API_ENDPOINTS.animalsService.animals.ids,
@@ -40,6 +46,7 @@ export default async function UpdateAnimalPage() {
       <UpdateAnimal
         animals={animals}
         formConfig={formConfig}
+        selectorOptions={selectorOptions}
       />
     </main>
   )

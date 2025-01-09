@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 // types
 import { AnimalIdentifier, AnimalBase } from "@/types/animals-service"
-import { FORM_NAME, FormConfig } from "@/types/form";
+import { FORM_NAME, FormConfig, SelectorOption } from "@/types/form";
 
 // TODO
 // can you do this here!!?? Like pull config stuff in a client component??? DAANNNGGGG
@@ -24,18 +24,6 @@ import { PageSection } from "@/app/_layouts/pageSection/PageSection";
 import { ZodForm } from "@/app/_client_components/zodForm/ZodForm";
 
 
-// TODO
-// TODO
-// TODO
-// TODO
-// TODO
-// TODO
-// FUUUUCCCCKKKKK you made this a fucking "use client"!!!
-// ARE YOU FUKCING KIDDING ME!!!
-// FIX THIS TOMORROW!!! IT DOES NOT NEED THIS SHIT!!
-// USE AnimalForm because that is retrieving the specie now!
-// god fucking dammit
-
 interface AnimalUpdate {
   id: string,
   animal: AnimalBase | undefined
@@ -43,10 +31,11 @@ interface AnimalUpdate {
 
 interface UpdateAnimalProps {
   animals: AnimalIdentifier[];
-  formConfig: FormConfig<FORM_NAME.UPDATE_ANIMAL>
+  formConfig: FormConfig<FORM_NAME.UPDATE_ANIMAL>;
+  selectorOptions: Record<string, SelectorOption[]>;
 }
 
-export const UpdateAnimal = ({ animals, formConfig }: UpdateAnimalProps) => {
+export const UpdateAnimal = ({ animals, formConfig, selectorOptions }: UpdateAnimalProps) => {
 
   const router = useRouter();
 
@@ -104,6 +93,7 @@ export const UpdateAnimal = ({ animals, formConfig }: UpdateAnimalProps) => {
                 value: animal.id
               }
             ]}
+            selectorOptions={selectorOptions}
             defaultValues={animal.animal}
             callBack={handleFormCallBack}
           />
