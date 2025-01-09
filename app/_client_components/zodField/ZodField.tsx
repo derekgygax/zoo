@@ -76,7 +76,6 @@ export const ZodField = ({ fieldName, fieldSchema, selectorOptions = [], errors,
     required: isRequired
   }
   const fieldDescription: FieldSchemaMeta = JSON.parse(fieldSchema.description as string);
-  console.log(fieldDescription);
 
   const getField = () => {
     if (fieldSchema instanceof ZodEffects) {
