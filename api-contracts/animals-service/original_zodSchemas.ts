@@ -226,6 +226,13 @@ const endpoints = makeApi([
     requestFormat: "json",
     response: z.array(SpecieBase),
   },
+  {
+    method: "get",
+    path: "/api/v1/species/keys",
+    alias: "get_specie_keys_api_v1_species_keys_get",
+    requestFormat: "json",
+    response: z.array(z.string()),
+  },
 ]);
 
 export const api = new Zodios(endpoints);

@@ -97,14 +97,14 @@ const addTrimToCallChain = (property: t.ObjectProperty) => {
 };
 
 
-export const enhanceZodSchemas = (
+export const configureSchemas = (
   service: string,
   openApiPath: string,
   originalZodPath: string,
   cleanedZodPath: string
 ) => {
 
-  console.log(`Enhancing the zod file for the service: ${service}`)
+  console.log(`Configuring the schemas for the service: ${service}`)
 
   // Read and parse the OpenAPI spec
   const openApiSpec: OpenAPIV3.Document = JSON.parse(fs.readFileSync(openApiPath, "utf8"));
