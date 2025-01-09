@@ -9,10 +9,10 @@ import {
 // Higher Order Function (HOF)
 // -try catch for error catching
 // -Return the state
-export const actionProcessing = async (action: (prevState: FormState, formData: FormData) => Promise<string[]>) => {
+export const processFormAction = async (formAction: (prevState: FormState, formData: FormData) => Promise<string[]>) => {
   return async (prevState: FormState, formData: FormData): Promise<FormState> => {
     try {
-      const message: string[] = await action(prevState, formData);
+      const message: string[] = await formAction(prevState, formData);
       return {
         success: true,
         message: message

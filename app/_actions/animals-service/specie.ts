@@ -7,7 +7,7 @@ import { API_ENDPOINTS } from "@/config/api";
 import { FORM_SCHEMA_NAME, FormState } from "@/types/form";
 
 // action utils
-import { actionProcessing } from "../utils/server"
+import { processFormAction } from "../utils/server/formActionUtils"
 import { deserializeFormData } from "../utils/general";
 
 // lib utils
@@ -93,4 +93,4 @@ const addSpecie = async (prevState: FormState, formData: FormData) => {
 
 
 // Add the catch wrapping and processing the state returning
-export const addSpecieAction = await actionProcessing(addSpecie);
+export const addSpecieAction = await processFormAction(addSpecie);
