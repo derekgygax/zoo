@@ -130,7 +130,7 @@ for (const service of services) {
     execSync(`bunx openapi-zod-client ${openApiPath} --output ${originalZodPath}`, { stdio: "inherit" });
   }
 
-  if (tasks.includes(TASK.ENHANCE_ZOD)) {
+  if (tasks.includes(TASK.CONFIGURE_SCHEMAS)) {
     configureSchemas(service, openApiPath, originalZodPath, cleanedZodPath);
   }
 

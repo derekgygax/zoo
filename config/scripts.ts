@@ -7,7 +7,7 @@ export const TASKS: TASK[] = [
   TASK.OPEN_API,
   TASK.TYPES,
   TASK.ZOD,
-  TASK.ENHANCE_ZOD
+  TASK.CONFIGURE_SCHEMAS
 ];
 
 export const SCRIPTS_CONFIG = {
