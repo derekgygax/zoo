@@ -11,6 +11,13 @@ export enum FORM_NAME {
   UPDATE_SPECIE = "UpdateSpecie"
 }
 
+// TODO do you want to change this name!
+// TODO do you want to change this name!
+// TODO do you want to change this name!
+export enum FIELD_REQUIRING_FETCHED_DATA {
+  SPECIE = "specie"
+}
+
 export enum FORM_FIELD_TYPE {
   TEXT = "TEXT",
   SELECTOR = "SELECTOR",

@@ -7,15 +7,24 @@ import { OpenAPIV3 } from 'openapi-types';
 import { FieldSchemaMeta } from '@/types/script';
 import { DEFAULT_MAX_LEGNTH } from '@/config/scripts';
 
-const extractSchemaFieldMetadata = (openApiSpec: OpenAPIV3.Document): Record<string, Record<string, FieldSchemaMeta>> => {
-  const fields: Record<string, Record<string, FieldSchemaMeta>> = {};
+type SchemaMeta = Record<string, FieldSchemaMeta>;
+type SchemasMeta = Record<string, SchemaMeta>;
+type SchemasSelectors = Record<string, string[]>;
+
+const getSchemasMeta = (openApiSpec: OpenAPIV3.Document): {
+  schemasMeta: SchemasMeta
+  schemasSelectors: SchemasSelectors
+} => {
+  const schemasMeta: SchemasMeta = {};
+  const schemasSelectors: SchemasSelectors = {};
 
   for (const [schemaName, schema] of Object.entries(
     openApiSpec.components?.schemas || {}
   )) {
     const schemaObject = schema as OpenAPIV3.SchemaObject;
+    schemasSelectors[schemaName] = [];
     if (schemaObject.type === "object" && schemaObject.properties) {
-      const schema: Record<string, FieldSchemaMeta> = {};
+      const schema: SchemaMeta = {};
       const fieldNames: string[] = Object.keys(schemaObject.properties);
       for (let i = 0; i < fieldNames.length; i++) {
         const fieldName = fieldNames[i];
@@ -29,13 +38,19 @@ const extractSchemaFieldMetadata = (openApiSpec: OpenAPIV3.Document): Record<str
             }
             : undefined,
           title: properties.title ?? fieldName,
+        };
+        if (properties.type === "string" && properties.format === "selector") {
+          schemasSelectors[schemaName].push(fieldName);
         }
       }
-      fields[schemaName] = schema;
+      schemasMeta[schemaName] = schema;
     }
   }
 
-  return fields;
+  return {
+    schemasMeta: schemasMeta,
+    schemasSelectors: schemasSelectors
+  };
 }
 
 // Add .trim() to .string()
@@ -96,12 +111,22 @@ const addTrimToCallChain = (property: t.ObjectProperty) => {
   }
 };
 
+const writeSchemasSelector = (schemasSelectors: SchemasSelectors, selectorFieldsPath: string) => {
+  // Convert schemaSelectors to a TypeScript file content
+  const fileContent = `export const selectorFields = ${JSON.stringify(schemasSelectors, null, 2)};`;
+
+  // Write the content to a .ts file
+  fs.writeFileSync(selectorFieldsPath, fileContent, 'utf-8');
+
+}
+
 
 export const configureSchemas = (
   service: string,
   openApiPath: string,
   originalZodPath: string,
-  cleanedZodPath: string
+  cleanedZodPath: string,
+  selectorFieldsPath: string
 ) => {
 
   console.log(`Configuring the schemas for the service: ${service}`)
@@ -110,7 +135,11 @@ export const configureSchemas = (
   const openApiSpec: OpenAPIV3.Document = JSON.parse(fs.readFileSync(openApiPath, "utf8"));
 
   // Extract date fields from OpenAPI spec
-  const schemasMeta = extractSchemaFieldMetadata(openApiSpec);
+  const { schemasMeta, schemasSelectors } = getSchemasMeta(openApiSpec);
+
+  // Write the schemas selector file
+  console.log(`Write the selectorFields file for the service ${service}`);
+  writeSchemasSelector(schemasSelectors, selectorFieldsPath);
 
   // Read your Zod schema file
   const schemaCode = fs.readFileSync(originalZodPath, 'utf-8');
@@ -244,6 +273,7 @@ export const configureSchemas = (
   const { code } = generate(ast, {}, schemaCode);
 
   // Write the updated code back to the file
+  console.log(`Write the cleanedZod file for the service ${service}`);
   fs.writeFileSync(cleanedZodPath, code, 'utf-8');
 
 }

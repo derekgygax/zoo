@@ -17,7 +17,8 @@ export const SCRIPTS_CONFIG = {
       openAPI: "openapi.json",
       originalZod: "original_zodSchemas.ts",
       cleanZod: "zodSchemas.ts",
-      types: "types.ts"
+      types: "types.ts",
+      selectorFields: "fieldsRequiringFetchedData.ts"
     }
   }
 };

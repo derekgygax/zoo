@@ -105,6 +105,7 @@ for (const service of services) {
   const typesPath = `${SCRIPTS_CONFIG.fileLocation.base}/${service}/${SCRIPTS_CONFIG.fileLocation.names.types}`;
   const originalZodPath = `${SCRIPTS_CONFIG.fileLocation.base}/${service}/${SCRIPTS_CONFIG.fileLocation.names.originalZod}`;
   const cleanedZodPath = `${SCRIPTS_CONFIG.fileLocation.base}/${service}/${SCRIPTS_CONFIG.fileLocation.names.cleanZod}`;
+  const selectorFieldsPath = `${SCRIPTS_CONFIG.fileLocation.base}/${service}/${SCRIPTS_CONFIG.fileLocation.names.selectorFields}`;
 
   if (isVerbose) {
     console.log(`Working on the service: ${service}\n`);
@@ -113,6 +114,7 @@ for (const service of services) {
     console.log(`  typesPath: ${typesPath}`);
     console.log(`  originalZodPath: ${originalZodPath}`);
     console.log(`  cleanedZodPath: ${cleanedZodPath}\n`);
+    console.log(`  selectorFieldsPath: ${selectorFieldsPath}\n`);
   }
 
   if (tasks.includes(TASK.OPEN_API)) {
@@ -131,7 +133,7 @@ for (const service of services) {
   }
 
   if (tasks.includes(TASK.CONFIGURE_SCHEMAS)) {
-    configureSchemas(service, openApiPath, originalZodPath, cleanedZodPath);
+    configureSchemas(service, openApiPath, originalZodPath, cleanedZodPath, selectorFieldsPath);
   }
 
   console.log("\n");
