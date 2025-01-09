@@ -46,9 +46,12 @@ const getSchemasMeta = (openApiSpec: OpenAPIV3.Document): {
         if (
           properties.type === "string"
           && properties.format === "selector"
-          && Object.values(FIELD_REQUIRING_FETCHED_DATA).includes(fieldName as FIELD_REQUIRING_FETCHED_DATA)
         ) {
-          schemasSelectors[schemaName].push(fieldName as FIELD_REQUIRING_FETCHED_DATA);
+          if (Object.values(FIELD_REQUIRING_FETCHED_DATA).includes(fieldName as FIELD_REQUIRING_FETCHED_DATA)) {
+            schemasSelectors[schemaName].push(fieldName as FIELD_REQUIRING_FETCHED_DATA);
+          } else {
+            console.error(`The field '${fieldName}' in the schema '${schemaName}' is NOT in FIELD_REQUIRING_FETCHED_DATA in @types/form and MUST be there for ZOO automation to work.`)
+          }
         }
       }
       schemasMeta[schemaName] = schema;
