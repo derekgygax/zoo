@@ -1,4 +1,6 @@
-export const selectorFields = {
+import { SchemasSelectors} from "@/types/script";
+
+  export const fieldsRequiringFetchedData: SchemasSelectors = {
   "Animal": [
     "specie"
   ],
@@ -12,4 +14,4 @@ export const selectorFields = {
   "Specie": [],
   "SpecieBase": [],
   "ValidationError": []
-};
+} as SchemasSelectors;

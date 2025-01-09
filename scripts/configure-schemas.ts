@@ -4,12 +4,16 @@ import traverse from '@babel/traverse';
 import * as t from '@babel/types';
 import generate from '@babel/generator';
 import { OpenAPIV3 } from 'openapi-types';
-import { FieldSchemaMeta } from '@/types/script';
+import {
+  FieldSchemaMeta,
+  SchemaMeta,
+  SchemasMeta,
+  SchemasSelectors,
+  SCRIPT_TYPE_NAME,
+  SCRIPT_VARIABLE
+} from '@/types/script';
 import { DEFAULT_MAX_LEGNTH } from '@/config/scripts';
-
-type SchemaMeta = Record<string, FieldSchemaMeta>;
-type SchemasMeta = Record<string, SchemaMeta>;
-type SchemasSelectors = Record<string, string[]>;
+import { FIELD_REQUIRING_FETCHED_DATA } from '@/types/form';
 
 const getSchemasMeta = (openApiSpec: OpenAPIV3.Document): {
   schemasMeta: SchemasMeta
@@ -39,8 +43,12 @@ const getSchemasMeta = (openApiSpec: OpenAPIV3.Document): {
             : undefined,
           title: properties.title ?? fieldName,
         };
-        if (properties.type === "string" && properties.format === "selector") {
-          schemasSelectors[schemaName].push(fieldName);
+        if (
+          properties.type === "string"
+          && properties.format === "selector"
+          && Object.values(FIELD_REQUIRING_FETCHED_DATA).includes(fieldName as FIELD_REQUIRING_FETCHED_DATA)
+        ) {
+          schemasSelectors[schemaName].push(fieldName as FIELD_REQUIRING_FETCHED_DATA);
         }
       }
       schemasMeta[schemaName] = schema;
@@ -112,8 +120,14 @@ const addTrimToCallChain = (property: t.ObjectProperty) => {
 };
 
 const writeSchemasSelector = (schemasSelectors: SchemasSelectors, selectorFieldsPath: string) => {
-  // Convert schemaSelectors to a TypeScript file content
-  const fileContent = `export const selectorFields = ${JSON.stringify(schemasSelectors, null, 2)};`;
+
+  const variableName = SCRIPT_VARIABLE.FIELDS_REQUIRING_FETCHED_DATA;
+  const typeName = SCRIPT_TYPE_NAME.SCHEMAS_SELECTORS;
+
+  // Convert schemaSelectors to a TypeScript file content with typing
+  const fileContent = `import { ${typeName}} from "@/types/script";
+
+  export const ${variableName}: ${typeName} = ${JSON.stringify(schemasSelectors, null, 2)} as ${typeName};`;
 
   // Write the content to a .ts file
   fs.writeFileSync(selectorFieldsPath, fileContent, 'utf-8');

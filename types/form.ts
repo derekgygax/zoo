@@ -31,12 +31,6 @@ export interface SelectorOption {
 };
 
 
-export interface FormFieldDescription {
-  title: string;
-  isDate?: boolean;
-  isSelector?: boolean;
-}
-
 export interface FormState {
   success: boolean;
   message: string[]
@@ -55,6 +49,7 @@ export type FormConfig<K extends FORM_NAME> = {
   name: K;
   label: string;
   zodSchemaName: FORM_SCHEMA;
+  fieldsRequiringFetcheData: FIELD_REQUIRING_FETCHED_DATA[]
 };
 
 export type FormConfigs = {
