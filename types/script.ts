@@ -3,7 +3,7 @@ export enum TASK {
   OPEN_API = "openapi",
   TYPES = "types",
   ZOD = "zod",
-  ENHANCE_ZOD = "enhance-zod"
+  CONFIGURE_SCHEMAS = "configure-schemas"
 }
 
 export interface FieldSchemaMeta {
