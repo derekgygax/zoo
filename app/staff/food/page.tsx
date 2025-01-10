@@ -5,7 +5,7 @@
 import { Title } from "../../_components/title/Title";
 
 // content
-import { title } from "../../../content/app/staff/food/page";
+import { title } from "../../../content/app/staff/food";
 
 export default function StaffFoodPage() {
   return (

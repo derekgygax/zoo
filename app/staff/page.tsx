@@ -4,7 +4,7 @@ import { Duties } from "./_components/duties/Duties";
 import { Title } from "../_components/title/Title";
 
 // content
-import { duties, title } from "@/content/app/staff/page";
+import { duties, title } from "@/content/app/staff";
 
 // styles
 // import styles from "./page.module.scss";

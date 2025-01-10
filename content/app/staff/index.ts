@@ -23,5 +23,10 @@ export const duties: Duty[] = [
     label: "Food",
     url: SITE_URLS.staff.food.index,
     roles: [ROLE.ADMIN, ROLE.STAFF]
+  },
+  {
+    label: "Enclosures",
+    url: SITE_URLS.staff.enclosures.index,
+    roles: [ROLE.ADMIN, ROLE.STAFF]
   }
 ];
