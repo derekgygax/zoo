@@ -21,7 +21,7 @@ export const SERVICES: Record<SERVICE, Service> = {
   },
   [SERVICE.ENCLOSURES]: {
     name: SERVICE.ENCLOSURES,
-    framework: FRAMEWORK.SPRING_BOOT
+    framework: FRAMEWORK.QUARKUS
   },
   [SERVICE.REPORTS]: {
     name: SERVICE.REPORTS,
