@@ -12,7 +12,10 @@ export const API_BASE_URLS: Record<SERVICE, string> = {
 const API_INDEX_POINTS = {
   animalsService: {
     animals: `${process.env.ANIMALS_SERVICE ?? ""}/api/v1/animals`,
-    species: `${process.env.ANIMALS_SERVICE ?? ""}/api/v1/species`
+    species: `${process.env.ANIMALS_SERVICE ?? ""}/api/v1/species`,
+  },
+  enclosuresService: {
+    enclosureTypes: `${process.env.ENCLOSURES_SERVICE ?? ""}/api/v1/enclosure-types`
   }
 }
 
@@ -26,6 +29,12 @@ export const API_ENDPOINTS = {
       index: API_INDEX_POINTS.animalsService.species,
       keys: `${API_INDEX_POINTS.animalsService.species}/keys`,
       base: `${API_INDEX_POINTS.animalsService.species}/base`
+    }
+  },
+  enclosuresService: {
+    enclosureTypes: {
+      index: API_INDEX_POINTS.enclosuresService.enclosureTypes,
+      keys: `${API_INDEX_POINTS.enclosuresService.enclosureTypes}/keys`
     }
   }
 };

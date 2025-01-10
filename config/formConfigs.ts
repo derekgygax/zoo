@@ -5,6 +5,7 @@ import {
   FormConfigs,
   FetchDataKey
 } from "@/types/form";
+import { SpecieBase } from "@/types/animals-service";
 
 import { fieldsRequiringFetchedData as animalFieldsRequiringFetching } from "@/api-contracts/animals-service/fieldsRequiringFetchedData";
 
@@ -34,10 +35,20 @@ export const FORM_CONFIGS: FormConfigs = {
     label: "UPDATE Specie",
     zodSchemaName: FORM_SCHEMA_NAME.SPECIE_BASE,
     fieldsRequiringFetchedData: []
+  },
+  [FORM_NAME.ADD_ENCLOSURE_TYPE]: {
+    name: FORM_NAME.ADD_ENCLOSURE_TYPE,
+    label: "Add Enclosure Type",
+    zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_TYPE_BASE,
+    fieldsRequiringFetchedData: []
+  },
+  [FORM_NAME.UPDATE_ENCLOSURE_TYPE]: {
+    name: FORM_NAME.UPDATE_ENCLOSURE_TYPE,
+    label: "UPDATE Enclosure Type",
+    zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_TYPE_BASE,
+    fieldsRequiringFetchedData: []
   }
 }
-
-import { SpecieBase } from "@/types/animals-service";
 
 export const FIELD_REQUIRING_FETCHED_DATA_KEYS: Record<FIELD_REQUIRING_FETCHED_DATA, FetchDataKey<SpecieBase>> = {
   // for this one it is for naught because you are just getting a string

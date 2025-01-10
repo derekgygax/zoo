@@ -1,14 +1,17 @@
 
 export enum FORM_SCHEMA_NAME {
   ANIMAL_BASE = "AnimalBase",
-  SPECIE_BASE = "SpecieBase"
+  SPECIE_BASE = "SpecieBase",
+  ENCLOSURE_TYPE_BASE = "EnclosureTypeBase"
 }
 
 export enum FORM_NAME {
   ADD_ANIMAL = "AddAnimal",
   UPDATE_ANIMAL = "UpdateAnimal",
   ADD_SPECIE = "AddSpecie",
-  UPDATE_SPECIE = "UpdateSpecie"
+  UPDATE_SPECIE = "UpdateSpecie",
+  ADD_ENCLOSURE_TYPE = "AddEnclosureType",
+  UPDATE_ENCLOSURE_TYPE = "UpdateEnclosureType"
 }
 
 // TODO do you want to change this name!

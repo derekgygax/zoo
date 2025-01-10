@@ -1,1 +1,126 @@
-{"openapi":"3.0.1","info":{"title":"OpenAPI definition","version":"v0"},"servers":[{"url":"http://127.0.0.1:8004","description":"Generated server url"}],"paths":{},"components":{}}
+{
+  "openapi" : "3.1.0",
+  "components" : {
+    "schemas" : {
+      "EnclosureType" : {
+        "type" : "object",
+        "required" : [ "type", "description" ],
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "maxLength" : 100,
+            "description" : "The type of the enclosure"
+          },
+          "description" : {
+            "type" : "string",
+            "maxLength" : 500,
+            "description" : "Description of the type"
+          },
+          "createdAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "updatedAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
+      },
+      "EnclosureTypeBase" : {
+        "type" : "object",
+        "required" : [ "type", "description" ],
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "maxLength" : 100,
+            "description" : "The type of the enclosure",
+            "title" : "Enclosure Type"
+          },
+          "description" : {
+            "type" : "string",
+            "maxLength" : 500,
+            "description" : "Description of the type",
+            "title" : "Enclosure Type Description"
+          }
+        }
+      },
+      "Instant" : {
+        "type" : "string",
+        "format" : "date-time",
+        "examples" : [ "2022-03-10T16:15:50Z" ]
+      }
+    },
+    "securitySchemes" : {
+      "SecurityScheme" : {
+        "type" : "openIdConnect",
+        "description" : "Authentication",
+        "openIdConnectUrl" : "http://localhost:63306/realms/quarkus/.well-known/openid-configuration"
+      }
+    }
+  },
+  "paths" : {
+    "/api/v1/enclosure-types" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/EnclosureType"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Enclosure Types",
+        "tags" : [ "Enclosure Type Resource" ]
+      },
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/EnclosureTypeBase"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        },
+        "summary" : "Add Enclosure Type",
+        "tags" : [ "Enclosure Type Resource" ]
+      }
+    },
+    "/api/v1/enclosure-types/keys" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Enclosure Type Keys",
+        "tags" : [ "Enclosure Type Resource" ]
+      }
+    }
+  },
+  "info" : {
+    "title" : "enclosure-service API",
+    "version" : "0.0.1-SNAPSHOT"
+  }
+}
