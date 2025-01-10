@@ -32,7 +32,7 @@ program
   .option("-s, --services <services...>", `Specify services to work on. Available: all, ${SERVICE_NAMES.join(", ")}`)
   .option("-t, --tasks <tasks...>", `Specify tasks to perform. Available: all, ${TASKS.join(", ")}`)
   .option("-v, --verbose", "Enable verbose output")
-  .on("--help", () => {
+  .on("-h, --help", () => {
     console.log("\nExamples:");
     console.log("  bun build-api-contracts.ts -s animals-service -t openapi types");
     console.log("  bun build-api-contracts.ts -s all -t zod clean-zod");
