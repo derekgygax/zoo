@@ -1,14 +1,27 @@
+export enum SCRIPT_TASK {
+  OPEN_API = "openapi",
+  TYPES = "types",
+  ZOD = "zod",
+  CONFIGURE_SCHEMAS = "configure-schemas"
+}
+// TODO you may need to fix the variable names going all over
+// fieldsRequiringDependencies vs fieldsRequiringFetchedData
+// make it consistent ... BUT not for now, do that when it becomes a problem
+export enum SCRIPT_VARIABLE {
+  FIELDS_REQUIRING_FETCHED_DATA = "fieldsRequiringFetchedData"
+}
 
-// master config
-import { FRAMEWORK, TASK } from "@/config/master"
+export enum SCRIPT_TYPE_NAME {
+  SCHEMAS_SELECTORS = "SchemasSelectors",
+  SCHEMA_META = "SchemaMeta",
+  SCHEMAS_META = "SchemasMeta",
+}
 
-export const DEFAULT_MAX_LEGNTH = 100;
-
-export const TASKS: TASK[] = [
-  TASK.OPEN_API,
-  TASK.TYPES,
-  TASK.ZOD,
-  TASK.CONFIGURE_SCHEMAS
+export const SCRIPT_TASKS: SCRIPT_TASK[] = [
+  SCRIPT_TASK.OPEN_API,
+  SCRIPT_TASK.TYPES,
+  SCRIPT_TASK.ZOD,
+  SCRIPT_TASK.CONFIGURE_SCHEMAS
 ];
 
 export const SCRIPTS_CONFIG = {
@@ -24,11 +37,4 @@ export const SCRIPTS_CONFIG = {
   }
 };
 
-export const OPENAPI_ENDPOINTS: Record<FRAMEWORK, string> = {
-  [FRAMEWORK.FAST_API]: "openapi.json",
-  [FRAMEWORK.SPRING_BOOT]: "v3/api-docs",
-  [FRAMEWORK.NEST_JS]: "api-json",
-  [FRAMEWORK.QUARKUS]: "q/openapi.json"
-};
-
-export const FIELDS_NEEDING_COERCION = ["integer", "number", "boolean"];
+export const SCRIPT_FIELDS_NEEDING_ZOD_COERCION = ["integer", "number", "boolean"];

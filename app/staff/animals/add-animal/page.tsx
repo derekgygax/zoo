@@ -1,9 +1,6 @@
 
-// master config
-import { FORM_NAME } from "@/config/master";
-
 // config
-import { FORM_CONFIGS } from "@/config/formConfigs";
+import { FORM_CONFIGS, FORM_NAME } from "@/config/forms";
 
 // types
 import { FormConfig, SelectorOption } from "@/types/form";

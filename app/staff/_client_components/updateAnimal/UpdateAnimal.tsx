@@ -3,8 +3,8 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
-// master config
-import { FORM_NAME } from "@/config/master";
+// config
+import { FORM_NAME } from "@/config/forms";
 
 // config
 

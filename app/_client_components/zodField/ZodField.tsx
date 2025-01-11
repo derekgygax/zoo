@@ -23,7 +23,7 @@ import {
 } from "zod";
 
 // config
-import { DEFAULT_MAX_LEGNTH } from "@/config/scripts";
+import { FIELD_DEFAULTS } from "@/config/forms";
 
 // utiles
 import { capitalizeFirstLetter } from "@/lib/utils/general";
@@ -88,7 +88,7 @@ export const ZodField = ({ fieldName, fieldSchema, selectorOptions = [], errors,
       if (fieldDescription.stringMeta) {
         if (fieldDescription.stringMeta.isSelector) {
           return buildSelector(sharedProps, fieldDescription.title, selectorOptions);
-        } else if (fieldDescription.stringMeta.maxLength > DEFAULT_MAX_LEGNTH) {
+        } else if (fieldDescription.stringMeta.maxLength > FIELD_DEFAULTS.string.maxLength) {
           return (
             <textarea
               {...sharedProps}

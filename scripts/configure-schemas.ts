@@ -6,10 +6,17 @@ import generate from '@babel/generator';
 import { OpenAPIV3 } from 'openapi-types';
 
 // master config
-import { FIELD_REQUIRING_FETCHED_DATA, SCRIPT_TYPE_NAME, SCRIPT_VARIABLE } from '@/config/master';
+import {
+  FIELD_REQUIRING_FETCHED_DATA,
+} from '@/config/master';
 
 // config
-import { DEFAULT_MAX_LEGNTH, FIELDS_NEEDING_COERCION } from '@/config/scripts';
+import {
+  SCRIPT_FIELDS_NEEDING_ZOD_COERCION,
+  SCRIPT_TYPE_NAME,
+  SCRIPT_VARIABLE
+} from '@/config/scripts';
+import { FIELD_DEFAULTS } from '@/config/forms';
 
 // types
 import {
@@ -43,10 +50,10 @@ const getSchemasMeta = (openApiSpec: OpenAPIV3.Document): {
             ? {
               isDate: properties.format === "date",
               isSelector: properties.format === "selector",
-              maxLength: properties.maxLength ?? DEFAULT_MAX_LEGNTH
+              maxLength: properties.maxLength ?? FIELD_DEFAULTS.string.maxLength
             }
             : undefined,
-          needsCoercion: properties.type !== undefined && FIELDS_NEEDING_COERCION.includes(properties.type) ? true : false,
+          needsCoercion: properties.type !== undefined && SCRIPT_FIELDS_NEEDING_ZOD_COERCION.includes(properties.type) ? true : false,
           title: properties.title ?? fieldName,
         };
         if (

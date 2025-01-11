@@ -1,8 +1,8 @@
-// master config
-import { FORM_NAME } from "@/config/master";
+// config
+import { FORM_NAME } from "@/config/forms";
 
 // config
-import { FORM_CONFIGS } from "@/config/formConfigs";
+import { FORM_CONFIGS } from "@/config/forms";
 
 // types
 import { FormConfig } from "@/types/form";

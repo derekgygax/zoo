@@ -1,10 +1,10 @@
 "use server"
 
-// master config
-import { FORM_SCHEMA_NAME } from "@/config/master";
+// config
+import { FORM_SCHEMA_NAME } from "@/config/forms";
 
 // API endpoints
-import { API_ENDPOINTS } from "@/config/api";
+import { API_ENDPOINTS } from "@/config/apis";
 
 // types
 import { FormState } from "@/types/form";

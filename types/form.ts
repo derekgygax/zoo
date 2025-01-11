@@ -1,10 +1,11 @@
 
 // master config
 import {
-  FORM_NAME,
-  FORM_SCHEMA_NAME,
   FIELD_REQUIRING_FETCHED_DATA
 } from "@/config/master";
+
+// config
+import { FORM_NAME, FORM_SCHEMA_NAME } from "@/config/forms";
 
 export interface FetchDataKey<T> {
   value: keyof T;

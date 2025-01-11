@@ -1,10 +1,7 @@
 
-// master config
-import { FORM_NAME } from "@/config/master";
-
 // config
-import { API_ENDPOINTS } from "@/config/api";
-import { FORM_CONFIGS } from "@/config/formConfigs";
+import { API_ENDPOINTS } from "@/config/apis";
+import { FORM_CONFIGS, FORM_NAME } from "@/config/forms";
 
 // types
 import { FormConfig, SelectorOption } from "@/types/form";

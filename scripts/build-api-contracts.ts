@@ -3,12 +3,12 @@ import { execSync } from "child_process";
 import { Command } from "commander";
 
 // master config
-import { SERVICE, TASK } from "@/config/master";
+import { SERVICE, OPENAPI_ENDPOINTS, API_BASE_URLS } from "@/config/master";
+
 
 // cofig
 import { SERVICES } from "@/config/services";
-import { SCRIPTS_CONFIG, TASKS, OPENAPI_ENDPOINTS } from "@/config/scripts";
-import { API_BASE_URLS } from "@/config/api";
+import { SCRIPTS_CONFIG, SCRIPT_TASK, SCRIPT_TASKS } from "@/config/scripts";
 
 // scripts
 import { configureSchemas } from "./configure-schemas";
@@ -19,8 +19,8 @@ const isService = (value: string): value is SERVICE => {
 };
 
 // check if the input string is a valid service
-const isTask = (value: string): value is TASK => {
-  return Object.values(TASKS).includes(value as TASK);
+const isTask = (value: string): value is SCRIPT_TASK => {
+  return Object.values(SCRIPT_TASKS).includes(value as SCRIPT_TASK);
 };
 
 const SERVICE_NAMES = Object.keys(SERVICES) as SERVICE[];
@@ -29,7 +29,7 @@ const program = new Command();
 
 program
   .option("-s, --services <services...>", `Specify services to work on. Available: all, ${SERVICE_NAMES.join(", ")}`)
-  .option("-t, --tasks <tasks...>", `Specify tasks to perform. Available: all, ${TASKS.join(", ")}`)
+  .option("-t, --tasks <tasks...>", `Specify tasks to perform. Available: all, ${SCRIPT_TASKS.join(", ")}`)
   .option("-v, --verbose", "Enable verbose output")
   .on("-h, --help", () => {
     console.log("\nExamples:");
@@ -70,10 +70,10 @@ if (invalidServices.length > 0) {
 }
 
 // Validate tasks
-let tasks: TASK[] = [];
+let tasks: SCRIPT_TASK[] = [];
 const invalidTasks: string[] = [];
 if (!options.tasks || options.tasks.includes("all")) {
-  tasks = TASKS;
+  tasks = SCRIPT_TASKS;
 } else {
   options.tasks.forEach((task: string) => {
     if (isTask(task)) {
@@ -85,7 +85,7 @@ if (!options.tasks || options.tasks.includes("all")) {
 }
 if (invalidTasks.length > 0) {
   console.error(`Error: Invalid task(s): ${invalidTasks.join(", ")}.`);
-  console.log(`Valid tasks are: ${TASKS.join(", ")}.`);
+  console.log(`Valid tasks are: ${SCRIPT_TASKS.join(", ")}.`);
   process.exit(1);
 }
 
@@ -116,22 +116,22 @@ for (const service of services) {
     console.log(`  selectorFieldsPath: ${selectorFieldsPath}\n`);
   }
 
-  if (tasks.includes(TASK.OPEN_API)) {
+  if (tasks.includes(SCRIPT_TASK.OPEN_API)) {
     // get the open api from the endpoint
     execSync(`curl ${openAPI_Url} -o ${openApiPath}`, { stdio: "inherit" });
   }
 
-  if (tasks.includes(TASK.TYPES)) {
+  if (tasks.includes(SCRIPT_TASK.TYPES)) {
     // build the types
     execSync(`bunx openapi-typescript ${openApiPath} -o ${typesPath}`, { stdio: "inherit" });
   }
 
-  if (tasks.includes(TASK.ZOD)) {
+  if (tasks.includes(SCRIPT_TASK.ZOD)) {
     // build zod schemas
     execSync(`bunx openapi-zod-client ${openApiPath} --output ${originalZodPath}`, { stdio: "inherit" });
   }
 
-  if (tasks.includes(TASK.CONFIGURE_SCHEMAS)) {
+  if (tasks.includes(SCRIPT_TASK.CONFIGURE_SCHEMAS)) {
     configureSchemas(service, openApiPath, originalZodPath, cleanedZodPath, selectorFieldsPath);
   }
 

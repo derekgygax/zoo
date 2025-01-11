@@ -1,10 +1,10 @@
 "use server"
 
-// master config
-import { FORM_SCHEMA_NAME } from "@/config/master";
+// config
+import { FORM_SCHEMA_NAME } from "@/config/forms";
 
 // config
-import { API_ENDPOINTS } from "@/config/api";
+import { API_ENDPOINTS } from "@/config/apis";
 import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 
 // types

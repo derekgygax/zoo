@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodObject, ZodRawShape, ZodTypeAny } from "zod";
 
 // master config
-import { FORM_SCHEMA_NAME } from "@/config/master";
+import { FORM_SCHEMA_NAME } from "@/config/forms";
 
 // configs
 import { ZOD_SCHEMAS } from "@/config/zodSchemas";

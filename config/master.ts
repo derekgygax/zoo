@@ -1,25 +1,4 @@
 
-
-// script
-export enum TASK {
-  OPEN_API = "openapi",
-  TYPES = "types",
-  ZOD = "zod",
-  CONFIGURE_SCHEMAS = "configure-schemas"
-}
-// TODO you may need to fix the variable names going all over
-// fieldsRequiringDependencies vs fieldsRequiringFetchedData
-// make it consistent ... BUT not for now, do that when it becomes a problem
-export enum SCRIPT_VARIABLE {
-  FIELDS_REQUIRING_FETCHED_DATA = "fieldsRequiringFetchedData"
-}
-
-export enum SCRIPT_TYPE_NAME {
-  SCHEMAS_SELECTORS = "SchemasSelectors",
-  SCHEMA_META = "SchemaMeta",
-  SCHEMAS_META = "SchemasMeta",
-}
-
 // Microservices
 export enum SERVICE {
   ANIMALS = "animals-service",
@@ -38,24 +17,24 @@ export enum FRAMEWORK {
   QUARKUS = "quarkus"
 }
 
-// Forms
-export enum FORM_SCHEMA_NAME {
-  ANIMAL_BASE = "AnimalBase",
-  SPECIE_BASE = "SpecieBase",
-  ENCLOSURE_TYPE_BASE = "EnclosureTypeBase",
-  ENCLOSURE_BASE = "EnclosureBase"
-}
+// API
+export const OPENAPI_ENDPOINTS: Record<FRAMEWORK, string> = {
+  [FRAMEWORK.FAST_API]: "openapi.json",
+  [FRAMEWORK.SPRING_BOOT]: "v3/api-docs",
+  [FRAMEWORK.NEST_JS]: "api-json",
+  [FRAMEWORK.QUARKUS]: "q/openapi.json"
+};
 
-export enum FORM_NAME {
-  ADD_ANIMAL = "AddAnimal",
-  UPDATE_ANIMAL = "UpdateAnimal",
-  ADD_SPECIE = "AddSpecie",
-  UPDATE_SPECIE = "UpdateSpecie",
-  ADD_ENCLOSURE_TYPE = "AddEnclosureType",
-  UPDATE_ENCLOSURE_TYPE = "UpdateEnclosureType",
-  ADD_ENCLOSURE = "AddEnclosure"
-}
+export const API_BASE_URLS: Record<SERVICE, string> = {
+  [SERVICE.ANIMALS]: process.env.ANIMALS_SERVICE ?? "",
+  [SERVICE.FOOD]: process.env.FOOD_SERVICE ?? "",
+  [SERVICE.STAFF]: process.env.STAFF_SERVICE ?? "",
+  [SERVICE.BREEDING]: process.env.BREEDING_SERVICE ?? "",
+  [SERVICE.ENCLOSURES]: process.env.ENCLOSURES_SERVICE ?? "",
+  [SERVICE.REPORTS]: process.env.REPORTS_SERVICE ?? ""
+};
 
+// Fields Requiring a Fetch
 // TODO do you want to change this name!
 // TODO you may need to fix the variable names going all over
 // fieldsRequiringDependencies vs fieldsRequiringFetchedData

@@ -1,6 +1,6 @@
 
 // master config
-import { FORM_SCHEMA_NAME } from "./master";
+import { FORM_SCHEMA_NAME } from "./forms";
 
 // types
 import { ZodSchema } from "@/types/zodSchema";

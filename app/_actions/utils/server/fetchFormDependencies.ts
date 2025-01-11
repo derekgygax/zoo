@@ -4,7 +4,7 @@
 import { FIELD_REQUIRING_FETCHED_DATA } from "@/config/master";
 
 // config
-import { FIELD_REQUIRING_FETCHED_DATA_KEYS } from "@/config/formConfigs";
+import { FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS } from "@/config/forms";
 
 // types
 // TODO you may need to fix the variable names going all over
@@ -75,7 +75,7 @@ const getSelectorOptions = async <T>(
 ): Promise<SelectorOption[]> => {
 
   const fetchFunction = FORM_DEPENDENCY_FETCHERS[field] as () => Promise<T[]>;
-  const fetchDataKeys: FetchDataKey<T> = FIELD_REQUIRING_FETCHED_DATA_KEYS[field] as FetchDataKey<T>;
+  const fetchDataKeys: FetchDataKey<T> = FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS[field] as FetchDataKey<T>;
 
   const options = await fetchFunction();
 
