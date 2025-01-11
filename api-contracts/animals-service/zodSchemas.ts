@@ -3,10 +3,10 @@ import { z } from "zod";
 const GENDER = z.enum(["MALE", "FEMALE", "HERMAPHRODITE", "ASEXUAL"]);
 const HEALTH_TYPE = z.enum(["HEALTHY", "SICK", "UNDER_OBSERVATION", "INJURED", "RECOVERING", "DECEASED"]);
 const Animal = z.object({
-  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"title\":\"Name\"}"),
-  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"title\":\"Specie\"}"),
-  gender: GENDER.describe("{\"title\":\"Gender\"}"),
-  health: HEALTH_TYPE.describe("{\"title\":\"Health\"}"),
+  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
+  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
+  gender: GENDER.describe("{\"needsCoercion\":false,\"title\":\"Gender\"}"),
+  health: HEALTH_TYPE.describe("{\"needsCoercion\":false,\"title\":\"Health\"}"),
   dob: z.string().trim().refine(value => {
     const parsedDate = Date.parse(value);
     const isValidDate = !isNaN(parsedDate);
@@ -20,7 +20,7 @@ const Animal = z.object({
     }
   }, {
     message: "Invalid date or out of range (1900-2100)"
-  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"title\":\"DOB\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"DOB\"}"),
   acquisition_date: z.string().trim().refine(value => {
     const parsedDate = Date.parse(value);
     const isValidDate = !isNaN(parsedDate);
@@ -34,20 +34,20 @@ const Animal = z.object({
     }
   }, {
     message: "Invalid date or out of range (1900-2100)"
-  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"title\":\"Aquisition Date\"}"),
-  id: z.string().trim().uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"title\":\"Id\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Aquisition Date\"}"),
+  id: z.string().trim().uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Id\"}"),
   created_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"title\":\"Created At\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Created At\"}"),
   updated_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"title\":\"Updated At\"}")
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
 }).passthrough();
 const AnimalBase = z.object({
-  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"title\":\"Name\"}"),
-  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"title\":\"Specie\"}"),
-  gender: GENDER.describe("{\"title\":\"Gender\"}"),
-  health: HEALTH_TYPE.describe("{\"title\":\"Health\"}"),
+  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
+  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
+  gender: GENDER.describe("{\"needsCoercion\":false,\"title\":\"Gender\"}"),
+  health: HEALTH_TYPE.describe("{\"needsCoercion\":false,\"title\":\"Health\"}"),
   dob: z.string().trim().refine(value => {
     const parsedDate = Date.parse(value);
     const isValidDate = !isNaN(parsedDate);
@@ -61,7 +61,7 @@ const AnimalBase = z.object({
     }
   }, {
     message: "Invalid date or out of range (1900-2100)"
-  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"title\":\"DOB\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"DOB\"}"),
   acquisition_date: z.string().trim().refine(value => {
     const parsedDate = Date.parse(value);
     const isValidDate = !isNaN(parsedDate);
@@ -75,34 +75,34 @@ const AnimalBase = z.object({
     }
   }, {
     message: "Invalid date or out of range (1900-2100)"
-  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"title\":\"Aquisition Date\"}")
+  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Aquisition Date\"}")
 }).passthrough();
 const ValidationError = z.object({
-  loc: z.array(z.union([z.string(), z.number()])).describe("{\"title\":\"Location\"}"),
-  msg: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"title\":\"Message\"}"),
-  type: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"title\":\"Error Type\"}")
+  loc: z.array(z.union([z.string(), z.number()])).describe("{\"needsCoercion\":false,\"title\":\"Location\"}"),
+  msg: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Message\"}"),
+  type: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Error Type\"}")
 }).passthrough();
 const HTTPValidationError = z.object({
-  detail: z.array(ValidationError).describe("{\"title\":\"Detail\"}")
+  detail: z.array(ValidationError).describe("{\"needsCoercion\":false,\"title\":\"Detail\"}")
 }).partial().passthrough();
 const AnimalIdentifier = z.object({
-  id: z.string().trim().uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"title\":\"ID\"}"),
-  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"title\":\"Name\"}"),
-  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"title\":\"Specie\"}")
+  id: z.string().trim().uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
+  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
+  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}")
 }).passthrough();
 const Specie = z.object({
-  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"title\":\"Specie\"}"),
-  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":500},\"title\":\"Specie Description\"}"),
+  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
+  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Specie Description\"}"),
   created_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"title\":\"Created At\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Created At\"}"),
   updated_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"title\":\"Updated At\"}")
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
 }).passthrough();
 const SpecieBase = z.object({
-  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"title\":\"Specie\"}"),
-  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":500},\"title\":\"Specie Description\"}")
+  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
+  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Specie Description\"}")
 }).passthrough();
 export const schemas = {
   GENDER,
@@ -209,15 +209,15 @@ const endpoints = makeApi([{
   }]
 }, {
   method: "post",
-  path: "/api/v1/species/:specie_name",
-  alias: "update_animal_api_v1_species__specie_name__post",
+  path: "/api/v1/species/:specie_key",
+  alias: "update_animal_api_v1_species__specie_key__post",
   requestFormat: "json",
   parameters: [{
     name: "body",
     type: "Body",
     schema: Specie
   }, {
-    name: "specie_name",
+    name: "specie_key",
     type: "Path",
     schema: z.string()
   }],

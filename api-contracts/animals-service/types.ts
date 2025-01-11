@@ -109,7 +109,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/species/{specie_name}": {
+    "/api/v1/species/{specie_key}": {
         parameters: {
             query?: never;
             header?: never;
@@ -119,7 +119,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Update Animal */
-        post: operations["update_animal_api_v1_species__specie_name__post"];
+        post: operations["update_animal_api_v1_species__specie_key__post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -536,12 +536,12 @@ export interface operations {
             };
         };
     };
-    update_animal_api_v1_species__specie_name__post: {
+    update_animal_api_v1_species__specie_key__post: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                specie_name: string;
+                specie_key: string;
             };
             cookie?: never;
         };

@@ -195,8 +195,8 @@ const endpoints = makeApi([
   },
   {
     method: "post",
-    path: "/api/v1/species/:specie_name",
-    alias: "update_animal_api_v1_species__specie_name__post",
+    path: "/api/v1/species/:specie_key",
+    alias: "update_animal_api_v1_species__specie_key__post",
     requestFormat: "json",
     parameters: [
       {
@@ -205,7 +205,7 @@ const endpoints = makeApi([
         schema: Specie,
       },
       {
-        name: "specie_name",
+        name: "specie_key",
         type: "Path",
         schema: z.string(),
       },

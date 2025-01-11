@@ -29,3 +29,5 @@ export const OPENAPI_ENDPOINTS: Record<FRAMEWORK, string> = {
   [FRAMEWORK.NEST_JS]: "api-json",
   [FRAMEWORK.QUARKUS]: "q/openapi.json"
 };
+
+export const FIELDS_NEEDING_COERCION = ["integer", "number", "boolean"];

@@ -10,6 +10,7 @@ export enum TASK {
 
 export interface FieldSchemaMeta {
   title: string;
+  needsCoercion: boolean;
   stringMeta: {
     isDate: boolean;
     isSelector: boolean;

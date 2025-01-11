@@ -12,8 +12,9 @@ import {
   SCRIPT_TYPE_NAME,
   SCRIPT_VARIABLE
 } from '@/types/script';
-import { DEFAULT_MAX_LEGNTH } from '@/config/scripts';
+import { DEFAULT_MAX_LEGNTH, FIELDS_NEEDING_COERCION } from '@/config/scripts';
 import { FIELD_REQUIRING_FETCHED_DATA } from '@/types/form';
+
 
 const getSchemasMeta = (openApiSpec: OpenAPIV3.Document): {
   schemasMeta: SchemasMeta
@@ -41,6 +42,7 @@ const getSchemasMeta = (openApiSpec: OpenAPIV3.Document): {
               maxLength: properties.maxLength ?? DEFAULT_MAX_LEGNTH
             }
             : undefined,
+          needsCoercion: properties.type !== undefined && FIELDS_NEEDING_COERCION.includes(properties.type) ? true : false,
           title: properties.title ?? fieldName,
         };
         if (
@@ -64,14 +66,17 @@ const getSchemasMeta = (openApiSpec: OpenAPIV3.Document): {
   };
 }
 
+
 // Add .trim() to .string()
+// Add .coercion to zod converting types to what they should be
+//    like string in submitted form to number
 // TODO This was written by chatGPT ... sadly not me :/
 // But it goes down in the property to get to the bottom
 // then rebuilds again as it comes out. It needs to do it
 // this way. The in and out ... someday you should write
 // it on your own ... don't rely on chatGPT to write code.
 // It will have computer errors
-const addTrimToCallChain = (property: t.ObjectProperty) => {
+const addCoercionAndTrim = (property: t.ObjectProperty, needsCoercion: boolean) => {
   if (t.isCallExpression(property.value)) {
     const callChain: t.CallExpression[] = [];
     let currentCall = property.value;
@@ -92,20 +97,33 @@ const addTrimToCallChain = (property: t.ObjectProperty) => {
       rootCall &&
       t.isMemberExpression(rootCall.callee) &&
       t.isIdentifier(rootCall.callee.object) &&
-      rootCall.callee.object.name === "z" &&
-      t.isIdentifier(rootCall.callee.property) &&
-      rootCall.callee.property.name === "string"
+      rootCall.callee.object.name === "z"
     ) {
-      // Add `.trim()` to the root call
-      // Ensure parentheses for `z.string()`
-      const wrappedCall = t.callExpression(rootCall.callee, []);
-      const trimmedCall = t.callExpression(
-        t.memberExpression(wrappedCall, t.identifier("trim")),
-        []
-      );
+
+
+      // Add `.coerce` if needed
+      if (needsCoercion) {
+        rootCall.callee.object = t.memberExpression(
+          t.identifier("z"),
+          t.identifier("coerce")
+        );
+      }
+
+      let wrappedCall = rootCall;
+      // Add `.trim()` if the call is `z.string()`
+      if (
+        t.isIdentifier(rootCall.callee.property) &&
+        rootCall.callee.property.name === "string"
+      ) {
+        wrappedCall = t.callExpression(
+          t.memberExpression(rootCall, t.identifier("trim")),
+          []
+        );
+      }
+
 
       // Rebuild the call chain outward
-      let rebuiltCall = trimmedCall;
+      let rebuiltCall = wrappedCall;
       while (callChain.length > 0) {
         const nextCall = callChain.pop();
         if (nextCall && t.isMemberExpression(nextCall.callee)) {
@@ -120,7 +138,8 @@ const addTrimToCallChain = (property: t.ObjectProperty) => {
       property.value = rebuiltCall;
     }
   }
-};
+}
+
 
 const writeSchemasSelector = (schemasSelectors: SchemasSelectors, selectorFieldsPath: string) => {
 
@@ -177,7 +196,8 @@ export const configureSchemas = (
 
       const schemaName = (schemaDeclarator.node.id as t.Identifier).name;
       if (!schemasMeta[schemaName]) return;
-      // for testing
+
+      // This is how you can stop at a specific schemaName for testing purposes
       // if (schemaName !== "AnimalBase") return;
 
       // Iterate through object properties
@@ -188,10 +208,14 @@ export const configureSchemas = (
           // Add `.meta` with title and `.trim` if applicable
           if (schemasMeta[schemaName][fieldName]) {
             const fieldMeta: FieldSchemaMeta = schemasMeta[schemaName][fieldName];
-            // For testing
+
+            // This is how you can stop at a specific fieldName for testing purposes
             // if (fieldName !== "name") return;
+
             // Check if property.value is a CallExpression
             if (t.isCallExpression(property.value)) {
+
+              // fix up the date stuff
               const callee = property.value.callee;
               if (
                 fieldMeta.stringMeta?.isDate &&
@@ -264,22 +288,20 @@ export const configureSchemas = (
                 );
               }
 
-              // add trim to string()
-              addTrimToCallChain(property);
+            }
 
-              // Add `.meta({ title: ... })` to string fields
-              property.value = t.callExpression(
-                t.memberExpression(property.value, t.identifier('describe')),
-                [t.stringLiteral(JSON.stringify(fieldMeta))]
-              );
+            // add trim to string()
+            // Add coerce to the fields that need it
+            addCoercionAndTrim(property, fieldMeta.needsCoercion);
 
-            } else if (t.isIdentifier(property.value)) {
-              // Add `.meta({ title: ... })` to enums
+            // Add `.meta({ title: ... })` to enums
+            if (t.isIdentifier(property.value) || t.isCallExpression(property.value)) {
               property.value = t.callExpression(
                 t.memberExpression(property.value, t.identifier('describe')),
                 [t.stringLiteral(JSON.stringify(fieldMeta))]
               );
             }
+
           }
         }
       });

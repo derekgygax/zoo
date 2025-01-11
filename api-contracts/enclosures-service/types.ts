@@ -98,17 +98,139 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/enclosures": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Enclosures */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Enclosure"][];
+                    };
+                };
+            };
+        };
+        put?: never;
+        /** Add Enclosure */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["EnclosureBase"];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        Enclosure: {
+            /**
+             * Enclosure ID
+             * @description Unique identifier for the enclosure
+             */
+            id: components["schemas"]["UUID"];
+            /**
+             * Name
+             * @description Name of the enclosure
+             */
+            name: string;
+            /**
+             * Enclosure Type
+             * Format: selector
+             * @description The type of the enclosure
+             */
+            enclosureType: components["schemas"]["EnclosureType"];
+            /**
+             * Capacity
+             * Format: int32
+             * @description The maximum number of animals the enclosure can hold
+             */
+            capacity: number;
+            /**
+             * Status
+             * @description The current status of the enclosure
+             */
+            status: components["schemas"]["EnclosureStatus"];
+            createdAt?: components["schemas"]["Instant"];
+            updatedAt?: components["schemas"]["Instant"];
+        };
+        EnclosureBase: {
+            /**
+             * Name
+             * @description Name of the enclosure
+             */
+            name: string;
+            /**
+             * Enclosure Type
+             * Format: selector
+             * @description The type of the enclosure
+             */
+            enclosureType: string;
+            /**
+             * Capacity
+             * Format: int32
+             * @description The maximum number of animals the enclosure can hold
+             */
+            capacity: number;
+            /**
+             * Status
+             * @description The current status of the enclosure
+             */
+            status: components["schemas"]["EnclosureStatus"];
+        };
+        /** @enum {string} */
+        EnclosureStatus: "OPEN" | "UNDER_MAINTENANCE" | "CLOSED" | "TEMPORARILY_CLOSED" | "AWAITING_CLEANING" | "BEING_RENOVATED" | "EMERGENCY_LOCKDOWN";
         EnclosureType: {
-            /** @description The type of the enclosure */
+            /**
+             * Enclosure Type
+             * @description The type of the enclosure
+             */
             type: string;
-            /** @description Description of the type */
+            /**
+             * Enclosure Type Description
+             * @description Description of the type
+             */
             description: string;
             createdAt?: components["schemas"]["Instant"];
             updatedAt?: components["schemas"]["Instant"];
+            enclosures?: components["schemas"]["Enclosure"][];
         };
         EnclosureTypeBase: {
             /**
@@ -124,6 +246,8 @@ export interface components {
         };
         /** Format: date-time */
         Instant: string;
+        /** Format: uuid */
+        UUID: string;
     };
     responses: never;
     parameters: never;
