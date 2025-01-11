@@ -6,8 +6,20 @@ import { EnclosureTypeBase } from "@/types/enclosures-service";
 import { FORM_SCHEMA_NAME, FormState } from "@/types/form";
 import { deserializeFormData } from "../utils/general";
 import { processFormAction } from "../utils/server/formActionUtils";
-import { sendAPIRequest } from "@/lib/utils/server/api";
+import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 import { API_ENDPOINTS } from "@/config/api";
+
+
+// Get the enclosure types from the enclosures service
+export const getEnclosureTypeKeys = async (): Promise<string[]> => {
+
+  const enclosureTypes: string[] = await getAPIRequest(
+    API_ENDPOINTS.enclosuresService.enclosureTypes.keys,
+    []
+  )
+
+  return enclosureTypes;
+}
 
 // Server Actions to forms
 // The functional part of the action

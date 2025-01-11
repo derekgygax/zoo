@@ -15,7 +15,8 @@ const API_INDEX_POINTS = {
     species: `${process.env.ANIMALS_SERVICE ?? ""}/api/v1/species`,
   },
   enclosuresService: {
-    enclosureTypes: `${process.env.ENCLOSURES_SERVICE ?? ""}/api/v1/enclosure-types`
+    enclosureTypes: `${process.env.ENCLOSURES_SERVICE ?? ""}/api/v1/enclosure-types`,
+    enclosures: `${process.env.ENCLOSURES_SERVICE ?? ""}/api/v1/enclosures`,
   }
 }
 
@@ -35,6 +36,9 @@ export const API_ENDPOINTS = {
     enclosureTypes: {
       index: API_INDEX_POINTS.enclosuresService.enclosureTypes,
       keys: `${API_INDEX_POINTS.enclosuresService.enclosureTypes}/keys`
+    },
+    enclosures: {
+      index: API_INDEX_POINTS.enclosuresService.enclosures,
     }
   }
 };

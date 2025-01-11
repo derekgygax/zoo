@@ -14,7 +14,8 @@ export const SITE_URLS = {
     enclosures: {
       index: "/staff/enclosures",
       add_enclosure_type: "/staff/enclosures/add-enclosure-type",
-      update_enclosure_type: "/staff/enclosures/update-enclosure-type"
+      update_enclosure_type: "/staff/enclosures/update-enclosure-type",
+      add_enclosure: "/staff/enclosures/add-enclosure"
     }
   }
 };

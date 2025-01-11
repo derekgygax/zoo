@@ -6,8 +6,10 @@ import {
   FetchDataKey
 } from "@/types/form";
 import { SpecieBase } from "@/types/animals-service";
+import { EnclosureTypeBase } from "@/types/enclosures-service";
 
 import { fieldsRequiringFetchedData as animalFieldsRequiringFetching } from "@/api-contracts/animals-service/fieldsRequiringFetchedData";
+import { fieldsRequiringFetchedData as enclosureFieldsRequiringFetching } from "@/api-contracts/enclosures-service/fieldsRequiringFetchedData";
 
 // TODO ... somehow in here you could put the selectors it needs
 // to get and the API points it should use
@@ -47,15 +49,33 @@ export const FORM_CONFIGS: FormConfigs = {
     label: "UPDATE Enclosure Type",
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_TYPE_BASE,
     fieldsRequiringFetchedData: []
+  },
+  [FORM_NAME.ADD_ENCLOSURE]: {
+    name: FORM_NAME.ADD_ENCLOSURE,
+    label: "Add Enclosure",
+    zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_BASE,
+    fieldsRequiringFetchedData: enclosureFieldsRequiringFetching[FORM_SCHEMA_NAME.ENCLOSURE_BASE]
   }
 }
 
-export const FIELD_REQUIRING_FETCHED_DATA_KEYS: Record<FIELD_REQUIRING_FETCHED_DATA, FetchDataKey<SpecieBase>> = {
+type DependencyFieldKeys = {
+  [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: FetchDataKey<SpecieBase>;
+  [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: FetchDataKey<EnclosureTypeBase>;
+};
+
+export const FIELD_REQUIRING_FETCHED_DATA_KEYS: DependencyFieldKeys = {
   // for this one it is for naught because you are just getting a string
   // but hey, put it here so you remember to follow how its structured
   // you are going to hardcode stuff in here ... the names of
   [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: {
     label: "specie",
     value: "specie"
+  },
+  // for this one it is for naught because you are just getting a string
+  // but hey, put it here so you remember to follow how its structured
+  // you are going to hardcode stuff in here ... the names of
+  [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: {
+    label: "type",
+    value: "type"
   }
 }

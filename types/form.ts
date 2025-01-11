@@ -2,7 +2,8 @@
 export enum FORM_SCHEMA_NAME {
   ANIMAL_BASE = "AnimalBase",
   SPECIE_BASE = "SpecieBase",
-  ENCLOSURE_TYPE_BASE = "EnclosureTypeBase"
+  ENCLOSURE_TYPE_BASE = "EnclosureTypeBase",
+  ENCLOSURE_BASE = "EnclosureBase"
 }
 
 export enum FORM_NAME {
@@ -11,7 +12,8 @@ export enum FORM_NAME {
   ADD_SPECIE = "AddSpecie",
   UPDATE_SPECIE = "UpdateSpecie",
   ADD_ENCLOSURE_TYPE = "AddEnclosureType",
-  UPDATE_ENCLOSURE_TYPE = "UpdateEnclosureType"
+  UPDATE_ENCLOSURE_TYPE = "UpdateEnclosureType",
+  ADD_ENCLOSURE = "AddEnclosure"
 }
 
 // TODO do you want to change this name!
@@ -21,7 +23,8 @@ export enum FORM_NAME {
 // fieldsRequiringDependencies vs fieldsRequiringFetchedData
 // make it consistent ... BUT not for now, do that when it becomes a problem
 export enum FIELD_REQUIRING_FETCHED_DATA {
-  SPECIE = "specie"
+  SPECIE = "specie",
+  ENCLOSURE_TYPE = "enclosureType"
 }
 
 export interface FetchDataKey<T> {

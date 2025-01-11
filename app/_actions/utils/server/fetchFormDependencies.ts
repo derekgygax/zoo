@@ -1,26 +1,78 @@
+"use server"
 
 // types
 // TODO you may need to fix the variable names going all over
 // fieldsRequiringDependencies vs fieldsRequiringFetchedData
 import { FIELD_REQUIRING_FETCHED_DATA, SelectorOption, FetchDataKey } from "@/types/form";
-import { SpecieBase } from "@/types/animals-service";
 
 // config
 import { FIELD_REQUIRING_FETCHED_DATA_KEYS } from "@/config/formConfigs";
 
-// server actions
-import { getSpecieKeys } from "../../animals-service/specie";
+// utiles
 import { toSelectorOptions } from "@/lib/utils/general";
 
+// server actions
+import { getSpecieKeys } from "../../animals-service/specie";
+import { getEnclosureTypeKeys } from "../../enclosures-service/enclosure-types";
 
-export const FORM_DEPENDENCY_FETCHERS: Record<FIELD_REQUIRING_FETCHED_DATA, () => Promise<string[]>> = {
-  [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: getSpecieKeys
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
+// You have given all fucks about typing here and its needs to be improved
+// things have gotten out of hand with the config too and cause all sorts of shit
+// fucking fix it!!
+// You have given all fucks about typing here and its needs to be improved
+// things have gotten out of hand with the config too and cause all sorts of shit
+// fucking fix it!!
+// You have given all fucks about typing here and its needs to be improved
+// things have gotten out of hand with the config too and cause all sorts of shit
+// fucking fix it!!
+// You have given all fucks about typing here and its needs to be improved
+// things have gotten out of hand with the config too and cause all sorts of shit
+// fucking fix it!!
+// You have given all fucks about typing here and its needs to be improved
+// things have gotten out of hand with the config too and cause all sorts of shit
+// fucking fix it!!
+// You have given all fucks about typing here and its needs to be improved
+// things have gotten out of hand with the config too and cause all sorts of shit
+// fucking fix it!!
+// You have given all fucks about typing here and its needs to be improved
+// things have gotten out of hand with the config too and cause all sorts of shit
+// fucking fix it!!
+// You have given all fucks about typing here and its needs to be improved
+// things have gotten out of hand with the config too and cause all sorts of shit
+// fucking fix it!!
+// You have given all fucks about typing here and its needs to be improved
+// things have gotten out of hand with the config too and cause all sorts of shit
+// fucking fix it!!
+// You have given all fucks about typing here and its needs to be improved
+// things have gotten out of hand with the config too and cause all sorts of shit
+// fucking fix it!!
+// You have given all fucks about typing here and its needs to be improved
+// things have gotten out of hand with the config too and cause all sorts of shit
+// fucking fix it!!
+// You have given all fucks about typing here and its needs to be improved
+// things have gotten out of hand with the config too and cause all sorts of shit
+// fucking fix it!!
+// You have given all fucks about typing here and its needs to be improved
+// things have gotten out of hand with the config too and cause all sorts of shit
+// fucking fix it!!
+
+
+const FORM_DEPENDENCY_FETCHERS: Record<FIELD_REQUIRING_FETCHED_DATA, () => Promise<unknown[]>> = {
+  [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: getSpecieKeys,
+  [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: getEnclosureTypeKeys
 }
 
-const getSelectorOptions = async (field: FIELD_REQUIRING_FETCHED_DATA): Promise<SelectorOption[]> => {
+const getSelectorOptions = async <T>(
+  field: FIELD_REQUIRING_FETCHED_DATA
+): Promise<SelectorOption[]> => {
 
-  const fetchFunction: () => Promise<string[] | SpecieBase[]> = FORM_DEPENDENCY_FETCHERS[field];
-  const fetchDataKeys: FetchDataKey<SpecieBase> = FIELD_REQUIRING_FETCHED_DATA_KEYS[field];
+  const fetchFunction = FORM_DEPENDENCY_FETCHERS[field] as () => Promise<T[]>;
+  const fetchDataKeys: FetchDataKey<T> = FIELD_REQUIRING_FETCHED_DATA_KEYS[field] as FetchDataKey<T>;
 
   const options = await fetchFunction();
 
