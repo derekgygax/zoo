@@ -92,7 +92,7 @@ export const sendAPIRequest = async (
   );
 
   if (response.ok) {
-    console.log('Response data:', response);
+    // console.log('Response data:', response);
   } else {
     const errorText = await response.text();
     throw new Error(`Error: ${response.status} ${response.statusText} - ${errorText}`);
