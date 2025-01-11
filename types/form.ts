@@ -16,7 +16,6 @@ export interface SelectorOption {
   label: string;
 };
 
-
 export interface FormState {
   success: boolean;
   message: string[]
