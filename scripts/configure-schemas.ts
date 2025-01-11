@@ -4,6 +4,14 @@ import traverse from '@babel/traverse';
 import * as t from '@babel/types';
 import generate from '@babel/generator';
 import { OpenAPIV3 } from 'openapi-types';
+
+// master config
+import { FIELD_REQUIRING_FETCHED_DATA } from '@/config/master';
+
+// config
+import { DEFAULT_MAX_LEGNTH, FIELDS_NEEDING_COERCION } from '@/config/scripts';
+
+// types
 import {
   FieldSchemaMeta,
   SchemaMeta,
@@ -12,8 +20,6 @@ import {
   SCRIPT_TYPE_NAME,
   SCRIPT_VARIABLE
 } from '@/types/script';
-import { DEFAULT_MAX_LEGNTH, FIELDS_NEEDING_COERCION } from '@/config/scripts';
-import { FIELD_REQUIRING_FETCHED_DATA } from '@/types/form';
 
 
 const getSchemasMeta = (openApiSpec: OpenAPIV3.Document): {

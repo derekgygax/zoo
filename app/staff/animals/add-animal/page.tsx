@@ -1,10 +1,12 @@
 
+// master config
+import { FORM_NAME } from "@/config/master";
 
 // config
 import { FORM_CONFIGS } from "@/config/formConfigs";
 
 // types
-import { FORM_NAME, FormConfig, SelectorOption } from "@/types/form";
+import { FormConfig, SelectorOption } from "@/types/form";
 
 // server actions
 import { addAnimalAction } from "@/app/_actions/animals-service/animals";

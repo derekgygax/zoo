@@ -1,10 +1,13 @@
 "use server"
 
+// master config
+import { FORM_SCHEMA_NAME } from "@/config/master";
+
 // API endpoints
 import { API_ENDPOINTS } from "@/config/api";
 
 // types
-import { FORM_SCHEMA_NAME, FormState } from "@/types/form";
+import { FormState } from "@/types/form";
 
 // action utils
 import { processFormAction } from "../utils/server/formActionUtils"

@@ -1,5 +1,8 @@
 
-import { FORM_SCHEMA_NAME } from "@/types/form";
+// master config
+import { FORM_SCHEMA_NAME } from "./master";
+
+// types
 import { ZodSchema } from "@/types/zodSchema";
 
 import { schemas as animalZodSchemas } from "@/api-contracts/animals-service/zodSchemas";

@@ -1,5 +1,6 @@
 
-import { FIELD_REQUIRING_FETCHED_DATA } from "./form";
+// master config
+import { FIELD_REQUIRING_FETCHED_DATA } from "@/config/master";
 
 export enum TASK {
   OPEN_API = "openapi",

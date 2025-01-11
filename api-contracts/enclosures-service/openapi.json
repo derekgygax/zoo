@@ -144,7 +144,7 @@
       "SecurityScheme" : {
         "type" : "openIdConnect",
         "description" : "Authentication",
-        "openIdConnectUrl" : "http://localhost:54685/realms/quarkus/.well-known/openid-configuration"
+        "openIdConnectUrl" : "http://localhost:57360/realms/quarkus/.well-known/openid-configuration"
       }
     }
   },

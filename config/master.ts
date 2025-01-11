@@ -1,0 +1,30 @@
+
+
+// Forms
+export enum FORM_SCHEMA_NAME {
+  ANIMAL_BASE = "AnimalBase",
+  SPECIE_BASE = "SpecieBase",
+  ENCLOSURE_TYPE_BASE = "EnclosureTypeBase",
+  ENCLOSURE_BASE = "EnclosureBase"
+}
+
+export enum FORM_NAME {
+  ADD_ANIMAL = "AddAnimal",
+  UPDATE_ANIMAL = "UpdateAnimal",
+  ADD_SPECIE = "AddSpecie",
+  UPDATE_SPECIE = "UpdateSpecie",
+  ADD_ENCLOSURE_TYPE = "AddEnclosureType",
+  UPDATE_ENCLOSURE_TYPE = "UpdateEnclosureType",
+  ADD_ENCLOSURE = "AddEnclosure"
+}
+
+// TODO do you want to change this name!
+// TODO do you want to change this name!
+// TODO do you want to change this name!
+// TODO you may need to fix the variable names going all over
+// fieldsRequiringDependencies vs fieldsRequiringFetchedData
+// make it consistent ... BUT not for now, do that when it becomes a problem
+export enum FIELD_REQUIRING_FETCHED_DATA {
+  SPECIE = "specie",
+  ENCLOSURE_TYPE = "enclosureType"
+}

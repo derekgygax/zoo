@@ -1,7 +1,12 @@
+
+// master config
 import {
-  FORM_NAME,
   FORM_SCHEMA_NAME,
-  FIELD_REQUIRING_FETCHED_DATA,
+  FORM_NAME,
+  FIELD_REQUIRING_FETCHED_DATA
+} from "./master";
+
+import {
   FormConfigs,
   FetchDataKey
 } from "@/types/form";

@@ -1,10 +1,13 @@
 
+// master config
+import { FORM_NAME } from "@/config/master";
+
 // config
 import { API_ENDPOINTS } from "@/config/api";
 import { FORM_CONFIGS } from "@/config/formConfigs";
 
 // types
-import { FORM_NAME, FormConfig, SelectorOption } from "@/types/form";
+import { FormConfig, SelectorOption } from "@/types/form";
 import { AnimalIdentifier } from "@/types/animals-service";
 
 // server action utils

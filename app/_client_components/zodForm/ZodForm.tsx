@@ -6,12 +6,14 @@ import { useForm, DefaultValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodObject, ZodRawShape, ZodTypeAny } from "zod";
 
-// TODO SHOUDL THIS HAPPEN IN "use client"
+// master config
+import { FORM_SCHEMA_NAME } from "@/config/master";
+
 // configs
 import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 
 // types
-import { FORM_SCHEMA_NAME, FormState, SelectorOption } from "@/types/form";
+import { FormState, SelectorOption } from "@/types/form";
 
 // components
 import { SubmitFormButton } from "../submitFormButton/SubmitFormButton"

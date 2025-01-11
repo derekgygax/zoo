@@ -1,53 +1,57 @@
-// types
-import { FORM_SCHEMA_NAME, FormConfig } from "@/types/form";
 
-// This is a global cache that will be used across the project
-// to store info to prevent repeat requests
-// It mostly will save the metadata retrieved for forms for now
-export class GlobalCache {
-  private static cache: Map<string, { value: FormConfig; expiresAt: number }> = new Map();
+// // master config
+// import { FORM_SCHEMA_NAME } from "@/config/master";
 
-  // Input
-  //    key = key for the item
-  //    value = value for the item
-  //    timeToLive = how long before the item is deleted (passed back in seconds)
-  static setCache = (key: FORM_SCHEMA_NAME, value: FormConfig, timeToLive: number = 600) => {
-    const expiresAt = Date.now() + timeToLive * 1000;
-    this.cache.set(key, { value, expiresAt });
-  };
+// // types
+// import { FormConfig } from "@/types/form";
 
-  static getCache = (key: FORM_SCHEMA_NAME): FormConfig | undefined => {
-    const item = this.cache.get(key);
-    if (!item) {
-      return undefined
-    };
+// // This is a global cache that will be used across the project
+// // to store info to prevent repeat requests
+// // It mostly will save the metadata retrieved for forms for now
+// export class GlobalCache {
+//   private static cache: Map<string, { value: FormConfig; expiresAt: number }> = new Map();
 
-    // This is an extra delete that does NOT need to be here with the periodic clean up
-    if (Date.now() > item.expiresAt) {
-      this.cache.delete(key);
-      return undefined;
-    }
+//   // Input
+//   //    key = key for the item
+//   //    value = value for the item
+//   //    timeToLive = how long before the item is deleted (passed back in seconds)
+//   static setCache = (key: FORM_SCHEMA_NAME, value: FormConfig, timeToLive: number = 600) => {
+//     const expiresAt = Date.now() + timeToLive * 1000;
+//     this.cache.set(key, { value, expiresAt });
+//   };
 
-    return item.value;
-  };
+//   static getCache = (key: FORM_SCHEMA_NAME): FormConfig | undefined => {
+//     const item = this.cache.get(key);
+//     if (!item) {
+//       return undefined
+//     };
 
-  static deleteCache = (key: FORM_SCHEMA_NAME) => {
-    this.cache.delete(key);
-  };
+//     // This is an extra delete that does NOT need to be here with the periodic clean up
+//     if (Date.now() > item.expiresAt) {
+//       this.cache.delete(key);
+//       return undefined;
+//     }
 
-  // Cleanup function to remove expired items
-  static cleanupCache = () => {
-    const now = Date.now();
-    for (const [key, { expiresAt }] of this.cache.entries()) {
-      if (expiresAt <= now) {
-        this.cache.delete(key);
-      }
-    }
-  };
+//     return item.value;
+//   };
 
-}
+//   static deleteCache = (key: FORM_SCHEMA_NAME) => {
+//     this.cache.delete(key);
+//   };
+
+//   // Cleanup function to remove expired items
+//   static cleanupCache = () => {
+//     const now = Date.now();
+//     for (const [key, { expiresAt }] of this.cache.entries()) {
+//       if (expiresAt <= now) {
+//         this.cache.delete(key);
+//       }
+//     }
+//   };
+
+// }
 
 
-// Run cleanup periodically
-// Every 5 minutes
-setInterval(GlobalCache.cleanupCache, 300 * 1000);
+// // Run cleanup periodically
+// // Every 5 minutes
+// setInterval(GlobalCache.cleanupCache, 300 * 1000);

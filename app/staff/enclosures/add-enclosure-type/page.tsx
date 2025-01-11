@@ -1,8 +1,11 @@
+// master config
+import { FORM_NAME } from "@/config/master";
+
 // config
 import { FORM_CONFIGS } from "@/config/formConfigs";
 
 // types
-import { FORM_NAME, FormConfig } from "@/types/form";
+import { FormConfig } from "@/types/form";
 
 // server actions
 import { addEnclosureTypeAction } from "@/app/_actions/enclosures-service/enclosure-types";

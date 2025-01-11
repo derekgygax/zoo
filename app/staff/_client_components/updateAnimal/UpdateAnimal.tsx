@@ -3,9 +3,14 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
+// master config
+import { FORM_NAME } from "@/config/master";
+
+// config
+
 // types
 import { AnimalIdentifier, AnimalBase } from "@/types/animals-service"
-import { FORM_NAME, FormConfig, SelectorOption } from "@/types/form";
+import { FormConfig, SelectorOption } from "@/types/form";
 
 // TODO
 // can you do this here!!?? Like pull config stuff in a client component??? DAANNNGGGG

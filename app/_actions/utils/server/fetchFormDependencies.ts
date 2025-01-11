@@ -1,12 +1,15 @@
 "use server"
 
-// types
-// TODO you may need to fix the variable names going all over
-// fieldsRequiringDependencies vs fieldsRequiringFetchedData
-import { FIELD_REQUIRING_FETCHED_DATA, SelectorOption, FetchDataKey } from "@/types/form";
+// master config
+import { FIELD_REQUIRING_FETCHED_DATA } from "@/config/master";
 
 // config
 import { FIELD_REQUIRING_FETCHED_DATA_KEYS } from "@/config/formConfigs";
+
+// types
+// TODO you may need to fix the variable names going all over
+// fieldsRequiringDependencies vs fieldsRequiringFetchedData
+import { SelectorOption, FetchDataKey } from "@/types/form";
 
 // utiles
 import { toSelectorOptions } from "@/lib/utils/general";

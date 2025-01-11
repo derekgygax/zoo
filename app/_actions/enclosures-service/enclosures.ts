@@ -1,12 +1,15 @@
 "use server"
 
+// master config
+import { FORM_SCHEMA_NAME } from "@/config/master";
+
 // config
-import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 import { API_ENDPOINTS } from "@/config/api";
+import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 
 // types
 import { EnclosureBase } from "@/types/enclosures-service";
-import { FormState, FORM_SCHEMA_NAME } from "@/types/form";
+import { FormState } from "@/types/form";
 
 // server actions
 import { deserializeFormData } from "@/app/_actions/utils/general"
