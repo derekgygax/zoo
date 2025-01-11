@@ -1,9 +1,6 @@
 
 // master config
-import { FRAMEWORK } from "@/config/master"
-
-// types
-import { TASK } from "@/types/script";
+import { FRAMEWORK, TASK } from "@/config/master"
 
 export const DEFAULT_MAX_LEGNTH = 100;
 

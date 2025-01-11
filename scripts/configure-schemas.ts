@@ -6,7 +6,7 @@ import generate from '@babel/generator';
 import { OpenAPIV3 } from 'openapi-types';
 
 // master config
-import { FIELD_REQUIRING_FETCHED_DATA } from '@/config/master';
+import { FIELD_REQUIRING_FETCHED_DATA, SCRIPT_TYPE_NAME, SCRIPT_VARIABLE } from '@/config/master';
 
 // config
 import { DEFAULT_MAX_LEGNTH, FIELDS_NEEDING_COERCION } from '@/config/scripts';
@@ -16,9 +16,7 @@ import {
   FieldSchemaMeta,
   SchemaMeta,
   SchemasMeta,
-  SchemasSelectors,
-  SCRIPT_TYPE_NAME,
-  SCRIPT_VARIABLE
+  SchemasSelectors
 } from '@/types/script';
 
 

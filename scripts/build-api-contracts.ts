@@ -3,15 +3,12 @@ import { execSync } from "child_process";
 import { Command } from "commander";
 
 // master config
-import { SERVICE } from "@/config/master";
+import { SERVICE, TASK } from "@/config/master";
 
 // cofig
 import { SERVICES } from "@/config/services";
 import { SCRIPTS_CONFIG, TASKS, OPENAPI_ENDPOINTS } from "@/config/scripts";
 import { API_BASE_URLS } from "@/config/api";
-
-// types
-import { TASK } from "@/types/script";
 
 // scripts
 import { configureSchemas } from "./configure-schemas";
