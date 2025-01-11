@@ -1,5 +1,23 @@
 
 
+// Microservices
+export enum SERVICE {
+  ANIMALS = "animals-service",
+  FOOD = "food-service",
+  STAFF = "staff-service",
+  BREEDING = "breeding-service",
+  ENCLOSURES = "enclosures-service",
+  REPORTS = "reports-service"
+}
+
+// Micorservice Frameworks
+export enum FRAMEWORK {
+  FAST_API = "fastApi",
+  SPRING_BOOT = "springBoot",
+  NEST_JS = "nestJS",
+  QUARKUS = "quarkus"
+}
+
 // Forms
 export enum FORM_SCHEMA_NAME {
   ANIMAL_BASE = "AnimalBase",
@@ -18,8 +36,6 @@ export enum FORM_NAME {
   ADD_ENCLOSURE = "AddEnclosure"
 }
 
-// TODO do you want to change this name!
-// TODO do you want to change this name!
 // TODO do you want to change this name!
 // TODO you may need to fix the variable names going all over
 // fieldsRequiringDependencies vs fieldsRequiringFetchedData

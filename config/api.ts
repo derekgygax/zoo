@@ -1,4 +1,4 @@
-import { SERVICE } from "@/types/service";
+import { SERVICE } from "@/config/master";
 
 export const API_BASE_URLS: Record<SERVICE, string> = {
   [SERVICE.ANIMALS]: process.env.ANIMALS_SERVICE ?? "",

@@ -1,4 +1,8 @@
-import { FRAMEWORK } from "@/types/service"
+
+// master config
+import { FRAMEWORK } from "@/config/master"
+
+// types
 import { TASK } from "@/types/script";
 
 export const DEFAULT_MAX_LEGNTH = 100;

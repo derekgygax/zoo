@@ -1,6 +1,9 @@
-import { Service, FRAMEWORK, SERVICE } from "@/types/service";
 
+// master config
+import { SERVICE, FRAMEWORK } from "./master";
 
+// types
+import { Service } from "@/types/service";
 
 export const SERVICES: Record<SERVICE, Service> = {
   [SERVICE.ANIMALS]: {
