@@ -13,7 +13,7 @@ const HEALTH_TYPE = z.enum([
 const Animal = z
   .object({
     name: z.string().max(100),
-    specie: z.string().max(100),
+    specie_id: z.string().max(100),
     gender: GENDER,
     health: HEALTH_TYPE,
     dob: z.string(),
@@ -26,7 +26,7 @@ const Animal = z
 const AnimalBase = z
   .object({
     name: z.string().max(100),
-    specie: z.string().max(100),
+    specie_id: z.string().max(100),
     gender: GENDER,
     health: HEALTH_TYPE,
     dob: z.string(),
@@ -48,19 +48,19 @@ const AnimalIdentifier = z
   .object({
     id: z.string().uuid(),
     name: z.string().max(100),
-    specie: z.string().max(100),
+    specie_id: z.string().max(100),
   })
   .passthrough();
 const Specie = z
   .object({
-    specie: z.string().max(100),
+    id: z.string().max(100),
     description: z.string().max(500),
     created_at: z.string().datetime({ offset: true }),
     updated_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
 const SpecieBase = z
-  .object({ specie: z.string().max(100), description: z.string().max(500) })
+  .object({ id: z.string().max(100), description: z.string().max(500) })
   .passthrough();
 
 export const schemas = {
@@ -113,12 +113,12 @@ const endpoints = makeApi([
   },
   {
     method: "get",
-    path: "/api/v1/animals/:animalId",
-    alias: "get_animal_base_by_id_api_v1_animals__animalId__get",
+    path: "/api/v1/animals/:animal_id",
+    alias: "get_animal_base_by_id_api_v1_animals__animal_id__get",
     requestFormat: "json",
     parameters: [
       {
-        name: "animalId",
+        name: "animal_id",
         type: "Path",
         schema: z.string().uuid(),
       },
@@ -134,8 +134,8 @@ const endpoints = makeApi([
   },
   {
     method: "post",
-    path: "/api/v1/animals/:animalId",
-    alias: "update_animal_api_v1_animals__animalId__post",
+    path: "/api/v1/animals/:animal_id",
+    alias: "update_animal_api_v1_animals__animal_id__post",
     requestFormat: "json",
     parameters: [
       {
@@ -144,7 +144,7 @@ const endpoints = makeApi([
         schema: AnimalBase,
       },
       {
-        name: "animalId",
+        name: "animal_id",
         type: "Path",
         schema: z.string().uuid(),
       },
@@ -195,8 +195,8 @@ const endpoints = makeApi([
   },
   {
     method: "post",
-    path: "/api/v1/species/:specie_key",
-    alias: "update_animal_api_v1_species__specie_key__post",
+    path: "/api/v1/species/:specie_id",
+    alias: "update_animal_api_v1_species__specie_id__post",
     requestFormat: "json",
     parameters: [
       {
@@ -205,7 +205,7 @@ const endpoints = makeApi([
         schema: Specie,
       },
       {
-        name: "specie_key",
+        name: "specie_id",
         type: "Path",
         schema: z.string(),
       },
@@ -228,8 +228,8 @@ const endpoints = makeApi([
   },
   {
     method: "get",
-    path: "/api/v1/species/keys",
-    alias: "get_specie_keys_api_v1_species_keys_get",
+    path: "/api/v1/species/ids",
+    alias: "get_specie_keys_api_v1_species_ids_get",
     requestFormat: "json",
     response: z.array(z.string()),
   },

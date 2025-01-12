@@ -40,7 +40,7 @@ export const API_BASE_URLS: Record<SERVICE, string> = {
 // fieldsRequiringDependencies vs fieldsRequiringFetchedData
 // make it consistent ... BUT not for now, do that when it becomes a problem
 export enum FIELD_REQUIRING_FETCHED_DATA {
-  SPECIE = "specie",
+  SPECIE = "specie_id",
   ENCLOSURE_TYPE = "enclosureTypeId"
 }
 

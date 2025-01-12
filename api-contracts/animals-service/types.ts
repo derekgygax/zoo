@@ -39,7 +39,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/animals/{animalId}": {
+    "/api/v1/animals/{animal_id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -47,10 +47,10 @@ export interface paths {
             cookie?: never;
         };
         /** Get Animal Base By Id */
-        get: operations["get_animal_base_by_id_api_v1_animals__animalId__get"];
+        get: operations["get_animal_base_by_id_api_v1_animals__animal_id__get"];
         put?: never;
         /** Update Animal */
-        post: operations["update_animal_api_v1_animals__animalId__post"];
+        post: operations["update_animal_api_v1_animals__animal_id__post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -75,7 +75,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/species/keys": {
+    "/api/v1/species/ids": {
         parameters: {
             query?: never;
             header?: never;
@@ -83,7 +83,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get Specie Keys */
-        get: operations["get_specie_keys_api_v1_species_keys_get"];
+        get: operations["get_specie_keys_api_v1_species_ids_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -109,7 +109,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/species/{specie_key}": {
+    "/api/v1/species/{specie_id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -119,7 +119,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Update Animal */
-        post: operations["update_animal_api_v1_species__specie_key__post"];
+        post: operations["update_animal_api_v1_species__specie_id__post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -157,9 +157,9 @@ export interface components {
             /**
              * Specie
              * Format: selector
-             * @description The name of the specie of the animal
+             * @description The type of species, such as 'dog' or 'cat'
              */
-            specie: string;
+            specie_id: string;
             /** Gender */
             gender: components["schemas"]["GENDER"];
             /** Health */
@@ -200,9 +200,9 @@ export interface components {
             /**
              * Specie
              * Format: selector
-             * @description The name of the specie of the animal
+             * @description The type of species, such as 'dog' or 'cat'
              */
-            specie: string;
+            specie_id: string;
             /** Gender */
             gender: components["schemas"]["GENDER"];
             /** Health */
@@ -233,9 +233,10 @@ export interface components {
             name: string;
             /**
              * Specie
-             * @description The name of the specie of the animal
+             * Format: selector
+             * @description The type of species, such as 'dog' or 'cat'
              */
-            specie: string;
+            specie_id: string;
         };
         /**
          * GENDER
@@ -256,9 +257,9 @@ export interface components {
         Specie: {
             /**
              * Specie
-             * @description The name of the specie
+             * @description Unique identifier for the specie, such as 'dog' or 'cat'
              */
-            specie: string;
+            id: string;
             /**
              * Specie Description
              * @description A short description about the specie
@@ -279,9 +280,9 @@ export interface components {
         SpecieBase: {
             /**
              * Specie
-             * @description The name of the specie
+             * @description Unique identifier for the specie, such as 'dog' or 'cat'
              */
-            specie: string;
+            id: string;
             /**
              * Specie Description
              * @description A short description about the specie
@@ -379,12 +380,12 @@ export interface operations {
             };
         };
     };
-    get_animal_base_by_id_api_v1_animals__animalId__get: {
+    get_animal_base_by_id_api_v1_animals__animal_id__get: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                animalId: string;
+                animal_id: string;
             };
             cookie?: never;
         };
@@ -410,12 +411,12 @@ export interface operations {
             };
         };
     };
-    update_animal_api_v1_animals__animalId__post: {
+    update_animal_api_v1_animals__animal_id__post: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                animalId: string;
+                animal_id: string;
             };
             cookie?: never;
         };
@@ -496,7 +497,7 @@ export interface operations {
             };
         };
     };
-    get_specie_keys_api_v1_species_keys_get: {
+    get_specie_keys_api_v1_species_ids_get: {
         parameters: {
             query?: never;
             header?: never;
@@ -536,12 +537,12 @@ export interface operations {
             };
         };
     };
-    update_animal_api_v1_species__specie_key__post: {
+    update_animal_api_v1_species__specie_id__post: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                specie_key: string;
+                specie_id: string;
             };
             cookie?: never;
         };

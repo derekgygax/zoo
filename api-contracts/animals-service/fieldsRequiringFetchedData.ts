@@ -2,12 +2,14 @@ import { SchemasSelectors} from "@/types/script";
 
   export const fieldsRequiringFetchedData: SchemasSelectors = {
   "Animal": [
-    "specie"
+    "specie_id"
   ],
   "AnimalBase": [
-    "specie"
+    "specie_id"
   ],
-  "AnimalIdentifier": [],
+  "AnimalIdentifier": [
+    "specie_id"
+  ],
   "GENDER": [],
   "HEALTH_TYPE": [],
   "HTTPValidationError": [],

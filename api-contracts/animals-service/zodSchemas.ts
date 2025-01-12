@@ -4,7 +4,7 @@ const GENDER = z.enum(["MALE", "FEMALE", "HERMAPHRODITE", "ASEXUAL"]);
 const HEALTH_TYPE = z.enum(["HEALTHY", "SICK", "UNDER_OBSERVATION", "INJURED", "RECOVERING", "DECEASED"]);
 const Animal = z.object({
   name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
-  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
+  specie_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
   gender: GENDER.describe("{\"needsCoercion\":false,\"title\":\"Gender\"}"),
   health: HEALTH_TYPE.describe("{\"needsCoercion\":false,\"title\":\"Health\"}"),
   dob: z.string().trim().refine(value => {
@@ -45,7 +45,7 @@ const Animal = z.object({
 }).passthrough();
 const AnimalBase = z.object({
   name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
-  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
+  specie_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
   gender: GENDER.describe("{\"needsCoercion\":false,\"title\":\"Gender\"}"),
   health: HEALTH_TYPE.describe("{\"needsCoercion\":false,\"title\":\"Health\"}"),
   dob: z.string().trim().refine(value => {
@@ -88,10 +88,10 @@ const HTTPValidationError = z.object({
 const AnimalIdentifier = z.object({
   id: z.string().trim().uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
   name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
-  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}")
+  specie_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}")
 }).passthrough();
 const Specie = z.object({
-  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
+  id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
   description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Specie Description\"}"),
   created_at: z.string().trim().datetime({
     offset: true
@@ -101,7 +101,7 @@ const Specie = z.object({
   }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
 }).passthrough();
 const SpecieBase = z.object({
-  specie: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
+  id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
   description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Specie Description\"}")
 }).passthrough();
 export const schemas = {
@@ -145,11 +145,11 @@ const endpoints = makeApi([{
   }]
 }, {
   method: "get",
-  path: "/api/v1/animals/:animalId",
-  alias: "get_animal_base_by_id_api_v1_animals__animalId__get",
+  path: "/api/v1/animals/:animal_id",
+  alias: "get_animal_base_by_id_api_v1_animals__animal_id__get",
   requestFormat: "json",
   parameters: [{
-    name: "animalId",
+    name: "animal_id",
     type: "Path",
     schema: z.string().uuid()
   }],
@@ -161,15 +161,15 @@ const endpoints = makeApi([{
   }]
 }, {
   method: "post",
-  path: "/api/v1/animals/:animalId",
-  alias: "update_animal_api_v1_animals__animalId__post",
+  path: "/api/v1/animals/:animal_id",
+  alias: "update_animal_api_v1_animals__animal_id__post",
   requestFormat: "json",
   parameters: [{
     name: "body",
     type: "Body",
     schema: AnimalBase
   }, {
-    name: "animalId",
+    name: "animal_id",
     type: "Path",
     schema: z.string().uuid()
   }],
@@ -209,15 +209,15 @@ const endpoints = makeApi([{
   }]
 }, {
   method: "post",
-  path: "/api/v1/species/:specie_key",
-  alias: "update_animal_api_v1_species__specie_key__post",
+  path: "/api/v1/species/:specie_id",
+  alias: "update_animal_api_v1_species__specie_id__post",
   requestFormat: "json",
   parameters: [{
     name: "body",
     type: "Body",
     schema: Specie
   }, {
-    name: "specie_key",
+    name: "specie_id",
     type: "Path",
     schema: z.string()
   }],
@@ -235,8 +235,8 @@ const endpoints = makeApi([{
   response: z.array(SpecieBase)
 }, {
   method: "get",
-  path: "/api/v1/species/keys",
-  alias: "get_specie_keys_api_v1_species_keys_get",
+  path: "/api/v1/species/ids",
+  alias: "get_specie_keys_api_v1_species_ids_get",
   requestFormat: "json",
   response: z.array(z.string())
 }]);

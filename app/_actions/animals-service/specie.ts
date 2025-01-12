@@ -77,7 +77,7 @@ const addSpecie = async (prevState: FormState, formData: FormData) => {
   );
 
   return [
-    `${specie.specie} added.`
+    `${specie.id} added.`
   ];
 }
 

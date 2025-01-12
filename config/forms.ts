@@ -93,8 +93,8 @@ export const FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS: DependencyFieldKeys = {
   // but hey, put it here so you remember to follow how its structured
   // you are going to hardcode stuff in here ... the names of
   [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: {
-    label: "specie",
-    value: "specie"
+    label: "id",
+    value: "id"
   },
   // for this one it is for naught because you are just getting a string
   // but hey, put it here so you remember to follow how its structured

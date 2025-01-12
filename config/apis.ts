@@ -20,7 +20,7 @@ export const API_ENDPOINTS = {
     },
     species: {
       index: API_INDEX.animalsService.species,
-      keys: `${API_INDEX.animalsService.species}/keys`,
+      keys: `${API_INDEX.animalsService.species}/ids`,
       base: `${API_INDEX.animalsService.species}/base`
     }
   },
