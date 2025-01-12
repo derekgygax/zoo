@@ -77,7 +77,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 | `bun run build`                        | Build the project for production.                                                              |
 | `bun run start`                        | Start the production server.                                                                   |
 | `bun run lint`                         | Run ESLint for code quality checks.                                                            |
-| `bun run generate-api-contracts`| Generate API contracts. Use `-s` to specify services (space-separated or `all`) and `-t` for tasks (e.g., `openapi`, `types`, `zod`, `clean-zod`). |
+| `bun run generate-api-contracts`| Generate API contracts. Use `-s` to specify services (space-separated or `all`) and `-t` for tasks (e.g., `openapi`, `types`, `zod`, `configure-schemas`). |
 
 
 ### Example Usage for `generate-api-contracts`
@@ -93,6 +93,72 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
   ```bash
   bun run script-generate-api-contracts -s animals-service food-service -t zod clean-zod
   ```
+  
+---
+
+### Add a New Type
+
+1. **Generate API Contracts**:  
+   Run the following command to generate the updated API contracts for your service:  
+   ```bash
+   bun run generate-api-contracts -s YOUR_SERVICE
+   ```
+
+2. **Add the Type**:  
+   Navigate to the respective types file in the `types` folder and add your new type definition. Ensure it aligns with the API specification.
+
+---
+
+### Add a New Form
+
+1. **Define Fetch Dependencies**:  
+   If the form requires dropdowns or fields populated by fetched data:
+   - Update `FIELD_REQUIRING_FETCHED_DATA` in `config/master.ts`.
+
+2. **Define Field Labels and Values**:  
+   In `config/form.ts`, update:
+   - `DependencyFieldKeys` and `FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS` to define how the fields will display labels and values on the front end.
+
+3. **Generate API Contracts**:  
+   Run the following command to generate the latest contracts for your service:  
+   ```bash
+   bun run generate-api-contracts -s YOUR_SERVICE
+   ```
+
+4. **Add API Endpoints**:  
+   Update `apis.ts` with any new endpoints required for the form.
+
+5. **Update Form Configurations**:  
+   In `forms.ts`, update the following to include the new form:
+   - `FORM_NAME`
+   - `FORM_SCHEMA_NAME`
+   - `FORM_CONFIGS`
+
+6. **Define Zod Schema**:  
+   Add the Zod schema for validation in `zodSchemas.ts`.
+
+7. **Create a Page for the Form**:  
+   - Create a new folder and `page.tsx` file in the appropriate location for the form's URL.
+   - Add the form's URL to `siteUrls.ts`.
+
+8. **Add Content File**:  
+   In the `content` folder at the root of the project, create a new file with the same name and location as the form. Follow the structure of existing content files.
+
+9. **Handle Form Actions**:  
+   - Define a server action to handle the form submission in the `app/_actions` folder.  
+   - Ensure the action is properly registered in `processFormAction()` at the bottom of the file.
+
+10. **Configure the Form Page**:  
+    In the `page.tsx` file:
+    - Set up the `zodForm` with:
+      - The server action.
+      - The Zod schema.
+      - Any selector options needed for dropdowns (fetched data).
+
+11. **Update Navigation**:  
+    Add links or references to the new form in:
+    - `content/staff/index.ts`.
+    - Other relevant locations to ensure navigation is available.
 
 ---
 
