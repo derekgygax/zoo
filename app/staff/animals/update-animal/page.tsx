@@ -7,11 +7,9 @@ import { FORM_CONFIGS, FORM_NAME } from "@/config/forms";
 import { FormConfig, SelectorOption } from "@/types/form";
 import { AnimalIdentifier } from "@/types/animals-service";
 
-// server action utils
+// server action
+import { getAnimalIdentifiers } from "@/app/_actions/animals-service/animals";
 import { fetchFormDependencies } from "@/app/_actions/utils/server/fetchFormDependencies";
-
-// lib utils
-import { getAPIRequest } from "@/lib/utils/server/api";
 
 // global components
 import { Title } from "@/app/_components/title/Title";
@@ -32,10 +30,7 @@ export default async function UpdateAnimalPage() {
   // but that might make things werid later so just don't do it
   const selectorOptions: Record<string, SelectorOption[]> = await fetchFormDependencies(formConfig.fieldsRequiringFetchedData);
 
-  const animals: AnimalIdentifier[] = await getAPIRequest<AnimalIdentifier[]>(
-    API_ENDPOINTS.animalsService.animals.ids,
-    []
-  );
+  const animals: AnimalIdentifier[] = await getAnimalIdentifiers();
 
   return (
     <main>

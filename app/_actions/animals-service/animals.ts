@@ -18,7 +18,7 @@ import { deserializeFormData } from "../utils/general";
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
 // types
-import { AnimalBase } from "@/types/animals-service";
+import { AnimalBase, AnimalIdentifier } from "@/types/animals-service";
 
 // zod schemas
 import { ZOD_SCHEMAS } from "@/config/zodSchemas";
@@ -32,6 +32,14 @@ export const getAnimal = async (animalId: string): Promise<AnimalBase | undefine
   );
 
   return animal;
+}
+
+export const getAnimalIdentifiers = async (): Promise<AnimalIdentifier[]> => {
+  const animalIdentifiers: AnimalIdentifier[] = await getAPIRequest<AnimalIdentifier[]>(
+    API_ENDPOINTS.animalsService.animals.identifiers,
+    []
+  );
+  return animalIdentifiers;
 }
 
 

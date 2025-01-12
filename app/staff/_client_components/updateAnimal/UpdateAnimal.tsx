@@ -80,7 +80,7 @@ export const UpdateAnimal = ({ animals, formConfig, selectorOptions }: UpdateAni
                 key={animal.id}
                 value={animal.id}
               >
-                {`${animal.name} (${animal.specie})`}
+                {`${animal.name} (${animal.specie_id})`}
               </option>
             )
           })}
