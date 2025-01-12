@@ -13,7 +13,7 @@ import { FORM_SCHEMA_NAME } from "@/config/forms";
 import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 
 // types
-import { FormState, SelectorOption } from "@/types/form";
+import { FormState, HiddenField, SelectorOption } from "@/types/form";
 
 // components
 import { SubmitFormButton } from "../submitFormButton/SubmitFormButton"
@@ -33,10 +33,7 @@ interface ZodFormContentProps<Schema extends ZodObject<ZodRawShape>> {
   formServerAction: (prevState: FormState, formData: FormData) => Promise<FormState>;
   selectorOptions?: Partial<Record<keyof z.infer<Schema>, SelectorOption[]>>;
   zodSchema: Schema;
-  hiddenFields?: {
-    name: string;
-    value: string;
-  }[];
+  hiddenFields?: HiddenField[];
   defaultValues?: z.infer<Schema>;
   callBack?: (success: boolean) => void;
 }

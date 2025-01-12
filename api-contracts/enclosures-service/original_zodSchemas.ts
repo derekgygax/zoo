@@ -44,6 +44,15 @@ const EnclosureBase = z
     status: EnclosureStatus,
   })
   .passthrough();
+const EnclosureIdentifier = z
+  .object({
+    id: UUID.regex(
+      /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
+    ).uuid(),
+    name: z.string(),
+  })
+  .partial()
+  .passthrough();
 
 export const schemas = {
   Instant,
@@ -53,6 +62,7 @@ export const schemas = {
   EnclosureStatus,
   Enclosure,
   EnclosureBase,
+  EnclosureIdentifier,
 };
 
 const endpoints = makeApi([
@@ -128,6 +138,32 @@ const endpoints = makeApi([
       },
     ],
     response: z.void(),
+  },
+  {
+    method: "get",
+    path: "/api/v1/enclosures/bases/:enclosureId",
+    alias: "getApiv1enclosuresbasesEnclosureId",
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "enclosureId",
+        type: "Path",
+        schema: z
+          .string()
+          .regex(
+            /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
+          )
+          .uuid(),
+      },
+    ],
+    response: EnclosureBase,
+  },
+  {
+    method: "get",
+    path: "/api/v1/enclosures/identifiers",
+    alias: "getApiv1enclosuresidentifiers",
+    requestFormat: "json",
+    response: z.array(EnclosureIdentifier),
   },
 ]);
 

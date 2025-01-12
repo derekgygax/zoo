@@ -1,6 +1,5 @@
 
 // config
-import { API_ENDPOINTS } from "@/config/apis";
 import { FORM_CONFIGS, FORM_NAME } from "@/config/forms";
 
 // types
@@ -10,6 +9,9 @@ import { AnimalIdentifier } from "@/types/animals-service";
 // server action
 import { getAnimalIdentifiers } from "@/app/_actions/animals-service/animals";
 import { fetchFormDependencies } from "@/app/_actions/utils/server/fetchFormDependencies";
+
+// layouts
+import { PageSection } from "@/app/_layouts/pageSection/PageSection";
 
 // global components
 import { Title } from "@/app/_components/title/Title";
@@ -38,11 +40,13 @@ export default async function UpdateAnimalPage() {
         title={title.label}
         level={title.level}
       />
-      <UpdateAnimal
-        animals={animals}
-        formConfig={formConfig}
-        selectorOptions={selectorOptions}
-      />
+      <PageSection>
+        <UpdateAnimal
+          animals={animals}
+          formConfig={formConfig}
+          selectorOptions={selectorOptions}
+        />
+      </PageSection>
     </main>
   )
 }

@@ -36,6 +36,10 @@ const EnclosureBase = z.object({
   capacity: z.coerce.number().int().gte(0).describe("{\"needsCoercion\":true,\"title\":\"Capacity\"}"),
   status: EnclosureStatus.describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Status\"}")
 }).passthrough();
+const EnclosureIdentifier = z.object({
+  id: UUID.regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
+  name: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}")
+}).partial().passthrough();
 export const schemas = {
   Instant,
   EnclosureType,
@@ -43,7 +47,8 @@ export const schemas = {
   UUID,
   EnclosureStatus,
   Enclosure,
-  EnclosureBase
+  EnclosureBase,
+  EnclosureIdentifier
 };
 const endpoints = makeApi([{
   method: "get",
@@ -100,6 +105,23 @@ const endpoints = makeApi([{
     schema: z.string().regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid()
   }],
   response: z.void()
+}, {
+  method: "get",
+  path: "/api/v1/enclosures/bases/:enclosureId",
+  alias: "getApiv1enclosuresbasesEnclosureId",
+  requestFormat: "json",
+  parameters: [{
+    name: "enclosureId",
+    type: "Path",
+    schema: z.string().regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid()
+  }],
+  response: EnclosureBase
+}, {
+  method: "get",
+  path: "/api/v1/enclosures/identifiers",
+  alias: "getApiv1enclosuresidentifiers",
+  requestFormat: "json",
+  response: z.array(EnclosureIdentifier)
 }]);
 export const api = new Zodios(endpoints);
 export function createApiClient(baseUrl: string, options?: ZodiosOptions) {

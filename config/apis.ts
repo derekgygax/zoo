@@ -16,7 +16,7 @@ export const API_ENDPOINTS = {
   animalsService: {
     animals: {
       index: API_INDEX.animalsService.animals,
-      ids: `${API_INDEX.animalsService.animals}/ids`,
+      identifiers: `${API_INDEX.animalsService.animals}/identifiers`,
     },
     species: {
       index: API_INDEX.animalsService.species,
@@ -31,6 +31,8 @@ export const API_ENDPOINTS = {
     },
     enclosures: {
       index: API_INDEX.enclosuresService.enclosures,
+      identifiers: `${API_INDEX.enclosuresService.enclosures}/identifiers`,
+      bases: `${API_INDEX.enclosuresService.enclosures}/bases`
     }
   }
 };

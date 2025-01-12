@@ -26,5 +26,10 @@ export const duties: Duty[] = [
     label: "Add Enclosure",
     url: SITE_URLS.staff.enclosures.add_enclosure,
     roles: [ROLE.ADMIN]
+  },
+  {
+    label: "Update Enclosure",
+    url: SITE_URLS.staff.enclosures.update_enclosure,
+    roles: [ROLE.ADMIN]
   }
 ]

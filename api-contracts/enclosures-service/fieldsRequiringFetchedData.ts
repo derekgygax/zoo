@@ -5,6 +5,7 @@ import { SchemasSelectors} from "@/types/script";
   "EnclosureBase": [
     "enclosureTypeId"
   ],
+  "EnclosureIdentifier": [],
   "EnclosureStatus": [],
   "EnclosureType": [],
   "EnclosureTypeBase": [],

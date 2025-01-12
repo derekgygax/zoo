@@ -32,3 +32,8 @@ export type FormConfig<K extends FORM_NAME> = {
 export type FormConfigs = {
   [K in FORM_NAME]: FormConfig<K>;
 };
+
+export interface HiddenField {
+  name: string;
+  value: string;
+}

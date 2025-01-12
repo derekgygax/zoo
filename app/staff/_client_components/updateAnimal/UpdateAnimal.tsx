@@ -10,7 +10,7 @@ import { FORM_NAME } from "@/config/forms";
 
 // types
 import { AnimalIdentifier, AnimalBase } from "@/types/animals-service"
-import { FormConfig, SelectorOption } from "@/types/form";
+import { FormConfig, HiddenField, SelectorOption } from "@/types/form";
 
 // TODO
 // can you do this here!!?? Like pull config stuff in a client component??? DAANNNGGGG
@@ -21,9 +21,6 @@ import { SITE_URLS } from "@/config/siteUrls";
 
 // server actions
 import { updateAnimalAction, getAnimal } from "@/app/_actions/animals-service/animals";
-
-// layouts
-import { PageSection } from "@/app/_layouts/pageSection/PageSection";
 
 // client components
 import { ZodForm } from "@/app/_client_components/zodForm/ZodForm";
@@ -69,40 +66,39 @@ export const UpdateAnimal = ({ animals, formConfig, selectorOptions }: UpdateAni
     }
   }
 
+  // this is NOT a state, it will be filled differently 
+  // on every rerender. so this will work just fine
+  // still makes you nervous but here it is
+  const hiddenFields: HiddenField[] = animal ? [{
+    name: "id",
+    value: animal.id
+  }] : [];
+
   return (
     <>
-      <PageSection>
-        <select ref={selectRef} onChange={handleAnimalChange}>
-          <option></option>
-          {animals.map((animal: AnimalIdentifier) => {
-            return (
-              <option
-                key={animal.id}
-                value={animal.id}
-              >
-                {`${animal.name} (${animal.specie_id})`}
-              </option>
-            )
-          })}
-        </select>
-      </PageSection>
+      <select ref={selectRef} onChange={handleAnimalChange}>
+        <option></option>
+        {animals.map((animal: AnimalIdentifier) => {
+          return (
+            <option
+              key={animal.id}
+              value={animal.id}
+            >
+              {`${animal.name} (${animal.specie_id})`}
+            </option>
+          )
+        })}
+      </select>
       {animal && (
-        <PageSection>
           <ZodForm
             formName={formConfig.name}
             formServerAction={updateAnimalAction}
             zodSchemaName={formConfig.zodSchemaName}
-            hiddenFields={[
-              {
-                name: "id",
-                value: animal.id
-              }
-            ]}
+            hiddenFields={hiddenFields}
             selectorOptions={selectorOptions}
             defaultValues={animal.animal}
             callBack={handleFormCallBack}
           />
-        </PageSection>
       )}
     </>
   )

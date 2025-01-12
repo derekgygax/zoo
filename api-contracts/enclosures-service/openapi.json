@@ -78,6 +78,22 @@
           }
         }
       },
+      "EnclosureIdentifier" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "$ref" : "#/components/schemas/UUID",
+            "type" : "string",
+            "description" : "Unique identifier of the Enclosure",
+            "title" : "ID"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Name of the enclosure",
+            "title" : "Name"
+          }
+        }
+      },
       "EnclosureStatus" : {
         "type" : "string",
         "enum" : [ "OPEN", "UNDER_MAINTENANCE", "CLOSED", "TEMPORARILY_CLOSED", "AWAITING_CLEANING", "BEING_RENOVATED", "EMERGENCY_LOCKDOWN" ]
@@ -141,7 +157,7 @@
       "SecurityScheme" : {
         "type" : "openIdConnect",
         "description" : "Authentication",
-        "openIdConnectUrl" : "http://localhost:56647/realms/quarkus/.well-known/openid-configuration"
+        "openIdConnectUrl" : "http://localhost:65505/realms/quarkus/.well-known/openid-configuration"
       }
     }
   },
@@ -244,6 +260,53 @@
           }
         },
         "summary" : "Add Enclosure",
+        "tags" : [ "Enclosure Resource" ]
+      }
+    },
+    "/api/v1/enclosures/bases/{enclosureId}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "enclosureId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/EnclosureBase"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Enclosure Base By Id",
+        "tags" : [ "Enclosure Resource" ]
+      }
+    },
+    "/api/v1/enclosures/identifiers" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/EnclosureIdentifier"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Enclosure Identifiers",
         "tags" : [ "Enclosure Resource" ]
       }
     },

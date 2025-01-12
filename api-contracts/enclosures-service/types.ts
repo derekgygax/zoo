@@ -156,6 +156,80 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/enclosures/bases/{enclosureId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Enclosure Base By Id */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    enclosureId: components["schemas"]["UUID"];
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["EnclosureBase"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/enclosures/identifiers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Enclosure Identifiers */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["EnclosureIdentifier"][];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/enclosures/{enclosureId}": {
         parameters: {
             query?: never;
@@ -254,6 +328,18 @@ export interface components {
              * @description The current status of the enclosure
              */
             status: components["schemas"]["EnclosureStatus"];
+        };
+        EnclosureIdentifier: {
+            /**
+             * ID
+             * @description Unique identifier of the Enclosure
+             */
+            id?: components["schemas"]["UUID"];
+            /**
+             * Name
+             * @description Name of the enclosure
+             */
+            name?: string;
         };
         /** @enum {string} */
         EnclosureStatus: "OPEN" | "UNDER_MAINTENANCE" | "CLOSED" | "TEMPORARILY_CLOSED" | "AWAITING_CLEANING" | "BEING_RENOVATED" | "EMERGENCY_LOCKDOWN";
