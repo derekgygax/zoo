@@ -33,7 +33,8 @@ export enum FORM_NAME {
   UPDATE_SPECIE = "UpdateSpecie",
   ADD_ENCLOSURE_TYPE = "AddEnclosureType",
   UPDATE_ENCLOSURE_TYPE = "UpdateEnclosureType",
-  ADD_ENCLOSURE = "AddEnclosure"
+  ADD_ENCLOSURE = "AddEnclosure",
+  UPDATE_ENCLOSURE = "UpdateEnclosure"
 }
 
 // TODO ... somehow in here you could put the selectors it needs
@@ -78,6 +79,12 @@ export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.ADD_ENCLOSURE]: {
     name: FORM_NAME.ADD_ENCLOSURE,
     label: "Add Enclosure",
+    zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_BASE,
+    fieldsRequiringFetchedData: enclosureFieldsRequiringFetching[FORM_SCHEMA_NAME.ENCLOSURE_BASE]
+  },
+  [FORM_NAME.UPDATE_ENCLOSURE]: {
+    name: FORM_NAME.UPDATE_ENCLOSURE,
+    label: "Update Enclosure",
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_BASE,
     fieldsRequiringFetchedData: enclosureFieldsRequiringFetching[FORM_SCHEMA_NAME.ENCLOSURE_BASE]
   }
