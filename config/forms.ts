@@ -100,7 +100,7 @@ export const FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS: DependencyFieldKeys = {
   // but hey, put it here so you remember to follow how its structured
   // you are going to hardcode stuff in here ... the names of
   [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: {
-    label: "type",
-    value: "type"
+    label: "id",
+    value: "id"
   }
 }

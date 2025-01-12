@@ -3,7 +3,7 @@ import { SchemasSelectors} from "@/types/script";
   export const fieldsRequiringFetchedData: SchemasSelectors = {
   "Enclosure": [],
   "EnclosureBase": [
-    "enclosureType"
+    "enclosureTypeId"
   ],
   "EnclosureStatus": [],
   "EnclosureType": [],

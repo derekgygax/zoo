@@ -27,7 +27,7 @@ export const API_ENDPOINTS = {
   enclosuresService: {
     enclosureTypes: {
       index: API_INDEX.enclosuresService.enclosureTypes,
-      keys: `${API_INDEX.enclosuresService.enclosureTypes}/keys`
+      keys: `${API_INDEX.enclosuresService.enclosureTypes}/ids`
     },
     enclosures: {
       index: API_INDEX.enclosuresService.enclosures,

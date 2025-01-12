@@ -1,34 +1,18 @@
 import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 
-type Enclosure = {
-  id: UUID;
-  name: string;
-  enclosureType: EnclosureType;
-  capacity: number;
-  status: EnclosureStatus;
-  createdAt?: Instant | undefined;
-  updatedAt?: Instant | undefined;
-};
-type UUID = string;
-type Instant = string;
-type EnclosureStatus =
-  | "OPEN"
-  | "UNDER_MAINTENANCE"
-  | "CLOSED"
-  | "TEMPORARILY_CLOSED"
-  | "AWAITING_CLEANING"
-  | "BEING_RENOVATED"
-  | "EMERGENCY_LOCKDOWN";
-type EnclosureType = {
-  type: string;
-  description: string;
-  createdAt?: Instant | undefined;
-  updatedAt?: Instant | undefined;
-  enclosures?: Array<Enclosure> | undefined;
-};
-
 const Instant = z.string();
+const EnclosureType = z
+  .object({
+    id: z.string().max(100),
+    description: z.string().max(500),
+    createdAt: Instant.datetime({ offset: true }).optional(),
+    updatedAt: Instant.datetime({ offset: true }).optional(),
+  })
+  .passthrough();
+const EnclosureTypeBase = z
+  .object({ id: z.string().max(100), description: z.string().max(500) })
+  .passthrough();
 const UUID = z.string();
 const EnclosureStatus = z.enum([
   "OPEN",
@@ -39,39 +23,23 @@ const EnclosureStatus = z.enum([
   "BEING_RENOVATED",
   "EMERGENCY_LOCKDOWN",
 ]);
-const Enclosure: z.ZodType<Enclosure> = z.lazy(() =>
-  z
-    .object({
-      id: UUID.regex(
-        /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
-      ).uuid(),
-      name: z.string().max(100),
-      enclosureType: EnclosureType,
-      capacity: z.number().int().gte(0),
-      status: EnclosureStatus,
-      createdAt: Instant.datetime({ offset: true }).optional(),
-      updatedAt: Instant.datetime({ offset: true }).optional(),
-    })
-    .passthrough()
-);
-const EnclosureType: z.ZodType<EnclosureType> = z.lazy(() =>
-  z
-    .object({
-      type: z.string().max(100),
-      description: z.string().max(500),
-      createdAt: Instant.datetime({ offset: true }).optional(),
-      updatedAt: Instant.datetime({ offset: true }).optional(),
-      enclosures: z.array(Enclosure).optional(),
-    })
-    .passthrough()
-);
-const EnclosureTypeBase = z
-  .object({ type: z.string().max(100), description: z.string().max(500) })
+const Enclosure = z
+  .object({
+    id: UUID.regex(
+      /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
+    ).uuid(),
+    name: z.string().max(100),
+    enclosureType: EnclosureType,
+    capacity: z.number().int().gte(0),
+    status: EnclosureStatus,
+    createdAt: Instant.datetime({ offset: true }).optional(),
+    updatedAt: Instant.datetime({ offset: true }).optional(),
+  })
   .passthrough();
 const EnclosureBase = z
   .object({
     name: z.string().max(100),
-    enclosureType: z.string(),
+    enclosureTypeId: z.string(),
     capacity: z.number().int().gte(0),
     status: EnclosureStatus,
   })
@@ -79,11 +47,11 @@ const EnclosureBase = z
 
 export const schemas = {
   Instant,
+  EnclosureType,
+  EnclosureTypeBase,
   UUID,
   EnclosureStatus,
   Enclosure,
-  EnclosureType,
-  EnclosureTypeBase,
   EnclosureBase,
 };
 
@@ -111,8 +79,8 @@ const endpoints = makeApi([
   },
   {
     method: "get",
-    path: "/api/v1/enclosure-types/keys",
-    alias: "getApiv1enclosureTypeskeys",
+    path: "/api/v1/enclosure-types/ids",
+    alias: "getApiv1enclosureTypesids",
     requestFormat: "json",
     response: z.array(z.string()),
   },
@@ -133,6 +101,30 @@ const endpoints = makeApi([
         name: "body",
         type: "Body",
         schema: EnclosureBase,
+      },
+    ],
+    response: z.void(),
+  },
+  {
+    method: "put",
+    path: "/api/v1/enclosures/:enclosureId",
+    alias: "putApiv1enclosuresEnclosureId",
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "body",
+        type: "Body",
+        schema: EnclosureBase,
+      },
+      {
+        name: "enclosureId",
+        type: "Path",
+        schema: z
+          .string()
+          .regex(
+            /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
+          )
+          .uuid(),
       },
     ],
     response: z.void(),

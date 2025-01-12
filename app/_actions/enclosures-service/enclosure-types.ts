@@ -45,7 +45,7 @@ const addEnclosureType = async (prevState: FormState, formData: FormData) => {
 
 
   return [
-    `The enclosure type ${enclosureType.type} was created`
+    `The enclosure type ${enclosureType.id} was created`
   ]
 }
 

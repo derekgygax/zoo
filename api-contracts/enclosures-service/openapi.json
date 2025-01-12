@@ -22,7 +22,7 @@
             "$ref" : "#/components/schemas/EnclosureType",
             "type" : "object",
             "format" : "selector",
-            "description" : "The type of the enclosure",
+            "description" : "The type of the enclosure, such as 'jungle', 'desert', or 'aquarium'",
             "title" : "Enclosure Type"
           },
           "capacity" : {
@@ -48,7 +48,7 @@
       },
       "EnclosureBase" : {
         "type" : "object",
-        "required" : [ "name", "enclosureType", "capacity", "status" ],
+        "required" : [ "name", "enclosureTypeId", "capacity", "status" ],
         "properties" : {
           "name" : {
             "type" : "string",
@@ -56,10 +56,10 @@
             "description" : "Name of the enclosure",
             "title" : "Name"
           },
-          "enclosureType" : {
+          "enclosureTypeId" : {
             "type" : "string",
             "format" : "selector",
-            "description" : "The type of the enclosure",
+            "description" : "The type of the enclosure, such as 'jungle', 'desert', or 'aquarium'",
             "title" : "Enclosure Type"
           },
           "capacity" : {
@@ -83,12 +83,13 @@
       },
       "EnclosureType" : {
         "type" : "object",
-        "required" : [ "type", "description" ],
+        "required" : [ "id", "description" ],
         "properties" : {
-          "type" : {
+          "id" : {
             "type" : "string",
+            "examples" : [ "jungle" ],
             "maxLength" : 100,
-            "description" : "The type of the enclosure",
+            "description" : "Unique identifier for the enclosure type, such as 'jungle', 'desert', or 'aquarium'.",
             "title" : "Enclosure Type"
           },
           "description" : {
@@ -102,23 +103,18 @@
           },
           "updatedAt" : {
             "$ref" : "#/components/schemas/Instant"
-          },
-          "enclosures" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Enclosure"
-            }
           }
         }
       },
       "EnclosureTypeBase" : {
         "type" : "object",
-        "required" : [ "type", "description" ],
+        "required" : [ "id", "description" ],
         "properties" : {
-          "type" : {
+          "id" : {
             "type" : "string",
+            "examples" : [ "jungle" ],
             "maxLength" : 100,
-            "description" : "The type of the enclosure",
+            "description" : "Unique identifier for the enclosure type, such as 'jungle', 'desert', or 'aquarium'",
             "title" : "Enclosure Type"
           },
           "description" : {
@@ -144,7 +140,7 @@
       "SecurityScheme" : {
         "type" : "openIdConnect",
         "description" : "Authentication",
-        "openIdConnectUrl" : "http://localhost:57360/realms/quarkus/.well-known/openid-configuration"
+        "openIdConnectUrl" : "http://localhost:56647/realms/quarkus/.well-known/openid-configuration"
       }
     }
   },
@@ -189,7 +185,7 @@
         "tags" : [ "Enclosure Type Resource" ]
       }
     },
-    "/api/v1/enclosure-types/keys" : {
+    "/api/v1/enclosure-types/ids" : {
       "get" : {
         "responses" : {
           "200" : {
@@ -206,7 +202,7 @@
             }
           }
         },
-        "summary" : "Get Enclosure Type Keys",
+        "summary" : "Get Enclosure Type Ids",
         "tags" : [ "Enclosure Type Resource" ]
       }
     },
@@ -247,6 +243,35 @@
           }
         },
         "summary" : "Add Enclosure",
+        "tags" : [ "Enclosure Resource" ]
+      }
+    },
+    "/api/v1/enclosures/{enclosureId}" : {
+      "put" : {
+        "parameters" : [ {
+          "name" : "enclosureId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/EnclosureBase"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "summary" : "Update Enclosure",
         "tags" : [ "Enclosure Resource" ]
       }
     }

@@ -30,7 +30,7 @@ const addEnclosure = async (prevState: FormState, formData: FormData) => {
   )
 
   return [
-    `The enclosure ${enclosure.name} of type ${enclosure.enclosureType} has been added to the zoo`
+    `The enclosure ${enclosure.name} of type ${enclosure.enclosureTypeId} has been added to the zoo`
   ];
 }
 

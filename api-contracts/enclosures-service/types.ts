@@ -62,14 +62,14 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/enclosure-types/keys": {
+    "/api/v1/enclosure-types/ids": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Get Enclosure Type Keys */
+        /** Get Enclosure Type Ids */
         get: {
             parameters: {
                 query?: never;
@@ -156,6 +156,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/enclosures/{enclosureId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Update Enclosure */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    enclosureId: components["schemas"]["UUID"];
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["EnclosureBase"];
+                };
+            };
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -174,7 +214,7 @@ export interface components {
             /**
              * Enclosure Type
              * Format: selector
-             * @description The type of the enclosure
+             * @description The type of the enclosure, such as 'jungle', 'desert', or 'aquarium'
              */
             enclosureType: components["schemas"]["EnclosureType"];
             /**
@@ -200,9 +240,9 @@ export interface components {
             /**
              * Enclosure Type
              * Format: selector
-             * @description The type of the enclosure
+             * @description The type of the enclosure, such as 'jungle', 'desert', or 'aquarium'
              */
-            enclosureType: string;
+            enclosureTypeId: string;
             /**
              * Capacity
              * Format: int32
@@ -220,9 +260,9 @@ export interface components {
         EnclosureType: {
             /**
              * Enclosure Type
-             * @description The type of the enclosure
+             * @description Unique identifier for the enclosure type, such as 'jungle', 'desert', or 'aquarium'.
              */
-            type: string;
+            id: string;
             /**
              * Enclosure Type Description
              * @description Description of the type
@@ -230,14 +270,13 @@ export interface components {
             description: string;
             createdAt?: components["schemas"]["Instant"];
             updatedAt?: components["schemas"]["Instant"];
-            enclosures?: components["schemas"]["Enclosure"][];
         };
         EnclosureTypeBase: {
             /**
              * Enclosure Type
-             * @description The type of the enclosure
+             * @description Unique identifier for the enclosure type, such as 'jungle', 'desert', or 'aquarium'
              */
-            type: string;
+            id: string;
             /**
              * Enclosure Type Description
              * @description Description of the type
