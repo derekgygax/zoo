@@ -139,7 +139,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 
 7. **Create a Page for the Form**:  
    - Create a new folder and `page.tsx` file in the appropriate location for the form's URL.
-   - Add the form's URL to `siteUrls.ts`.
+   - Add the form's URL to `config/siteUrls.ts`.
 
 8. **Add Content File**:  
    In the `content` folder at the root of the project, create a new file with the same name and location as the form. Follow the structure of existing content files.
