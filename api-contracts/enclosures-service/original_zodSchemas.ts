@@ -39,7 +39,7 @@ const Enclosure = z
 const EnclosureBase = z
   .object({
     name: z.string().max(100),
-    enclosureTypeId: z.string(),
+    enclosureTypeId: z.string().max(100),
     capacity: z.number().int().gte(0),
     status: EnclosureStatus,
   })

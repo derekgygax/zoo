@@ -59,6 +59,7 @@
           "enclosureTypeId" : {
             "type" : "string",
             "format" : "selector",
+            "maxLength" : 100,
             "description" : "The type of the enclosure, such as 'jungle', 'desert', or 'aquarium'",
             "title" : "Enclosure Type"
           },

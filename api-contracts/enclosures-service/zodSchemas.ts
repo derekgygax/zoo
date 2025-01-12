@@ -32,7 +32,7 @@ const Enclosure = z.object({
 }).passthrough();
 const EnclosureBase = z.object({
   name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
-  enclosureTypeId: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Enclosure Type\"}"),
+  enclosureTypeId: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Enclosure Type\"}"),
   capacity: z.coerce.number().int().gte(0).describe("{\"needsCoercion\":true,\"title\":\"Capacity\"}"),
   status: EnclosureStatus.describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Status\"}")
 }).passthrough();
