@@ -8,6 +8,7 @@ import { API_ENDPOINTS } from "@/config/apis";
 
 // types
 import { FormState } from "@/types/form";
+import { HTTP_METHOD } from "@/types/httpMethod";
 
 // action utils
 import { processFormAction } from "../utils/server/formActionUtils"
@@ -72,7 +73,7 @@ const addSpecie = async (prevState: FormState, formData: FormData) => {
 
   await sendAPIRequest(
     API_ENDPOINTS.animalsService.species.index,
-    'POST',
+    HTTP_METHOD.POST,
     specie
   );
 

@@ -10,6 +10,7 @@ import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 // types
 import { EnclosureTypeBase } from "@/types/enclosures-service";
 import { FormState } from "@/types/form";
+import { HTTP_METHOD } from "@/types/httpMethod";
 
 // utils _action
 import { deserializeFormData } from "@/app/_actions/utils/general";
@@ -39,7 +40,7 @@ const addEnclosureType = async (prevState: FormState, formData: FormData) => {
 
   await sendAPIRequest(
     API_ENDPOINTS.enclosuresService.enclosureTypes.index,
-    'POST',
+    HTTP_METHOD.POST,
     enclosureType
   )
 
