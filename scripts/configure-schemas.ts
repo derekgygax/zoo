@@ -17,7 +17,7 @@ import {
   SCRIPT_TYPE_NAME,
   SCRIPT_VARIABLE
 } from '@/config/scripts';
-import { FIELD_DEFAULTS } from '@/config/forms';
+import { FORM_FIELD_DEFAULTS } from '@/config/constants';
 
 // types
 import {
@@ -51,7 +51,7 @@ const getSchemasMeta = (openApiSpec: OpenAPIV3.Document): {
             ? {
               isDate: properties.format === "date",
               isSelector: properties.format === "selector",
-              maxLength: properties.maxLength ?? FIELD_DEFAULTS.string.maxLength
+              maxLength: properties.maxLength ?? FORM_FIELD_DEFAULTS.string.maxLength
             }
             : undefined,
           needsCoercion: properties.type !== undefined && SCRIPT_FIELDS_NEEDING_ZOD_COERCION.includes(properties.type) ? true : false,

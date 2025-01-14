@@ -22,12 +22,6 @@ import { schemas as animalZodSchemas } from "@/api-contracts/animals-service/zod
 import { schemas as enclosureZodSchemas } from "@/api-contracts/enclosures-service/zodSchemas";
 import { schemas as foodZodSchemas } from "@/api-contracts/food-service/zodSchemas";
 
-export const FIELD_DEFAULTS = {
-  string: {
-    maxLength: 100
-  }
-}
-
 export enum FORM_SCHEMA_NAME {
   ANIMAL_BASE = "AnimalBase",
   SPECIE_BASE = "SpecieBase",
