@@ -1,7 +1,7 @@
 "use server"
 
 // config
-import { FORM_SCHEMA_NAME } from "@/config/forms";
+import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 
 // API endpoints
 import { API_ENDPOINTS } from "@/config/apis";
@@ -17,9 +17,6 @@ import { deserializeFormData } from "../utils/general";
 
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
-
-// zod schemas
-import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 
 export const getStorageUnitIdentifiers = async (): Promise<StorageUnitIdentifier[]> => {
   const storageUnitIdentifiers: StorageUnitIdentifier[] = await getAPIRequest<StorageUnitIdentifier[]>(

@@ -1,6 +1,6 @@
 
 
-export default function AddEnclosurePage() {
+export default function UpdateEnclosureTypePage() {
   return (
     <main></main>
   );

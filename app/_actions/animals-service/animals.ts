@@ -1,7 +1,7 @@
 "use server"
 
 // config
-import { FORM_SCHEMA_NAME } from "@/config/forms";
+import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 
 // API endpoints
 import { API_ENDPOINTS } from "@/config/apis";
@@ -19,9 +19,6 @@ import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
 // types
 import { AnimalBase, AnimalIdentifier } from "@/types/animals-service";
-
-// zod schemas
-import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 
 // A simple request call to get the animal by the id
 export const getAnimal = async (animalId: string): Promise<AnimalBase | undefined> => {

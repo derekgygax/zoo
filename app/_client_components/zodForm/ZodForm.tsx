@@ -6,11 +6,8 @@ import { useForm, DefaultValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodObject, ZodRawShape, ZodTypeAny } from "zod";
 
-// master config
-import { FORM_SCHEMA_NAME } from "@/config/forms";
-
-// configs
-import { ZOD_SCHEMAS } from "@/config/zodSchemas";
+// config
+import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 
 // types
 import { FormState, HiddenField, SelectorOption } from "@/types/form";

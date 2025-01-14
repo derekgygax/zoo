@@ -1,11 +1,8 @@
 "use server"
 
 // config
-import { FORM_SCHEMA_NAME } from "@/config/forms";
-
-// config
+import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { API_ENDPOINTS } from "@/config/apis";
-import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 
 // types
 import { EnclosureTypeBase } from "@/types/enclosures-service";

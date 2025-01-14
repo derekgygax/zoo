@@ -10,11 +10,17 @@ import {
 import { SpecieBase } from "@/types/animals-service";
 import { EnclosureTypeBase } from "@/types/enclosures-service";
 import { FoodTypeBase, StorageUnitIdentifier, StorageUnitTypeBase } from "@/types/food-service";
+import { ZodSchema } from "@/types/zodSchema";
 
 // fields requiring fetched data
 import { fieldsRequiringFetchedData as animalFieldsRequiringFetching } from "@/api-contracts/animals-service/fieldsRequiringFetchedData";
 import { fieldsRequiringFetchedData as enclosureFieldsRequiringFetching } from "@/api-contracts/enclosures-service/fieldsRequiringFetchedData";
 import { fieldsRequiringFetchedData as foodFieldsRequiringFetching } from "@/api-contracts/food-service/fieldsRequiringFetchedData";
+
+// zod schemas
+import { schemas as animalZodSchemas } from "@/api-contracts/animals-service/zodSchemas";
+import { schemas as enclosureZodSchemas } from "@/api-contracts/enclosures-service/zodSchemas";
+import { schemas as foodZodSchemas } from "@/api-contracts/food-service/zodSchemas";
 
 export const FIELD_DEFAULTS = {
   string: {
@@ -190,3 +196,14 @@ export const FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS: DependencyFieldKeys = {
     value: "id"
   },
 }
+
+export const ZOD_SCHEMAS: ZodSchema = {
+  [FORM_SCHEMA_NAME.ANIMAL_BASE]: animalZodSchemas.AnimalBase,
+  [FORM_SCHEMA_NAME.SPECIE_BASE]: animalZodSchemas.SpecieBase,
+  [FORM_SCHEMA_NAME.ENCLOSURE_TYPE_BASE]: enclosureZodSchemas.EnclosureTypeBase,
+  [FORM_SCHEMA_NAME.ENCLOSURE_BASE]: enclosureZodSchemas.EnclosureBase,
+  [FORM_SCHEMA_NAME.FOOD_STOCK_BASE]: foodZodSchemas.FoodStockBase,
+  [FORM_SCHEMA_NAME.FOOD_TYPE_BASE]: foodZodSchemas.FoodTypeBase,
+  [FORM_SCHEMA_NAME.STORAGE_UNIT_BASE]: foodZodSchemas.StorageUnitBase,
+  [FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE]: foodZodSchemas.StorageUnitTypeBase,
+}  
