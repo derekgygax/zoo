@@ -25,16 +25,22 @@ export const SCRIPT_TASKS: SCRIPT_TASK[] = [
 ];
 
 export const SCRIPTS_CONFIG = {
-  fileLocation: {
-    base: "api-contracts",
-    names: {
-      openAPI: "openapi.json",
-      originalZod: "original_zodSchemas.ts",
-      cleanZod: "zodSchemas.ts",
-      types: "types.ts",
-      selectorFields: "fieldsRequiringFetchedData.ts"
+  fileLocations: {
+    apiContracts: {
+      base: "api-contracts",
+      fileNames: {
+        openAPI: "openapi.json",
+        originalZod: "originalZodSchemas.ts",
+        cleanZod: "zodSchemas.ts",
+        types: "types.ts",
+        selectorFields: "fieldsRequiringFetchedData.ts"
+      }
+    },
+    types: {
+      base: "types"
     }
-  }
+  },
 };
+
 
 export const SCRIPT_FIELDS_NEEDING_ZOD_COERCION = ["integer", "number", "boolean"];

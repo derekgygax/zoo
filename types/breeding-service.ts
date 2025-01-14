@@ -1,0 +1,1 @@
+import { components } from "@/api-contracts/breeding-service/types";

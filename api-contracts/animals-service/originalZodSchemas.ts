@@ -133,9 +133,9 @@ const endpoints = makeApi([
     ],
   },
   {
-    method: "post",
+    method: "put",
     path: "/api/v1/animals/:animal_id",
-    alias: "update_animal_api_v1_animals__animal_id__post",
+    alias: "update_animal_api_v1_animals__animal_id__put",
     requestFormat: "json",
     parameters: [
       {
@@ -160,8 +160,8 @@ const endpoints = makeApi([
   },
   {
     method: "get",
-    path: "/api/v1/animals/ids",
-    alias: "get_animals_api_v1_animals_ids_get",
+    path: "/api/v1/animals/identifiers",
+    alias: "get_animal_ids_api_v1_animals_identifiers_get",
     requestFormat: "json",
     response: z.array(AnimalIdentifier),
   },
@@ -194,15 +194,15 @@ const endpoints = makeApi([
     ],
   },
   {
-    method: "post",
+    method: "put",
     path: "/api/v1/species/:specie_id",
-    alias: "update_animal_api_v1_species__specie_id__post",
+    alias: "update_specie_api_v1_species__specie_id__put",
     requestFormat: "json",
     parameters: [
       {
         name: "body",
         type: "Body",
-        schema: Specie,
+        schema: SpecieBase,
       },
       {
         name: "specie_id",

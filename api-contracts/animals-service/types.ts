@@ -22,15 +22,15 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/animals/ids": {
+    "/api/v1/animals/identifiers": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Get Animals */
-        get: operations["get_animals_api_v1_animals_ids_get"];
+        /** Get Animal Ids */
+        get: operations["get_animal_ids_api_v1_animals_identifiers_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -48,9 +48,9 @@ export interface paths {
         };
         /** Get Animal Base By Id */
         get: operations["get_animal_base_by_id_api_v1_animals__animal_id__get"];
-        put?: never;
         /** Update Animal */
-        post: operations["update_animal_api_v1_animals__animal_id__post"];
+        put: operations["update_animal_api_v1_animals__animal_id__put"];
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -117,9 +117,9 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
-        put?: never;
-        /** Update Animal */
-        post: operations["update_animal_api_v1_species__specie_id__post"];
+        /** Update Specie */
+        put: operations["update_specie_api_v1_species__specie_id__put"];
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -360,7 +360,7 @@ export interface operations {
             };
         };
     };
-    get_animals_api_v1_animals_ids_get: {
+    get_animal_ids_api_v1_animals_identifiers_get: {
         parameters: {
             query?: never;
             header?: never;
@@ -411,7 +411,7 @@ export interface operations {
             };
         };
     };
-    update_animal_api_v1_animals__animal_id__post: {
+    update_animal_api_v1_animals__animal_id__put: {
         parameters: {
             query?: never;
             header?: never;
@@ -537,7 +537,7 @@ export interface operations {
             };
         };
     };
-    update_animal_api_v1_species__specie_id__post: {
+    update_specie_api_v1_species__specie_id__put: {
         parameters: {
             query?: never;
             header?: never;
@@ -548,7 +548,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["Specie"];
+                "application/json": components["schemas"]["SpecieBase"];
             };
         };
         responses: {

@@ -12,6 +12,7 @@ import { SCRIPTS_CONFIG, SCRIPT_TASK, SCRIPT_TASKS } from "@/config/scripts";
 
 // scripts
 import { configureSchemas } from "./configure-schemas";
+import { configureTypes } from "./configure-types";
 
 // check if the input string is a valid service
 const isService = (value: string): value is SERVICE => {
@@ -98,18 +99,24 @@ console.log(`  ${tasks.join(", ")}\n`);
 
 for (const service of services) {
 
+  console.log(`Working on the service: ${service}\n`);
+
   const openAPI_Url = `${API_BASE_URLS[service]}/${OPENAPI_ENDPOINTS[SERVICES[service].framework]}`;
 
-  const openApiPath = `${SCRIPTS_CONFIG.fileLocation.base}/${service}/${SCRIPTS_CONFIG.fileLocation.names.openAPI}`;
-  const typesPath = `${SCRIPTS_CONFIG.fileLocation.base}/${service}/${SCRIPTS_CONFIG.fileLocation.names.types}`;
-  const originalZodPath = `${SCRIPTS_CONFIG.fileLocation.base}/${service}/${SCRIPTS_CONFIG.fileLocation.names.originalZod}`;
-  const cleanedZodPath = `${SCRIPTS_CONFIG.fileLocation.base}/${service}/${SCRIPTS_CONFIG.fileLocation.names.cleanZod}`;
-  const selectorFieldsPath = `${SCRIPTS_CONFIG.fileLocation.base}/${service}/${SCRIPTS_CONFIG.fileLocation.names.selectorFields}`;
+  const apiContractsBasePath = SCRIPTS_CONFIG.fileLocations.apiContracts.base;
+  const apiContractsFileNames = SCRIPTS_CONFIG.fileLocations.apiContracts.fileNames;
+
+  const openApiPath = `${apiContractsBasePath}/${service}/${apiContractsFileNames.openAPI}`;
+  const originalTypesPath = `${apiContractsBasePath}/${service}/${apiContractsFileNames.types}`;
+  const typesPath = `${SCRIPTS_CONFIG.fileLocations.types.base}/${service}.ts`;
+  const originalZodPath = `${apiContractsBasePath}/${service}/${apiContractsFileNames.originalZod}`;
+  const cleanedZodPath = `${apiContractsBasePath}/${service}/${apiContractsFileNames.cleanZod}`;
+  const selectorFieldsPath = `${apiContractsBasePath}/${service}/${apiContractsFileNames.selectorFields}`;
 
   if (isVerbose) {
-    console.log(`Working on the service: ${service}\n`);
     console.log(`  openAPI_Url: ${openAPI_Url}`);
     console.log(`  openApiPath: ${openApiPath}`);
+    console.log(`  originalTypesPath: ${originalTypesPath}`);
     console.log(`  typesPath: ${typesPath}`);
     console.log(`  originalZodPath: ${originalZodPath}`);
     console.log(`  cleanedZodPath: ${cleanedZodPath}\n`);
@@ -122,8 +129,10 @@ for (const service of services) {
   }
 
   if (tasks.includes(SCRIPT_TASK.TYPES)) {
-    // build the types
-    execSync(`bunx openapi-typescript ${openApiPath} -o ${typesPath}`, { stdio: "inherit" });
+    // build the types from the openAPI
+    execSync(`bunx openapi-typescript ${openApiPath} -o ${originalTypesPath}`, { stdio: "inherit" });
+    // configure the types so they are easier access in the app
+    configureTypes(service, originalTypesPath, typesPath);
   }
 
   if (tasks.includes(SCRIPT_TASK.ZOD)) {

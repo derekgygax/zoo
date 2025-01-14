@@ -1,16 +1,11 @@
 import { components } from "@/api-contracts/animals-service/types";
 
-// Animal
-export type HEALTH_TYPE = components["schemas"]["HEALTH_TYPE"];
-export type GENDER = components["schemas"]["GENDER"];
+export type Animal = components["schemas"]["Animal"];
 export type AnimalBase = components["schemas"]["AnimalBase"];
 export type AnimalIdentifier = components["schemas"]["AnimalIdentifier"];
-export type Animal = components["schemas"]["Animal"];
-
-// Specie
-export type SpecieBase = components["schemas"]["SpecieBase"];
+export type GENDER = components["schemas"]["GENDER"];
+export type HEALTH_TYPE = components["schemas"]["HEALTH_TYPE"];
+export type HTTPValidationError = components["schemas"]["HTTPValidationError"];
 export type Specie = components["schemas"]["Specie"];
-
-// Medical Record
-
-// Event
+export type SpecieBase = components["schemas"]["SpecieBase"];
+export type ValidationError = components["schemas"]["ValidationError"];
