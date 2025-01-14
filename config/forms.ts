@@ -9,9 +9,12 @@ import {
 } from "@/types/form";
 import { SpecieBase } from "@/types/animals-service";
 import { EnclosureTypeBase } from "@/types/enclosures-service";
+import { FoodTypeBase, StorageUnitIdentifier, StorageUnitTypeBase } from "@/types/food-service";
 
+// fields requiring fetched data
 import { fieldsRequiringFetchedData as animalFieldsRequiringFetching } from "@/api-contracts/animals-service/fieldsRequiringFetchedData";
 import { fieldsRequiringFetchedData as enclosureFieldsRequiringFetching } from "@/api-contracts/enclosures-service/fieldsRequiringFetchedData";
+import { fieldsRequiringFetchedData as foodFieldsRequiringFetching } from "@/api-contracts/food-service/fieldsRequiringFetchedData";
 
 export const FIELD_DEFAULTS = {
   string: {
@@ -23,7 +26,11 @@ export enum FORM_SCHEMA_NAME {
   ANIMAL_BASE = "AnimalBase",
   SPECIE_BASE = "SpecieBase",
   ENCLOSURE_TYPE_BASE = "EnclosureTypeBase",
-  ENCLOSURE_BASE = "EnclosureBase"
+  ENCLOSURE_BASE = "EnclosureBase",
+  FOOD_TYPE_BASE = "FoodTypeBase",
+  FOOD_STOCK_BASE = "FoodStockBase",
+  STORAGE_UNIT_TYPE_BASE = "StorageUnitTypeBase",
+  STORAGE_UNIT_BASE = "StorageUnit"
 }
 
 export enum FORM_NAME {
@@ -34,7 +41,15 @@ export enum FORM_NAME {
   ADD_ENCLOSURE_TYPE = "AddEnclosureType",
   UPDATE_ENCLOSURE_TYPE = "UpdateEnclosureType",
   ADD_ENCLOSURE = "AddEnclosure",
-  UPDATE_ENCLOSURE = "UpdateEnclosure"
+  UPDATE_ENCLOSURE = "UpdateEnclosure",
+  ADD_STORAGE_UNIT_TYPE = "AddStorageUnitType",
+  UPDATE_STORAGE_UNIT_TYPE = "UpdateStorageUnitType",
+  ADD_STORAGE_UNIT = "AddStorageUnit",
+  UPDATE_STORAGE_UNIT = "UpdateStorageUnit",
+  ADD_FOOD_TYPE = "AddFoodType",
+  UPDATE_FOOD_TYPE = "UpdateFoodType",
+  ADD_FOOD_STOCK = "AddFoodStock",
+  UPDATE_FOOD_STOCK = "UpdateFoodStock"
 }
 
 // TODO ... somehow in here you could put the selectors it needs
@@ -87,12 +102,64 @@ export const FORM_CONFIGS: FormConfigs = {
     label: "Update Enclosure",
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_BASE,
     fieldsRequiringFetchedData: enclosureFieldsRequiringFetching[FORM_SCHEMA_NAME.ENCLOSURE_BASE]
-  }
+  },
+  [FORM_NAME.ADD_STORAGE_UNIT_TYPE]: {
+    name: FORM_NAME.ADD_STORAGE_UNIT_TYPE,
+    label: "Add Storage Unit Type",
+    zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE,
+    fieldsRequiringFetchedData: [],
+  },
+  [FORM_NAME.UPDATE_STORAGE_UNIT_TYPE]: {
+    name: FORM_NAME.UPDATE_STORAGE_UNIT_TYPE,
+    label: "Update Storage Unit Type",
+    zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE,
+    fieldsRequiringFetchedData: [],
+  },
+  [FORM_NAME.ADD_STORAGE_UNIT]: {
+    name: FORM_NAME.ADD_STORAGE_UNIT,
+    label: "Add Storage Unit",
+    zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_BASE,
+    fieldsRequiringFetchedData: foodFieldsRequiringFetching[FORM_SCHEMA_NAME.STORAGE_UNIT_BASE],
+  },
+  [FORM_NAME.UPDATE_STORAGE_UNIT]: {
+    name: FORM_NAME.UPDATE_STORAGE_UNIT,
+    label: "Update Storage Unit",
+    zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_BASE,
+    fieldsRequiringFetchedData: foodFieldsRequiringFetching[FORM_SCHEMA_NAME.STORAGE_UNIT_BASE],
+  },
+  [FORM_NAME.ADD_FOOD_TYPE]: {
+    name: FORM_NAME.ADD_FOOD_TYPE,
+    label: "Add Food Type",
+    zodSchemaName: FORM_SCHEMA_NAME.FOOD_TYPE_BASE,
+    fieldsRequiringFetchedData: [],
+  },
+  [FORM_NAME.UPDATE_FOOD_TYPE]: {
+    name: FORM_NAME.UPDATE_FOOD_TYPE,
+    label: "Update Food Type",
+    zodSchemaName: FORM_SCHEMA_NAME.FOOD_TYPE_BASE,
+    fieldsRequiringFetchedData: [],
+  },
+  [FORM_NAME.ADD_FOOD_STOCK]: {
+    name: FORM_NAME.ADD_FOOD_STOCK,
+    label: "Add Food Stock",
+    zodSchemaName: FORM_SCHEMA_NAME.FOOD_STOCK_BASE,
+    fieldsRequiringFetchedData: foodFieldsRequiringFetching[FORM_SCHEMA_NAME.FOOD_STOCK_BASE],
+  },
+  [FORM_NAME.UPDATE_FOOD_STOCK]: {
+    name: FORM_NAME.UPDATE_FOOD_STOCK,
+    label: "Update Food Stock",
+    zodSchemaName: FORM_SCHEMA_NAME.FOOD_STOCK_BASE,
+    fieldsRequiringFetchedData: foodFieldsRequiringFetching[FORM_SCHEMA_NAME.FOOD_STOCK_BASE],
+  },
+
 }
 
 type DependencyFieldKeys = {
   [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: FetchDataKey<SpecieBase>;
   [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: FetchDataKey<EnclosureTypeBase>;
+  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT_TYPE]: FetchDataKey<StorageUnitTypeBase>;
+  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT]: FetchDataKey<StorageUnitIdentifier>;
+  [FIELD_REQUIRING_FETCHED_DATA.FOOD_TYPE]: FetchDataKey<FoodTypeBase>;
 };
 
 export const FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS: DependencyFieldKeys = {
@@ -109,5 +176,17 @@ export const FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS: DependencyFieldKeys = {
   [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: {
     label: "id",
     value: "id"
-  }
+  },
+  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT_TYPE]: {
+    label: "id",
+    value: "id"
+  },
+  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT]: {
+    label: "name",
+    value: "id"
+  },
+  [FIELD_REQUIRING_FETCHED_DATA.FOOD_TYPE]: {
+    label: "id",
+    value: "id"
+  },
 }

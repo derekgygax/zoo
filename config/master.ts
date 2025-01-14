@@ -41,7 +41,10 @@ export const API_BASE_URLS: Record<SERVICE, string> = {
 // make it consistent ... BUT not for now, do that when it becomes a problem
 export enum FIELD_REQUIRING_FETCHED_DATA {
   SPECIE = "specie_id",
-  ENCLOSURE_TYPE = "enclosureTypeId"
+  ENCLOSURE_TYPE = "enclosureTypeId",
+  STORAGE_UNIT_TYPE = "storage_unit_type_id",
+  STORAGE_UNIT = "storage_unit_id",
+  FOOD_TYPE = "food_type_id"
 }
 
 // The variable name above so if people run the generate-api-contracts
