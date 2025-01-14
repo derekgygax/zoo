@@ -15,8 +15,11 @@ import { SelectorOption, FetchDataKey } from "@/types/form";
 import { toSelectorOptions } from "@/lib/utils/general";
 
 // server actions
-import { getSpecieKeys } from "../../animals-service/specie";
+import { getSpecieIds } from "../../animals-service/specie";
 import { getEnclosureTypeKeys } from "../../enclosures-service/enclosure-types";
+import { getFoodTypeIds } from "../../food-service/food-type";
+import { getStorageUnitTypeIds } from "../../food-service/storage-unit-type";
+import { getStorageUnitIdentifiers } from "../../food-service/storage-unit";
 
 // TODO
 // TODO
@@ -66,8 +69,11 @@ import { getEnclosureTypeKeys } from "../../enclosures-service/enclosure-types";
 
 
 const FORM_DEPENDENCY_FETCHERS: Record<FIELD_REQUIRING_FETCHED_DATA, () => Promise<unknown[]>> = {
-  [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: getSpecieKeys,
-  [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: getEnclosureTypeKeys
+  [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: getSpecieIds,
+  [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: getEnclosureTypeKeys,
+  [FIELD_REQUIRING_FETCHED_DATA.FOOD_TYPE]: getFoodTypeIds,
+  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT]: getStorageUnitIdentifiers,
+  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT_TYPE]: getStorageUnitTypeIds,
 }
 
 const getSelectorOptions = async <T>(

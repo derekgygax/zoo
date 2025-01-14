@@ -54,9 +54,9 @@ export const getSpeciesBase = async (): Promise<SpecieBase[]> => {
   return species
 }
 
-export const getSpecieKeys = async (): Promise<string[]> => {
+export const getSpecieIds = async (): Promise<string[]> => {
   const species: string[] = await getAPIRequest(
-    API_ENDPOINTS.animalsService.species.keys,
+    API_ENDPOINTS.animalsService.species.ids,
     []
   );
 

@@ -24,7 +24,7 @@ import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 export const getEnclosureTypeKeys = async (): Promise<string[]> => {
 
   const enclosureTypes: string[] = await getAPIRequest(
-    API_ENDPOINTS.enclosuresService.enclosureTypes.keys,
+    API_ENDPOINTS.enclosuresService.enclosureTypes.ids,
     []
   )
 

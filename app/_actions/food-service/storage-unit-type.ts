@@ -1,3 +1,4 @@
+"use server"
 
 // config
 import { FORM_SCHEMA_NAME } from "@/config/forms";
@@ -15,7 +16,7 @@ import { processFormAction } from "../utils/server/formActionUtils"
 import { deserializeFormData } from "../utils/general";
 
 // lib utils
-import { sendAPIRequest } from "@/lib/utils/server/api";
+import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
 
 
@@ -23,13 +24,22 @@ import { sendAPIRequest } from "@/lib/utils/server/api";
 import { ZOD_SCHEMAS } from "@/config/zodSchemas";
 
 
+export const getStorageUnitTypeIds = async (): Promise<string[]> => {
+  const storageUnitTypes: string[] = await getAPIRequest(
+    API_ENDPOINTS.foodService.storageUnitTypes.ids,
+    []
+  );
+
+  return storageUnitTypes
+}
+
 const addStorageUnitType = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE];
 
   const storageUnitType: StorageUnitTypeBase = deserializeFormData(formData, zodSchema) as StorageUnitTypeBase;
 
   await sendAPIRequest(
-    API_ENDPOINTS.animalsService.animals.index,
+    API_ENDPOINTS.foodService.storageUnitTypes.index,
     HTTP_METHOD.POST,
     storageUnitType
   );

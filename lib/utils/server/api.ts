@@ -48,7 +48,9 @@ export const getAPIRequest = async <T>(
   if (response.ok) {
     return await response.json();
   } else {
-    console.error(response.statusText);
+    console.error("The getAPIRequest did not work");
+    console.error(url);
+    console.error(response);
     return defaultValue;
   }
 
@@ -94,6 +96,9 @@ export const sendAPIRequest = async (
   if (response.ok) {
     // console.log('Response data:', response);
   } else {
+    console.error("The sendAPIRequest did not work");
+    console.error(url);
+    console.error(response);
     const errorText = await response.text();
     throw new Error(`Error: ${response.status} ${response.statusText} - ${errorText}`);
   }

@@ -3,10 +3,9 @@
 import { FORM_CONFIGS, FORM_NAME } from "@/config/forms";
 
 // types
-import { FormConfig, SelectorOption } from "@/types/form";
+import { FormConfig } from "@/types/form";
 
 // server actions
-import { fetchFormDependencies } from "@/app/_actions/utils/server/fetchFormDependencies";
 import { addFoodTypeAction } from "@/app/_actions/food-service/food-type";
 
 // layouts
@@ -25,7 +24,6 @@ export default async function AddFoodTypePage() {
 
   // Right here the string in the Record could be FIELD_REQUIRING_FETCHED_DATA
   // but that might make things werid later so just don't do it
-  const selectorOptions: Record<string, SelectorOption[]> = await fetchFormDependencies(formConfig.fieldsRequiringFetchedData);
 
   return (
     <main>
@@ -37,7 +35,6 @@ export default async function AddFoodTypePage() {
         <ZodForm
           formName={formConfig.name}
           formServerAction={addFoodTypeAction}
-          selectorOptions={selectorOptions}
           zodSchemaName={formConfig.zodSchemaName}
         />
       </PageSection>

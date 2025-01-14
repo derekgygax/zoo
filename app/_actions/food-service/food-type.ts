@@ -1,3 +1,4 @@
+"use server"
 
 // config
 import { FORM_SCHEMA_NAME } from "@/config/forms";
@@ -15,12 +16,21 @@ import { processFormAction } from "../utils/server/formActionUtils"
 import { deserializeFormData } from "../utils/general";
 
 // lib utils
-import { sendAPIRequest } from "@/lib/utils/server/api";
-
+import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
 
 // zod schemas
 import { ZOD_SCHEMAS } from "@/config/zodSchemas";
+
+
+export const getFoodTypeIds = async (): Promise<string[]> => {
+  const foodTypes: string[] = await getAPIRequest(
+    API_ENDPOINTS.foodService.foodTypes.ids,
+    []
+  );
+
+  return foodTypes
+}
 
 
 const addFoodType = async (prevState: FormState, formData: FormData) => {
@@ -29,7 +39,7 @@ const addFoodType = async (prevState: FormState, formData: FormData) => {
   const foodType: FoodTypeBase = deserializeFormData(formData, zodSchema) as FoodTypeBase;
 
   await sendAPIRequest(
-    API_ENDPOINTS.animalsService.animals.index,
+    API_ENDPOINTS.foodService.foodTypes.index,
     HTTP_METHOD.POST,
     foodType
   );

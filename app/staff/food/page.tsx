@@ -2,10 +2,11 @@
 // layouts
 
 // components
+import { Duties } from "../_components/duties/Duties";
 import { Title } from "../../_components/title/Title";
 
 // content
-import { title } from "../../../content/app/staff/food";
+import { title, duties } from "../../../content/app/staff/food";
 
 export default function StaffFoodPage() {
   return (
@@ -13,6 +14,9 @@ export default function StaffFoodPage() {
       <Title
         title={title.label}
         level={title.level}
+      />
+      <Duties
+        duties={duties}
       />
     </main>
   )

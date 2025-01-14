@@ -1,3 +1,4 @@
+"use server"
 
 // config
 import { FORM_SCHEMA_NAME } from "@/config/forms";
@@ -29,7 +30,7 @@ const addFoodStock = async (prevState: FormState, formData: FormData) => {
   const foodStock: FoodStockBase = deserializeFormData(formData, zodSchema) as FoodStockBase;
 
   await sendAPIRequest(
-    API_ENDPOINTS.animalsService.animals.index,
+    API_ENDPOINTS.foodService.foodStocks.index,
     HTTP_METHOD.POST,
     foodStock
   );
