@@ -1,6 +1,6 @@
 
 // master config
-import { FIELD_REQUIRING_FETCHED_DATA } from "@/config/master";
+import { FIELD_REQUIRING_FETCHED_DATA, SERVICE } from "@/config/master";
 
 // types
 import {
@@ -56,96 +56,112 @@ export enum FORM_NAME {
 // to get and the API points it should use
 export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.ADD_ANIMAL]: {
+    service: SERVICE.ANIMALS,
     name: FORM_NAME.ADD_ANIMAL,
     label: "Add Animal",
     zodSchemaName: FORM_SCHEMA_NAME.ANIMAL_BASE,
     fieldsRequiringFetchedData: animalFieldsRequiringFetching[FORM_SCHEMA_NAME.ANIMAL_BASE]
   },
   [FORM_NAME.UPDATE_ANIMAL]: {
+    service: SERVICE.ANIMALS,
     name: FORM_NAME.UPDATE_ANIMAL,
     label: "UPDATE Animal",
     zodSchemaName: FORM_SCHEMA_NAME.ANIMAL_BASE,
     fieldsRequiringFetchedData: animalFieldsRequiringFetching[FORM_SCHEMA_NAME.ANIMAL_BASE]
   },
   [FORM_NAME.ADD_SPECIE]: {
+    service: SERVICE.ANIMALS,
     name: FORM_NAME.ADD_SPECIE,
     label: "Add Specie",
     zodSchemaName: FORM_SCHEMA_NAME.SPECIE_BASE,
     fieldsRequiringFetchedData: []
   },
   [FORM_NAME.UPDATE_SPECIE]: {
+    service: SERVICE.ANIMALS,
     name: FORM_NAME.UPDATE_SPECIE,
     label: "UPDATE Specie",
     zodSchemaName: FORM_SCHEMA_NAME.SPECIE_BASE,
     fieldsRequiringFetchedData: []
   },
   [FORM_NAME.ADD_ENCLOSURE_TYPE]: {
+    service: SERVICE.ENCLOSURES,
     name: FORM_NAME.ADD_ENCLOSURE_TYPE,
     label: "Add Enclosure Type",
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_TYPE_BASE,
     fieldsRequiringFetchedData: []
   },
   [FORM_NAME.UPDATE_ENCLOSURE_TYPE]: {
+    service: SERVICE.ENCLOSURES,
     name: FORM_NAME.UPDATE_ENCLOSURE_TYPE,
     label: "UPDATE Enclosure Type",
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_TYPE_BASE,
     fieldsRequiringFetchedData: []
   },
   [FORM_NAME.ADD_ENCLOSURE]: {
+    service: SERVICE.ENCLOSURES,
     name: FORM_NAME.ADD_ENCLOSURE,
     label: "Add Enclosure",
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_BASE,
     fieldsRequiringFetchedData: enclosureFieldsRequiringFetching[FORM_SCHEMA_NAME.ENCLOSURE_BASE]
   },
   [FORM_NAME.UPDATE_ENCLOSURE]: {
+    service: SERVICE.ENCLOSURES,
     name: FORM_NAME.UPDATE_ENCLOSURE,
     label: "Update Enclosure",
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_BASE,
     fieldsRequiringFetchedData: enclosureFieldsRequiringFetching[FORM_SCHEMA_NAME.ENCLOSURE_BASE]
   },
   [FORM_NAME.ADD_STORAGE_UNIT_TYPE]: {
+    service: SERVICE.FOOD,
     name: FORM_NAME.ADD_STORAGE_UNIT_TYPE,
     label: "Add Storage Unit Type",
     zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE,
     fieldsRequiringFetchedData: [],
   },
   [FORM_NAME.UPDATE_STORAGE_UNIT_TYPE]: {
+    service: SERVICE.FOOD,
     name: FORM_NAME.UPDATE_STORAGE_UNIT_TYPE,
     label: "Update Storage Unit Type",
     zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE,
     fieldsRequiringFetchedData: [],
   },
   [FORM_NAME.ADD_STORAGE_UNIT]: {
+    service: SERVICE.FOOD,
     name: FORM_NAME.ADD_STORAGE_UNIT,
     label: "Add Storage Unit",
     zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_BASE,
     fieldsRequiringFetchedData: foodFieldsRequiringFetching[FORM_SCHEMA_NAME.STORAGE_UNIT_BASE],
   },
   [FORM_NAME.UPDATE_STORAGE_UNIT]: {
+    service: SERVICE.FOOD,
     name: FORM_NAME.UPDATE_STORAGE_UNIT,
     label: "Update Storage Unit",
     zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_BASE,
     fieldsRequiringFetchedData: foodFieldsRequiringFetching[FORM_SCHEMA_NAME.STORAGE_UNIT_BASE],
   },
   [FORM_NAME.ADD_FOOD_TYPE]: {
+    service: SERVICE.FOOD,
     name: FORM_NAME.ADD_FOOD_TYPE,
     label: "Add Food Type",
     zodSchemaName: FORM_SCHEMA_NAME.FOOD_TYPE_BASE,
     fieldsRequiringFetchedData: [],
   },
   [FORM_NAME.UPDATE_FOOD_TYPE]: {
+    service: SERVICE.FOOD,
     name: FORM_NAME.UPDATE_FOOD_TYPE,
     label: "Update Food Type",
     zodSchemaName: FORM_SCHEMA_NAME.FOOD_TYPE_BASE,
     fieldsRequiringFetchedData: [],
   },
   [FORM_NAME.ADD_FOOD_STOCK]: {
+    service: SERVICE.FOOD,
     name: FORM_NAME.ADD_FOOD_STOCK,
     label: "Add Food Stock",
     zodSchemaName: FORM_SCHEMA_NAME.FOOD_STOCK_BASE,
     fieldsRequiringFetchedData: foodFieldsRequiringFetching[FORM_SCHEMA_NAME.FOOD_STOCK_BASE],
   },
   [FORM_NAME.UPDATE_FOOD_STOCK]: {
+    service: SERVICE.FOOD,
     name: FORM_NAME.UPDATE_FOOD_STOCK,
     label: "Update Food Stock",
     zodSchemaName: FORM_SCHEMA_NAME.FOOD_STOCK_BASE,

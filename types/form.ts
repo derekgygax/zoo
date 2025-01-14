@@ -1,7 +1,8 @@
 
 // master config
 import {
-  FIELD_REQUIRING_FETCHED_DATA
+  FIELD_REQUIRING_FETCHED_DATA,
+  SERVICE
 } from "@/config/master";
 
 // config
@@ -23,6 +24,7 @@ export interface FormState {
 }
 
 export type FormConfig<K extends FORM_NAME> = {
+  service: SERVICE;
   name: K;
   label: string;
   zodSchemaName: FORM_SCHEMA_NAME;
