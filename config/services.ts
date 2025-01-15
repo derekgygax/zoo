@@ -3,9 +3,9 @@
 import { SERVICE, FRAMEWORK } from "./master";
 
 // types
-import { Service } from "@/types/service";
+import { Services } from "@/types/service";
 
-export const SERVICES: Record<SERVICE, Service> = {
+export const SERVICES: Services = {
   [SERVICE.ANIMALS]: {
     name: SERVICE.ANIMALS,
     framework: FRAMEWORK.FAST_API
