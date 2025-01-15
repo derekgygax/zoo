@@ -12,8 +12,7 @@ import { HTTP_METHOD } from "@/types/httpMethod";
 import { StorageUnitTypeBase } from "@/types/food-service";
 
 // action utils
-import { processFormAction } from "../utils/server/formActionUtils"
-import { deserializeFormData } from "../utils/general";
+import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general";
 
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
@@ -43,5 +42,12 @@ const addStorageUnitType = async (prevState: FormState, formData: FormData) => {
   ];
 }
 
+// TODO PUT SOMETHING HERE!!!
+const updateStorageUnitType = async (prevState: FormState, formData: FormData): Promise<string[]> => {
+  console.log(prevState, formData);
+  return [];
+}
 
-export const addStorageUnitTypeAction = await processFormAction(addStorageUnitType);
+
+export const addStorageUnitTypeAction = processFormAction(addStorageUnitType);
+export const updateStorageUnitTypeAction = processFormAction(updateStorageUnitType);

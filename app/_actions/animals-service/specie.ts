@@ -11,8 +11,7 @@ import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 
 // action utils
-import { processFormAction } from "../utils/server/formActionUtils"
-import { deserializeFormData } from "../utils/general";
+import { processFormAction, deserializeFormData } from "@/app/_actions/utils/general";
 
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
@@ -79,28 +78,28 @@ const addSpecie = async (prevState: FormState, formData: FormData) => {
   ];
 }
 
-// TODO FIX THIS!!
-// TODO FIX THIS!!
-// TODO FIX THIS!!
-// TODO FIX THIS!!
-// TODO FIX THIS!!
-// const udpateAnimal = async (prevState: FormState, formData: FormData) => {
-//   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.SPECIE_BASE];
+// TODO This is LE FUCKEDD!!!
+// Do NOT send the whole specie!!
+// You can NOT change the specie id idjet!!
+// TODO FIX FIX FIX
+const udpateSpecie = async (prevState: FormState, formData: FormData) => {
+  const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.SPECIE_BASE];
 
-//   const animalId = formData.get("id");
-//   const animal: AnimalBase = deserializeFormData(formData, zodSchema) as AnimalBase;
+  const specieId = formData.get("id");
+  const specie: SpecieBase = deserializeFormData(formData, zodSchema) as SpecieBase;
 
-//   await sendAPIRequest(
-//     `${API_ENDPOINTS.animalsService.animals.index}/${animalId}`,
-//     'POST',
-//     animal
-//   );
+  await sendAPIRequest(
+    `${API_ENDPOINTS.animalsService.animals.index}/${specieId}`,
+    'POST',
+    specie
+  );
 
-//   return [
-//     `${animal.name} the ${animal.specie} added.`
-//   ];
-// }
+  return [
+    `The ${specie.id} has been updated`
+  ];
+}
 
 
 // Add the catch wrapping and processing the state returning
-export const addSpecieAction = await processFormAction(addSpecie);
+export const addSpecieAction = processFormAction(addSpecie);
+export const updateSpecieAction = processFormAction(udpateSpecie);

@@ -11,8 +11,7 @@ import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 
 // action utils
-import { processFormAction } from "../utils/server/formActionUtils"
-import { deserializeFormData } from "../utils/general";
+import { processFormAction, deserializeFormData } from "@/app/_actions/utils/general";
 
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
@@ -77,5 +76,5 @@ const updateAnimal = async (prevState: FormState, formData: FormData) => {
 
 
 // Add the catch wrapping and processing the state returning
-export const addAnimalAction = await processFormAction(addAnimal);
-export const updateAnimalAction = await processFormAction(updateAnimal);
+export const addAnimalAction = processFormAction(addAnimal);
+export const updateAnimalAction = processFormAction(updateAnimal);

@@ -10,8 +10,7 @@ import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 
 // utils _action
-import { deserializeFormData } from "@/app/_actions/utils/general";
-import { processFormAction } from "@/app/_actions/utils/server/formActionUtils";
+import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general";
 
 // utils lib
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
@@ -47,5 +46,13 @@ const addEnclosureType = async (prevState: FormState, formData: FormData) => {
   ]
 }
 
+// TODO PUT SOMETHING HERE!!!
+const updateEnclosureType = async (prevState: FormState, formData: FormData): Promise<string[]> => {
+  console.log(prevState, formData);
 
-export const addEnclosureTypeAction = await processFormAction(addEnclosureType);
+  return [];
+}
+
+
+export const addEnclosureTypeAction = processFormAction(addEnclosureType);
+export const updateEnclosureTypeAction = processFormAction(updateEnclosureType);

@@ -12,8 +12,7 @@ import { HTTP_METHOD } from "@/types/httpMethod";
 import { FoodTypeBase } from "@/types/food-service";
 
 // action utils
-import { processFormAction } from "../utils/server/formActionUtils"
-import { deserializeFormData } from "../utils/general";
+import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general";
 
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
@@ -45,5 +44,12 @@ const addFoodType = async (prevState: FormState, formData: FormData) => {
   ];
 }
 
+// TODO PUT SOMETHING HERE!
+const updateFoodType = async (prevState: FormState, formData: FormData): Promise<string[]> => {
+  console.log(prevState, formData);
+  return [];
+}
 
-export const addFoodTypeAction = await processFormAction(addFoodType);
+
+export const addFoodTypeAction = processFormAction(addFoodType);
+export const updateFoodTypeAction = processFormAction(updateFoodType);

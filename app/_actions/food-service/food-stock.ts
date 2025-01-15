@@ -12,8 +12,7 @@ import { HTTP_METHOD } from "@/types/httpMethod";
 import { FoodStockBase } from "@/types/food-service";
 
 // action utils
-import { processFormAction } from "../utils/server/formActionUtils"
-import { deserializeFormData } from "../utils/general";
+import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general";
 
 // lib utils
 import { sendAPIRequest } from "@/lib/utils/server/api";
@@ -35,5 +34,12 @@ const addFoodStock = async (prevState: FormState, formData: FormData) => {
   ];
 }
 
+// TODO PUT SOMETHING HERE!!!
+const updateFoodStock = async (prevState: FormState, formData: FormData): Promise<string[]> => {
+  console.log(prevState, formData);
+  return [];
+}
 
-export const addFoodStockAction = await processFormAction(addFoodStock);
+
+export const addFoodStockAction = processFormAction(addFoodStock);
+export const updateFoodStockAction = processFormAction(updateFoodStock);
