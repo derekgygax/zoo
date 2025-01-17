@@ -3,7 +3,6 @@
 import {
   FormState,
 } from "@/types/form";
-import { addAnimalAction, updateAnimalAction } from "../../animals-service/animals";
 
 // master config
 import { FIELD_REQUIRING_FETCHED_DATA } from "@/config/master";
@@ -12,13 +11,14 @@ import { FIELD_REQUIRING_FETCHED_DATA } from "@/config/master";
 import { FORM_NAME } from "@/config/forms";
 
 // server actions
-import { addSpecieAction, getSpecieIds, updateSpecieAction } from "../../animals-service/specie";
-import { addEnclosureTypeAction, getEnclosureTypeKeys, updateEnclosureTypeAction } from "../../enclosures-service/enclosure-types";
-import { addFoodTypeAction, getFoodTypeIds, updateFoodTypeAction } from "../../food-service/food-type";
-import { addStorageUnitTypeAction, getStorageUnitTypeIds, updateStorageUnitTypeAction } from "../../food-service/storage-unit-type";
-import { addStorageUnitAction, getStorageUnitIdentifiers, updateStorageUnitAction } from "../../food-service/storage-unit";
-import { addEnclosureAction, updateEnclosureAction } from "../../enclosures-service/enclosures";
-import { addFoodStockAction, updateFoodStockAction } from "../../food-service/food-stock";
+import { addAnimalAction, updateAnimalAction } from "@/app/_actions/animals-service/animals";
+import { addSpecieAction, getSpecieIds, updateSpecieAction } from "@/app/_actions/animals-service/specie";
+import { addEnclosureTypeAction, getEnclosureTypeKeys, updateEnclosureTypeAction } from "@/app/_actions/enclosures-service/enclosure-types";
+import { addFoodTypeAction, getFoodTypeIds, updateFoodTypeAction } from "@/app/_actions/food-service/food-type";
+import { addStorageUnitTypeAction, getStorageUnitTypeIds, updateStorageUnitTypeAction } from "@/app/_actions/food-service/storage-unit-type";
+import { addStorageUnitAction, getStorageUnitIdentifiers, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
+import { addEnclosureAction, updateEnclosureAction } from "@/app/_actions/enclosures-service/enclosures";
+import { addFoodStockAction, updateFoodStockAction } from "@/app/_actions/food-service/food-stock";
 
 
 export const FORM_ACTIONS: Record<FORM_NAME, (prevState: FormState, formData: FormData) => Promise<FormState>> = {

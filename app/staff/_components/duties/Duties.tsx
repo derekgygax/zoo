@@ -1,6 +1,9 @@
 
 import Link from "next/link";
 
+// config
+import { SITE_URLS } from "@/config/siteUrls";
+
 // types
 import { Duty } from "@/types/staff";
 
@@ -24,7 +27,7 @@ export const Duties = ({ duties }: DutiesProps) => {
             // Remember this key is NEEDED but only remembered locally so index is good enough, unless you have nested
             <li key={index}>
               <Link
-                href={duty.url}
+                href={`${SITE_URLS.staff.index}/${duty.service}`}
               >
                 {duty.label}
               </Link>

@@ -34,22 +34,22 @@ export enum FORM_SCHEMA_NAME {
 }
 
 export enum FORM_NAME {
-  ADD_ANIMAL = "AddAnimal",
-  UPDATE_ANIMAL = "UpdateAnimal",
-  ADD_SPECIE = "AddSpecie",
-  UPDATE_SPECIE = "UpdateSpecie",
-  ADD_ENCLOSURE_TYPE = "AddEnclosureType",
-  UPDATE_ENCLOSURE_TYPE = "UpdateEnclosureType",
-  ADD_ENCLOSURE = "AddEnclosure",
-  UPDATE_ENCLOSURE = "UpdateEnclosure",
-  ADD_STORAGE_UNIT_TYPE = "AddStorageUnitType",
-  UPDATE_STORAGE_UNIT_TYPE = "UpdateStorageUnitType",
-  ADD_STORAGE_UNIT = "AddStorageUnit",
-  UPDATE_STORAGE_UNIT = "UpdateStorageUnit",
-  ADD_FOOD_TYPE = "AddFoodType",
-  UPDATE_FOOD_TYPE = "UpdateFoodType",
-  ADD_FOOD_STOCK = "AddFoodStock",
-  UPDATE_FOOD_STOCK = "UpdateFoodStock"
+  ADD_ANIMAL = "add-animal",
+  UPDATE_ANIMAL = "update-animal",
+  ADD_SPECIE = "add-specie",
+  UPDATE_SPECIE = "update-specie",
+  ADD_ENCLOSURE_TYPE = "add-enclosure-type",
+  UPDATE_ENCLOSURE_TYPE = "update-enclosure-type",
+  ADD_ENCLOSURE = "add-enclosure",
+  UPDATE_ENCLOSURE = "update-enclosure",
+  ADD_STORAGE_UNIT_TYPE = "add-storage-unit-type",
+  UPDATE_STORAGE_UNIT_TYPE = "update-storage-unit-type",
+  ADD_STORAGE_UNIT = "add-storage-unit",
+  UPDATE_STORAGE_UNIT = "update-storage-unit",
+  ADD_FOOD_TYPE = "add-food-type",
+  UPDATE_FOOD_TYPE = "update-food-type",
+  ADD_FOOD_STOCK = "add-food-stock",
+  UPDATE_FOOD_STOCK = "update-food-stock"
 }
 
 // TODO ... somehow in here you could put the selectors it needs

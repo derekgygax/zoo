@@ -6,6 +6,10 @@ import { FIELD_REQUIRING_FETCHED_DATA } from "@/config/master";
 // config
 import { FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS } from "@/config/forms";
 
+
+import { FORM_DEPENDENCY_FETCHERS } from "@/config/formActions";
+
+
 // types
 // TODO you may need to fix the variable names going all over
 // fieldsRequiringDependencies vs fieldsRequiringFetchedData
@@ -15,11 +19,11 @@ import { SelectorOption, FetchDataKey } from "@/types/form";
 import { toSelectorOptions } from "@/lib/utils/general";
 
 // server actions
-import { getSpecieIds } from "../../animals-service/specie";
-import { getEnclosureTypeKeys } from "../../enclosures-service/enclosure-types";
-import { getFoodTypeIds } from "../../food-service/food-type";
-import { getStorageUnitTypeIds } from "../../food-service/storage-unit-type";
-import { getStorageUnitIdentifiers } from "../../food-service/storage-unit";
+// import { getSpecieIds } from "../../animals-service/specie";
+// import { getEnclosureTypeKeys } from "../../enclosures-service/enclosure-types";
+// import { getFoodTypeIds } from "../../food-service/food-type";
+// import { getStorageUnitTypeIds } from "../../food-service/storage-unit-type";
+// import { getStorageUnitIdentifiers } from "../../food-service/storage-unit";
 
 // TODO
 // TODO
@@ -68,13 +72,14 @@ import { getStorageUnitIdentifiers } from "../../food-service/storage-unit";
 // fucking fix it!!
 
 
-const FORM_DEPENDENCY_FETCHERS: Record<FIELD_REQUIRING_FETCHED_DATA, () => Promise<unknown[]>> = {
-  [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: getSpecieIds,
-  [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: getEnclosureTypeKeys,
-  [FIELD_REQUIRING_FETCHED_DATA.FOOD_TYPE]: getFoodTypeIds,
-  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT]: getStorageUnitIdentifiers,
-  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT_TYPE]: getStorageUnitTypeIds,
-}
+// TODO should this go to a config file??
+// const FORM_DEPENDENCY_FETCHERS: Record<FIELD_REQUIRING_FETCHED_DATA, () => Promise<unknown[]>> = {
+//   [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: getSpecieIds,
+//   [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: getEnclosureTypeKeys,
+//   [FIELD_REQUIRING_FETCHED_DATA.FOOD_TYPE]: getFoodTypeIds,
+//   [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT]: getStorageUnitIdentifiers,
+//   [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT_TYPE]: getStorageUnitTypeIds,
+// }
 
 const getSelectorOptions = async <T>(
   field: FIELD_REQUIRING_FETCHED_DATA
