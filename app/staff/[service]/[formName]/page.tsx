@@ -33,49 +33,22 @@ export default async function StaffServiceFormPage({ params }: StaffServiceFormP
 
   const { service, formName } = await params;
 
-  console.log(service);
-
-
-
-  // TODO FIX THIS!!!
-  // TODO FIX THIS!!!
-  // TODO FIX THIS!!!
-  // TODO FIX THIS!!!
-  // TODO FIX THIS!!!
-
+  // TODO FIX THIS!
   if (!Object.values(FORM_NAME).includes(formName as FORM_NAME)) {
     return (
       <div>NOT A FORM!!!</div>
     )
   }
 
-  // TODO FIX!!!!
-
-  // Safely cast formName to FORM_NAME after validation
+  // Get the formConfig based on the form name
   const formConfig: FormConfig<FORM_NAME> = FORM_CONFIGS[formName as FORM_NAME];
 
-
-  // Right here the string in the Record could be FIELD_REQUIRING_FETCHED_DATA
-  // but that might make things werid later so just don't do it
-  const selectorOptions: Record<string, SelectorOption[]> = await fetchFormDependencies(formConfig.fieldsRequiringFetchedData);
-
-  console.log(selectorOptions);
-
-  // TODO!!!
-  // You NEED TO FIX THIS so it can accomodate updating!!
-  // TODO!!!
-  // You NEED TO FIX THIS so it can accomodate updating!!
-  // TODO!!!
-  // You NEED TO FIX THIS so it can accomodate updating!!
-  // TODO!!!
-  // You NEED TO FIX THIS so it can accomodate updating!!
-  // TODO!!!
-  // You NEED TO FIX THIS so it can accomodate updating!!
-  // IT needs to go to another component so it has the drop down!!
-  // IT needs to go to another component so it has the drop down!!
-  // IT needs to go to another component so it has the drop down!!
-  // IT needs to go to another component so it has the drop down!!
-  // IT needs to go to another component so it has the drop down!!
+  // Only make the call to fill selectorOptions if you need to
+  // selectOptions will be passed into the forms as {}
+  // This is intentional. The form can handle it
+  const selectorOptions: Record<string, SelectorOption[]> = formConfig.fieldsRequiringFetchedData ? (
+    await fetchFormDependencies(formConfig.fieldsRequiringFetchedData)
+  ) : {};
 
   return (
     <main>
