@@ -96,9 +96,8 @@ const ZodFormContent = <Schema extends ZodObject<ZodRawShape>>({
 
       {/* fields defined by the zod schema */}
       {fields.map(([fieldName, fieldSchema], index: number) => {
-        // NOTE: some of these options will be undefined
-        // Did you know this when you wrote it?
-        // I mean it works but dang ... 
+        // options will be undefined if selectorOptions is not provided for this field,
+        // which is intentional and expected for fields without dynamic dependencies
         const options = selectorOptions?.[fieldName as keyof z.infer<Schema>];
         return (
           <ZodField
