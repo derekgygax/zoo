@@ -35,7 +35,15 @@ interface ZodFormContentProps<Schema extends ZodObject<ZodRawShape>> {
   callBack?: (success: boolean) => void;
 }
 
-const ZodFormContent = <Schema extends ZodObject<ZodRawShape>>({ formName, formServerAction, selectorOptions, zodSchema, hiddenFields, defaultValues, callBack }: ZodFormContentProps<Schema>) => {
+const ZodFormContent = <Schema extends ZodObject<ZodRawShape>>({
+  formName,
+  formServerAction,
+  selectorOptions,
+  zodSchema,
+  hiddenFields,
+  defaultValues,
+  callBack
+}: ZodFormContentProps<Schema>) => {
 
   const [state, action] = useActionState(formServerAction, initialState);
   const formRef = useRef<HTMLFormElement>(null);
@@ -88,6 +96,9 @@ const ZodFormContent = <Schema extends ZodObject<ZodRawShape>>({ formName, formS
 
       {/* fields defined by the zod schema */}
       {fields.map(([fieldName, fieldSchema], index: number) => {
+        // NOTE: some of these options will be undefined
+        // Did you know this when you wrote it?
+        // I mean it works but dang ... 
         const options = selectorOptions?.[fieldName as keyof z.infer<Schema>];
         return (
           <ZodField
