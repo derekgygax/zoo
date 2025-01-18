@@ -114,19 +114,15 @@ export const fetchFormDependencies = async (
 
   // pre populate the selectorsOptions
   // with the required keys
-  const selectorsOptions = Object.fromEntries(
-    Object.values(FIELD_REQUIRING_FETCHED_DATA).map((key) => {
-      return [key, []];
-    })
-  ) as unknown as Record<FIELD_REQUIRING_FETCHED_DATA, SelectorOption[]>;
+  const selectorsOptions = fieldsRequiringDependencies.reduce((acc, field) => {
+    acc[field] = [];
+    return acc;
+  }, {} as Record<FIELD_REQUIRING_FETCHED_DATA, SelectorOption[]>);
 
-
-
-  // const selectorsOptions: Record<FIELD_REQUIRING_FETCHED_DATA, SelectorOption[]> = {};
+  // File the selectorOptions
   for (const field of fieldsRequiringDependencies) {
     selectorsOptions[field] = await getSelectorOptions(field);
   }
-
 
   return selectorsOptions;
 }
