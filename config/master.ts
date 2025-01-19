@@ -1,4 +1,9 @@
 
+// service - API 
+// model - table in the API database
+// schema - a way to present the model
+
+
 // Microservices
 export enum SERVICE {
   ANIMALS = "animals-service",
