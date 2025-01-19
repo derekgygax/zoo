@@ -81,7 +81,7 @@ import { toSelectorOptions } from "@/lib/utils/general";
 //   [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT_TYPE]: getStorageUnitTypeIds,
 // }
 
-const getSelectorOptions = async <T>(
+const getDependencyOptions = async <T>(
   field: FIELD_REQUIRING_FETCHED_DATA
 ): Promise<SelectorOption[]> => {
 
@@ -121,7 +121,7 @@ export const fetchFormDependencies = async (
 
   // File the selectorOptions
   for (const field of fieldsRequiringDependencies) {
-    selectorsOptions[field] = await getSelectorOptions(field);
+    selectorsOptions[field] = await getDependencyOptions(field);
   }
 
   return selectorsOptions;
