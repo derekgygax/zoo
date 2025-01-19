@@ -90,15 +90,15 @@ export const UpdateAnimal = ({ animals, formConfig, selectorOptions }: UpdateAni
         })}
       </select>
       {animal && (
-          <ZodForm
-            formName={formConfig.name}
-            formServerAction={updateAnimalAction}
-            zodSchemaName={formConfig.zodSchemaName}
-            hiddenFields={hiddenFields}
-            selectorOptions={selectorOptions}
-            defaultValues={animal.animal}
-            callBack={handleFormCallBack}
-          />
+        <ZodForm
+          formName={formConfig.name}
+          formServerAction={updateAnimalAction}
+          zodSchemaName={formConfig.zodSchemaName}
+          hiddenFields={hiddenFields}
+          selectorOptions={selectorOptions}
+          defaultValues={animal.animal}
+          callBack={handleFormCallBack}
+        />
       )}
     </>
   )

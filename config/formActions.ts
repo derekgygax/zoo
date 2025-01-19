@@ -2,23 +2,28 @@
 // types
 import {
   FormState,
+  SelectorOption,
 } from "@/types/form";
 
 // master config
-import { FIELD_REQUIRING_FETCHED_DATA } from "@/config/master";
+import { FIELD_REQUIRING_FETCHED_DATA, SERVICE } from "@/config/master";
 
 // configs
 import { FORM_NAME } from "@/config/forms";
 
+import { ServiceModel } from "@/types/serviceModels";
+import { ModelIdentifierFetchers } from "@/types/form";
+
 // server actions
-import { addAnimalAction, updateAnimalAction } from "@/app/_actions/animals-service/animals";
+import { addAnimalAction, getAnimalIdentifierOptions, updateAnimalAction } from "@/app/_actions/animals-service/animals";
 import { addSpecieAction, getSpecieIds, updateSpecieAction } from "@/app/_actions/animals-service/specie";
 import { addEnclosureTypeAction, getEnclosureTypeKeys, updateEnclosureTypeAction } from "@/app/_actions/enclosures-service/enclosure-types";
 import { addFoodTypeAction, getFoodTypeIds, updateFoodTypeAction } from "@/app/_actions/food-service/food-type";
 import { addStorageUnitTypeAction, getStorageUnitTypeIds, updateStorageUnitTypeAction } from "@/app/_actions/food-service/storage-unit-type";
 import { addStorageUnitAction, getStorageUnitIdentifiers, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
-import { addEnclosureAction, updateEnclosureAction } from "@/app/_actions/enclosures-service/enclosures";
+import { addEnclosureAction, getEnclosureIdentifierOptions, updateEnclosureAction } from "@/app/_actions/enclosures-service/enclosures";
 import { addFoodStockAction, updateFoodStockAction } from "@/app/_actions/food-service/food-stock";
+import { ANIMALS_SERVICE_MODEL, ENCLOSURES_SERVICE_MODEL, SERVICE_MODELS } from "./serviceModels";
 
 
 export const FORM_ACTIONS: Record<FORM_NAME, (prevState: FormState, formData: FormData) => Promise<FormState>> = {
@@ -46,4 +51,15 @@ export const FORM_DEPENDENCY_FETCHERS: Record<FIELD_REQUIRING_FETCHED_DATA, () =
   [FIELD_REQUIRING_FETCHED_DATA.FOOD_TYPE]: getFoodTypeIds,
   [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT]: getStorageUnitIdentifiers,
   [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT_TYPE]: getStorageUnitTypeIds,
+}
+
+type ddd = Record<SERVICE, Record<ANIMALS_SERVICE_MODEL | ENCLOSURES_SERVICE_MODEL, () => Promise<unknown[]>>>;
+
+export const MODEL_IDENTIFIER_FETCHERS: ddd = {
+  [SERVICE.ANIMALS]: {
+    [ANIMALS_SERVICE_MODEL.ANIMAL]: getAnimalIdentifierOptions,
+  },
+  [SERVICE.ENCLOSURES]: {
+    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: getEnclosureIdentifierOptions,
+  }
 }

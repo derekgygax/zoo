@@ -21,6 +21,7 @@ import { fieldsRequiringFetchedData as foodFieldsRequiringFetching } from "@/api
 import { schemas as animalZodSchemas } from "@/api-contracts/animals-service/zodSchemas";
 import { schemas as enclosureZodSchemas } from "@/api-contracts/enclosures-service/zodSchemas";
 import { schemas as foodZodSchemas } from "@/api-contracts/food-service/zodSchemas";
+import { ANIMALS_SERVICE_MODEL, SERVICE_MODELS } from "./serviceModels";
 
 export enum FORM_SCHEMA_NAME {
   ANIMAL_BASE = "AnimalBase",
@@ -52,12 +53,18 @@ export enum FORM_NAME {
   UPDATE_FOOD_STOCK = "update-food-stock"
 }
 
+export enum FORM_TYPE {
+  ADD = "add",
+  UPDATE = "update"
+}
+
 // TODO ... somehow in here you could put the selectors it needs
 // to get and the API points it should use
 export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.ADD_ANIMAL]: {
     service: SERVICE.ANIMALS,
     name: FORM_NAME.ADD_ANIMAL,
+    type: FORM_TYPE.ADD,
     label: "Add Animal",
     zodSchemaName: FORM_SCHEMA_NAME.ANIMAL_BASE,
     fieldsRequiringFetchedData: animalFieldsRequiringFetching[FORM_SCHEMA_NAME.ANIMAL_BASE]
@@ -65,13 +72,20 @@ export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.UPDATE_ANIMAL]: {
     service: SERVICE.ANIMALS,
     name: FORM_NAME.UPDATE_ANIMAL,
+    type: FORM_TYPE.UPDATE,
     label: "UPDATE Animal",
     zodSchemaName: FORM_SCHEMA_NAME.ANIMAL_BASE,
-    fieldsRequiringFetchedData: animalFieldsRequiringFetching[FORM_SCHEMA_NAME.ANIMAL_BASE]
+    fieldsRequiringFetchedData: animalFieldsRequiringFetching[FORM_SCHEMA_NAME.ANIMAL_BASE],
+    modelsRequiringIdentifiers: {
+      [SERVICE.ANIMALS]: [
+        SERVICE_MODELS[SERVICE.ANIMALS].ANIMAL
+      ]
+    }
   },
   [FORM_NAME.ADD_SPECIE]: {
     service: SERVICE.ANIMALS,
     name: FORM_NAME.ADD_SPECIE,
+    type: FORM_TYPE.ADD,
     label: "Add Specie",
     zodSchemaName: FORM_SCHEMA_NAME.SPECIE_BASE,
     fieldsRequiringFetchedData: []
@@ -79,6 +93,7 @@ export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.UPDATE_SPECIE]: {
     service: SERVICE.ANIMALS,
     name: FORM_NAME.UPDATE_SPECIE,
+    type: FORM_TYPE.UPDATE,
     label: "UPDATE Specie",
     zodSchemaName: FORM_SCHEMA_NAME.SPECIE_BASE,
     fieldsRequiringFetchedData: []
@@ -86,6 +101,7 @@ export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.ADD_ENCLOSURE_TYPE]: {
     service: SERVICE.ENCLOSURES,
     name: FORM_NAME.ADD_ENCLOSURE_TYPE,
+    type: FORM_TYPE.ADD,
     label: "Add Enclosure Type",
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_TYPE_BASE,
     fieldsRequiringFetchedData: []
@@ -93,13 +109,15 @@ export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.UPDATE_ENCLOSURE_TYPE]: {
     service: SERVICE.ENCLOSURES,
     name: FORM_NAME.UPDATE_ENCLOSURE_TYPE,
+    type: FORM_TYPE.UPDATE,
     label: "UPDATE Enclosure Type",
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_TYPE_BASE,
-    fieldsRequiringFetchedData: []
+    fieldsRequiringFetchedData: [],
   },
   [FORM_NAME.ADD_ENCLOSURE]: {
     service: SERVICE.ENCLOSURES,
     name: FORM_NAME.ADD_ENCLOSURE,
+    type: FORM_TYPE.ADD,
     label: "Add Enclosure",
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_BASE,
     fieldsRequiringFetchedData: enclosureFieldsRequiringFetching[FORM_SCHEMA_NAME.ENCLOSURE_BASE]
@@ -107,13 +125,20 @@ export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.UPDATE_ENCLOSURE]: {
     service: SERVICE.ENCLOSURES,
     name: FORM_NAME.UPDATE_ENCLOSURE,
+    type: FORM_TYPE.UPDATE,
     label: "Update Enclosure",
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_BASE,
-    fieldsRequiringFetchedData: enclosureFieldsRequiringFetching[FORM_SCHEMA_NAME.ENCLOSURE_BASE]
+    fieldsRequiringFetchedData: enclosureFieldsRequiringFetching[FORM_SCHEMA_NAME.ENCLOSURE_BASE],
+    modelsRequiringIdentifiers: {
+      [SERVICE.ENCLOSURES]: [
+        SERVICE_MODELS[SERVICE.ENCLOSURES].ENCLOSURE
+      ]
+    }
   },
   [FORM_NAME.ADD_STORAGE_UNIT_TYPE]: {
     service: SERVICE.FOOD,
     name: FORM_NAME.ADD_STORAGE_UNIT_TYPE,
+    type: FORM_TYPE.ADD,
     label: "Add Storage Unit Type",
     zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE,
     fieldsRequiringFetchedData: [],
@@ -121,6 +146,7 @@ export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.UPDATE_STORAGE_UNIT_TYPE]: {
     service: SERVICE.FOOD,
     name: FORM_NAME.UPDATE_STORAGE_UNIT_TYPE,
+    type: FORM_TYPE.UPDATE,
     label: "Update Storage Unit Type",
     zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE,
     fieldsRequiringFetchedData: [],
@@ -128,6 +154,7 @@ export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.ADD_STORAGE_UNIT]: {
     service: SERVICE.FOOD,
     name: FORM_NAME.ADD_STORAGE_UNIT,
+    type: FORM_TYPE.ADD,
     label: "Add Storage Unit",
     zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_BASE,
     fieldsRequiringFetchedData: foodFieldsRequiringFetching[FORM_SCHEMA_NAME.STORAGE_UNIT_BASE],
@@ -135,6 +162,7 @@ export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.UPDATE_STORAGE_UNIT]: {
     service: SERVICE.FOOD,
     name: FORM_NAME.UPDATE_STORAGE_UNIT,
+    type: FORM_TYPE.UPDATE,
     label: "Update Storage Unit",
     zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_BASE,
     fieldsRequiringFetchedData: foodFieldsRequiringFetching[FORM_SCHEMA_NAME.STORAGE_UNIT_BASE],
@@ -142,6 +170,7 @@ export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.ADD_FOOD_TYPE]: {
     service: SERVICE.FOOD,
     name: FORM_NAME.ADD_FOOD_TYPE,
+    type: FORM_TYPE.ADD,
     label: "Add Food Type",
     zodSchemaName: FORM_SCHEMA_NAME.FOOD_TYPE_BASE,
     fieldsRequiringFetchedData: [],
@@ -149,6 +178,7 @@ export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.UPDATE_FOOD_TYPE]: {
     service: SERVICE.FOOD,
     name: FORM_NAME.UPDATE_FOOD_TYPE,
+    type: FORM_TYPE.UPDATE,
     label: "Update Food Type",
     zodSchemaName: FORM_SCHEMA_NAME.FOOD_TYPE_BASE,
     fieldsRequiringFetchedData: [],
@@ -156,6 +186,7 @@ export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.ADD_FOOD_STOCK]: {
     service: SERVICE.FOOD,
     name: FORM_NAME.ADD_FOOD_STOCK,
+    type: FORM_TYPE.ADD,
     label: "Add Food Stock",
     zodSchemaName: FORM_SCHEMA_NAME.FOOD_STOCK_BASE,
     fieldsRequiringFetchedData: foodFieldsRequiringFetching[FORM_SCHEMA_NAME.FOOD_STOCK_BASE],
@@ -163,6 +194,7 @@ export const FORM_CONFIGS: FormConfigs = {
   [FORM_NAME.UPDATE_FOOD_STOCK]: {
     service: SERVICE.FOOD,
     name: FORM_NAME.UPDATE_FOOD_STOCK,
+    type: FORM_TYPE.UPDATE,
     label: "Update Food Stock",
     zodSchemaName: FORM_SCHEMA_NAME.FOOD_STOCK_BASE,
     fieldsRequiringFetchedData: foodFieldsRequiringFetching[FORM_SCHEMA_NAME.FOOD_STOCK_BASE],
@@ -170,6 +202,9 @@ export const FORM_CONFIGS: FormConfigs = {
 
 }
 
+
+// This just becomes the string for FIELD_REQUIRING_FETCHED_DATA.SPECIE
+// NOT referenced to FIELD_REQUIRING_FETCHED_DATA.SPECIE
 type DependencyFieldKeys = {
   [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: FetchDataKey<SpecieBase>;
   [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: FetchDataKey<EnclosureTypeBase>;

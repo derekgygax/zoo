@@ -7,7 +7,7 @@ import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { API_ENDPOINTS } from "@/config/apis";
 
 // types
-import { FormState } from "@/types/form";
+import { FormState, SelectorOption } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 
 // action utils
@@ -36,6 +36,16 @@ export const getAnimalIdentifiers = async (): Promise<AnimalIdentifier[]> => {
     []
   );
   return animalIdentifiers;
+}
+
+export const getAnimalIdentifierOptions = async (): Promise<SelectorOption[]> => {
+  const animalIdentifiers: AnimalIdentifier[] = await getAnimalIdentifiers();
+  return animalIdentifiers.map((animal: AnimalIdentifier) => {
+    return {
+      value: animal.id,
+      label: `${animal.name} (${animal.specie_id})`
+    }
+  })
 }
 
 

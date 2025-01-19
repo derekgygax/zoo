@@ -17,6 +17,14 @@ import { deserializeFormData, processFormAction } from "@/app/_actions/utils/gen
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
+export const getStorageUnit = async (storageUnitId: string): Promise<StorageUnitBase | undefined> => {
+  const storageUnit: StorageUnitBase | undefined = await getAPIRequest(
+    `${API_ENDPOINTS.foodService.storageUnits.index}/${storageUnitId}`,
+    undefined
+  )
+  return storageUnit;
+}
+
 export const getStorageUnitIdentifiers = async (): Promise<StorageUnitIdentifier[]> => {
   const storageUnitIdentifiers: StorageUnitIdentifier[] = await getAPIRequest<StorageUnitIdentifier[]>(
     API_ENDPOINTS.foodService.storageUnits.identifiers,
@@ -25,23 +33,25 @@ export const getStorageUnitIdentifiers = async (): Promise<StorageUnitIdentifier
   return storageUnitIdentifiers;
 }
 
+export
 
-const addStorageUnit = async (prevState: FormState, formData: FormData) => {
 
-  const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.STORAGE_UNIT_BASE];
+  const addStorageUnit = async (prevState: FormState, formData: FormData) => {
 
-  const storageUnit: StorageUnitBase = deserializeFormData(formData, zodSchema) as StorageUnitBase;
+    const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.STORAGE_UNIT_BASE];
 
-  await sendAPIRequest(
-    API_ENDPOINTS.foodService.storageUnits.index,
-    HTTP_METHOD.POST,
-    storageUnit
-  );
+    const storageUnit: StorageUnitBase = deserializeFormData(formData, zodSchema) as StorageUnitBase;
 
-  return [
-    `The ${storageUnit.storage_unit_type_id} ${storageUnit.name}  added.`
-  ];
-}
+    await sendAPIRequest(
+      API_ENDPOINTS.foodService.storageUnits.index,
+      HTTP_METHOD.POST,
+      storageUnit
+    );
+
+    return [
+      `The ${storageUnit.storage_unit_type_id} ${storageUnit.name}  added.`
+    ];
+  }
 
 // TODO PUT SOMETHING HERE!!!
 const updateStorageUnit = async (prevState: FormState, formData: FormData): Promise<string[]> => {

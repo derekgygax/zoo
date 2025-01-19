@@ -6,7 +6,7 @@ import { API_ENDPOINTS } from "@/config/apis";
 
 // types
 import { EnclosureBase, EnclosureIdentifier } from "@/types/enclosures-service";
-import { FormState } from "@/types/form";
+import { FormState, SelectorOption } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 
 // server actions
@@ -14,6 +14,7 @@ import { deserializeFormData, processFormAction } from "@/app/_actions/utils/gen
 
 // utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
+import { toSelectorOptions } from "@/lib/utils/general";
 
 
 export const getEnclosureBase = async (enclosureId: string): Promise<EnclosureBase | undefined> => {
@@ -30,6 +31,23 @@ export const getEnclosureIdentifiers = async (): Promise<EnclosureIdentifier[]> 
     []
   );
   return enclosureIdentifiers;
+}
+
+export const getEnclosureIdentifierOptions = async (): Promise<SelectorOption[]> => {
+  const enclosureIdentifiers: EnclosureIdentifier[] = await getEnclosureIdentifiers();
+  return toSelectorOptions(
+    'enclosureIdentifier',
+    enclosureIdentifiers,
+    'id',
+    'name'
+  );
+  // return enclosureIdentifiers.map((animal: EnclosureIdentifier) => {
+  //   return {
+  //     value: animal.id,
+  //     label: `${animal.name} (${animal.specie_id})`
+  //   }
+  // })
+
 }
 
 // Form server actions

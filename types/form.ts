@@ -5,8 +5,19 @@ import {
   SERVICE
 } from "@/config/master";
 
+import {
+  ServiceModelMapping,
+  ServiceModel,
+  ServiceModelMapper
+} from "./serviceModels";
+
+
 // config
-import { FORM_NAME, FORM_SCHEMA_NAME } from "@/config/forms";
+import {
+  FORM_NAME,
+  FORM_SCHEMA_NAME,
+  FORM_TYPE
+} from "@/config/forms";
 
 export interface FetchDataKey<T> {
   value: keyof T;
@@ -26,9 +37,11 @@ export interface FormState {
 export type FormConfig<K extends FORM_NAME> = {
   service: SERVICE;
   name: K;
+  type: FORM_TYPE;
   label: string;
   zodSchemaName: FORM_SCHEMA_NAME;
-  fieldsRequiringFetchedData: FIELD_REQUIRING_FETCHED_DATA[]
+  fieldsRequiringFetchedData: FIELD_REQUIRING_FETCHED_DATA[];
+  modelsRequiringIdentifiers?: ServiceModelMapping;
 };
 
 export type FormConfigs = {
@@ -39,3 +52,7 @@ export interface HiddenField {
   name: string;
   value: string;
 }
+
+
+export type ModelIdentifierOptions = ServiceModelMapper<SelectorOption[]>;
+export type ModelIdentifierFetchers = ServiceModelMapper<() => Promise<SelectorOption[]>>;

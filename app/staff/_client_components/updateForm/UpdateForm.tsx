@@ -3,14 +3,19 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
+import { fetchModel } from "@/app/_actions/utils/server/formIdentifiers";
+
 // config
 import { FORM_NAME } from "@/config/forms";
+
+import { z } from "zod";
+import { ZOD_SCHEMAS } from "@/config/forms";
 
 // config
 
 // types
 import { AnimalIdentifier, AnimalBase } from "@/types/animals-service"
-import { FormConfig, HiddenField, SelectorOption } from "@/types/form";
+import { FormConfig, HiddenField, ModelIdentifierOptions, SelectorOption } from "@/types/form";
 
 // TODO
 // can you do this here!!?? Like pull config stuff in a client component??? DAANNNGGGG
@@ -26,32 +31,32 @@ import { updateAnimalAction, getAnimal } from "@/app/_actions/animals-service/an
 import { ZodForm } from "@/app/_client_components/zodForm/ZodForm";
 
 
-interface AnimalUpdate {
+interface Model<T = Record<string, unknown>> {
   id: string,
-  animal: AnimalBase | undefined
+  model: T
 }
 
 interface UpdateFormProps {
-  animals: AnimalIdentifier[];
-  formConfig: FormConfig<FORM_NAME.UPDATE_ANIMAL>;
+  modelIdentfierOptions: ModelIdentifierOptions;
+  formConfig: FormConfig<FORM_NAME>;
   selectorOptions: Record<string, SelectorOption[]>;
 }
 
-export const UpdateForm = ({ animals, formConfig, selectorOptions }: UpdateFormProps) => {
+export const UpdateForm = ({ modelIdentfierOptions, formConfig, selectorOptions }: UpdateFormProps) => {
 
   const router = useRouter();
 
-  const [animal, setAnimal] = useState<AnimalUpdate>();
+  const [model, setModel] = useState<Model>();
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const handleAnimalChange = async () => {
     if (selectRef.current) {
-      const animalId = selectRef.current.value;
-      setAnimal(undefined);
-      const fetchedAnimal: AnimalBase | undefined = await getAnimal(animalId);
-      setAnimal({
-        id: animalId,
-        animal: fetchedAnimal,
+      const modelId = selectRef.current.value;
+      setModel(undefined);
+      const fetchedModel = await fetchModel<z.infer<typeof ZOD_SCHEMAS[formConfig.zodSchemaName]>>(modelId);
+      setModel({
+        id: modelId,
+        model: fetchedModel,
       });
     }
   }
@@ -59,7 +64,7 @@ export const UpdateForm = ({ animals, formConfig, selectorOptions }: UpdateFormP
   const handleFormCallBack = (success: boolean) => {
     if (success) {
       router.push(SITE_URLS.staff.animals.index);
-      setAnimal(undefined);
+      setModel(undefined);
       if (selectRef.current) {
         selectRef.current.value = "";
       }
@@ -69,34 +74,35 @@ export const UpdateForm = ({ animals, formConfig, selectorOptions }: UpdateFormP
   // this is NOT a state, it will be filled differently 
   // on every rerender. so this will work just fine
   // still makes you nervous but here it is
-  const hiddenFields: HiddenField[] = animal ? [{
+  const hiddenFields: HiddenField[] = model ? [{
     name: "id",
-    value: animal.id
+    value: model.id
   }] : [];
 
   return (
     <>
-      <select ref={selectRef} onChange={handleAnimalChange}>
-        <option></option>
-        {animals.map((animal: AnimalIdentifier) => {
-          return (
-            <option
-              key={animal.id}
-              value={animal.id}
-            >
-              {`${animal.name} (${animal.specie_id})`}
-            </option>
+      {Object.entries(modelIdentfierOptions || {}).map(([service, models]) => (
+        models && Object.entries(models).map(([model, options]) => (
+          options && (
+            <select ref={selectRef} onChange={handleAnimalChange} key={`${service}-${model}`}>
+              <option></option>
+              {options.map((option: SelectorOption) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           )
-        })}
-      </select>
-      {animal && (
+        ))
+      ))}
+      {model && (
         <ZodForm
           formName={formConfig.name}
           formServerAction={updateAnimalAction}
           zodSchemaName={formConfig.zodSchemaName}
           hiddenFields={hiddenFields}
           selectorOptions={selectorOptions}
-          defaultValues={animal.animal}
+          defaultValues={model.model}
           callBack={handleFormCallBack}
         />
       )}
