@@ -17,19 +17,19 @@ export const title: Title = {
 export const duties: Duty[] = [
   {
     label: "Animals",
-    url: SITE_URLS.staff.animals.index,
+    url: SITE_URLS.staff[SERVICE.ANIMALS].index,
     service: SERVICE.ANIMALS,
     roles: [ROLE.ADMIN, ROLE.STAFF]
   },
   {
     label: "Food",
-    url: SITE_URLS.staff.food.index,
+    url: SITE_URLS.staff[SERVICE.FOOD].index,
     service: SERVICE.FOOD,
     roles: [ROLE.ADMIN, ROLE.STAFF]
   },
   {
     label: "Enclosures",
-    url: SITE_URLS.staff.enclosures.index,
+    url: SITE_URLS.staff[SERVICE.ENCLOSURES].index,
     service: SERVICE.ENCLOSURES,
     roles: [ROLE.ADMIN, ROLE.STAFF]
   }

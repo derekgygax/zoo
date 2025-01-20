@@ -39,6 +39,8 @@ export type FormConfig<K extends FORM_NAME> = {
   fieldsRequiringFetchedData: FIELD_REQUIRING_FETCHED_DATA[];
   // TODO lazy typing, can make stronger
   model?: ServiceModel<SERVICE>;
+  // TODO fix this name. its a dumb shit you put in when you were tired
+  selectionScreenUrl: string;
 };
 
 export type FormConfigs = {

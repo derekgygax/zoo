@@ -15,7 +15,6 @@ import { FormConfig, HiddenField, SelectorOption } from "@/types/form";
 // Like is it good practice ... maybe need to set it up for protection
 // Next.js lets you do so much you can get messy
 // config
-import { SITE_URLS } from "@/config/siteUrls";
 
 // server actions
 import { formServerAction } from "@/app/_actions/utils/server/formHandlers";
@@ -71,7 +70,7 @@ export const UpdateForm = <T extends Record<string, unknown> | undefined>({ mode
     // TODO FIX THIS!!!!
     // TODO SAVE THIS LOCATION IN THE formConfigs
     if (success) {
-      router.push(SITE_URLS.staff.animals.index);
+      router.push(formConfig.selectionScreenUrl);
       setModel(undefined);
       if (selectRef.current) {
         selectRef.current.value = "";
