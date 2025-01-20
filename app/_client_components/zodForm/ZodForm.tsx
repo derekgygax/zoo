@@ -28,7 +28,7 @@ const initialState: FormState = {
 interface ZodFormContentProps<Schema extends ZodObject<ZodRawShape>> {
   formName: string;
   formServerAction: (prevState: FormState, formData: FormData) => Promise<FormState>;
-  selectorOptions?: Partial<Record<keyof z.infer<Schema>, SelectorOption[]>>;
+  dependenciesOptions?: Partial<Record<keyof z.infer<Schema>, SelectorOption[]>>;
   zodSchema: Schema;
   hiddenFields?: HiddenField[];
   defaultValues?: z.infer<Schema>;
@@ -38,7 +38,7 @@ interface ZodFormContentProps<Schema extends ZodObject<ZodRawShape>> {
 const ZodFormContent = <Schema extends ZodObject<ZodRawShape>>({
   formName,
   formServerAction,
-  selectorOptions,
+  dependenciesOptions,
   zodSchema,
   hiddenFields,
   defaultValues,
@@ -96,16 +96,16 @@ const ZodFormContent = <Schema extends ZodObject<ZodRawShape>>({
 
       {/* fields defined by the zod schema */}
       {fields.map(([fieldName, fieldSchema], index: number) => {
-        // options will be undefined if selectorOptions is not provided for this field,
+        // options will be undefined if dependenciesOptions is not provided for this field,
         // which is intentional and expected for fields without dynamic dependencies
-        const options = selectorOptions?.[fieldName as keyof z.infer<Schema>];
+        const dependencyOptions = dependenciesOptions?.[fieldName as keyof z.infer<Schema>];
         return (
           <ZodField
             key={index}
             fieldName={fieldName}
             fieldSchema={fieldSchema as ZodTypeAny}
             register={register}
-            selectorOptions={options}
+            selectorOptions={dependencyOptions}
             errors={errors}
           />
         )

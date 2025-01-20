@@ -1,6 +1,12 @@
 
 // master config
 import { FIELD_REQUIRING_FETCHED_DATA, SERVICE } from "@/config/master";
+// service models config
+import {
+  ANIMALS_SERVICE_MODEL,
+  ENCLOSURES_SERVICE_MODEL,
+  FOOD_SERVICE_MODEL,
+} from "./serviceModels";
 
 // types
 import {
@@ -21,7 +27,6 @@ import { fieldsRequiringFetchedData as foodFieldsRequiringFetching } from "@/api
 import { schemas as animalZodSchemas } from "@/api-contracts/animals-service/zodSchemas";
 import { schemas as enclosureZodSchemas } from "@/api-contracts/enclosures-service/zodSchemas";
 import { schemas as foodZodSchemas } from "@/api-contracts/food-service/zodSchemas";
-import { ANIMALS_SERVICE_MODEL, SERVICE_MODELS } from "./serviceModels";
 
 export enum FORM_SCHEMA_NAME {
   ANIMAL_BASE = "AnimalBase",
@@ -76,11 +81,7 @@ export const FORM_CONFIGS: FormConfigs = {
     label: "UPDATE Animal",
     zodSchemaName: FORM_SCHEMA_NAME.ANIMAL_BASE,
     fieldsRequiringFetchedData: animalFieldsRequiringFetching[FORM_SCHEMA_NAME.ANIMAL_BASE],
-    modelsRequiringIdentifiers: {
-      [SERVICE.ANIMALS]: [
-        SERVICE_MODELS[SERVICE.ANIMALS].ANIMAL
-      ]
-    }
+    model: ANIMALS_SERVICE_MODEL.ANIMAL
   },
   [FORM_NAME.ADD_SPECIE]: {
     service: SERVICE.ANIMALS,
@@ -120,7 +121,7 @@ export const FORM_CONFIGS: FormConfigs = {
     type: FORM_TYPE.ADD,
     label: "Add Enclosure",
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_BASE,
-    fieldsRequiringFetchedData: enclosureFieldsRequiringFetching[FORM_SCHEMA_NAME.ENCLOSURE_BASE]
+    fieldsRequiringFetchedData: enclosureFieldsRequiringFetching[FORM_SCHEMA_NAME.ENCLOSURE_BASE],
   },
   [FORM_NAME.UPDATE_ENCLOSURE]: {
     service: SERVICE.ENCLOSURES,
@@ -129,11 +130,7 @@ export const FORM_CONFIGS: FormConfigs = {
     label: "Update Enclosure",
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_BASE,
     fieldsRequiringFetchedData: enclosureFieldsRequiringFetching[FORM_SCHEMA_NAME.ENCLOSURE_BASE],
-    modelsRequiringIdentifiers: {
-      [SERVICE.ENCLOSURES]: [
-        SERVICE_MODELS[SERVICE.ENCLOSURES].ENCLOSURE
-      ]
-    }
+    model: ENCLOSURES_SERVICE_MODEL.ENCLOSURE
   },
   [FORM_NAME.ADD_STORAGE_UNIT_TYPE]: {
     service: SERVICE.FOOD,
@@ -166,6 +163,7 @@ export const FORM_CONFIGS: FormConfigs = {
     label: "Update Storage Unit",
     zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_BASE,
     fieldsRequiringFetchedData: foodFieldsRequiringFetching[FORM_SCHEMA_NAME.STORAGE_UNIT_BASE],
+    model: FOOD_SERVICE_MODEL.STORAGE_UNIT
   },
   [FORM_NAME.ADD_FOOD_TYPE]: {
     service: SERVICE.FOOD,

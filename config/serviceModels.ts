@@ -1,6 +1,5 @@
 import { SERVICE } from "./master"
 
-import { ServiceModels } from "@/types/serviceModels";
 
 export enum ANIMALS_SERVICE_MODEL {
   ANIMAL = "animal",
@@ -33,11 +32,12 @@ export enum BREEDING_SERVICE_MODEL {
   LITTER = "litter"
 }
 
-export const SERVICE_MODELS: ServiceModels = {
+// TODO SHOULD YOU put typing here
+export const SERVICE_MODELS = {
   [SERVICE.ANIMALS]: ANIMALS_SERVICE_MODEL,
   [SERVICE.ENCLOSURES]: ENCLOSURES_SERVICE_MODEL,
   [SERVICE.FOOD]: FOOD_SERVICE_MODEL,
   [SERVICE.STAFF]: STAFF_SERVICE_MODEL,
   [SERVICE.BREEDING]: BREEDING_SERVICE_MODEL,
   [SERVICE.REPORTS]: REPORTS_SERVICE_MODEL,
-};
+} as const;

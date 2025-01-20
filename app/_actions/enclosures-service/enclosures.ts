@@ -35,19 +35,14 @@ export const getEnclosureIdentifiers = async (): Promise<EnclosureIdentifier[]> 
 
 export const getEnclosureIdentifierOptions = async (): Promise<SelectorOption[]> => {
   const enclosureIdentifiers: EnclosureIdentifier[] = await getEnclosureIdentifiers();
-  return toSelectorOptions(
-    'enclosureIdentifier',
-    enclosureIdentifiers,
-    'id',
-    'name'
-  );
-  // return enclosureIdentifiers.map((animal: EnclosureIdentifier) => {
-  //   return {
-  //     value: animal.id,
-  //     label: `${animal.name} (${animal.specie_id})`
-  //   }
-  // })
-
+  // TODO SHOULD USE A COMMON FUNCTION!!!!
+  // OR THE BACK END!!
+  return enclosureIdentifiers.map((enclosure: EnclosureIdentifier) => {
+    return {
+      value: enclosure.id,
+      label: enclosure.name
+    }
+  })
 }
 
 // Form server actions

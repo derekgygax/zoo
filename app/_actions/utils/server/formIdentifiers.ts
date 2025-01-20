@@ -1,37 +1,22 @@
-import { MODEL_IDENTIFIER_FETCHERS } from "@/config/formActions";
-import { SERVICE } from "@/config/master";
-import { SelectorOption } from "@/types/form";
-import { ServiceModel, ServiceModelMapping } from "@/types/serviceModels";
+import { MODEL_OPTIONS_FETCHERS } from "@/config/formActions"
+import { SERVICE } from "@/config/master"
+import { SelectorOption } from "@/types/form"
+import { ServiceModel } from "@/types/serviceModels"
 
-import { ModelIdentifierOptions } from "@/types/form";
-import { getAnimalIdentifiers, getAnimal } from "../../animals-service/animals";
-import { AnimalBase } from "@/types/animals-service";
+export const fetchModelOptions = async <S extends SERVICE>(
+  service: S,
+  model: ServiceModel<S>
+): Promise<SelectorOption[]> => {
 
+  try {
+    const modelOptionsFetcher = MODEL_OPTIONS_FETCHERS[service][model];
 
-export const fetchModelIdentifiers = async (serviceModelsRequiringIdentifiers: ServiceModelMapping) => {
-  const services: SERVICE[] = Object.keys(serviceModelsRequiringIdentifiers) as SERVICE[];
+    const modelOptions: SelectorOption[] = await modelOptionsFetcher();
 
-  const allOptions: ModelIdentifierOptions = {};
+    return modelOptions;
 
-  for (let i = 0; i < services.length; i++) {
-    const service: SERVICE = services[i];
-    allOptions[service] = {};
-    const models = serviceModelsRequiringIdentifiers[service] as ServiceModel<typeof service>[];
-    for (let j = 0; j < models.length; j++) {
-      const model: ServiceModel<typeof service> = models[j];
-      const fetchIdentifierOptions = MODEL_IDENTIFIER_FETCHERS[service]?.[model] as (() => Promise<SelectorOption[]>) | undefined;
-      if (fetchIdentifierOptions) {
-        const options: SelectorOption[] = await fetchIdentifierOptions();
-        (allOptions[service] as Record<string, SelectorOption[]>)[model] = options;
-      }
-    }
+  } catch (err) {
+    console.error(`Error when performing fetchFormIdentifier with service = ${service} and model = ${model}, ${err}`)
+    return [];
   }
-  console.log(allOptions);
-  return allOptions;
-}
-
-
-export const fetchModel = async <T>(id: string): Promise<T> => {
-  const animal: AnimalBase | undefined = await getAnimal(id);
-  return animal;
-}
+};

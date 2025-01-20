@@ -3,8 +3,6 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
-import { fetchModel } from "@/app/_actions/utils/server/formIdentifiers";
-
 // config
 import { FORM_NAME } from "@/config/forms";
 
@@ -15,7 +13,7 @@ import { ZOD_SCHEMAS } from "@/config/forms";
 
 // types
 import { AnimalIdentifier, AnimalBase } from "@/types/animals-service"
-import { FormConfig, HiddenField, ModelIdentifierOptions, SelectorOption } from "@/types/form";
+import { FormConfig, HiddenField, SelectorOption } from "@/types/form";
 
 // TODO
 // can you do this here!!?? Like pull config stuff in a client component??? DAANNNGGGG
@@ -37,12 +35,14 @@ interface Model<T = Record<string, unknown>> {
 }
 
 interface UpdateFormProps {
-  modelIdentfierOptions: ModelIdentifierOptions;
+  modelOptions: SelectorOption[];
   formConfig: FormConfig<FORM_NAME>;
-  selectorOptions: Record<string, SelectorOption[]>;
+  dependenciesOptions: Record<string, SelectorOption[]>;
 }
 
-export const UpdateForm = ({ modelIdentfierOptions, formConfig, selectorOptions }: UpdateFormProps) => {
+export const UpdateForm = ({ modelOptions, formConfig, dependenciesOptions }: UpdateFormProps) => {
+
+  console.log(dependenciesOptions);
 
   const router = useRouter();
 
@@ -53,11 +53,11 @@ export const UpdateForm = ({ modelIdentfierOptions, formConfig, selectorOptions 
     if (selectRef.current) {
       const modelId = selectRef.current.value;
       setModel(undefined);
-      const fetchedModel = await fetchModel<z.infer<typeof ZOD_SCHEMAS[formConfig.zodSchemaName]>>(modelId);
-      setModel({
-        id: modelId,
-        model: fetchedModel,
-      });
+      // const fetchedModel = await fetchModel();
+      // setModel({
+      //   id: modelId,
+      //   model: fetchedModel,
+      // });
     }
   }
 
@@ -81,7 +81,7 @@ export const UpdateForm = ({ modelIdentfierOptions, formConfig, selectorOptions 
 
   return (
     <>
-      {Object.entries(modelIdentfierOptions || {}).map(([service, models]) => (
+      {/* {Object.entries(modelIdentfierOptions || {}).map(([service, models]) => (
         models && Object.entries(models).map(([model, options]) => (
           options && (
             <select ref={selectRef} onChange={handleAnimalChange} key={`${service}-${model}`}>
@@ -94,14 +94,14 @@ export const UpdateForm = ({ modelIdentfierOptions, formConfig, selectorOptions 
             </select>
           )
         ))
-      ))}
+      ))} */}
       {model && (
         <ZodForm
           formName={formConfig.name}
           formServerAction={updateAnimalAction}
           zodSchemaName={formConfig.zodSchemaName}
           hiddenFields={hiddenFields}
-          selectorOptions={selectorOptions}
+          dependenciesOptions={dependenciesOptions}
           defaultValues={model.model}
           callBack={handleFormCallBack}
         />

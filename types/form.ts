@@ -5,19 +5,15 @@ import {
   SERVICE
 } from "@/config/master";
 
-import {
-  ServiceModelMapping,
-  ServiceModel,
-  ServiceModelMapper
-} from "./serviceModels";
-
-
 // config
 import {
   FORM_NAME,
   FORM_SCHEMA_NAME,
   FORM_TYPE
 } from "@/config/forms";
+
+// types
+import { ServiceModel } from "./serviceModels";
 
 export interface FetchDataKey<T> {
   value: keyof T;
@@ -41,7 +37,8 @@ export type FormConfig<K extends FORM_NAME> = {
   label: string;
   zodSchemaName: FORM_SCHEMA_NAME;
   fieldsRequiringFetchedData: FIELD_REQUIRING_FETCHED_DATA[];
-  modelsRequiringIdentifiers?: ServiceModelMapping;
+  // TODO lazy typing, can make stronger
+  model?: ServiceModel<SERVICE>;
 };
 
 export type FormConfigs = {
@@ -53,6 +50,3 @@ export interface HiddenField {
   value: string;
 }
 
-
-export type ModelIdentifierOptions = ServiceModelMapper<SelectorOption[]>;
-export type ModelIdentifierFetchers = ServiceModelMapper<() => Promise<SelectorOption[]>>;

@@ -9,6 +9,7 @@ import { API_ENDPOINTS } from "@/config/apis";
 // types
 import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
+import { SelectorOption } from "@/types/form";
 import { StorageUnitBase, StorageUnitIdentifier } from "@/types/food-service";
 
 // action utils
@@ -33,25 +34,34 @@ export const getStorageUnitIdentifiers = async (): Promise<StorageUnitIdentifier
   return storageUnitIdentifiers;
 }
 
-export
+export const getStorageUnitIdentifiersOptions = async (): Promise<SelectorOption[]> => {
+  const storageUnitIdentifiers: StorageUnitIdentifier[] = await getStorageUnitIdentifiers();
+  // TODO SHOULD USE A COMMON FUNCTION!!!!
+  // OR THE BACK END!!
+  return storageUnitIdentifiers.map((storageUnit: StorageUnitIdentifier) => {
+    return {
+      value: storageUnit.id,
+      label: storageUnit.name
+    }
+  })
+}
 
+export const addStorageUnit = async (prevState: FormState, formData: FormData) => {
 
-  const addStorageUnit = async (prevState: FormState, formData: FormData) => {
+  const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.STORAGE_UNIT_BASE];
 
-    const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.STORAGE_UNIT_BASE];
+  const storageUnit: StorageUnitBase = deserializeFormData(formData, zodSchema) as StorageUnitBase;
 
-    const storageUnit: StorageUnitBase = deserializeFormData(formData, zodSchema) as StorageUnitBase;
+  await sendAPIRequest(
+    API_ENDPOINTS.foodService.storageUnits.index,
+    HTTP_METHOD.POST,
+    storageUnit
+  );
 
-    await sendAPIRequest(
-      API_ENDPOINTS.foodService.storageUnits.index,
-      HTTP_METHOD.POST,
-      storageUnit
-    );
-
-    return [
-      `The ${storageUnit.storage_unit_type_id} ${storageUnit.name}  added.`
-    ];
-  }
+  return [
+    `The ${storageUnit.storage_unit_type_id} ${storageUnit.name}  added.`
+  ];
+}
 
 // TODO PUT SOMETHING HERE!!!
 const updateStorageUnit = async (prevState: FormState, formData: FormData): Promise<string[]> => {
