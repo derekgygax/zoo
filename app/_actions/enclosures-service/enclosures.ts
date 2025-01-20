@@ -14,7 +14,6 @@ import { deserializeFormData, processFormAction } from "@/app/_actions/utils/gen
 
 // utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
-import { toSelectorOptions } from "@/lib/utils/general";
 
 
 export const getEnclosureBase = async (enclosureId: string): Promise<EnclosureBase | undefined> => {

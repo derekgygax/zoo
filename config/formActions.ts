@@ -21,13 +21,13 @@ import {
 } from "./serviceModels";
 
 // server actions
-import { addAnimalAction, getAnimalIdentifierOptions, updateAnimalAction } from "@/app/_actions/animals-service/animals";
-import { addSpecieAction, getSpecieIds, updateSpecieAction } from "@/app/_actions/animals-service/specie";
+import { addAnimalAction, getAnimal, getAnimalIdentifierOptions, updateAnimalAction } from "@/app/_actions/animals-service/animals";
+import { addSpecieAction, getSpecie, getSpecieIds, updateSpecieAction } from "@/app/_actions/animals-service/specie";
 import { addEnclosureTypeAction, getEnclosureTypeKeys, updateEnclosureTypeAction } from "@/app/_actions/enclosures-service/enclosure-types";
 import { addFoodTypeAction, getFoodTypeIds, updateFoodTypeAction } from "@/app/_actions/food-service/food-type";
 import { addStorageUnitTypeAction, getStorageUnitTypeIds, updateStorageUnitTypeAction } from "@/app/_actions/food-service/storage-unit-type";
-import { addStorageUnitAction, getStorageUnitIdentifiers, getStorageUnitIdentifiersOptions, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
-import { addEnclosureAction, getEnclosureIdentifierOptions, updateEnclosureAction } from "@/app/_actions/enclosures-service/enclosures";
+import { addStorageUnitAction, getStorageUnit, getStorageUnitIdentifiers, getStorageUnitIdentifiersOptions, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
+import { addEnclosureAction, getEnclosureBase, getEnclosureIdentifierOptions, updateEnclosureAction } from "@/app/_actions/enclosures-service/enclosures";
 import { addFoodStockAction, updateFoodStockAction } from "@/app/_actions/food-service/food-stock";
 
 
@@ -58,7 +58,9 @@ export const FORM_DEPENDENCY_FETCHERS: Record<FIELD_REQUIRING_FETCHED_DATA, () =
   [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT_TYPE]: getStorageUnitTypeIds,
 }
 
-
+// TODO this most likely does NOT go here
+// TODO A lot of these functions are just place holders
+// you need to change them to the correct functions!!!
 export const MODEL_OPTIONS_FETCHERS: {
   [S in SERVICE]: Record<ServiceModel<S>, () => Promise<SelectorOption[]>>
 } = {
@@ -88,3 +90,41 @@ export const MODEL_OPTIONS_FETCHERS: {
     [STAFF_SERVICE_MODEL.STAFF]: getAnimalIdentifierOptions
   }
 };
+
+// TODO this most likely does NOT go here
+// TODO A lot of these functions are just place holders
+// you need to change them to the correct functions!!!
+// ALSO: These should all be BASE!!!!
+// ALSO: These should all be BASE!!!!
+// ALSO: These should all be BASE!!!!
+// ALSO: These should all be BASE!!!!
+// ALSO: These should all be BASE!!!!
+export const MODEL_FETCHERS: {
+  [S in SERVICE]: Record<ServiceModel<S>, (id: string) => Promise<unknown>>
+} = {
+  [SERVICE.ANIMALS]: {
+    [ANIMALS_SERVICE_MODEL.ANIMAL]: getAnimal,
+    [ANIMALS_SERVICE_MODEL.EVENT]: getAnimal,
+    [ANIMALS_SERVICE_MODEL.MEDICAL_RECORD]: getAnimal,
+    [ANIMALS_SERVICE_MODEL.SPECIE]: getSpecie
+  },
+  [SERVICE.FOOD]: {
+    [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnit,
+    [FOOD_SERVICE_MODEL.FOOD_STOCK]: getStorageUnit,
+    [FOOD_SERVICE_MODEL.FOOD_TYPE]: getStorageUnit,
+    [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnit,
+  },
+  [SERVICE.ENCLOSURES]: {
+    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: getEnclosureBase,
+    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE]: getEnclosureBase
+  },
+  [SERVICE.BREEDING]: {
+    [BREEDING_SERVICE_MODEL.LITTER]: getAnimal
+  },
+  [SERVICE.REPORTS]: {
+    [REPORTS_SERVICE_MODEL.REPORT]: getAnimal
+  },
+  [SERVICE.STAFF]: {
+    [STAFF_SERVICE_MODEL.STAFF]: getAnimal
+  }
+}
