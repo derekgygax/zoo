@@ -51,7 +51,6 @@ const EnclosureIdentifier = z
     ).uuid(),
     name: z.string(),
   })
-  .partial()
   .passthrough();
 
 export const schemas = {

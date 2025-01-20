@@ -334,12 +334,12 @@ export interface components {
              * ID
              * @description Unique identifier of the Enclosure
              */
-            id?: components["schemas"]["UUID"];
+            id: components["schemas"]["UUID"];
             /**
              * Name
              * @description Name of the enclosure
              */
-            name?: string;
+            name: string;
         };
         /** @enum {string} */
         EnclosureStatus: "OPEN" | "UNDER_MAINTENANCE" | "CLOSED" | "TEMPORARILY_CLOSED" | "AWAITING_CLEANING" | "BEING_RENOVATED" | "EMERGENCY_LOCKDOWN";
