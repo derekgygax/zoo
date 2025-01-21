@@ -26,7 +26,7 @@ import { addSpecieAction, getSpecie, getSpecieIds, updateSpecieAction } from "@/
 import { addEnclosureTypeAction, getEnclosureTypeKeys, updateEnclosureTypeAction } from "@/app/_actions/enclosures-service/enclosure-types";
 import { addFoodTypeAction, getFoodTypeIds, updateFoodTypeAction } from "@/app/_actions/food-service/food-type";
 import { addStorageUnitTypeAction, getStorageUnitTypeIds, updateStorageUnitTypeAction } from "@/app/_actions/food-service/storage-unit-type";
-import { addStorageUnitAction, getStorageUnit, getStorageUnitIdentifiers, getStorageUnitIdentifiersOptions, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
+import { addStorageUnitAction, getStorageUnitBase, getStorageUnitIdentifiers, getStorageUnitIdentifiersOptions, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
 import { addEnclosureAction, getEnclosureBase, getEnclosureIdentifierOptions, updateEnclosureAction } from "@/app/_actions/enclosures-service/enclosures";
 import { addFoodStockAction, updateFoodStockAction } from "@/app/_actions/food-service/food-stock";
 
@@ -109,10 +109,10 @@ export const MODEL_FETCHERS: {
     [ANIMALS_SERVICE_MODEL.SPECIE]: getSpecie
   },
   [SERVICE.FOOD]: {
-    [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnit,
-    [FOOD_SERVICE_MODEL.FOOD_STOCK]: getStorageUnit,
-    [FOOD_SERVICE_MODEL.FOOD_TYPE]: getStorageUnit,
-    [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnit,
+    [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitBase,
+    [FOOD_SERVICE_MODEL.FOOD_STOCK]: getStorageUnitBase,
+    [FOOD_SERVICE_MODEL.FOOD_TYPE]: getStorageUnitBase,
+    [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnitBase,
   },
   [SERVICE.ENCLOSURES]: {
     [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: getEnclosureBase,
