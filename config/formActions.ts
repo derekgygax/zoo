@@ -21,13 +21,13 @@ import {
 } from "./serviceModels";
 
 // server actions
-import { addAnimalAction, getAnimalBase, getAnimalIdentifierOptions, updateAnimalAction } from "@/app/_actions/animals-service/animals";
+import { addAnimalAction, getAnimalBase, getAnimalIdentifiers, updateAnimalAction } from "@/app/_actions/animals-service/animals";
 import { addSpecieAction, getSpecie, getSpecieIds, updateSpecieAction } from "@/app/_actions/animals-service/specie";
 import { addEnclosureTypeAction, getEnclosureTypeKeys, updateEnclosureTypeAction } from "@/app/_actions/enclosures-service/enclosure-types";
 import { addFoodTypeAction, getFoodTypeIds, updateFoodTypeAction } from "@/app/_actions/food-service/food-type";
 import { addStorageUnitTypeAction, getStorageUnitTypeIds, updateStorageUnitTypeAction } from "@/app/_actions/food-service/storage-unit-type";
-import { addStorageUnitAction, getStorageUnitBase, getStorageUnitIdentifiers, getStorageUnitIdentifiersOptions, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
-import { addEnclosureAction, getEnclosureBase, getEnclosureIdentifierOptions, updateEnclosureAction } from "@/app/_actions/enclosures-service/enclosures";
+import { addStorageUnitAction, getStorageUnitBase, getStorageUnitIdentifiers, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
+import { addEnclosureAction, getEnclosureBase, getEnclosureIdentifiers, updateEnclosureAction } from "@/app/_actions/enclosures-service/enclosures";
 import { addFoodStockAction, updateFoodStockAction } from "@/app/_actions/food-service/food-stock";
 
 
@@ -63,32 +63,32 @@ export const FORM_DEPENDENCY_FETCHERS: Record<FIELD_REQUIRING_FETCHED_DATA, () =
 // TODO A lot of these functions are just place holders
 // you need to change them to the correct functions!!!
 export const MODEL_OPTIONS_FETCHERS: {
-  [S in SERVICE]: Record<ServiceModel<S>, () => Promise<SelectorOption[]>>
+  [S in SERVICE]: Record<ServiceModel<S>, () => Promise<unknown[]>>
 } = {
   [SERVICE.ANIMALS]: {
-    [ANIMALS_SERVICE_MODEL.ANIMAL]: getAnimalIdentifierOptions,
-    [ANIMALS_SERVICE_MODEL.EVENT]: getAnimalIdentifierOptions,
-    [ANIMALS_SERVICE_MODEL.MEDICAL_RECORD]: getAnimalIdentifierOptions,
-    [ANIMALS_SERVICE_MODEL.SPECIE]: getAnimalIdentifierOptions
+    [ANIMALS_SERVICE_MODEL.ANIMAL]: getAnimalIdentifiers,
+    [ANIMALS_SERVICE_MODEL.EVENT]: getAnimalIdentifiers,
+    [ANIMALS_SERVICE_MODEL.MEDICAL_RECORD]: getAnimalIdentifiers,
+    [ANIMALS_SERVICE_MODEL.SPECIE]: getAnimalIdentifiers
   },
   [SERVICE.FOOD]: {
-    [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitIdentifiersOptions,
-    [FOOD_SERVICE_MODEL.FOOD_STOCK]: getStorageUnitIdentifiersOptions,
-    [FOOD_SERVICE_MODEL.FOOD_TYPE]: getStorageUnitIdentifiersOptions,
-    [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnitIdentifiersOptions,
+    [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitIdentifiers,
+    [FOOD_SERVICE_MODEL.FOOD_STOCK]: getStorageUnitIdentifiers,
+    [FOOD_SERVICE_MODEL.FOOD_TYPE]: getStorageUnitIdentifiers,
+    [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnitIdentifiers,
   },
   [SERVICE.ENCLOSURES]: {
-    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: getEnclosureIdentifierOptions,
-    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE]: getEnclosureIdentifierOptions
+    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: getEnclosureIdentifiers,
+    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE]: getEnclosureIdentifiers
   },
   [SERVICE.BREEDING]: {
-    [BREEDING_SERVICE_MODEL.LITTER]: getAnimalIdentifierOptions
+    [BREEDING_SERVICE_MODEL.LITTER]: getAnimalIdentifiers
   },
   [SERVICE.REPORTS]: {
-    [REPORTS_SERVICE_MODEL.REPORT]: getAnimalIdentifierOptions
+    [REPORTS_SERVICE_MODEL.REPORT]: getAnimalIdentifiers
   },
   [SERVICE.STAFF]: {
-    [STAFF_SERVICE_MODEL.STAFF]: getAnimalIdentifierOptions
+    [STAFF_SERVICE_MODEL.STAFF]: getAnimalIdentifiers
   }
 };
 

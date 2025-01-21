@@ -38,17 +38,6 @@ export const getAnimalIdentifiers = async (): Promise<AnimalIdentifier[]> => {
   return animalIdentifiers;
 }
 
-export const getAnimalIdentifierOptions = async (): Promise<SelectorOption[]> => {
-  const animalIdentifiers: AnimalIdentifier[] = await getAnimalIdentifiers();
-  return animalIdentifiers.map((animal: AnimalIdentifier) => {
-    return {
-      value: animal.id,
-      label: `${animal.name} (${animal.specie_id})`
-    }
-  })
-}
-
-
 // Server Actions to forms
 // The functional part of the action
 const addAnimal = async (prevState: FormState, formData: FormData) => {

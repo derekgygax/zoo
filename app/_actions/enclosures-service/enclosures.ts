@@ -32,18 +32,6 @@ export const getEnclosureIdentifiers = async (): Promise<EnclosureIdentifier[]> 
   return enclosureIdentifiers;
 }
 
-export const getEnclosureIdentifierOptions = async (): Promise<SelectorOption[]> => {
-  const enclosureIdentifiers: EnclosureIdentifier[] = await getEnclosureIdentifiers();
-  // TODO SHOULD USE A COMMON FUNCTION!!!!
-  // OR THE BACK END!!
-  return enclosureIdentifiers.map((enclosure: EnclosureIdentifier) => {
-    return {
-      value: enclosure.id,
-      label: enclosure.name
-    }
-  })
-}
-
 // Form server actions
 const addEnclosure = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.ENCLOSURE_BASE];

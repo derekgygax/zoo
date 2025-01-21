@@ -1,11 +1,13 @@
 
 // master config
 import { FIELD_REQUIRING_FETCHED_DATA, SERVICE } from "@/config/master";
+
 // service models config
 import {
   ANIMALS_SERVICE_MODEL,
   ENCLOSURES_SERVICE_MODEL,
   FOOD_SERVICE_MODEL,
+  SERVICE_MODELS,
 } from "./serviceModels";
 
 // Site URLS config
@@ -15,8 +17,9 @@ import { SITE_URLS } from "./siteUrls";
 import {
   FormConfigs,
   FetchDataKey,
+  ServiceModelSelectorMapper
 } from "@/types/form";
-import { SpecieBase } from "@/types/animals-service";
+import { AnimalBase, SpecieBase } from "@/types/animals-service";
 import { EnclosureTypeBase } from "@/types/enclosures-service";
 import { FoodTypeBase, StorageUnitIdentifier, StorageUnitTypeBase } from "@/types/food-service";
 import { ZodSchema } from "@/types/zodSchema";
@@ -259,6 +262,85 @@ export const FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS: DependencyFieldKeys = {
     label: "id",
     value: "id"
   },
+}
+
+// TODO fix! this can be done like above
+// where only certain values are allowed to be keys
+// but maybe stop typing too hard and making 
+// life suck
+// TODO FIX FIX FIX FIX
+// HAS EXTRA SHIT
+// TODO using the any above you need to get away from
+// but this is getting too typed and feels fucked
+// so for now use the any
+// this is getting so hard to maintain
+// you will eventually need to go back and clean it
+// TODO the types are in types/forms.ts
+export const SERVICE_MODEL_SELECTOR_MAPPING: ServiceModelSelectorMapper = {
+  [SERVICE.ANIMALS]: {
+    [SERVICE_MODELS[SERVICE.ANIMALS].ANIMAL]: {
+      valueKey: "id",
+      labelFormatter: (item: AnimalBase) => `${item.name} (${item.specie_id})`
+    },
+    [ANIMALS_SERVICE_MODEL.EVENT]: {
+      valueKey: "id",
+      labelKey: "name"
+    },
+    [ANIMALS_SERVICE_MODEL.MEDICAL_RECORD]: {
+      valueKey: "id",
+      labelKey: "name"
+    },
+    [ANIMALS_SERVICE_MODEL.SPECIE]: {
+      valueKey: "id",
+      labelKey: "name"
+    },
+  },
+  [SERVICE.FOOD]: {
+    [SERVICE_MODELS[SERVICE.FOOD].STORAGE_UNIT]: {
+      valueKey: "id",
+      labelKey: "name"
+    },
+    [SERVICE_MODELS[SERVICE.FOOD].FOOD_STOCK]: {
+      valueKey: "id",
+      labelKey: "name"
+    },
+    [SERVICE_MODELS[SERVICE.FOOD].FOOD_TYPE]: {
+      valueKey: "id",
+      labelKey: "name"
+    },
+    [SERVICE_MODELS[SERVICE.FOOD].STORAGE_UNIT_TYPE]: {
+      valueKey: "id",
+      labelKey: "name"
+    },
+  },
+  [SERVICE.ENCLOSURES]: {
+    [SERVICE_MODELS[SERVICE.ENCLOSURES].ENCLOSURE]: {
+      valueKey: "id",
+      labelKey: "name"
+    },
+    [SERVICE_MODELS[SERVICE.ENCLOSURES].ENCLOSURE_TYPE]: {
+      valueKey: "id",
+      labelKey: "name"
+    },
+  },
+  [SERVICE.BREEDING]: {
+    [SERVICE_MODELS[SERVICE.BREEDING].LITTER]: {
+      valueKey: "id",
+      labelKey: "name"
+    }
+  },
+  [SERVICE.STAFF]: {
+    [SERVICE_MODELS[SERVICE.STAFF].STAFF]: {
+      valueKey: "id",
+      labelKey: "name"
+    }
+  },
+  [SERVICE.REPORTS]: {
+    [SERVICE_MODELS[SERVICE.REPORTS].REPORT]: {
+      valueKey: "id",
+      labelKey: "name"
+    }
+  }
 }
 
 export const ZOD_SCHEMAS: ZodSchema = {

@@ -34,18 +34,6 @@ export const getStorageUnitIdentifiers = async (): Promise<StorageUnitIdentifier
   return storageUnitIdentifiers;
 }
 
-export const getStorageUnitIdentifiersOptions = async (): Promise<SelectorOption[]> => {
-  const storageUnitIdentifiers: StorageUnitIdentifier[] = await getStorageUnitIdentifiers();
-  // TODO SHOULD USE A COMMON FUNCTION!!!!
-  // OR THE BACK END!!
-  return storageUnitIdentifiers.map((storageUnit: StorageUnitIdentifier) => {
-    return {
-      value: storageUnit.id,
-      label: storageUnit.name
-    }
-  })
-}
-
 export const addStorageUnit = async (prevState: FormState, formData: FormData) => {
 
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.STORAGE_UNIT_BASE];

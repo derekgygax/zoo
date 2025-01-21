@@ -1,24 +1,43 @@
-import { MODEL_FETCHERS, MODEL_OPTIONS_FETCHERS } from "@/config/formActions"
-import { SERVICE } from "@/config/master"
-import { SelectorOption } from "@/types/form"
+// types
+import { ModelSelectorMapper, SelectorOption } from "@/types/form"
 import { ServiceModel } from "@/types/serviceModels"
 
-export const fetchModelOptions = async <S extends SERVICE>(
+// config
+import { MODEL_FETCHERS, MODEL_OPTIONS_FETCHERS } from "@/config/formActions"
+import { SERVICE_MODEL_SELECTOR_MAPPING } from "@/config/forms"
+import { SERVICE } from "@/config/master"
+import { toSelectorOptions } from "@/lib/utils/general"
+
+export const fetchModelOptions = async <S extends SERVICE, T>(
   service: S,
   modelName: ServiceModel<S>
 ): Promise<SelectorOption[]> => {
   try {
 
-    const modelOptionsFetcher: () => Promise<SelectorOption[]> = MODEL_OPTIONS_FETCHERS[service][modelName];
-    const modelOptions: SelectorOption[] = await modelOptionsFetcher();
-    return modelOptions;
+    const modelOptionsFetcher = MODEL_OPTIONS_FETCHERS[service][modelName] as () => Promise<T[]>;
+    const modelOptions: T[] = await modelOptionsFetcher();
+
+    const modelToOptionsMapper: ModelSelectorMapper = SERVICE_MODEL_SELECTOR_MAPPING[service][modelName];
+
+    console.log(modelOptions);
+    console.log(modelToOptionsMapper);
+
+    return toSelectorOptions(
+      `service ${service} and model ${modelName}`,
+      modelOptions,
+      // TODO THIS IS SO FUCKED to use as keyof T but fuck it for now
+      // I am happy I brough in typing but its too much
+      // its not mantainable
+      modelToOptionsMapper.valueKey as keyof T,
+      modelToOptionsMapper.labelKey as keyof T,
+      modelToOptionsMapper.labelFormatter
+    );
 
   } catch (err) {
     console.error(`Error when performing fetchFormIdentifier with service = ${service} and model = ${modelName}, ${err}`)
     return [];
   }
 };
-
 
 export const fetchModel = async <S extends SERVICE, T>(
   service: S,

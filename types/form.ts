@@ -52,3 +52,15 @@ export interface HiddenField {
   value: string;
 }
 
+// TODO these are dumb!!!
+// TODO these are dumb!!!
+// TODO these are dumb!!!
+// TODO these are dumb!!!
+export interface ModelSelectorMapper<T = any> {
+  valueKey: string,
+  labelKey?: string,
+  labelFormatter?: (item: T) => string;
+}
+export type ServiceModelSelectorMapper = {
+  [S in SERVICE]: Record<ServiceModel<S>, ModelSelectorMapper>
+}

@@ -8,8 +8,9 @@ export const capitalizeFirstLetter = (s: string): string => {
 export const toSelectorOptions = <T>(
   field: string,
   items: T[] | string[],
-  valueKey?: keyof T,
+  valueKey: keyof T,
   labelKey?: keyof T,
+  labelFormatter?: (item: T) => string
 ): SelectorOption[] => {
   return items.map((item) => {
     if (typeof item === "string") {
@@ -18,6 +19,11 @@ export const toSelectorOptions = <T>(
         value: item,
         label: capitalizeFirstLetter(item),
       };
+    } else if (labelFormatter) {
+      return {
+        value: item[valueKey] !== undefined ? String(item[valueKey]) : "",
+        label: labelFormatter(item)
+      }
     } else if (valueKey && labelKey) {
       // Handle T[] case with valid valueKey and labelKey
       const value = item[valueKey] !== undefined ? String(item[valueKey]) : "";
