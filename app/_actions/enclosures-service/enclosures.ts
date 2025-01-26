@@ -18,7 +18,7 @@ import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
 export const getEnclosureBase = async (enclosureId: string): Promise<EnclosureBase | undefined> => {
   const enclosure: EnclosureBase | undefined = await getAPIRequest(
-    `${API_ENDPOINTS.enclosuresService.enclosures.bases}/${enclosureId}`,
+    `${API_ENDPOINTS.enclosuresService.enclosures.index}/${enclosureId}/base`,
     undefined
   )
   return enclosure;
