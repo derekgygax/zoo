@@ -69,7 +69,7 @@ const updateAnimal = async (prevState: FormState, formData: FormData) => {
   );
 
   return [
-    `${animal.name} the ${animal.specie_id} added.`
+    `${animal.name} the ${animal.specie_id} updated.`
   ];
 }
 
