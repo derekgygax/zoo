@@ -32,5 +32,11 @@ export const duties: Duty[] = [
     url: SITE_URLS.staff[SERVICE.ENCLOSURES].index,
     service: SERVICE.ENCLOSURES,
     roles: [ROLE.ADMIN, ROLE.STAFF]
+  },
+  {
+    label: "Staff",
+    url: SITE_URLS.staff[SERVICE.STAFF].index,
+    service: SERVICE.STAFF,
+    roles: [ROLE.ADMIN]
   }
 ];

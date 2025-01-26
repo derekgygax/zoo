@@ -88,6 +88,10 @@ export const ZodField = ({ fieldName, fieldSchema, selectorOptions = [], errors,
       if (fieldDescription.stringMeta) {
         if (fieldDescription.stringMeta.isSelector) {
           return buildSelector(sharedProps, fieldDescription.title, selectorOptions);
+        } else if (fieldDescription.stringMeta.isEmail) {
+          return (
+            <input type="email" {...sharedProps} />
+          )
         } else if (fieldDescription.stringMeta.maxLength > FORM_FIELD_DEFAULTS.string.maxLength) {
           return (
             <textarea
@@ -98,7 +102,9 @@ export const ZodField = ({ fieldName, fieldSchema, selectorOptions = [], errors,
         }
       }
 
-      return <input type="text" {...sharedProps} />;
+      return (
+        <input type="text" {...sharedProps} />
+      );
 
     }
     if (fieldSchema instanceof ZodEnum) {

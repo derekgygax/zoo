@@ -6,11 +6,11 @@ const LocalDate = z.string();
 const Instant = z.string();
 const Staff = z.object({
   id: UUID.regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid().describe("{\"needsCoercion\":false,\"title\":\"id\"}"),
-  firstName: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"firstName\"}"),
-  lastName: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"lastName\"}"),
+  firstName: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"firstName\"}"),
+  lastName: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"lastName\"}"),
   title: Title.describe("{\"needsCoercion\":false,\"title\":\"title\"}"),
-  email: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"email\"}"),
-  phoneNumber: z.string().trim().regex(/^\+?[1-9]\d{1,14}$/).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"phoneNumber\"}"),
+  email: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"email\"}"),
+  phoneNumber: z.string().trim().regex(/^\+?[1-9]\d{1,14}$/).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"phoneNumber\"}"),
   hireDate: LocalDate.describe("{\"needsCoercion\":false,\"title\":\"hireDate\"}"),
   startDate: LocalDate.describe("{\"needsCoercion\":false,\"title\":\"startDate\"}"),
   createdAt: Instant.datetime({
@@ -21,11 +21,11 @@ const Staff = z.object({
   }).describe("{\"needsCoercion\":false,\"title\":\"updatedAt\"}")
 }).partial().passthrough();
 const StaffBase = z.object({
-  firstName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"First Name\"}"),
-  lastName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Last Name\"}"),
-  title: Title.describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Title\"}"),
-  email: z.string().trim().max(255).email().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":255},\"needsCoercion\":false,\"title\":\"Email\"}"),
-  phoneNumber: z.string().trim().max(15).regex(/^\+?[1-9]\d{1,14}$/).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":15},\"needsCoercion\":false,\"title\":\"Phone Number\"}"),
+  firstName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"First Name\"}"),
+  lastName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Last Name\"}"),
+  title: Title.describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Title\"}"),
+  email: z.string().trim().max(255).email().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":true,\"maxLength\":255},\"needsCoercion\":false,\"title\":\"Email\"}"),
+  phoneNumber: z.string().trim().max(15).regex(/^\+?[1-9]\d{1,14}$/).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":15},\"needsCoercion\":false,\"title\":\"Phone Number\"}"),
   hireDate: z.string().trim().refine(value => {
     const parsedDate = Date.parse(value);
     const isValidDate = !isNaN(parsedDate);
@@ -39,7 +39,7 @@ const StaffBase = z.object({
     }
   }, {
     message: "Invalid date or out of range (1900-2100)"
-  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Hire Date\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Hire Date\"}"),
   startDate: z.string().trim().refine(value => {
     const parsedDate = Date.parse(value);
     const isValidDate = !isNaN(parsedDate);
@@ -53,12 +53,12 @@ const StaffBase = z.object({
     }
   }, {
     message: "Invalid date or out of range (1900-2100)"
-  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Start Date\"}")
+  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Start Date\"}")
 }).passthrough();
 const StaffIdentifier = z.object({
-  id: UUID.regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
-  firstName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"First Name\"}"),
-  lastName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Last Name\"}")
+  id: UUID.regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
+  firstName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"First Name\"}"),
+  lastName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Last Name\"}")
 }).passthrough();
 export const schemas = {
   UUID,

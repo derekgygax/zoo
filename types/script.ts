@@ -8,6 +8,7 @@ export interface FieldSchemaMeta {
   stringMeta: {
     isDate: boolean;
     isSelector: boolean;
+    isEmail: boolean;
     maxLength: number;
   } | undefined
 }

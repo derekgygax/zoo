@@ -51,6 +51,7 @@ const getSchemasMeta = (openApiSpec: OpenAPIV3.Document): {
             ? {
               isDate: properties.format === "date",
               isSelector: properties.format === "selector",
+              isEmail: properties.format === "email",
               maxLength: properties.maxLength ?? FORM_FIELD_DEFAULTS.string.maxLength
             }
             : undefined,

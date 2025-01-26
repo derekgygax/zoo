@@ -6,7 +6,7 @@ import { API_ENDPOINTS } from "@/config/apis";
 
 // types
 import { EnclosureBase, EnclosureIdentifier } from "@/types/enclosures-service";
-import { FormState, SelectorOption } from "@/types/form";
+import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 
 // server actions

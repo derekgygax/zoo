@@ -9,7 +9,6 @@ import { API_ENDPOINTS } from "@/config/apis";
 // types
 import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
-import { SelectorOption } from "@/types/form";
 import { StorageUnitBase, StorageUnitIdentifier } from "@/types/food-service";
 
 // action utils

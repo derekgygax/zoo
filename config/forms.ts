@@ -33,6 +33,7 @@ import { fieldsRequiringFetchedData as foodFieldsRequiringFetching } from "@/api
 import { schemas as animalZodSchemas } from "@/api-contracts/animals-service/zodSchemas";
 import { schemas as enclosureZodSchemas } from "@/api-contracts/enclosures-service/zodSchemas";
 import { schemas as foodZodSchemas } from "@/api-contracts/food-service/zodSchemas";
+import { schemas as staffZodSchemas } from "@/api-contracts/staff-service/zodSchemas";
 
 export enum FORM_SCHEMA_NAME {
   ANIMAL_BASE = "AnimalBase",
@@ -42,7 +43,8 @@ export enum FORM_SCHEMA_NAME {
   FOOD_TYPE_BASE = "FoodTypeBase",
   FOOD_STOCK_BASE = "FoodStockBase",
   STORAGE_UNIT_TYPE_BASE = "StorageUnitTypeBase",
-  STORAGE_UNIT_BASE = "StorageUnit"
+  STORAGE_UNIT_BASE = "StorageUnit",
+  STAFF_BASE = "StaffBase"
 }
 
 // THESE NEED TO BE SEPARATED BY MODEL!!!
@@ -63,7 +65,9 @@ export enum FORM_NAME {
   ADD_FOOD_TYPE = "add-food-type",
   UPDATE_FOOD_TYPE = "update-food-type",
   ADD_FOOD_STOCK = "add-food-stock",
-  UPDATE_FOOD_STOCK = "update-food-stock"
+  UPDATE_FOOD_STOCK = "update-food-stock",
+  ADD_STAFF = "AddStaff",
+  // ADD_DEPARTMENT = "AddDepartment"
 }
 
 export enum FORM_TYPE {
@@ -221,6 +225,15 @@ export const FORM_CONFIGS: FormConfigs = {
     fieldsRequiringFetchedData: foodFieldsRequiringFetching[FORM_SCHEMA_NAME.FOOD_STOCK_BASE],
     selectionScreenUrl: SITE_URLS.staff[SERVICE.FOOD].index
   },
+  [FORM_NAME.ADD_STAFF]: {
+    service: SERVICE.STAFF,
+    name: FORM_NAME.ADD_STAFF,
+    type: FORM_TYPE.ADD,
+    label: "Add Staff Member",
+    zodSchemaName: FORM_SCHEMA_NAME.STAFF_BASE,
+    fieldsRequiringFetchedData: [],
+    selectionScreenUrl: SITE_URLS.staff[SERVICE.STAFF].index
+  }
 
 }
 
@@ -352,4 +365,5 @@ export const ZOD_SCHEMAS: ZodSchema = {
   [FORM_SCHEMA_NAME.FOOD_TYPE_BASE]: foodZodSchemas.FoodTypeBase,
   [FORM_SCHEMA_NAME.STORAGE_UNIT_BASE]: foodZodSchemas.StorageUnitBase,
   [FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE]: foodZodSchemas.StorageUnitTypeBase,
+  [FORM_SCHEMA_NAME.STAFF_BASE]: staffZodSchemas.StaffBase
 }  
