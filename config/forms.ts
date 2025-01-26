@@ -23,6 +23,7 @@ import {
 import { AnimalBase, SpecieBase } from "@/types/animals-service";
 import { EnclosureTypeBase } from "@/types/enclosures-service";
 import { FoodTypeBase, StorageUnitIdentifier, StorageUnitTypeBase } from "@/types/food-service";
+import { StaffBase } from "@/types/staff-service";
 import { ZodSchema } from "@/types/zodSchema";
 
 // fields requiring fetched data
@@ -35,7 +36,6 @@ import { schemas as animalZodSchemas } from "@/api-contracts/animals-service/zod
 import { schemas as enclosureZodSchemas } from "@/api-contracts/enclosures-service/zodSchemas";
 import { schemas as foodZodSchemas } from "@/api-contracts/food-service/zodSchemas";
 import { schemas as staffZodSchemas } from "@/api-contracts/staff-service/zodSchemas";
-import { StaffBase } from "@/types/staff-service";
 
 export enum FORM_SCHEMA_NAME {
   ANIMAL_BASE = "AnimalBase",
