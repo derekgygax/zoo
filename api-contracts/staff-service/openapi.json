@@ -1,0 +1,212 @@
+{
+  "openapi" : "3.1.0",
+  "components" : {
+    "schemas" : {
+      "Instant" : {
+        "type" : "string",
+        "format" : "date-time",
+        "examples" : [ "2022-03-10T16:15:50Z" ]
+      },
+      "LocalDate" : {
+        "type" : "string",
+        "format" : "date",
+        "examples" : [ "2022-03-10" ]
+      },
+      "Staff" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "$ref" : "#/components/schemas/UUID"
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          },
+          "title" : {
+            "$ref" : "#/components/schemas/Title"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "phoneNumber" : {
+            "type" : "string",
+            "pattern" : "^\\+?[1-9]\\d{1,14}$"
+          },
+          "hireDate" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "startDate" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "createdAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "updatedAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
+      },
+      "StaffBase" : {
+        "type" : "object",
+        "required" : [ "firstName", "lastName", "title", "email", "phoneNumber", "hireDate", "startDate" ],
+        "properties" : {
+          "firstName" : {
+            "type" : "string",
+            "maxLength" : 100,
+            "description" : "Staff first name",
+            "title" : "First Name"
+          },
+          "lastName" : {
+            "type" : "string",
+            "maxLength" : 100,
+            "description" : "Staff last name",
+            "title" : "Last Name"
+          },
+          "title" : {
+            "$ref" : "#/components/schemas/Title",
+            "type" : "string",
+            "description" : "The job title of the staff member, selected from the enum of Title",
+            "title" : "Title"
+          },
+          "email" : {
+            "type" : "string",
+            "format" : "email",
+            "maxLength" : 255,
+            "description" : "Email of the staff member",
+            "title" : "Email"
+          },
+          "phoneNumber" : {
+            "type" : "string",
+            "maxLength" : 15,
+            "pattern" : "^\\+?[1-9]\\d{1,14}$",
+            "description" : "Phone number of the staff member",
+            "title" : "Phone Number"
+          },
+          "hireDate" : {
+            "type" : "string",
+            "format" : "date",
+            "examples" : [ "2022-03-10" ],
+            "description" : "The date the staff member was hired",
+            "title" : "Hire Date"
+          },
+          "startDate" : {
+            "type" : "string",
+            "format" : "date",
+            "examples" : [ "2022-03-10" ],
+            "description" : "The date the staff member started working",
+            "title" : "Start Date"
+          }
+        }
+      },
+      "StaffIdentifier" : {
+        "type" : "object",
+        "required" : [ "id", "firstName", "lastName" ],
+        "properties" : {
+          "id" : {
+            "$ref" : "#/components/schemas/UUID",
+            "type" : "string",
+            "description" : "Unique identifier of the staff member",
+            "title" : "ID"
+          },
+          "firstName" : {
+            "type" : "string",
+            "maxLength" : 100,
+            "description" : "Staff first name",
+            "title" : "First Name"
+          },
+          "lastName" : {
+            "type" : "string",
+            "maxLength" : 100,
+            "description" : "Staff last name",
+            "title" : "Last Name"
+          }
+        }
+      },
+      "Title" : {
+        "type" : "string",
+        "enum" : [ "VETERINARIAN", "ZOOKEEPER", "ADMINISTRATOR", "GUIDE", "MAINTENANCE", "CURATOR", "RESEARCHER", "SECURITY", "ATTENDANT" ]
+      },
+      "UUID" : {
+        "type" : "string",
+        "format" : "uuid",
+        "pattern" : "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+      }
+    },
+    "securitySchemes" : {
+      "SecurityScheme" : {
+        "type" : "openIdConnect",
+        "description" : "Authentication",
+        "openIdConnectUrl" : "http://localhost:61993/realms/quarkus/.well-known/openid-configuration"
+      }
+    }
+  },
+  "paths" : {
+    "/api/v1/staff" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Staff"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get All Staff",
+        "tags" : [ "Staff Resource" ]
+      },
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/StaffBase"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        },
+        "summary" : "Add Staff",
+        "tags" : [ "Staff Resource" ]
+      }
+    },
+    "/api/v1/staff/identifiers" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/StaffIdentifier"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get All Staff Identifiers",
+        "tags" : [ "Staff Resource" ]
+      }
+    }
+  },
+  "info" : {
+    "title" : "staff-service API",
+    "version" : "1.0.0-SNAPSHOT"
+  }
+}

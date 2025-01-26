@@ -16,7 +16,7 @@ export const SERVICES: Services = {
   },
   [SERVICE.STAFF]: {
     name: SERVICE.STAFF,
-    framework: FRAMEWORK.NEST_JS
+    framework: FRAMEWORK.QUARKUS
   },
   [SERVICE.BREEDING]: {
     name: SERVICE.BREEDING,
