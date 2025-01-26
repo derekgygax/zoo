@@ -69,7 +69,6 @@ export default async function StaffServiceFormPage({ params }: StaffServiceFormP
     await fetchFormDependencies(formConfig.fieldsRequiringFetchedData)
   ) : {};
 
-
   // Check is the form is an add or an update
   // Add:
   //    Directly put in the form

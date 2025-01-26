@@ -8,6 +8,7 @@ import {
   ENCLOSURES_SERVICE_MODEL,
   FOOD_SERVICE_MODEL,
   SERVICE_MODELS,
+  STAFF_SERVICE_MODEL,
 } from "./serviceModels";
 
 // Site URLS config
@@ -34,6 +35,7 @@ import { schemas as animalZodSchemas } from "@/api-contracts/animals-service/zod
 import { schemas as enclosureZodSchemas } from "@/api-contracts/enclosures-service/zodSchemas";
 import { schemas as foodZodSchemas } from "@/api-contracts/food-service/zodSchemas";
 import { schemas as staffZodSchemas } from "@/api-contracts/staff-service/zodSchemas";
+import { StaffBase } from "@/types/staff-service";
 
 export enum FORM_SCHEMA_NAME {
   ANIMAL_BASE = "AnimalBase",
@@ -66,7 +68,8 @@ export enum FORM_NAME {
   UPDATE_FOOD_TYPE = "update-food-type",
   ADD_FOOD_STOCK = "add-food-stock",
   UPDATE_FOOD_STOCK = "update-food-stock",
-  ADD_STAFF = "AddStaff",
+  ADD_STAFF = "add-staff",
+  UPDATE_STAFF = "update-staff",
   // ADD_DEPARTMENT = "AddDepartment"
 }
 
@@ -233,8 +236,17 @@ export const FORM_CONFIGS: FormConfigs = {
     zodSchemaName: FORM_SCHEMA_NAME.STAFF_BASE,
     fieldsRequiringFetchedData: [],
     selectionScreenUrl: SITE_URLS.staff[SERVICE.STAFF].index
+  },
+  [FORM_NAME.UPDATE_STAFF]: {
+    service: SERVICE.STAFF,
+    name: FORM_NAME.UPDATE_STAFF,
+    type: FORM_TYPE.UPDATE,
+    label: "Update Staff Member",
+    zodSchemaName: FORM_SCHEMA_NAME.STAFF_BASE,
+    fieldsRequiringFetchedData: [],
+    model: STAFF_SERVICE_MODEL.STAFF,
+    selectionScreenUrl: SITE_URLS.staff[SERVICE.STAFF].index
   }
-
 }
 
 
@@ -345,7 +357,7 @@ export const SERVICE_MODEL_SELECTOR_MAPPING: ServiceModelSelectorMapper = {
   [SERVICE.STAFF]: {
     [SERVICE_MODELS[SERVICE.STAFF].STAFF]: {
       valueKey: "id",
-      labelKey: "name"
+      labelFormatter: (item: StaffBase) => `${item.firstName} ${item.lastName}`
     }
   },
   [SERVICE.REPORTS]: {

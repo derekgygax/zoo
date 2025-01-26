@@ -1,3 +1,10 @@
+"use server"
+
+// TODO I can NOT believe you forgot to put "use server" at the top
+// AND HOW HAD YOU NOT NOTICED!!
+
+// TODO FUCK YOU NEED TO CHECK AROUND
+
 // types
 import { ModelSelectorMapper, SelectorOption } from "@/types/form"
 import { ServiceModel } from "@/types/serviceModels"
@@ -18,9 +25,6 @@ export const fetchModelOptions = async <S extends SERVICE, T>(
     const modelOptions: T[] = await modelOptionsFetcher();
 
     const modelToOptionsMapper: ModelSelectorMapper = SERVICE_MODEL_SELECTOR_MAPPING[service][modelName];
-
-    console.log(modelOptions);
-    console.log(modelToOptionsMapper);
 
     return toSelectorOptions(
       `service ${service} and model ${modelName}`,
