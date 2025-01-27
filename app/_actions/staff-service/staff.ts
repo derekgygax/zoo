@@ -1,3 +1,4 @@
+"use server"
 
 // types
 import { StaffBase, StaffIdentifier } from "@/types/staff-service";

@@ -1,3 +1,4 @@
+"use server"
 
 // types
 import { DepartmentBase, DepartmentIdentifier } from "@/types/staff-service";
