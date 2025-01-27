@@ -19,8 +19,6 @@ export const getDepartmentBaseById = async (departmentId: string): Promise<Depar
     undefined
   )
 
-  console.log(department);
-
   return department;
 }
 
