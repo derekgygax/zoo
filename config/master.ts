@@ -49,7 +49,9 @@ export enum FIELD_REQUIRING_FETCHED_DATA {
   ENCLOSURE_TYPE = "enclosureTypeId",
   STORAGE_UNIT_TYPE = "storage_unit_type_id",
   STORAGE_UNIT = "storage_unit_id",
-  FOOD_TYPE = "food_type_id"
+  FOOD_TYPE = "food_type_id",
+  STAFF = "staffId",
+  DEPARTMENT = "departmentId"
 }
 
 // The variable name above so if people run the generate-api-contracts

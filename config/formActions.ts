@@ -31,6 +31,7 @@ import { addEnclosureAction, getEnclosureBase, getEnclosureIdentifiers, updateEn
 import { addFoodStockAction, updateFoodStockAction } from "@/app/_actions/food-service/food-stock";
 import { addStaffAction, getStaffBaseById, getStaffIdentifiers, udpateStaffAction } from "@/app/_actions/staff-service/staff";
 import { addDepartmentAction, getDepartmentBaseById, getDepartmentIdentifiers, updateDepartmentAction } from "@/app/_actions/staff-service/departments";
+import { addStaffDepartmentAction, getStaffDepartmentBaseById, getStaffDepartmentIdentifiers, updateStaffDepartmentAction } from "@/app/_actions/staff-service/staff-departments";
 
 
 export const FORM_ACTIONS: Record<FORM_NAME, (prevState: FormState, formData: FormData) => Promise<FormState>> = {
@@ -54,21 +55,35 @@ export const FORM_ACTIONS: Record<FORM_NAME, (prevState: FormState, formData: Fo
   [FORM_NAME.UPDATE_STAFF]: udpateStaffAction,
   [FORM_NAME.ADD_DEPARTMENT]: addDepartmentAction,
   [FORM_NAME.UPDATE_DEPARTMENT]: updateDepartmentAction,
-
+  [FORM_NAME.ADD_STAFF_DEPARTMENT]: addStaffDepartmentAction,
+  [FORM_NAME.UPDATE_STAFF_DEPARTMENT]: updateStaffDepartmentAction,
 }
 
 // TODO Do you want to separate by SERVICE HERE ... ?
+// TODO this name has to be better!!!
+// TODO or figure some shit out
+// Write the fucking doc string shit
+// So you can remember what this is for
+// This is a reference object about filling the drop downs
+// that show up in the form
+// NOT! the udpate selector where you chose what you want to 
+// update but actually in the form
+// Like, what specie is this animal
 export const FORM_DEPENDENCY_FETCHERS: Record<FIELD_REQUIRING_FETCHED_DATA, () => Promise<unknown[]>> = {
   [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: getSpecieIds,
   [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: getEnclosureTypeKeys,
   [FIELD_REQUIRING_FETCHED_DATA.FOOD_TYPE]: getFoodTypeIds,
   [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT]: getStorageUnitIdentifiers,
   [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT_TYPE]: getStorageUnitTypeIds,
+  [FIELD_REQUIRING_FETCHED_DATA.DEPARTMENT]: getDepartmentIdentifiers,
+  [FIELD_REQUIRING_FETCHED_DATA.STAFF]: getStaffIdentifiers
 }
 
 // TODO this most likely does NOT go here
 // TODO A lot of these functions are just place holders
 // you need to change them to the correct functions!!!
+// This is a reference object
+// How to retrieve the values of the model you are updating
 export const MODEL_OPTIONS_FETCHERS: {
   [S in SERVICE]: Record<ServiceModel<S>, () => Promise<unknown[]>>
 } = {
@@ -96,7 +111,8 @@ export const MODEL_OPTIONS_FETCHERS: {
   },
   [SERVICE.STAFF]: {
     [STAFF_SERVICE_MODEL.STAFF]: getStaffIdentifiers,
-    [STAFF_SERVICE_MODEL.DEPARTMENT]: getDepartmentIdentifiers
+    [STAFF_SERVICE_MODEL.DEPARTMENT]: getDepartmentIdentifiers,
+    [STAFF_SERVICE_MODEL.STAFF_DEPARTMENT]: getStaffDepartmentIdentifiers
   }
 };
 
@@ -108,6 +124,8 @@ export const MODEL_OPTIONS_FETCHERS: {
 // ALSO: These should all be BASE!!!!
 // ALSO: These should all be BASE!!!!
 // ALSO: These should all be BASE!!!!
+// This is a reference object of how to retrieve the value of the 
+// model you are updated to preFill the form
 export const MODEL_FETCHERS: {
   [S in SERVICE]: Record<ServiceModel<S>, (id: string) => Promise<unknown>>
 } = {
@@ -135,6 +153,7 @@ export const MODEL_FETCHERS: {
   },
   [SERVICE.STAFF]: {
     [STAFF_SERVICE_MODEL.STAFF]: getStaffBaseById,
-    [STAFF_SERVICE_MODEL.DEPARTMENT]: getDepartmentBaseById
+    [STAFF_SERVICE_MODEL.DEPARTMENT]: getDepartmentBaseById,
+    [STAFF_SERVICE_MODEL.STAFF_DEPARTMENT]: getStaffDepartmentBaseById
   }
 }

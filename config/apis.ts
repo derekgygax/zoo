@@ -19,6 +19,7 @@ const API_INDEX = {
   staffService: {
     staff: `${API_BASE_URLS[SERVICE.STAFF]}/api/v1/staff`,
     departments: `${API_BASE_URLS[SERVICE.STAFF]}/api/v1/departments`,
+    staffDepartments: `${API_BASE_URLS[SERVICE.STAFF]}/api/v1/staff-departments`,
   }
 }
 
@@ -74,6 +75,10 @@ export const API_ENDPOINTS = {
     departments: {
       index: API_INDEX.staffService.departments,
       identifiers: `${API_INDEX.staffService.departments}/identifiers`
+    },
+    staffDepartments: {
+      index: API_INDEX.staffService.staffDepartments,
+      identifiers: `${API_INDEX.staffService.staffDepartments}/identifiers`
     }
   }
 };

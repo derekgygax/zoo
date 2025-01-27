@@ -8,6 +8,12 @@ import { SchemasSelectors} from "@/types/script";
   "LocalDate": [],
   "Staff": [],
   "StaffBase": [],
+  "StaffDepartment": [],
+  "StaffDepartmentBase": [
+    "staffId",
+    "departmentId"
+  ],
+  "StaffDepartmentIdentifierResponse": [],
   "StaffIdentifier": [],
   "Title": [],
   "UUID": []
