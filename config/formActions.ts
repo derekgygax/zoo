@@ -30,6 +30,7 @@ import { addStorageUnitAction, getStorageUnitBase, getStorageUnitIdentifiers, up
 import { addEnclosureAction, getEnclosureBase, getEnclosureIdentifiers, updateEnclosureAction } from "@/app/_actions/enclosures-service/enclosures";
 import { addFoodStockAction, updateFoodStockAction } from "@/app/_actions/food-service/food-stock";
 import { addStaffAction, getStaffBaseById, getStaffIdentifiers, udpateStaffAction } from "@/app/_actions/staff-service/staff";
+import { addDepartmentAction, getDepartmentBaseById, getDepartmentIdentifiers, updateDepartmentAction } from "@/app/_actions/staff-service/departments";
 
 
 export const FORM_ACTIONS: Record<FORM_NAME, (prevState: FormState, formData: FormData) => Promise<FormState>> = {
@@ -50,7 +51,10 @@ export const FORM_ACTIONS: Record<FORM_NAME, (prevState: FormState, formData: Fo
   [FORM_NAME.ADD_FOOD_STOCK]: addFoodStockAction,
   [FORM_NAME.UPDATE_FOOD_STOCK]: updateFoodStockAction,
   [FORM_NAME.ADD_STAFF]: addStaffAction,
-  [FORM_NAME.UPDATE_STAFF]: udpateStaffAction
+  [FORM_NAME.UPDATE_STAFF]: udpateStaffAction,
+  [FORM_NAME.ADD_DEPARTMENT]: addDepartmentAction,
+  [FORM_NAME.UPDATE_DEPARTMENT]: updateDepartmentAction,
+
 }
 
 // TODO Do you want to separate by SERVICE HERE ... ?
@@ -91,7 +95,8 @@ export const MODEL_OPTIONS_FETCHERS: {
     [REPORTS_SERVICE_MODEL.REPORT]: getAnimalIdentifiers
   },
   [SERVICE.STAFF]: {
-    [STAFF_SERVICE_MODEL.STAFF]: getStaffIdentifiers
+    [STAFF_SERVICE_MODEL.STAFF]: getStaffIdentifiers,
+    [STAFF_SERVICE_MODEL.DEPARTMENT]: getDepartmentIdentifiers
   }
 };
 
@@ -129,6 +134,7 @@ export const MODEL_FETCHERS: {
     [REPORTS_SERVICE_MODEL.REPORT]: getAnimalBase
   },
   [SERVICE.STAFF]: {
-    [STAFF_SERVICE_MODEL.STAFF]: getStaffBaseById
+    [STAFF_SERVICE_MODEL.STAFF]: getStaffBaseById,
+    [STAFF_SERVICE_MODEL.DEPARTMENT]: getDepartmentBaseById
   }
 }

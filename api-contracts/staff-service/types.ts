@@ -4,6 +4,178 @@
  */
 
 export interface paths {
+    "/api/v1/departments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get All Departmentes */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Department"][];
+                    };
+                };
+            };
+        };
+        put?: never;
+        /** Add Department */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["DepartmentBase"];
+                };
+            };
+            responses: {
+                /** @description Created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/departments/identifiers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get All Department Identifiers */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["DepartmentIdentifier"][];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/departments/{departmentId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Update Department */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    departmentId: components["schemas"]["UUID"];
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["DepartmentBase"];
+                };
+            };
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/departments/{departmentId}/base": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Department Base By Id */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    departmentId: components["schemas"]["UUID"];
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["DepartmentBase"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/staff": {
         parameters: {
             query?: never;
@@ -98,10 +270,119 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/staff/{staffId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Update Enclosure */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    staffId: components["schemas"]["UUID"];
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["StaffBase"];
+                };
+            };
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/staff/{staffId}/base": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Staff Base By Id */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    staffId: components["schemas"]["UUID"];
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["StaffBase"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        Department: {
+            id?: components["schemas"]["UUID"];
+            name?: string;
+            description?: string;
+            createdAt?: components["schemas"]["Instant"];
+            updatedAt?: components["schemas"]["Instant"];
+        };
+        DepartmentBase: {
+            /**
+             * Name
+             * @description Name of the Department. Cannot be longer than 100 characters.
+             */
+            name: string;
+            /**
+             * Description
+             * @description Description of the Department. Cannot be longer than 500 characters.
+             */
+            description: string;
+        };
+        DepartmentIdentifier: {
+            /**
+             * ID
+             * @description Unique identifier of the Department
+             */
+            id: components["schemas"]["UUID"];
+            /**
+             * Name
+             * @description Name of the department. Cannot be longer than 100 characters
+             */
+            name: string;
+        };
         /** Format: date-time */
         Instant: string;
         /** Format: date */

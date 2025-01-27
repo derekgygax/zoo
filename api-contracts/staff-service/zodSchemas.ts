@@ -1,9 +1,28 @@
 import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 const UUID = z.string();
+const Instant = z.string();
+const Department = z.object({
+  id: UUID.regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid().describe("{\"needsCoercion\":false,\"title\":\"id\"}"),
+  name: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"name\"}"),
+  description: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"description\"}"),
+  createdAt: Instant.datetime({
+    offset: true
+  }).describe("{\"needsCoercion\":false,\"title\":\"createdAt\"}"),
+  updatedAt: Instant.datetime({
+    offset: true
+  }).describe("{\"needsCoercion\":false,\"title\":\"updatedAt\"}")
+}).partial().passthrough();
+const DepartmentBase = z.object({
+  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
+  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Description\"}")
+}).passthrough();
+const DepartmentIdentifier = z.object({
+  id: UUID.regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
+  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}")
+}).passthrough();
 const Title = z.enum(["VETERINARIAN", "ZOOKEEPER", "ADMINISTRATOR", "GUIDE", "MAINTENANCE", "CURATOR", "RESEARCHER", "SECURITY", "ATTENDANT"]);
 const LocalDate = z.string();
-const Instant = z.string();
 const Staff = z.object({
   id: UUID.regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid().describe("{\"needsCoercion\":false,\"title\":\"id\"}"),
   firstName: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"firstName\"}"),
@@ -62,14 +81,66 @@ const StaffIdentifier = z.object({
 }).passthrough();
 export const schemas = {
   UUID,
+  Instant,
+  Department,
+  DepartmentBase,
+  DepartmentIdentifier,
   Title,
   LocalDate,
-  Instant,
   Staff,
   StaffBase,
   StaffIdentifier
 };
 const endpoints = makeApi([{
+  method: "get",
+  path: "/api/v1/departments",
+  alias: "getApiv1departments",
+  requestFormat: "json",
+  response: z.array(Department)
+}, {
+  method: "post",
+  path: "/api/v1/departments",
+  alias: "postApiv1departments",
+  requestFormat: "json",
+  parameters: [{
+    name: "body",
+    type: "Body",
+    schema: DepartmentBase
+  }],
+  response: z.void()
+}, {
+  method: "put",
+  path: "/api/v1/departments/:departmentId",
+  alias: "putApiv1departmentsDepartmentId",
+  requestFormat: "json",
+  parameters: [{
+    name: "body",
+    type: "Body",
+    schema: DepartmentBase
+  }, {
+    name: "departmentId",
+    type: "Path",
+    schema: z.string().regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid()
+  }],
+  response: z.void()
+}, {
+  method: "get",
+  path: "/api/v1/departments/:departmentId/base",
+  alias: "getApiv1departmentsDepartmentIdbase",
+  requestFormat: "json",
+  parameters: [{
+    name: "departmentId",
+    type: "Path",
+    schema: z.string().regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid()
+  }],
+  response: DepartmentBase
+}, {
+  method: "get",
+  path: "/api/v1/departments/identifiers",
+  alias: "getApiv1departmentsidentifiers",
+  requestFormat: "json",
+  response: z.array(DepartmentIdentifier)
+}, {
   method: "get",
   path: "/api/v1/staff",
   alias: "getApiv1staff",
@@ -86,6 +157,32 @@ const endpoints = makeApi([{
     schema: StaffBase
   }],
   response: z.void()
+}, {
+  method: "put",
+  path: "/api/v1/staff/:staffId",
+  alias: "putApiv1staffStaffId",
+  requestFormat: "json",
+  parameters: [{
+    name: "body",
+    type: "Body",
+    schema: StaffBase
+  }, {
+    name: "staffId",
+    type: "Path",
+    schema: z.string().regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid()
+  }],
+  response: z.void()
+}, {
+  method: "get",
+  path: "/api/v1/staff/:staffId/base",
+  alias: "getApiv1staffStaffIdbase",
+  requestFormat: "json",
+  parameters: [{
+    name: "staffId",
+    type: "Path",
+    schema: z.string().regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid()
+  }],
+  response: StaffBase
 }, {
   method: "get",
   path: "/api/v1/staff/identifiers",

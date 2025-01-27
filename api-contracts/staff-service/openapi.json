@@ -2,6 +2,62 @@
   "openapi" : "3.1.0",
   "components" : {
     "schemas" : {
+      "Department" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "$ref" : "#/components/schemas/UUID"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "createdAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "updatedAt" : {
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
+      },
+      "DepartmentBase" : {
+        "type" : "object",
+        "required" : [ "name", "description" ],
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "maxLength" : 100,
+            "description" : "Name of the Department. Cannot be longer than 100 characters.",
+            "title" : "Name"
+          },
+          "description" : {
+            "type" : "string",
+            "maxLength" : 500,
+            "description" : "Description of the Department. Cannot be longer than 500 characters.",
+            "title" : "Description"
+          }
+        }
+      },
+      "DepartmentIdentifier" : {
+        "type" : "object",
+        "required" : [ "id", "name" ],
+        "properties" : {
+          "id" : {
+            "$ref" : "#/components/schemas/UUID",
+            "type" : "string",
+            "description" : "Unique identifier of the Department",
+            "title" : "ID"
+          },
+          "name" : {
+            "type" : "string",
+            "maxLength" : 100,
+            "description" : "Name of the department. Cannot be longer than 100 characters",
+            "title" : "Name"
+          }
+        }
+      },
       "Instant" : {
         "type" : "string",
         "format" : "date-time",
@@ -138,11 +194,127 @@
       "SecurityScheme" : {
         "type" : "openIdConnect",
         "description" : "Authentication",
-        "openIdConnectUrl" : "http://localhost:61993/realms/quarkus/.well-known/openid-configuration"
+        "openIdConnectUrl" : "http://localhost:60643/realms/quarkus/.well-known/openid-configuration"
       }
     }
   },
   "paths" : {
+    "/api/v1/departments" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Department"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get All Departmentes",
+        "tags" : [ "Department Resource" ]
+      },
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DepartmentBase"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        },
+        "summary" : "Add Department",
+        "tags" : [ "Department Resource" ]
+      }
+    },
+    "/api/v1/departments/identifiers" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/DepartmentIdentifier"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get All Department Identifiers",
+        "tags" : [ "Department Resource" ]
+      }
+    },
+    "/api/v1/departments/{departmentId}" : {
+      "put" : {
+        "parameters" : [ {
+          "name" : "departmentId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DepartmentBase"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "summary" : "Update Department",
+        "tags" : [ "Department Resource" ]
+      }
+    },
+    "/api/v1/departments/{departmentId}/base" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "departmentId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DepartmentBase"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Department Base By Id",
+        "tags" : [ "Department Resource" ]
+      }
+    },
     "/api/v1/staff" : {
       "get" : {
         "responses" : {
@@ -201,6 +373,61 @@
           }
         },
         "summary" : "Get All Staff Identifiers",
+        "tags" : [ "Staff Resource" ]
+      }
+    },
+    "/api/v1/staff/{staffId}" : {
+      "put" : {
+        "parameters" : [ {
+          "name" : "staffId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/StaffBase"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "summary" : "Update Enclosure",
+        "tags" : [ "Staff Resource" ]
+      }
+    },
+    "/api/v1/staff/{staffId}/base" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "staffId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StaffBase"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Staff Base By Id",
         "tags" : [ "Staff Resource" ]
       }
     }

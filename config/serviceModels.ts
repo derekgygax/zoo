@@ -21,7 +21,8 @@ export enum ENCLOSURES_SERVICE_MODEL {
 }
 
 export enum STAFF_SERVICE_MODEL {
-  STAFF = "staff"
+  STAFF = "staff",
+  DEPARTMENT = "department"
 }
 
 export enum REPORTS_SERVICE_MODEL {

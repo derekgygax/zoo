@@ -46,7 +46,8 @@ export enum FORM_SCHEMA_NAME {
   FOOD_STOCK_BASE = "FoodStockBase",
   STORAGE_UNIT_TYPE_BASE = "StorageUnitTypeBase",
   STORAGE_UNIT_BASE = "StorageUnit",
-  STAFF_BASE = "StaffBase"
+  STAFF_BASE = "StaffBase",
+  DEPARTMENT_BASE = "DepartmentBase"
 }
 
 // THESE NEED TO BE SEPARATED BY MODEL!!!
@@ -70,7 +71,8 @@ export enum FORM_NAME {
   UPDATE_FOOD_STOCK = "update-food-stock",
   ADD_STAFF = "add-staff",
   UPDATE_STAFF = "update-staff",
-  // ADD_DEPARTMENT = "AddDepartment"
+  ADD_DEPARTMENT = "add-department",
+  UPDATE_DEPARTMENT = "update-department"
 }
 
 export enum FORM_TYPE {
@@ -246,7 +248,27 @@ export const FORM_CONFIGS: FormConfigs = {
     fieldsRequiringFetchedData: [],
     model: STAFF_SERVICE_MODEL.STAFF,
     selectionScreenUrl: SITE_URLS.staff[SERVICE.STAFF].index
-  }
+  },
+  [FORM_NAME.ADD_DEPARTMENT]: {
+    service: SERVICE.STAFF,
+    name: FORM_NAME.ADD_DEPARTMENT,
+    type: FORM_TYPE.ADD,
+    label: "Add Department",
+    zodSchemaName: FORM_SCHEMA_NAME.DEPARTMENT_BASE,
+    fieldsRequiringFetchedData: [],
+    selectionScreenUrl: SITE_URLS.staff[SERVICE.STAFF].index
+  },
+  [FORM_NAME.UPDATE_DEPARTMENT]: {
+    service: SERVICE.STAFF,
+    name: FORM_NAME.UPDATE_DEPARTMENT,
+    type: FORM_TYPE.UPDATE,
+    label: "Update Department",
+    zodSchemaName: FORM_SCHEMA_NAME.DEPARTMENT_BASE,
+    fieldsRequiringFetchedData: [],
+    model: STAFF_SERVICE_MODEL.DEPARTMENT,
+    selectionScreenUrl: SITE_URLS.staff[SERVICE.STAFF].index
+  },
+
 }
 
 
@@ -358,7 +380,11 @@ export const SERVICE_MODEL_SELECTOR_MAPPING: ServiceModelSelectorMapper = {
     [SERVICE_MODELS[SERVICE.STAFF].STAFF]: {
       valueKey: "id",
       labelFormatter: (item: StaffBase) => `${item.firstName} ${item.lastName}`
-    }
+    },
+    [SERVICE_MODELS[SERVICE.STAFF].DEPARTMENT]: {
+      valueKey: "id",
+      labelKey: "name"
+    },
   },
   [SERVICE.REPORTS]: {
     [SERVICE_MODELS[SERVICE.REPORTS].REPORT]: {
@@ -377,5 +403,7 @@ export const ZOD_SCHEMAS: ZodSchema = {
   [FORM_SCHEMA_NAME.FOOD_TYPE_BASE]: foodZodSchemas.FoodTypeBase,
   [FORM_SCHEMA_NAME.STORAGE_UNIT_BASE]: foodZodSchemas.StorageUnitBase,
   [FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE]: foodZodSchemas.StorageUnitTypeBase,
-  [FORM_SCHEMA_NAME.STAFF_BASE]: staffZodSchemas.StaffBase
+  [FORM_SCHEMA_NAME.STAFF_BASE]: staffZodSchemas.StaffBase,
+  [FORM_SCHEMA_NAME.DEPARTMENT_BASE]: staffZodSchemas.DepartmentBase
+
 }  

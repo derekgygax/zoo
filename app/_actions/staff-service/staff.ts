@@ -20,7 +20,6 @@ export const getStaffBaseById = async (staffId: string): Promise<StaffBase | und
     undefined
   )
 
-  console.log(staff);
   return staff;
 }
 
