@@ -1,14 +1,14 @@
 "use server"
 
 // types
-import { DepartmentBase, DepartmentIdentifier } from "@/types/staff-service";
+import { DepartmentBase } from "@/types/staff-service";
 
 // API endpoints
 import { API_ENDPOINTS } from "@/config/apis";
 
 // aciton utils
 import { processFormAction, deserializeFormData } from "../utils/general";
-import { FormState } from "@/types/form"; import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
+import { FormState, SelectorOption } from "@/types/form"; import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 import { HTTP_METHOD } from "@/types/httpMethod";
 
@@ -23,8 +23,8 @@ export const getDepartmentBaseById = async (departmentId: string): Promise<Depar
   return department;
 }
 
-export const getDepartmentIdentifiers = async (): Promise<DepartmentIdentifier[]> => {
-  const departmentIdentifiers: DepartmentIdentifier[] = await getAPIRequest<DepartmentIdentifier[]>(
+export const getDepartmentIdentifiers = async (): Promise<SelectorOption[]> => {
+  const departmentIdentifiers: SelectorOption[] = await getAPIRequest<SelectorOption[]>(
     API_ENDPOINTS.staffService.departments.identifiers,
     []
   );

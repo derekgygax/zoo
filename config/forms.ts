@@ -20,11 +20,16 @@ import {
   FetchDataKey,
   ServiceModelSelectorMapper
 } from "@/types/form";
-import { AnimalBase, SpecieBase } from "@/types/animals-service";
+// TODO NO USE ModelIdentifier
+// retard retard retard
+import { SpecieBase } from "@/types/animals-service";
 import { EnclosureTypeBase } from "@/types/enclosures-service";
-import { FoodTypeBase, StorageUnitIdentifier, StorageUnitTypeBase } from "@/types/food-service";
-import { DepartmentBase, DepartmentIdentifier, StaffBase, StaffIdentifier } from "@/types/staff-service";
+import { FoodTypeBase, StorageUnitTypeBase } from "@/types/food-service";
 import { ZodSchema } from "@/types/zodSchema";
+// TODO this is dangerous with all the imports
+// TODO get rid of them as you build the API gateway
+// and start combining things
+import { ModelIdentifier } from "@/types/serviceModels";
 
 // fields requiring fetched data
 import { fieldsRequiringFetchedData as animalServiceFieldsRequiringFetching } from "@/api-contracts/animals-service/fieldsRequiringFetchedData";
@@ -302,14 +307,16 @@ export const FORM_CONFIGS: FormConfigs = {
 
 // This just becomes the string for FIELD_REQUIRING_FETCHED_DATA.SPECIE
 // NOT referenced to FIELD_REQUIRING_FETCHED_DATA.SPECIE
+// TODO NO USE ModelIdentifier
+// retard retard retard
 type DependencyFieldKeys = {
   [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: FetchDataKey<SpecieBase>;
   [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: FetchDataKey<EnclosureTypeBase>;
   [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT_TYPE]: FetchDataKey<StorageUnitTypeBase>;
-  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT]: FetchDataKey<StorageUnitIdentifier>;
+  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT]: FetchDataKey<ModelIdentifier>;
   [FIELD_REQUIRING_FETCHED_DATA.FOOD_TYPE]: FetchDataKey<FoodTypeBase>;
-  [FIELD_REQUIRING_FETCHED_DATA.STAFF]: FetchDataKey<StaffIdentifier>
-  [FIELD_REQUIRING_FETCHED_DATA.DEPARTMENT]: FetchDataKey<DepartmentIdentifier>
+  [FIELD_REQUIRING_FETCHED_DATA.STAFF]: FetchDataKey<ModelIdentifier>
+  [FIELD_REQUIRING_FETCHED_DATA.DEPARTMENT]: FetchDataKey<ModelIdentifier>
 };
 
 export const FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS: DependencyFieldKeys = {
@@ -332,7 +339,7 @@ export const FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS: DependencyFieldKeys = {
     value: "id"
   },
   [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT]: {
-    label: "name",
+    label: "label",
     value: "id"
   },
   [FIELD_REQUIRING_FETCHED_DATA.FOOD_TYPE]: {
@@ -344,7 +351,7 @@ export const FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS: DependencyFieldKeys = {
   // TODO Fix this the fuck up!!
   // TODO Fix this the fuck up!!
   [FIELD_REQUIRING_FETCHED_DATA.STAFF]: {
-    label: "firstName",
+    label: "label",
     value: "id"
   },
   // TODO Fix this the fuck up!!
@@ -352,7 +359,7 @@ export const FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS: DependencyFieldKeys = {
   // TODO Fix this the fuck up!!
   // TODO Fix this the fuck up!!
   [FIELD_REQUIRING_FETCHED_DATA.DEPARTMENT]: {
-    label: "name",
+    label: "label",
     value: "id"
   }
 }

@@ -11,3 +11,8 @@ import {
 export type ServiceModel<S extends SERVICE> = S extends keyof typeof SERVICE_MODELS
   ? (typeof SERVICE_MODELS[S])[keyof (typeof SERVICE_MODELS[S])]
   : never;
+
+export interface ModelIdentifier {
+  id: string,
+  label: string
+}
