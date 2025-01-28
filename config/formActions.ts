@@ -22,11 +22,11 @@ import {
 
 // server actions
 import { addAnimalAction, getAnimalBase, getAnimalIdentifiers, updateAnimalAction } from "@/app/_actions/animals-service/animals";
-import { addSpecieAction, getSpecie, getSpecieBaseById, getSpecieIdentifiers, getSpecieIds, updateSpecieAction } from "@/app/_actions/animals-service/specie";
+import { addSpecieAction, getSpecieBaseById, getSpecieIdentifiers, getSpecieIds, updateSpecieAction } from "@/app/_actions/animals-service/specie";
 import { addEnclosureTypeAction, getEnclosureTypeBaseById, getEnclosureTypeIdentifiers, getEnclosureTypeKeys, updateEnclosureTypeAction } from "@/app/_actions/enclosures-service/enclosure-types";
 import { addFoodTypeAction, getFoodTypeBaseById, getFoodTypeIdentifiers, getFoodTypeIds, updateFoodTypeAction } from "@/app/_actions/food-service/food-type";
 import { addStorageUnitTypeAction, getStorageUnitTypeBaseById, getStorageUnitTypeIdentifiers, getStorageUnitTypeIds, updateStorageUnitTypeAction } from "@/app/_actions/food-service/storage-unit-type";
-import { addStorageUnitAction, getStorageUnitBase, getStorageUnitIdentifiers, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
+import { addStorageUnitAction, getStorageUnitBaseById, getStorageUnitIdentifiers, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
 import { addEnclosureAction, getEnclosureBase, getEnclosureIdentifiers, updateEnclosureAction } from "@/app/_actions/enclosures-service/enclosures";
 import { addFoodStockAction, getFoodStockBaseById, getFoodStockIdentifiers, updateFoodStockAction } from "@/app/_actions/food-service/food-stock";
 import { addStaffAction, getStaffBaseById, getStaffIdentifiers, udpateStaffAction } from "@/app/_actions/staff-service/staff";
@@ -136,7 +136,7 @@ export const MODEL_FETCHERS: {
     [ANIMALS_SERVICE_MODEL.SPECIE]: getSpecieBaseById
   },
   [SERVICE.FOOD]: {
-    [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitBase,
+    [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitBaseById,
     [FOOD_SERVICE_MODEL.FOOD_STOCK]: getFoodStockBaseById,
     [FOOD_SERVICE_MODEL.FOOD_TYPE]: getFoodTypeBaseById,
     [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnitTypeBaseById,

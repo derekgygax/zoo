@@ -17,9 +17,9 @@ import { deserializeFormData, processFormAction } from "@/app/_actions/utils/gen
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
-export const getStorageUnitBase = async (storageUnitId: string): Promise<StorageUnitBase | undefined> => {
+export const getStorageUnitBaseById = async (storageUnitId: string): Promise<StorageUnitBase | undefined> => {
   const storageUnit: StorageUnitBase | undefined = await getAPIRequest(
-    `${API_ENDPOINTS.foodService.storageUnits.index}/${storageUnitId}`,
+    `${API_ENDPOINTS.foodService.storageUnits.index}/${storageUnitId}/base`,
     undefined
   )
   return storageUnit;
