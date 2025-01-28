@@ -66,7 +66,8 @@ export const API_ENDPOINTS = {
     foodStocks: {
       index: API_INDEX.foodService.foodStocks,
       ids: `${API_INDEX.foodService.foodStocks}/ids`,
-      bases: `${API_INDEX.foodService.foodStocks}/bases`
+      bases: `${API_INDEX.foodService.foodStocks}/bases`,
+      identifiers: `${API_INDEX.foodService.foodStocks}/identifiers`,
     },
   },
   staffService: {

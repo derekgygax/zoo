@@ -7,7 +7,7 @@ import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { API_ENDPOINTS } from "@/config/apis";
 
 // types
-import { FormState } from "@/types/form";
+import { FormState, SelectorOption } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 import { FoodStockBase } from "@/types/food-service";
 
@@ -15,8 +15,24 @@ import { FoodStockBase } from "@/types/food-service";
 import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general";
 
 // lib utils
-import { sendAPIRequest } from "@/lib/utils/server/api";
+import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
+export const getFoodStockIdentifiers = async (): Promise<SelectorOption[]> => {
+  const foodStockIdentifiers: SelectorOption[] = await getAPIRequest<SelectorOption[]>(
+    API_ENDPOINTS.foodService.foodStocks.identifiers,
+    []
+  );
+  return foodStockIdentifiers;
+}
+
+export const getFoodStockBaseById = async (foodStockId: string): Promise<FoodStockBase | undefined> => {
+  console.log(`${API_ENDPOINTS.animalsService.animals.index}/${foodStockId}/base`,);
+  const foodStock: FoodStockBase | undefined = await getAPIRequest<FoodStockBase | undefined>(
+    `${API_ENDPOINTS.foodService.foodStocks.index}/${foodStockId}/base`,
+    undefined
+  );
+  return foodStock;
+}
 
 const addFoodStock = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.FOOD_STOCK_BASE];
@@ -37,6 +53,7 @@ const addFoodStock = async (prevState: FormState, formData: FormData) => {
 // TODO PUT SOMETHING HERE!!!
 const updateFoodStock = async (prevState: FormState, formData: FormData): Promise<string[]> => {
   console.log(prevState, formData);
+  console.error("PUT SOMETHING in updateFoodStock");
   return [];
 }
 

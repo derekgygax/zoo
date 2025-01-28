@@ -28,7 +28,7 @@ import { addFoodTypeAction, getFoodTypeIds, updateFoodTypeAction } from "@/app/_
 import { addStorageUnitTypeAction, getStorageUnitTypeIds, updateStorageUnitTypeAction } from "@/app/_actions/food-service/storage-unit-type";
 import { addStorageUnitAction, getStorageUnitBase, getStorageUnitIdentifiers, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
 import { addEnclosureAction, getEnclosureBase, getEnclosureIdentifiers, updateEnclosureAction } from "@/app/_actions/enclosures-service/enclosures";
-import { addFoodStockAction, updateFoodStockAction } from "@/app/_actions/food-service/food-stock";
+import { addFoodStockAction, getFoodStockBaseById, getFoodStockIdentifiers, updateFoodStockAction } from "@/app/_actions/food-service/food-stock";
 import { addStaffAction, getStaffBaseById, getStaffIdentifiers, udpateStaffAction } from "@/app/_actions/staff-service/staff";
 import { addDepartmentAction, getDepartmentBaseById, getDepartmentIdentifiers, updateDepartmentAction } from "@/app/_actions/staff-service/departments";
 import { addStaffDepartmentAction, getStaffDepartmentBaseById, getStaffDepartmentIdentifiers, updateStaffDepartmentAction } from "@/app/_actions/staff-service/staff-departments";
@@ -95,7 +95,7 @@ export const MODEL_OPTIONS_FETCHERS: {
   },
   [SERVICE.FOOD]: {
     [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitIdentifiers,
-    [FOOD_SERVICE_MODEL.FOOD_STOCK]: getStorageUnitIdentifiers,
+    [FOOD_SERVICE_MODEL.FOOD_STOCK]: getFoodStockIdentifiers,
     [FOOD_SERVICE_MODEL.FOOD_TYPE]: getStorageUnitIdentifiers,
     [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnitIdentifiers,
   },
@@ -137,7 +137,7 @@ export const MODEL_FETCHERS: {
   },
   [SERVICE.FOOD]: {
     [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitBase,
-    [FOOD_SERVICE_MODEL.FOOD_STOCK]: getStorageUnitBase,
+    [FOOD_SERVICE_MODEL.FOOD_STOCK]: getFoodStockBaseById,
     [FOOD_SERVICE_MODEL.FOOD_TYPE]: getStorageUnitBase,
     [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnitBase,
   },

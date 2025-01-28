@@ -380,11 +380,11 @@ export const SERVICE_MODEL_SELECTOR_MAPPING: ServiceModelSelectorMapper = {
     },
     [ANIMALS_SERVICE_MODEL.EVENT]: {
       valueKey: "id",
-      labelKey: "name"
+      labelKey: "label"
     },
     [ANIMALS_SERVICE_MODEL.MEDICAL_RECORD]: {
       valueKey: "id",
-      labelKey: "name"
+      labelKey: "label"
     },
     [ANIMALS_SERVICE_MODEL.SPECIE]: {
       valueKey: "id",
@@ -394,19 +394,19 @@ export const SERVICE_MODEL_SELECTOR_MAPPING: ServiceModelSelectorMapper = {
   [SERVICE.FOOD]: {
     [SERVICE_MODELS[SERVICE.FOOD].STORAGE_UNIT]: {
       valueKey: "id",
-      labelKey: "name"
+      labelKey: "label"
     },
     [SERVICE_MODELS[SERVICE.FOOD].FOOD_STOCK]: {
       valueKey: "id",
-      labelKey: "name"
+      labelKey: "label"
     },
     [SERVICE_MODELS[SERVICE.FOOD].FOOD_TYPE]: {
       valueKey: "id",
-      labelKey: "name"
+      labelKey: "label"
     },
     [SERVICE_MODELS[SERVICE.FOOD].STORAGE_UNIT_TYPE]: {
       valueKey: "id",
-      labelKey: "name"
+      labelKey: "label"
     },
   },
   [SERVICE.ENCLOSURES]: {
