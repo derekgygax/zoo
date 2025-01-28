@@ -26,7 +26,6 @@ export const getFoodStockIdentifiers = async (): Promise<SelectorOption[]> => {
 }
 
 export const getFoodStockBaseById = async (foodStockId: string): Promise<FoodStockBase | undefined> => {
-  console.log(`${API_ENDPOINTS.animalsService.animals.index}/${foodStockId}/base`,);
   const foodStock: FoodStockBase | undefined = await getAPIRequest<FoodStockBase | undefined>(
     `${API_ENDPOINTS.foodService.foodStocks.index}/${foodStockId}/base`,
     undefined

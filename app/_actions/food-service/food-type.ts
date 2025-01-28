@@ -7,7 +7,7 @@ import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { API_ENDPOINTS } from "@/config/apis";
 
 // types
-import { FormState } from "@/types/form";
+import { FormState, SelectorOption } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 import { FoodTypeBase } from "@/types/food-service";
 
@@ -27,6 +27,21 @@ export const getFoodTypeIds = async (): Promise<string[]> => {
   return foodTypes
 }
 
+export const getFoodTypeIdentifiers = async (): Promise<SelectorOption[]> => {
+  const foodTypeIdentifiers: SelectorOption[] = await getAPIRequest<SelectorOption[]>(
+    API_ENDPOINTS.foodService.foodTypes.identifiers,
+    []
+  );
+  return foodTypeIdentifiers;
+}
+
+export const getFoodTypeBaseById = async (foodTypeId: string): Promise<FoodTypeBase | undefined> => {
+  const foodTypes: FoodTypeBase | undefined = await getAPIRequest<FoodTypeBase | undefined>(
+    `${API_ENDPOINTS.foodService.foodTypes.index}/${foodTypeId}/base`,
+    undefined
+  );
+  return foodTypes;
+}
 
 const addFoodType = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.FOOD_TYPE_BASE];
@@ -47,6 +62,7 @@ const addFoodType = async (prevState: FormState, formData: FormData) => {
 // TODO PUT SOMETHING HERE!
 const updateFoodType = async (prevState: FormState, formData: FormData): Promise<string[]> => {
   console.log(prevState, formData);
+  console.error("Put something in updateFoodType");
   return [];
 }
 

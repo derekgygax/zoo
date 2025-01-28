@@ -24,7 +24,7 @@ import {
 import { addAnimalAction, getAnimalBase, getAnimalIdentifiers, updateAnimalAction } from "@/app/_actions/animals-service/animals";
 import { addSpecieAction, getSpecie, getSpecieBaseById, getSpecieIdentifiers, getSpecieIds, updateSpecieAction } from "@/app/_actions/animals-service/specie";
 import { addEnclosureTypeAction, getEnclosureTypeBaseById, getEnclosureTypeIdentifiers, getEnclosureTypeKeys, updateEnclosureTypeAction } from "@/app/_actions/enclosures-service/enclosure-types";
-import { addFoodTypeAction, getFoodTypeIds, updateFoodTypeAction } from "@/app/_actions/food-service/food-type";
+import { addFoodTypeAction, getFoodTypeBaseById, getFoodTypeIdentifiers, getFoodTypeIds, updateFoodTypeAction } from "@/app/_actions/food-service/food-type";
 import { addStorageUnitTypeAction, getStorageUnitTypeIds, updateStorageUnitTypeAction } from "@/app/_actions/food-service/storage-unit-type";
 import { addStorageUnitAction, getStorageUnitBase, getStorageUnitIdentifiers, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
 import { addEnclosureAction, getEnclosureBase, getEnclosureIdentifiers, updateEnclosureAction } from "@/app/_actions/enclosures-service/enclosures";
@@ -96,7 +96,7 @@ export const MODEL_OPTIONS_FETCHERS: {
   [SERVICE.FOOD]: {
     [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitIdentifiers,
     [FOOD_SERVICE_MODEL.FOOD_STOCK]: getFoodStockIdentifiers,
-    [FOOD_SERVICE_MODEL.FOOD_TYPE]: getStorageUnitIdentifiers,
+    [FOOD_SERVICE_MODEL.FOOD_TYPE]: getFoodTypeIdentifiers,
     [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnitIdentifiers,
   },
   [SERVICE.ENCLOSURES]: {
@@ -138,7 +138,7 @@ export const MODEL_FETCHERS: {
   [SERVICE.FOOD]: {
     [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitBase,
     [FOOD_SERVICE_MODEL.FOOD_STOCK]: getFoodStockBaseById,
-    [FOOD_SERVICE_MODEL.FOOD_TYPE]: getStorageUnitBase,
+    [FOOD_SERVICE_MODEL.FOOD_TYPE]: getFoodTypeBaseById,
     [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnitBase,
   },
   [SERVICE.ENCLOSURES]: {
