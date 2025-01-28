@@ -1,14 +1,14 @@
 "use server"
 
 // types
-import { StaffDepartmentBase, StaffDepartmentIdentifierResponse } from "@/types/staff-service";
+import { StaffDepartmentBase } from "@/types/staff-service";
 
 // API endpoints
 import { API_ENDPOINTS } from "@/config/apis";
 
 // aciton utils
 import { processFormAction, deserializeFormData } from "../utils/general";
-import { FormState } from "@/types/form"; import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
+import { FormState, SelectorOption } from "@/types/form"; import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 import { HTTP_METHOD } from "@/types/httpMethod";
 
@@ -21,12 +21,12 @@ export const getStaffDepartmentBaseById = async (staffDepartmentId: string): Pro
   return staffDepartment;
 }
 
-export const getStaffDepartmentIdentifiers = async (): Promise<StaffDepartmentIdentifierResponse[]> => {
-  const staffDepartmentIdentifierResponse: StaffDepartmentIdentifierResponse[] = await getAPIRequest<StaffDepartmentIdentifierResponse[]>(
+export const getStaffDepartmentIdentifiers = async (): Promise<SelectorOption[]> => {
+  const staffDepartmentIdentifiers: SelectorOption[] = await getAPIRequest<SelectorOption[]>(
     API_ENDPOINTS.staffService.staffDepartments.identifiers,
     []
   );
-  return staffDepartmentIdentifierResponse;
+  return staffDepartmentIdentifiers;
 }
 
 const addStaffDepartment = async (prevState: FormState, formData: FormData) => {
