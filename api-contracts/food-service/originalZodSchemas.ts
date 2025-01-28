@@ -23,6 +23,9 @@ const HTTPValidationError = z
   .object({ detail: z.array(ValidationError) })
   .partial()
   .passthrough();
+const ModelIdentifier = z
+  .object({ id: z.string(), label: z.string() })
+  .passthrough();
 const StorageUnitType = z
   .object({
     id: z.string().max(100),
@@ -51,13 +54,6 @@ const StorageUnitBase = z
     capacity: z.number().int(),
   })
   .passthrough();
-const StorageUnitIdentifier = z
-  .object({
-    id: z.string().uuid(),
-    name: z.string().max(100),
-    storage_unit_type_id: z.string().max(100),
-  })
-  .passthrough();
 const FoodStock = z
   .object({
     food_type_id: z.string().max(100),
@@ -83,11 +79,11 @@ export const schemas = {
   FoodTypeBase,
   ValidationError,
   HTTPValidationError,
+  ModelIdentifier,
   StorageUnitType,
   StorageUnitTypeBase,
   StorageUnit,
   StorageUnitBase,
-  StorageUnitIdentifier,
   FoodStock,
   FoodStockBase,
 };
@@ -129,27 +125,6 @@ const endpoints = makeApi([
     ],
   },
   {
-    method: "get",
-    path: "/api/v1/food-stocks/:food_stock_id",
-    alias: "get_food_stock_base_by_id_api_v1_food_stocks__food_stock_id__get",
-    requestFormat: "json",
-    parameters: [
-      {
-        name: "food_stock_id",
-        type: "Path",
-        schema: z.string().uuid(),
-      },
-    ],
-    response: FoodStockBase,
-    errors: [
-      {
-        status: 422,
-        description: `Validation Error`,
-        schema: HTTPValidationError,
-      },
-    ],
-  },
-  {
     method: "put",
     path: "/api/v1/food-stocks/:food_stock_id",
     alias: "add_food_stock_api_v1_food_stocks__food_stock_id__put",
@@ -174,6 +149,35 @@ const endpoints = makeApi([
         schema: HTTPValidationError,
       },
     ],
+  },
+  {
+    method: "get",
+    path: "/api/v1/food-stocks/:food_stock_id/base",
+    alias:
+      "get_food_stock_base_by_id_api_v1_food_stocks__food_stock_id__base_get",
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "food_stock_id",
+        type: "Path",
+        schema: z.string().uuid(),
+      },
+    ],
+    response: FoodStockBase,
+    errors: [
+      {
+        status: 422,
+        description: `Validation Error`,
+        schema: HTTPValidationError,
+      },
+    ],
+  },
+  {
+    method: "get",
+    path: "/api/v1/food-stocks/identifiers",
+    alias: "get_food_type_ids_api_v1_food_stocks_identifiers_get",
+    requestFormat: "json",
+    response: z.array(ModelIdentifier),
   },
   {
     method: "get",
@@ -231,6 +235,34 @@ const endpoints = makeApi([
   },
   {
     method: "get",
+    path: "/api/v1/food-types/:food_type_id/base",
+    alias: "get_food_type_base_by_id_api_v1_food_types__food_type_id__base_get",
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "food_type_id",
+        type: "Path",
+        schema: z.string(),
+      },
+    ],
+    response: FoodTypeBase,
+    errors: [
+      {
+        status: 422,
+        description: `Validation Error`,
+        schema: HTTPValidationError,
+      },
+    ],
+  },
+  {
+    method: "get",
+    path: "/api/v1/food-types/identifiers",
+    alias: "get_food_type_identifiers_api_v1_food_types_identifiers_get",
+    requestFormat: "json",
+    response: z.array(ModelIdentifier),
+  },
+  {
+    method: "get",
     path: "/api/v1/food-types/ids",
     alias: "get_food_type_ids_api_v1_food_types_ids_get",
     requestFormat: "json",
@@ -266,8 +298,9 @@ const endpoints = makeApi([
   },
   {
     method: "put",
-    path: "/api/v1/storage-unit-types/:specie_id",
-    alias: "update_storage_unit_type_api_v1_storage_unit_types__specie_id__put",
+    path: "/api/v1/storage-unit-types/:storage_unit_type_id",
+    alias:
+      "update_storage_unit_type_api_v1_storage_unit_types__storage_unit_type_id__put",
     requestFormat: "json",
     parameters: [
       {
@@ -277,7 +310,7 @@ const endpoints = makeApi([
       },
       {
         name: "storage_unit_type_id",
-        type: "Query",
+        type: "Path",
         schema: z.string(),
       },
     ],
@@ -292,10 +325,40 @@ const endpoints = makeApi([
   },
   {
     method: "get",
+    path: "/api/v1/storage-unit-types/:storage_unit_type_id/base",
+    alias:
+      "get_food_type_base_by_id_api_v1_storage_unit_types__storage_unit_type_id__base_get",
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "storage_unit_type_id",
+        type: "Path",
+        schema: z.string(),
+      },
+    ],
+    response: StorageUnitTypeBase,
+    errors: [
+      {
+        status: 422,
+        description: `Validation Error`,
+        schema: HTTPValidationError,
+      },
+    ],
+  },
+  {
+    method: "get",
     path: "/api/v1/storage-unit-types/base",
     alias: "get_storage_unit_type_bases_api_v1_storage_unit_types_base_get",
     requestFormat: "json",
     response: z.array(StorageUnitTypeBase),
+  },
+  {
+    method: "get",
+    path: "/api/v1/storage-unit-types/identifiers",
+    alias:
+      "get_storage_unit_type_identifiers_api_v1_storage_unit_types_identifiers_get",
+    requestFormat: "json",
+    response: z.array(ModelIdentifier),
   },
   {
     method: "get",
@@ -333,28 +396,6 @@ const endpoints = makeApi([
     ],
   },
   {
-    method: "get",
-    path: "/api/v1/storage-units/:storage_unit_id",
-    alias:
-      "get_storage_unit_base_by_id_api_v1_storage_units__storage_unit_id__get",
-    requestFormat: "json",
-    parameters: [
-      {
-        name: "storage_unit_id",
-        type: "Path",
-        schema: z.string().uuid(),
-      },
-    ],
-    response: StorageUnitBase,
-    errors: [
-      {
-        status: 422,
-        description: `Validation Error`,
-        schema: HTTPValidationError,
-      },
-    ],
-  },
-  {
     method: "put",
     path: "/api/v1/storage-units/:storage_unit_id",
     alias: "update_storage_unit_api_v1_storage_units__storage_unit_id__put",
@@ -382,10 +423,32 @@ const endpoints = makeApi([
   },
   {
     method: "get",
+    path: "/api/v1/storage-units/:storage_unit_id/base",
+    alias:
+      "get_storage_unit_base_by_id_api_v1_storage_units__storage_unit_id__base_get",
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "storage_unit_id",
+        type: "Path",
+        schema: z.string().uuid(),
+      },
+    ],
+    response: StorageUnitBase,
+    errors: [
+      {
+        status: 422,
+        description: `Validation Error`,
+        schema: HTTPValidationError,
+      },
+    ],
+  },
+  {
+    method: "get",
     path: "/api/v1/storage-units/identifiers",
     alias: "get_storage_unit_identifiers_api_v1_storage_units_identifiers_get",
     requestFormat: "json",
-    response: z.array(StorageUnitIdentifier),
+    response: z.array(ModelIdentifier),
   },
 ]);
 

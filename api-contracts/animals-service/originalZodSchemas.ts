@@ -44,12 +44,8 @@ const HTTPValidationError = z
   .object({ detail: z.array(ValidationError) })
   .partial()
   .passthrough();
-const AnimalIdentifier = z
-  .object({
-    id: z.string().uuid(),
-    name: z.string().max(100),
-    specie_id: z.string().max(100),
-  })
+const ModelIdentifier = z
+  .object({ id: z.string(), label: z.string() })
   .passthrough();
 const Specie = z
   .object({
@@ -70,7 +66,7 @@ export const schemas = {
   AnimalBase,
   ValidationError,
   HTTPValidationError,
-  AnimalIdentifier,
+  ModelIdentifier,
   Specie,
   SpecieBase,
 };
@@ -163,7 +159,7 @@ const endpoints = makeApi([
     path: "/api/v1/animals/identifiers",
     alias: "get_animal_ids_api_v1_animals_identifiers_get",
     requestFormat: "json",
-    response: z.array(AnimalIdentifier),
+    response: z.array(ModelIdentifier),
   },
   {
     method: "get",
@@ -221,10 +217,38 @@ const endpoints = makeApi([
   },
   {
     method: "get",
-    path: "/api/v1/species/base",
-    alias: "get_species_base_api_v1_species_base_get",
+    path: "/api/v1/species/:specie_id/base",
+    alias: "get_species_base_api_v1_species__specie_id__base_get",
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "specie_id",
+        type: "Path",
+        schema: z.string(),
+      },
+    ],
+    response: SpecieBase,
+    errors: [
+      {
+        status: 422,
+        description: `Validation Error`,
+        schema: HTTPValidationError,
+      },
+    ],
+  },
+  {
+    method: "get",
+    path: "/api/v1/species/bases",
+    alias: "get_species_bases_api_v1_species_bases_get",
     requestFormat: "json",
     response: z.array(SpecieBase),
+  },
+  {
+    method: "get",
+    path: "/api/v1/species/identifiers",
+    alias: "get_specie_identifiers_api_v1_species_identifiers_get",
+    requestFormat: "json",
+    response: z.array(ModelIdentifier),
   },
   {
     method: "get",

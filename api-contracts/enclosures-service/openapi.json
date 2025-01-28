@@ -83,6 +83,9 @@
           },
           "updatedAt" : {
             "$ref" : "#/components/schemas/Instant"
+          },
+          "modelIdentifier" : {
+            "$ref" : "#/components/schemas/ModelIdentifier"
           }
         }
       },
@@ -136,7 +139,7 @@
       "SecurityScheme" : {
         "type" : "openIdConnect",
         "description" : "Authentication",
-        "openIdConnectUrl" : "http://localhost:59201/realms/quarkus/.well-known/openid-configuration"
+        "openIdConnectUrl" : "http://localhost:56889/realms/quarkus/.well-known/openid-configuration"
       }
     }
   },

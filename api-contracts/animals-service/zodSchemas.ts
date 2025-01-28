@@ -3,8 +3,8 @@ import { z } from "zod";
 const GENDER = z.enum(["MALE", "FEMALE", "HERMAPHRODITE", "ASEXUAL"]);
 const HEALTH_TYPE = z.enum(["HEALTHY", "SICK", "UNDER_OBSERVATION", "INJURED", "RECOVERING", "DECEASED"]);
 const Animal = z.object({
-  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
-  specie_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
+  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
+  specie_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
   gender: GENDER.describe("{\"needsCoercion\":false,\"title\":\"Gender\"}"),
   health: HEALTH_TYPE.describe("{\"needsCoercion\":false,\"title\":\"Health\"}"),
   dob: z.string().trim().refine(value => {
@@ -20,7 +20,7 @@ const Animal = z.object({
     }
   }, {
     message: "Invalid date or out of range (1900-2100)"
-  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"DOB\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"DOB\"}"),
   acquisition_date: z.string().trim().refine(value => {
     const parsedDate = Date.parse(value);
     const isValidDate = !isNaN(parsedDate);
@@ -34,18 +34,18 @@ const Animal = z.object({
     }
   }, {
     message: "Invalid date or out of range (1900-2100)"
-  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Aquisition Date\"}"),
-  id: z.string().trim().uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Id\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Aquisition Date\"}"),
+  id: z.string().trim().uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Id\"}"),
   created_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Created At\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Created At\"}"),
   updated_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
 }).passthrough();
 const AnimalBase = z.object({
-  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
-  specie_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
+  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
+  specie_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
   gender: GENDER.describe("{\"needsCoercion\":false,\"title\":\"Gender\"}"),
   health: HEALTH_TYPE.describe("{\"needsCoercion\":false,\"title\":\"Health\"}"),
   dob: z.string().trim().refine(value => {
@@ -61,7 +61,7 @@ const AnimalBase = z.object({
     }
   }, {
     message: "Invalid date or out of range (1900-2100)"
-  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"DOB\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"DOB\"}"),
   acquisition_date: z.string().trim().refine(value => {
     const parsedDate = Date.parse(value);
     const isValidDate = !isNaN(parsedDate);
@@ -75,34 +75,33 @@ const AnimalBase = z.object({
     }
   }, {
     message: "Invalid date or out of range (1900-2100)"
-  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Aquisition Date\"}")
+  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Aquisition Date\"}")
 }).passthrough();
 const ValidationError = z.object({
   loc: z.array(z.union([z.string(), z.number()])).describe("{\"needsCoercion\":false,\"title\":\"Location\"}"),
-  msg: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Message\"}"),
-  type: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Error Type\"}")
+  msg: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Message\"}"),
+  type: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Error Type\"}")
 }).passthrough();
 const HTTPValidationError = z.object({
   detail: z.array(ValidationError).describe("{\"needsCoercion\":false,\"title\":\"Detail\"}")
 }).partial().passthrough();
-const AnimalIdentifier = z.object({
-  id: z.string().trim().uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
-  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
-  specie_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}")
+const ModelIdentifier = z.object({
+  id: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
+  label: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Label\"}")
 }).passthrough();
 const Specie = z.object({
-  id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
-  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Specie Description\"}"),
+  id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
+  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Specie Description\"}"),
   created_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Created At\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Created At\"}"),
   updated_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
 }).passthrough();
 const SpecieBase = z.object({
-  id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
-  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Specie Description\"}")
+  id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Specie\"}"),
+  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Specie Description\"}")
 }).passthrough();
 export const schemas = {
   GENDER,
@@ -111,7 +110,7 @@ export const schemas = {
   AnimalBase,
   ValidationError,
   HTTPValidationError,
-  AnimalIdentifier,
+  ModelIdentifier,
   Specie,
   SpecieBase
 };
@@ -184,7 +183,7 @@ const endpoints = makeApi([{
   path: "/api/v1/animals/identifiers",
   alias: "get_animal_ids_api_v1_animals_identifiers_get",
   requestFormat: "json",
-  response: z.array(AnimalIdentifier)
+  response: z.array(ModelIdentifier)
 }, {
   method: "get",
   path: "/api/v1/species/",
@@ -229,10 +228,32 @@ const endpoints = makeApi([{
   }]
 }, {
   method: "get",
-  path: "/api/v1/species/base",
-  alias: "get_species_base_api_v1_species_base_get",
+  path: "/api/v1/species/:specie_id/base",
+  alias: "get_species_base_api_v1_species__specie_id__base_get",
+  requestFormat: "json",
+  parameters: [{
+    name: "specie_id",
+    type: "Path",
+    schema: z.string()
+  }],
+  response: SpecieBase,
+  errors: [{
+    status: 422,
+    description: `Validation Error`,
+    schema: HTTPValidationError
+  }]
+}, {
+  method: "get",
+  path: "/api/v1/species/bases",
+  alias: "get_species_bases_api_v1_species_bases_get",
   requestFormat: "json",
   response: z.array(SpecieBase)
+}, {
+  method: "get",
+  path: "/api/v1/species/identifiers",
+  alias: "get_specie_identifiers_api_v1_species_identifiers_get",
+  requestFormat: "json",
+  response: z.array(ModelIdentifier)
 }, {
   method: "get",
   path: "/api/v1/species/ids",

@@ -1,66 +1,65 @@
 import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 const FoodType = z.object({
-  id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Food Type\"}"),
-  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Food Type Description\"}"),
+  id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Food Type\"}"),
+  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Food Type Description\"}"),
   created_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Created At\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Created At\"}"),
   updated_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
 }).passthrough();
 const FoodTypeBase = z.object({
-  id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Food Type\"}"),
-  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Food Type Description\"}")
+  id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Food Type\"}"),
+  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Food Type Description\"}")
 }).passthrough();
 const ValidationError = z.object({
   loc: z.array(z.union([z.string(), z.number()])).describe("{\"needsCoercion\":false,\"title\":\"Location\"}"),
-  msg: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Message\"}"),
-  type: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Error Type\"}")
+  msg: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Message\"}"),
+  type: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Error Type\"}")
 }).passthrough();
 const HTTPValidationError = z.object({
   detail: z.array(ValidationError).describe("{\"needsCoercion\":false,\"title\":\"Detail\"}")
 }).partial().passthrough();
+const ModelIdentifier = z.object({
+  id: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
+  label: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Label\"}")
+}).passthrough();
 const StorageUnitType = z.object({
-  id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Storage Unit Type\"}"),
-  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Storage Unit Type Description\"}"),
+  id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Storage Unit Type\"}"),
+  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Storage Unit Type Description\"}"),
   created_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Created At\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Created At\"}"),
   updated_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
 }).passthrough();
 const StorageUnitTypeBase = z.object({
-  id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Storage Unit Type\"}"),
-  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Storage Unit Type Description\"}")
+  id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Storage Unit Type\"}"),
+  description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Storage Unit Type Description\"}")
 }).passthrough();
 const StorageUnit = z.object({
-  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
-  storage_unit_type_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Storage Unit Type\"}"),
+  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
+  storage_unit_type_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Storage Unit Type\"}"),
   capacity: z.coerce.number().int().describe("{\"needsCoercion\":true,\"title\":\"Capacity\"}"),
-  id: z.string().trim().uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Id\"}"),
+  id: z.string().trim().uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Id\"}"),
   created_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Created At\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Created At\"}"),
   updated_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
 }).passthrough();
 const StorageUnitBase = z.object({
-  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
-  storage_unit_type_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Storage Unit Type\"}"),
+  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
+  storage_unit_type_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Storage Unit Type\"}"),
   capacity: z.coerce.number().int().describe("{\"needsCoercion\":true,\"title\":\"Capacity\"}")
 }).passthrough();
-const StorageUnitIdentifier = z.object({
-  id: z.string().trim().uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
-  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
-  storage_unit_type_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Storage Unit Type\"}")
-}).passthrough();
 const FoodStock = z.object({
-  food_type_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Food Type\"}"),
-  storage_unit_id: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Storage Unit\"}"),
+  food_type_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Food Type\"}"),
+  storage_unit_id: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Storage Unit\"}"),
   quantity: z.coerce.number().int().gte(0).describe("{\"needsCoercion\":true,\"title\":\"Quanitity of Food\"}"),
   expiration_date: z.string().trim().refine(value => {
     const parsedDate = Date.parse(value);
@@ -75,18 +74,18 @@ const FoodStock = z.object({
     }
   }, {
     message: "Invalid date or out of range (1900-2100)"
-  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Expiration Date\"}"),
-  id: z.string().trim().uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Id\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Expiration Date\"}"),
+  id: z.string().trim().uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Id\"}"),
   created_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Created At\"}"),
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Created At\"}"),
   updated_at: z.string().trim().datetime({
     offset: true
-  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
+  }).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Updated At\"}")
 }).passthrough();
 const FoodStockBase = z.object({
-  food_type_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Food Type\"}"),
-  storage_unit_id: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Storage Unit\"}"),
+  food_type_id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Food Type\"}"),
+  storage_unit_id: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Storage Unit\"}"),
   quantity: z.coerce.number().int().gte(0).describe("{\"needsCoercion\":true,\"title\":\"Quanitity of Food\"}"),
   expiration_date: z.string().trim().refine(value => {
     const parsedDate = Date.parse(value);
@@ -101,18 +100,18 @@ const FoodStockBase = z.object({
     }
   }, {
     message: "Invalid date or out of range (1900-2100)"
-  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Expiration Date\"}")
+  }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Expiration Date\"}")
 }).passthrough();
 export const schemas = {
   FoodType,
   FoodTypeBase,
   ValidationError,
   HTTPValidationError,
+  ModelIdentifier,
   StorageUnitType,
   StorageUnitTypeBase,
   StorageUnit,
   StorageUnitBase,
-  StorageUnitIdentifier,
   FoodStock,
   FoodStockBase
 };
@@ -145,22 +144,6 @@ const endpoints = makeApi([{
     schema: HTTPValidationError
   }]
 }, {
-  method: "get",
-  path: "/api/v1/food-stocks/:food_stock_id",
-  alias: "get_food_stock_base_by_id_api_v1_food_stocks__food_stock_id__get",
-  requestFormat: "json",
-  parameters: [{
-    name: "food_stock_id",
-    type: "Path",
-    schema: z.string().uuid()
-  }],
-  response: FoodStockBase,
-  errors: [{
-    status: 422,
-    description: `Validation Error`,
-    schema: HTTPValidationError
-  }]
-}, {
   method: "put",
   path: "/api/v1/food-stocks/:food_stock_id",
   alias: "add_food_stock_api_v1_food_stocks__food_stock_id__put",
@@ -180,6 +163,28 @@ const endpoints = makeApi([{
     description: `Validation Error`,
     schema: HTTPValidationError
   }]
+}, {
+  method: "get",
+  path: "/api/v1/food-stocks/:food_stock_id/base",
+  alias: "get_food_stock_base_by_id_api_v1_food_stocks__food_stock_id__base_get",
+  requestFormat: "json",
+  parameters: [{
+    name: "food_stock_id",
+    type: "Path",
+    schema: z.string().uuid()
+  }],
+  response: FoodStockBase,
+  errors: [{
+    status: 422,
+    description: `Validation Error`,
+    schema: HTTPValidationError
+  }]
+}, {
+  method: "get",
+  path: "/api/v1/food-stocks/identifiers",
+  alias: "get_food_type_ids_api_v1_food_stocks_identifiers_get",
+  requestFormat: "json",
+  response: z.array(ModelIdentifier)
 }, {
   method: "get",
   path: "/api/v1/food-types/",
@@ -224,6 +229,28 @@ const endpoints = makeApi([{
   }]
 }, {
   method: "get",
+  path: "/api/v1/food-types/:food_type_id/base",
+  alias: "get_food_type_base_by_id_api_v1_food_types__food_type_id__base_get",
+  requestFormat: "json",
+  parameters: [{
+    name: "food_type_id",
+    type: "Path",
+    schema: z.string()
+  }],
+  response: FoodTypeBase,
+  errors: [{
+    status: 422,
+    description: `Validation Error`,
+    schema: HTTPValidationError
+  }]
+}, {
+  method: "get",
+  path: "/api/v1/food-types/identifiers",
+  alias: "get_food_type_identifiers_api_v1_food_types_identifiers_get",
+  requestFormat: "json",
+  response: z.array(ModelIdentifier)
+}, {
+  method: "get",
   path: "/api/v1/food-types/ids",
   alias: "get_food_type_ids_api_v1_food_types_ids_get",
   requestFormat: "json",
@@ -252,8 +279,8 @@ const endpoints = makeApi([{
   }]
 }, {
   method: "put",
-  path: "/api/v1/storage-unit-types/:specie_id",
-  alias: "update_storage_unit_type_api_v1_storage_unit_types__specie_id__put",
+  path: "/api/v1/storage-unit-types/:storage_unit_type_id",
+  alias: "update_storage_unit_type_api_v1_storage_unit_types__storage_unit_type_id__put",
   requestFormat: "json",
   parameters: [{
     name: "body",
@@ -261,10 +288,26 @@ const endpoints = makeApi([{
     schema: StorageUnitTypeBase
   }, {
     name: "storage_unit_type_id",
-    type: "Query",
+    type: "Path",
     schema: z.string()
   }],
   response: z.void(),
+  errors: [{
+    status: 422,
+    description: `Validation Error`,
+    schema: HTTPValidationError
+  }]
+}, {
+  method: "get",
+  path: "/api/v1/storage-unit-types/:storage_unit_type_id/base",
+  alias: "get_food_type_base_by_id_api_v1_storage_unit_types__storage_unit_type_id__base_get",
+  requestFormat: "json",
+  parameters: [{
+    name: "storage_unit_type_id",
+    type: "Path",
+    schema: z.string()
+  }],
+  response: StorageUnitTypeBase,
   errors: [{
     status: 422,
     description: `Validation Error`,
@@ -276,6 +319,12 @@ const endpoints = makeApi([{
   alias: "get_storage_unit_type_bases_api_v1_storage_unit_types_base_get",
   requestFormat: "json",
   response: z.array(StorageUnitTypeBase)
+}, {
+  method: "get",
+  path: "/api/v1/storage-unit-types/identifiers",
+  alias: "get_storage_unit_type_identifiers_api_v1_storage_unit_types_identifiers_get",
+  requestFormat: "json",
+  response: z.array(ModelIdentifier)
 }, {
   method: "get",
   path: "/api/v1/storage-unit-types/ids",
@@ -305,22 +354,6 @@ const endpoints = makeApi([{
     schema: HTTPValidationError
   }]
 }, {
-  method: "get",
-  path: "/api/v1/storage-units/:storage_unit_id",
-  alias: "get_storage_unit_base_by_id_api_v1_storage_units__storage_unit_id__get",
-  requestFormat: "json",
-  parameters: [{
-    name: "storage_unit_id",
-    type: "Path",
-    schema: z.string().uuid()
-  }],
-  response: StorageUnitBase,
-  errors: [{
-    status: 422,
-    description: `Validation Error`,
-    schema: HTTPValidationError
-  }]
-}, {
   method: "put",
   path: "/api/v1/storage-units/:storage_unit_id",
   alias: "update_storage_unit_api_v1_storage_units__storage_unit_id__put",
@@ -342,10 +375,26 @@ const endpoints = makeApi([{
   }]
 }, {
   method: "get",
+  path: "/api/v1/storage-units/:storage_unit_id/base",
+  alias: "get_storage_unit_base_by_id_api_v1_storage_units__storage_unit_id__base_get",
+  requestFormat: "json",
+  parameters: [{
+    name: "storage_unit_id",
+    type: "Path",
+    schema: z.string().uuid()
+  }],
+  response: StorageUnitBase,
+  errors: [{
+    status: 422,
+    description: `Validation Error`,
+    schema: HTTPValidationError
+  }]
+}, {
+  method: "get",
   path: "/api/v1/storage-units/identifiers",
   alias: "get_storage_unit_identifiers_api_v1_storage_units_identifiers_get",
   requestFormat: "json",
-  response: z.array(StorageUnitIdentifier)
+  response: z.array(ModelIdentifier)
 }]);
 export const api = new Zodios(endpoints);
 export function createApiClient(baseUrl: string, options?: ZodiosOptions) {

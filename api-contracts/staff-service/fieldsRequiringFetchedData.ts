@@ -3,7 +3,6 @@ import { SchemasSelectors} from "@/types/script";
   export const fieldsRequiringFetchedData: SchemasSelectors = {
   "Department": [],
   "DepartmentBase": [],
-  "DepartmentIdentifier": [],
   "Instant": [],
   "LocalDate": [],
   "ModelIdentifier": [],
@@ -14,7 +13,6 @@ import { SchemasSelectors} from "@/types/script";
     "staffId",
     "departmentId"
   ],
-  "StaffIdentifier": [],
   "Title": [],
   "UUID": []
 } as SchemasSelectors;

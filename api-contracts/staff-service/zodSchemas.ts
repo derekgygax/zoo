@@ -2,6 +2,10 @@ import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 const UUID = z.string();
 const Instant = z.string();
+const ModelIdentifier = z.object({
+  id: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
+  label: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Label\"}")
+}).passthrough();
 const Department = z.object({
   id: UUID.regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid().describe("{\"needsCoercion\":false,\"title\":\"id\"}"),
   name: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"name\"}"),
@@ -11,15 +15,12 @@ const Department = z.object({
   }).describe("{\"needsCoercion\":false,\"title\":\"createdAt\"}"),
   updatedAt: Instant.datetime({
     offset: true
-  }).describe("{\"needsCoercion\":false,\"title\":\"updatedAt\"}")
+  }).describe("{\"needsCoercion\":false,\"title\":\"updatedAt\"}"),
+  modelIdentifier: ModelIdentifier.describe("{\"needsCoercion\":false,\"title\":\"modelIdentifier\"}")
 }).partial().passthrough();
 const DepartmentBase = z.object({
   name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}"),
   description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Description\"}")
-}).passthrough();
-const DepartmentIdentifier = z.object({
-  id: UUID.regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
-  name: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Name\"}")
 }).passthrough();
 const Title = z.enum(["VETERINARIAN", "ZOOKEEPER", "ADMINISTRATOR", "GUIDE", "MAINTENANCE", "CURATOR", "RESEARCHER", "SECURITY", "ATTENDANT"]);
 const LocalDate = z.string();
@@ -37,7 +38,8 @@ const Staff = z.object({
   }).describe("{\"needsCoercion\":false,\"title\":\"createdAt\"}"),
   updatedAt: Instant.datetime({
     offset: true
-  }).describe("{\"needsCoercion\":false,\"title\":\"updatedAt\"}")
+  }).describe("{\"needsCoercion\":false,\"title\":\"updatedAt\"}"),
+  modelIdentifier: ModelIdentifier.describe("{\"needsCoercion\":false,\"title\":\"modelIdentifier\"}")
 }).partial().passthrough();
 const StaffBase = z.object({
   firstName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"First Name\"}"),
@@ -74,10 +76,6 @@ const StaffBase = z.object({
     message: "Invalid date or out of range (1900-2100)"
   }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Start Date\"}")
 }).passthrough();
-const ModelIdentifier = z.object({
-  id: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
-  label: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Label\"}")
-}).passthrough();
 const StaffDepartment = z.object({
   id: UUID.regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid().describe("{\"needsCoercion\":false,\"title\":\"id\"}"),
   department: Department.describe("{\"needsCoercion\":false,\"title\":\"department\"}"),
@@ -96,25 +94,18 @@ const StaffDepartmentBase = z.object({
   departmentId: z.string().trim().regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Department\"}"),
   role: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Role\"}")
 }).passthrough();
-const StaffIdentifier = z.object({
-  id: UUID.regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
-  firstName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"First Name\"}"),
-  lastName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Last Name\"}")
-}).passthrough();
 export const schemas = {
   UUID,
   Instant,
+  ModelIdentifier,
   Department,
   DepartmentBase,
-  DepartmentIdentifier,
   Title,
   LocalDate,
   Staff,
   StaffBase,
-  ModelIdentifier,
   StaffDepartment,
-  StaffDepartmentBase,
-  StaffIdentifier
+  StaffDepartmentBase
 };
 const endpoints = makeApi([{
   method: "get",
@@ -164,7 +155,7 @@ const endpoints = makeApi([{
   path: "/api/v1/departments/identifiers",
   alias: "getApiv1departmentsidentifiers",
   requestFormat: "json",
-  response: z.array(DepartmentIdentifier)
+  response: z.array(ModelIdentifier)
 }, {
   method: "get",
   path: "/api/v1/staff",
@@ -262,7 +253,7 @@ const endpoints = makeApi([{
   path: "/api/v1/staff/identifiers",
   alias: "getApiv1staffidentifiers",
   requestFormat: "json",
-  response: z.array(StaffIdentifier)
+  response: z.array(ModelIdentifier)
 }]);
 export const api = new Zodios(endpoints);
 export function createApiClient(baseUrl: string, options?: ZodiosOptions) {

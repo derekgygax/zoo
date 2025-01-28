@@ -1,6 +1,10 @@
 import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 const Instant = z.string();
+const ModelIdentifier = z.object({
+  id: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
+  label: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Label\"}")
+}).passthrough();
 const EnclosureType = z.object({
   id: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"id\"}"),
   description: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"description\"}"),
@@ -9,15 +13,12 @@ const EnclosureType = z.object({
   }).describe("{\"needsCoercion\":false,\"title\":\"createdAt\"}"),
   updatedAt: Instant.datetime({
     offset: true
-  }).describe("{\"needsCoercion\":false,\"title\":\"updatedAt\"}")
+  }).describe("{\"needsCoercion\":false,\"title\":\"updatedAt\"}"),
+  modelIdentifier: ModelIdentifier.describe("{\"needsCoercion\":false,\"title\":\"modelIdentifier\"}")
 }).partial().passthrough();
 const EnclosureTypeBase = z.object({
   id: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Enclosure Type\"}"),
   description: z.string().trim().max(500).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":500},\"needsCoercion\":false,\"title\":\"Enclosure Type Description\"}")
-}).passthrough();
-const ModelIdentifier = z.object({
-  id: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
-  label: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Label\"}")
 }).passthrough();
 const UUID = z.string();
 const EnclosureStatus = z.enum(["OPEN", "UNDER_MAINTENANCE", "CLOSED", "TEMPORARILY_CLOSED", "AWAITING_CLEANING", "BEING_RENOVATED", "EMERGENCY_LOCKDOWN"]);
@@ -43,9 +44,9 @@ const EnclosureBase = z.object({
 }).passthrough();
 export const schemas = {
   Instant,
+  ModelIdentifier,
   EnclosureType,
   EnclosureTypeBase,
-  ModelIdentifier,
   UUID,
   EnclosureStatus,
   Enclosure,

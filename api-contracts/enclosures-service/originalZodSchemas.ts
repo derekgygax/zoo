@@ -2,20 +2,21 @@ import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 
 const Instant = z.string();
+const ModelIdentifier = z
+  .object({ id: z.string(), label: z.string() })
+  .passthrough();
 const EnclosureType = z
   .object({
     id: z.string(),
     description: z.string(),
     createdAt: Instant.datetime({ offset: true }),
     updatedAt: Instant.datetime({ offset: true }),
+    modelIdentifier: ModelIdentifier,
   })
   .partial()
   .passthrough();
 const EnclosureTypeBase = z
   .object({ id: z.string().max(100), description: z.string().max(500) })
-  .passthrough();
-const ModelIdentifier = z
-  .object({ id: z.string(), label: z.string() })
   .passthrough();
 const UUID = z.string();
 const EnclosureStatus = z.enum([
@@ -53,9 +54,9 @@ const EnclosureBase = z
 
 export const schemas = {
   Instant,
+  ModelIdentifier,
   EnclosureType,
   EnclosureTypeBase,
-  ModelIdentifier,
   UUID,
   EnclosureStatus,
   Enclosure,

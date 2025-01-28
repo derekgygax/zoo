@@ -390,6 +390,7 @@ export interface components {
             description?: string;
             createdAt?: components["schemas"]["Instant"];
             updatedAt?: components["schemas"]["Instant"];
+            modelIdentifier?: components["schemas"]["ModelIdentifier"];
         };
         EnclosureTypeBase: {
             /**

@@ -19,6 +19,9 @@
           },
           "updatedAt" : {
             "$ref" : "#/components/schemas/Instant"
+          },
+          "modelIdentifier" : {
+            "$ref" : "#/components/schemas/ModelIdentifier"
           }
         }
       },
@@ -37,24 +40,6 @@
             "maxLength" : 500,
             "description" : "Description of the Department. Cannot be longer than 500 characters.",
             "title" : "Description"
-          }
-        }
-      },
-      "DepartmentIdentifier" : {
-        "type" : "object",
-        "required" : [ "id", "name" ],
-        "properties" : {
-          "id" : {
-            "$ref" : "#/components/schemas/UUID",
-            "type" : "string",
-            "description" : "Unique identifier of the Department",
-            "title" : "ID"
-          },
-          "name" : {
-            "type" : "string",
-            "maxLength" : 100,
-            "description" : "Name of the department. Cannot be longer than 100 characters",
-            "title" : "Name"
           }
         }
       },
@@ -117,6 +102,9 @@
           },
           "updatedAt" : {
             "$ref" : "#/components/schemas/Instant"
+          },
+          "modelIdentifier" : {
+            "$ref" : "#/components/schemas/ModelIdentifier"
           }
         }
       },
@@ -223,30 +211,6 @@
           }
         }
       },
-      "StaffIdentifier" : {
-        "type" : "object",
-        "required" : [ "id", "firstName", "lastName" ],
-        "properties" : {
-          "id" : {
-            "$ref" : "#/components/schemas/UUID",
-            "type" : "string",
-            "description" : "Unique identifier of the staff member",
-            "title" : "ID"
-          },
-          "firstName" : {
-            "type" : "string",
-            "maxLength" : 100,
-            "description" : "Staff first name",
-            "title" : "First Name"
-          },
-          "lastName" : {
-            "type" : "string",
-            "maxLength" : 100,
-            "description" : "Staff last name",
-            "title" : "Last Name"
-          }
-        }
-      },
       "Title" : {
         "type" : "string",
         "enum" : [ "VETERINARIAN", "ZOOKEEPER", "ADMINISTRATOR", "GUIDE", "MAINTENANCE", "CURATOR", "RESEARCHER", "SECURITY", "ATTENDANT" ]
@@ -261,7 +225,7 @@
       "SecurityScheme" : {
         "type" : "openIdConnect",
         "description" : "Authentication",
-        "openIdConnectUrl" : "http://localhost:60643/realms/quarkus/.well-known/openid-configuration"
+        "openIdConnectUrl" : "http://localhost:51551/realms/quarkus/.well-known/openid-configuration"
       }
     }
   },
@@ -316,7 +280,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/DepartmentIdentifier"
+                    "$ref" : "#/components/schemas/ModelIdentifier"
                   }
                 }
               }
@@ -548,7 +512,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/StaffIdentifier"
+                    "$ref" : "#/components/schemas/ModelIdentifier"
                   }
                 }
               }

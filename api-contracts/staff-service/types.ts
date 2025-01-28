@@ -85,7 +85,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["DepartmentIdentifier"][];
+                        "application/json": components["schemas"]["ModelIdentifier"][];
                     };
                 };
             };
@@ -429,7 +429,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["StaffIdentifier"][];
+                        "application/json": components["schemas"]["ModelIdentifier"][];
                     };
                 };
             };
@@ -530,6 +530,7 @@ export interface components {
             description?: string;
             createdAt?: components["schemas"]["Instant"];
             updatedAt?: components["schemas"]["Instant"];
+            modelIdentifier?: components["schemas"]["ModelIdentifier"];
         };
         DepartmentBase: {
             /**
@@ -542,18 +543,6 @@ export interface components {
              * @description Description of the Department. Cannot be longer than 500 characters.
              */
             description: string;
-        };
-        DepartmentIdentifier: {
-            /**
-             * ID
-             * @description Unique identifier of the Department
-             */
-            id: components["schemas"]["UUID"];
-            /**
-             * Name
-             * @description Name of the department. Cannot be longer than 100 characters
-             */
-            name: string;
         };
         /** Format: date-time */
         Instant: string;
@@ -582,6 +571,7 @@ export interface components {
             startDate?: components["schemas"]["LocalDate"];
             createdAt?: components["schemas"]["Instant"];
             updatedAt?: components["schemas"]["Instant"];
+            modelIdentifier?: components["schemas"]["ModelIdentifier"];
         };
         StaffBase: {
             /**
@@ -650,23 +640,6 @@ export interface components {
              * @description Role of the staff member in the department
              */
             role: string;
-        };
-        StaffIdentifier: {
-            /**
-             * ID
-             * @description Unique identifier of the staff member
-             */
-            id: components["schemas"]["UUID"];
-            /**
-             * First Name
-             * @description Staff first name
-             */
-            firstName: string;
-            /**
-             * Last Name
-             * @description Staff last name
-             */
-            lastName: string;
         };
         /** @enum {string} */
         Title: "VETERINARIAN" | "ZOOKEEPER" | "ADMINISTRATOR" | "GUIDE" | "MAINTENANCE" | "CURATOR" | "RESEARCHER" | "SECURITY" | "ATTENDANT";

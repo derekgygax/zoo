@@ -39,6 +39,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/food-types/identifiers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Food Type Identifiers */
+        get: operations["get_food_type_identifiers_api_v1_food_types_identifiers_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/food-types/{food_type_id}/base": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Food Type Base By Id */
+        get: operations["get_food_type_base_by_id_api_v1_food_types__food_type_id__base_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/food-types/{food_type_id}": {
         parameters: {
             query?: never;
@@ -108,7 +142,41 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/storage-unit-types/{specie_id}": {
+    "/api/v1/storage-unit-types/identifiers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Storage Unit Type Identifiers */
+        get: operations["get_storage_unit_type_identifiers_api_v1_storage_unit_types_identifiers_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/storage-unit-types/{storage_unit_type_id}/base": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Food Type Base By Id */
+        get: operations["get_food_type_base_by_id_api_v1_storage_unit_types__storage_unit_type_id__base_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/storage-unit-types/{storage_unit_type_id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -117,7 +185,7 @@ export interface paths {
         };
         get?: never;
         /** Update Storage Unit Type */
-        put: operations["update_storage_unit_type_api_v1_storage_unit_types__specie_id__put"];
+        put: operations["update_storage_unit_type_api_v1_storage_unit_types__storage_unit_type_id__put"];
         post?: never;
         delete?: never;
         options?: never;
@@ -160,7 +228,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/storage-units/{storage_unit_id}": {
+    "/api/v1/storage-units/{storage_unit_id}/base": {
         parameters: {
             query?: never;
             header?: never;
@@ -168,7 +236,23 @@ export interface paths {
             cookie?: never;
         };
         /** Get Storage Unit Base By Id */
-        get: operations["get_storage_unit_base_by_id_api_v1_storage_units__storage_unit_id__get"];
+        get: operations["get_storage_unit_base_by_id_api_v1_storage_units__storage_unit_id__base_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/storage-units/{storage_unit_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
         /** Update Storage Unit */
         put: operations["update_storage_unit_api_v1_storage_units__storage_unit_id__put"];
         post?: never;
@@ -196,7 +280,24 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/food-stocks/{food_stock_id}": {
+    "/api/v1/food-stocks/identifiers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Food Type Ids */
+        get: operations["get_food_type_ids_api_v1_food_stocks_identifiers_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/food-stocks/{food_stock_id}/base": {
         parameters: {
             query?: never;
             header?: never;
@@ -204,7 +305,23 @@ export interface paths {
             cookie?: never;
         };
         /** Get Food Stock Base By Id */
-        get: operations["get_food_stock_base_by_id_api_v1_food_stocks__food_stock_id__get"];
+        get: operations["get_food_stock_base_by_id_api_v1_food_stocks__food_stock_id__base_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/food-stocks/{food_stock_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
         /** Add Food Stock */
         put: operations["add_food_stock_api_v1_food_stocks__food_stock_id__put"];
         post?: never;
@@ -343,6 +460,19 @@ export interface components {
             /** Detail */
             detail?: components["schemas"]["ValidationError"][];
         };
+        /** ModelIdentifier */
+        ModelIdentifier: {
+            /**
+             * ID
+             * @description Unique identifier of that instance of the Model as a string
+             */
+            id: string;
+            /**
+             * Label
+             * @description A human readable label to identify that instance of the Model
+             */
+            label: string;
+        };
         /** StorageUnit */
         StorageUnit: {
             /**
@@ -389,26 +519,6 @@ export interface components {
             storage_unit_type_id: string;
             /** Capacity */
             capacity: number;
-        };
-        /** StorageUnitIdentifier */
-        StorageUnitIdentifier: {
-            /**
-             * ID
-             * Format: uuid
-             * @description The unique identifier for the storage unit
-             */
-            id: string;
-            /**
-             * Name
-             * @description The name of the storage unit
-             */
-            name: string;
-            /**
-             * Storage Unit Type
-             * Format: selector
-             * @description The type of storage unit, such as 'freezer' or 'dry storage'
-             */
-            storage_unit_type_id: string;
         };
         /** StorageUnitType */
         StorageUnitType: {
@@ -533,6 +643,57 @@ export interface operations {
                 };
                 content: {
                     "application/json": string[];
+                };
+            };
+        };
+    };
+    get_food_type_identifiers_api_v1_food_types_identifiers_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ModelIdentifier"][];
+                };
+            };
+        };
+    };
+    get_food_type_base_by_id_api_v1_food_types__food_type_id__base_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                food_type_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FoodTypeBase"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
@@ -663,13 +824,64 @@ export interface operations {
             };
         };
     };
-    update_storage_unit_type_api_v1_storage_unit_types__specie_id__put: {
+    get_storage_unit_type_identifiers_api_v1_storage_unit_types_identifiers_get: {
         parameters: {
-            query: {
-                storage_unit_type_id: string;
-            };
+            query?: never;
             header?: never;
             path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ModelIdentifier"][];
+                };
+            };
+        };
+    };
+    get_food_type_base_by_id_api_v1_storage_unit_types__storage_unit_type_id__base_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                storage_unit_type_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorageUnitTypeBase"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_storage_unit_type_api_v1_storage_unit_types__storage_unit_type_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                storage_unit_type_id: string;
+            };
             cookie?: never;
         };
         requestBody: {
@@ -764,12 +976,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["StorageUnitIdentifier"][];
+                    "application/json": components["schemas"]["ModelIdentifier"][];
                 };
             };
         };
     };
-    get_storage_unit_base_by_id_api_v1_storage_units__storage_unit_id__get: {
+    get_storage_unit_base_by_id_api_v1_storage_units__storage_unit_id__base_get: {
         parameters: {
             query?: never;
             header?: never;
@@ -886,7 +1098,27 @@ export interface operations {
             };
         };
     };
-    get_food_stock_base_by_id_api_v1_food_stocks__food_stock_id__get: {
+    get_food_type_ids_api_v1_food_stocks_identifiers_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ModelIdentifier"][];
+                };
+            };
+        };
+    };
+    get_food_stock_base_by_id_api_v1_food_stocks__food_stock_id__base_get: {
         parameters: {
             query?: never;
             header?: never;

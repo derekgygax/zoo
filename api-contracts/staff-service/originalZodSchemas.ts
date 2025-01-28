@@ -3,6 +3,9 @@ import { z } from "zod";
 
 const UUID = z.string();
 const Instant = z.string();
+const ModelIdentifier = z
+  .object({ id: z.string(), label: z.string() })
+  .passthrough();
 const Department = z
   .object({
     id: UUID.regex(
@@ -12,19 +15,12 @@ const Department = z
     description: z.string(),
     createdAt: Instant.datetime({ offset: true }),
     updatedAt: Instant.datetime({ offset: true }),
+    modelIdentifier: ModelIdentifier,
   })
   .partial()
   .passthrough();
 const DepartmentBase = z
   .object({ name: z.string().max(100), description: z.string().max(500) })
-  .passthrough();
-const DepartmentIdentifier = z
-  .object({
-    id: UUID.regex(
-      /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
-    ).uuid(),
-    name: z.string().max(100),
-  })
   .passthrough();
 const Title = z.enum([
   "VETERINARIAN",
@@ -52,6 +48,7 @@ const Staff = z
     startDate: LocalDate,
     createdAt: Instant.datetime({ offset: true }),
     updatedAt: Instant.datetime({ offset: true }),
+    modelIdentifier: ModelIdentifier,
   })
   .partial()
   .passthrough();
@@ -68,9 +65,6 @@ const StaffBase = z
     hireDate: z.string(),
     startDate: z.string(),
   })
-  .passthrough();
-const ModelIdentifier = z
-  .object({ id: z.string(), label: z.string() })
   .passthrough();
 const StaffDepartment = z
   .object({
@@ -101,30 +95,19 @@ const StaffDepartmentBase = z
     role: z.string(),
   })
   .passthrough();
-const StaffIdentifier = z
-  .object({
-    id: UUID.regex(
-      /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
-    ).uuid(),
-    firstName: z.string().max(100),
-    lastName: z.string().max(100),
-  })
-  .passthrough();
 
 export const schemas = {
   UUID,
   Instant,
+  ModelIdentifier,
   Department,
   DepartmentBase,
-  DepartmentIdentifier,
   Title,
   LocalDate,
   Staff,
   StaffBase,
-  ModelIdentifier,
   StaffDepartment,
   StaffDepartmentBase,
-  StaffIdentifier,
 };
 
 const endpoints = makeApi([
@@ -197,7 +180,7 @@ const endpoints = makeApi([
     path: "/api/v1/departments/identifiers",
     alias: "getApiv1departmentsidentifiers",
     requestFormat: "json",
-    response: z.array(DepartmentIdentifier),
+    response: z.array(ModelIdentifier),
   },
   {
     method: "get",
@@ -339,7 +322,7 @@ const endpoints = makeApi([
     path: "/api/v1/staff/identifiers",
     alias: "getApiv1staffidentifiers",
     requestFormat: "json",
-    response: z.array(StaffIdentifier),
+    response: z.array(ModelIdentifier),
   },
 ]);
 

@@ -92,7 +92,41 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/species/base": {
+    "/api/v1/species/identifiers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Specie Identifiers */
+        get: operations["get_specie_identifiers_api_v1_species_identifiers_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/species/bases": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Species Bases */
+        get: operations["get_species_bases_api_v1_species_bases_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/species/{specie_id}/base": {
         parameters: {
             query?: never;
             header?: never;
@@ -100,7 +134,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get Species Base */
-        get: operations["get_species_base_api_v1_species_base_get"];
+        get: operations["get_species_base_api_v1_species__specie_id__base_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -218,26 +252,6 @@ export interface components {
              */
             acquisition_date: string;
         };
-        /** AnimalIdentifier */
-        AnimalIdentifier: {
-            /**
-             * ID
-             * Format: uuid
-             * @description The unique identifier for the animal
-             */
-            id: string;
-            /**
-             * Name
-             * @description The name of the animal
-             */
-            name: string;
-            /**
-             * Specie
-             * Format: selector
-             * @description The type of species, such as 'dog' or 'cat'
-             */
-            specie_id: string;
-        };
         /**
          * GENDER
          * @enum {string}
@@ -252,6 +266,19 @@ export interface components {
         HTTPValidationError: {
             /** Detail */
             detail?: components["schemas"]["ValidationError"][];
+        };
+        /** ModelIdentifier */
+        ModelIdentifier: {
+            /**
+             * ID
+             * @description Unique identifier of that instance of the Model as a string
+             */
+            id: string;
+            /**
+             * Label
+             * @description A human readable label to identify that instance of the Model
+             */
+            label: string;
         };
         /** Specie */
         Specie: {
@@ -375,7 +402,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AnimalIdentifier"][];
+                    "application/json": components["schemas"]["ModelIdentifier"][];
                 };
             };
         };
@@ -517,7 +544,27 @@ export interface operations {
             };
         };
     };
-    get_species_base_api_v1_species_base_get: {
+    get_specie_identifiers_api_v1_species_identifiers_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ModelIdentifier"][];
+                };
+            };
+        };
+    };
+    get_species_bases_api_v1_species_bases_get: {
         parameters: {
             query?: never;
             header?: never;
@@ -533,6 +580,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["SpecieBase"][];
+                };
+            };
+        };
+    };
+    get_species_base_api_v1_species__specie_id__base_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                specie_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SpecieBase"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

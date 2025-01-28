@@ -12,13 +12,11 @@ import { SchemasSelectors} from "@/types/script";
   "FoodType": [],
   "FoodTypeBase": [],
   "HTTPValidationError": [],
+  "ModelIdentifier": [],
   "StorageUnit": [
     "storage_unit_type_id"
   ],
   "StorageUnitBase": [
-    "storage_unit_type_id"
-  ],
-  "StorageUnitIdentifier": [
     "storage_unit_type_id"
   ],
   "StorageUnitType": [],
