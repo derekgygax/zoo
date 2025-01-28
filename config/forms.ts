@@ -376,7 +376,7 @@ export const SERVICE_MODEL_SELECTOR_MAPPING: ServiceModelSelectorMapper = {
   [SERVICE.ANIMALS]: {
     [SERVICE_MODELS[SERVICE.ANIMALS].ANIMAL]: {
       valueKey: "id",
-      labelFormatter: (item: AnimalBase) => `${item.name} (${item.specie_id})`
+      labelKey: "label"
     },
     [ANIMALS_SERVICE_MODEL.EVENT]: {
       valueKey: "id",
@@ -388,7 +388,7 @@ export const SERVICE_MODEL_SELECTOR_MAPPING: ServiceModelSelectorMapper = {
     },
     [ANIMALS_SERVICE_MODEL.SPECIE]: {
       valueKey: "id",
-      labelKey: "name"
+      labelKey: "label"
     },
   },
   [SERVICE.FOOD]: {

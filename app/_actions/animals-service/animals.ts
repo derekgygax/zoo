@@ -7,7 +7,7 @@ import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { API_ENDPOINTS } from "@/config/apis";
 
 // types
-import { FormState } from "@/types/form";
+import { FormState, SelectorOption } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 
 // action utils
@@ -17,7 +17,7 @@ import { processFormAction, deserializeFormData } from "@/app/_actions/utils/gen
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
 // types
-import { AnimalBase, AnimalIdentifier } from "@/types/animals-service";
+import { AnimalBase } from "@/types/animals-service";
 
 // A simple request call to get the animal by the id
 export const getAnimalBase = async (animalId: string): Promise<AnimalBase | undefined> => {
@@ -30,8 +30,8 @@ export const getAnimalBase = async (animalId: string): Promise<AnimalBase | unde
   return animal;
 }
 
-export const getAnimalIdentifiers = async (): Promise<AnimalIdentifier[]> => {
-  const animalIdentifiers: AnimalIdentifier[] = await getAPIRequest<AnimalIdentifier[]>(
+export const getAnimalIdentifiers = async (): Promise<SelectorOption[]> => {
+  const animalIdentifiers: SelectorOption[] = await getAPIRequest<SelectorOption[]>(
     API_ENDPOINTS.animalsService.animals.identifiers,
     []
   );

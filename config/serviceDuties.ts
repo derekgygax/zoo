@@ -5,8 +5,9 @@ import { SERVICE } from "./master";
 
 export const SERVICE_DUTIES: ServiceDuties = {
   [SERVICE.ANIMALS]: [
-    FORM_NAME.ADD_ANIMAL,
     FORM_NAME.ADD_SPECIE,
+    FORM_NAME.UPDATE_SPECIE,
+    FORM_NAME.ADD_ANIMAL,
     FORM_NAME.UPDATE_ANIMAL,
   ],
   [SERVICE.FOOD]: [

@@ -32,7 +32,8 @@ export const API_ENDPOINTS = {
     species: {
       index: API_INDEX.animalsService.species,
       ids: `${API_INDEX.animalsService.species}/ids`,
-      base: `${API_INDEX.animalsService.species}/base`
+      bases: `${API_INDEX.animalsService.species}/bases`,
+      identifiers: `${API_INDEX.animalsService.species}/identifiers`
     }
   },
   enclosuresService: {

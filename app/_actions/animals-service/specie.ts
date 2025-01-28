@@ -7,7 +7,7 @@ import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { API_ENDPOINTS } from "@/config/apis";
 
 // types
-import { FormState } from "@/types/form";
+import { FormState, SelectorOption } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 
 // action utils
@@ -40,14 +40,30 @@ export const getSpecies = async (): Promise<Specie[]> => {
   return species
 }
 
-export const getSpeciesBase = async (): Promise<SpecieBase[]> => {
+export const getSpecieIdentifiers = async (): Promise<SelectorOption[]> => {
+  const specieIdentifiers: SelectorOption[] = await getAPIRequest<SelectorOption[]>(
+    API_ENDPOINTS.animalsService.species.identifiers,
+    []
+  )
+  return specieIdentifiers;
+}
+
+export const getSpeciesBases = async (): Promise<SpecieBase[]> => {
 
   const species: SpecieBase[] = await getAPIRequest(
-    API_ENDPOINTS.animalsService.species.base,
+    API_ENDPOINTS.animalsService.species.bases,
     []
   );
 
   return species
+}
+
+export const getSpecieBaseById = async (specieId: string): Promise<SpecieBase | undefined> => {
+  const specie: SpecieBase | undefined = await getAPIRequest<SpecieBase | undefined>(
+    `${API_ENDPOINTS.animalsService.species.index}/${specieId}/base`,
+    undefined
+  )
+  return specie;
 }
 
 export const getSpecieIds = async (): Promise<string[]> => {
@@ -89,8 +105,8 @@ const udpateSpecie = async (prevState: FormState, formData: FormData) => {
   const specie: SpecieBase = deserializeFormData(formData, zodSchema) as SpecieBase;
 
   await sendAPIRequest(
-    `${API_ENDPOINTS.animalsService.animals.index}/${specieId}`,
-    'POST',
+    `${API_ENDPOINTS.animalsService.species.index}/${specieId}`,
+    HTTP_METHOD.PUT,
     specie
   );
 

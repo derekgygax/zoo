@@ -22,7 +22,7 @@ import {
 
 // server actions
 import { addAnimalAction, getAnimalBase, getAnimalIdentifiers, updateAnimalAction } from "@/app/_actions/animals-service/animals";
-import { addSpecieAction, getSpecie, getSpecieIds, updateSpecieAction } from "@/app/_actions/animals-service/specie";
+import { addSpecieAction, getSpecie, getSpecieBaseById, getSpecieIdentifiers, getSpecieIds, updateSpecieAction } from "@/app/_actions/animals-service/specie";
 import { addEnclosureTypeAction, getEnclosureTypeBaseById, getEnclosureTypeIdentifiers, getEnclosureTypeKeys, updateEnclosureTypeAction } from "@/app/_actions/enclosures-service/enclosure-types";
 import { addFoodTypeAction, getFoodTypeIds, updateFoodTypeAction } from "@/app/_actions/food-service/food-type";
 import { addStorageUnitTypeAction, getStorageUnitTypeIds, updateStorageUnitTypeAction } from "@/app/_actions/food-service/storage-unit-type";
@@ -91,7 +91,7 @@ export const MODEL_OPTIONS_FETCHERS: {
     [ANIMALS_SERVICE_MODEL.ANIMAL]: getAnimalIdentifiers,
     [ANIMALS_SERVICE_MODEL.EVENT]: getAnimalIdentifiers,
     [ANIMALS_SERVICE_MODEL.MEDICAL_RECORD]: getAnimalIdentifiers,
-    [ANIMALS_SERVICE_MODEL.SPECIE]: getAnimalIdentifiers
+    [ANIMALS_SERVICE_MODEL.SPECIE]: getSpecieIdentifiers
   },
   [SERVICE.FOOD]: {
     [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitIdentifiers,
@@ -133,7 +133,7 @@ export const MODEL_FETCHERS: {
     [ANIMALS_SERVICE_MODEL.ANIMAL]: getAnimalBase,
     [ANIMALS_SERVICE_MODEL.EVENT]: getAnimalBase,
     [ANIMALS_SERVICE_MODEL.MEDICAL_RECORD]: getAnimalBase,
-    [ANIMALS_SERVICE_MODEL.SPECIE]: getSpecie
+    [ANIMALS_SERVICE_MODEL.SPECIE]: getSpecieBaseById
   },
   [SERVICE.FOOD]: {
     [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitBase,
