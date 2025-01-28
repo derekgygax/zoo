@@ -51,7 +51,8 @@ export const API_ENDPOINTS = {
   foodService: {
     storageUnitTypes: {
       index: API_INDEX.foodService.storageUnitTypes,
-      ids: `${API_INDEX.foodService.storageUnitTypes}/ids`
+      ids: `${API_INDEX.foodService.storageUnitTypes}/ids`,
+      identifiers: `${API_INDEX.foodService.storageUnitTypes}/identifiers`,
     },
     storageUnits: {
       index: API_INDEX.foodService.storageUnits,

@@ -25,7 +25,7 @@ import { addAnimalAction, getAnimalBase, getAnimalIdentifiers, updateAnimalActio
 import { addSpecieAction, getSpecie, getSpecieBaseById, getSpecieIdentifiers, getSpecieIds, updateSpecieAction } from "@/app/_actions/animals-service/specie";
 import { addEnclosureTypeAction, getEnclosureTypeBaseById, getEnclosureTypeIdentifiers, getEnclosureTypeKeys, updateEnclosureTypeAction } from "@/app/_actions/enclosures-service/enclosure-types";
 import { addFoodTypeAction, getFoodTypeBaseById, getFoodTypeIdentifiers, getFoodTypeIds, updateFoodTypeAction } from "@/app/_actions/food-service/food-type";
-import { addStorageUnitTypeAction, getStorageUnitTypeIds, updateStorageUnitTypeAction } from "@/app/_actions/food-service/storage-unit-type";
+import { addStorageUnitTypeAction, getStorageUnitTypeBaseById, getStorageUnitTypeIdentifiers, getStorageUnitTypeIds, updateStorageUnitTypeAction } from "@/app/_actions/food-service/storage-unit-type";
 import { addStorageUnitAction, getStorageUnitBase, getStorageUnitIdentifiers, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
 import { addEnclosureAction, getEnclosureBase, getEnclosureIdentifiers, updateEnclosureAction } from "@/app/_actions/enclosures-service/enclosures";
 import { addFoodStockAction, getFoodStockBaseById, getFoodStockIdentifiers, updateFoodStockAction } from "@/app/_actions/food-service/food-stock";
@@ -97,7 +97,7 @@ export const MODEL_OPTIONS_FETCHERS: {
     [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitIdentifiers,
     [FOOD_SERVICE_MODEL.FOOD_STOCK]: getFoodStockIdentifiers,
     [FOOD_SERVICE_MODEL.FOOD_TYPE]: getFoodTypeIdentifiers,
-    [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnitIdentifiers,
+    [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnitTypeIdentifiers,
   },
   [SERVICE.ENCLOSURES]: {
     [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: getEnclosureIdentifiers,
@@ -139,7 +139,7 @@ export const MODEL_FETCHERS: {
     [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitBase,
     [FOOD_SERVICE_MODEL.FOOD_STOCK]: getFoodStockBaseById,
     [FOOD_SERVICE_MODEL.FOOD_TYPE]: getFoodTypeBaseById,
-    [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnitBase,
+    [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnitTypeBaseById,
   },
   [SERVICE.ENCLOSURES]: {
     [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: getEnclosureBase,

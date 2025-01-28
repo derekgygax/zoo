@@ -36,11 +36,11 @@ export const getFoodTypeIdentifiers = async (): Promise<SelectorOption[]> => {
 }
 
 export const getFoodTypeBaseById = async (foodTypeId: string): Promise<FoodTypeBase | undefined> => {
-  const foodTypes: FoodTypeBase | undefined = await getAPIRequest<FoodTypeBase | undefined>(
+  const foodType: FoodTypeBase | undefined = await getAPIRequest<FoodTypeBase | undefined>(
     `${API_ENDPOINTS.foodService.foodTypes.index}/${foodTypeId}/base`,
     undefined
   );
-  return foodTypes;
+  return foodType;
 }
 
 const addFoodType = async (prevState: FormState, formData: FormData) => {

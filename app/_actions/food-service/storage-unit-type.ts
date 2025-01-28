@@ -7,7 +7,7 @@ import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { API_ENDPOINTS } from "@/config/apis";
 
 // types
-import { FormState } from "@/types/form";
+import { FormState, SelectorOption } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 import { StorageUnitTypeBase } from "@/types/food-service";
 
@@ -24,6 +24,22 @@ export const getStorageUnitTypeIds = async (): Promise<string[]> => {
   );
 
   return storageUnitTypes
+}
+
+export const getStorageUnitTypeIdentifiers = async (): Promise<SelectorOption[]> => {
+  const storageUnitIdentifiers: SelectorOption[] = await getAPIRequest<SelectorOption[]>(
+    API_ENDPOINTS.foodService.storageUnitTypes.identifiers,
+    []
+  );
+  return storageUnitIdentifiers;
+}
+
+export const getStorageUnitTypeBaseById = async (storageUnitTypeId: string): Promise<StorageUnitTypeBase | undefined> => {
+  const storageUnitType: StorageUnitTypeBase | undefined = await getAPIRequest<StorageUnitTypeBase | undefined>(
+    `${API_ENDPOINTS.foodService.storageUnitTypes.index}/${storageUnitTypeId}/base`,
+    undefined
+  );
+  return storageUnitType;
 }
 
 const addStorageUnitType = async (prevState: FormState, formData: FormData) => {
@@ -45,6 +61,7 @@ const addStorageUnitType = async (prevState: FormState, formData: FormData) => {
 // TODO PUT SOMETHING HERE!!!
 const updateStorageUnitType = async (prevState: FormState, formData: FormData): Promise<string[]> => {
   console.log(prevState, formData);
+  console.error("ADD FOR updateStorageUnitType");
   return [];
 }
 

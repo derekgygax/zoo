@@ -53,6 +53,7 @@ export const addStorageUnit = async (prevState: FormState, formData: FormData) =
 // TODO PUT SOMETHING HERE!!!
 const updateStorageUnit = async (prevState: FormState, formData: FormData): Promise<string[]> => {
   console.log(prevState, formData);
+  console.error("ADD FOR updateStorageUnit");
   return [];
 }
 
