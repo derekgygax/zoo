@@ -5,8 +5,8 @@ import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { API_ENDPOINTS } from "@/config/apis";
 
 // types
-import { EnclosureBase, EnclosureIdentifier } from "@/types/enclosures-service";
-import { FormState } from "@/types/form";
+import { EnclosureBase } from "@/types/enclosures-service";
+import { FormState, SelectorOption } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 
 // server actions
@@ -24,8 +24,8 @@ export const getEnclosureBase = async (enclosureId: string): Promise<EnclosureBa
   return enclosure;
 }
 
-export const getEnclosureIdentifiers = async (): Promise<EnclosureIdentifier[]> => {
-  const enclosureIdentifiers: EnclosureIdentifier[] = await getAPIRequest<EnclosureIdentifier[]>(
+export const getEnclosureIdentifiers = async (): Promise<SelectorOption[]> => {
+  const enclosureIdentifiers: SelectorOption[] = await getAPIRequest<SelectorOption[]>(
     API_ENDPOINTS.enclosuresService.enclosures.identifiers,
     []
   );

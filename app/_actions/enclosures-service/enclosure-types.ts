@@ -35,7 +35,7 @@ export const getEnclosureTypeIdentifiers = async (): Promise<SelectorOption[]> =
   return enclosureTypeIdentifiers;
 }
 
-export const getEnclosureTypeBaseById = async (enclosureTypeId: String): Promise<EnclosureTypeBase | undefined> => {
+export const getEnclosureTypeBaseById = async (enclosureTypeId: string): Promise<EnclosureTypeBase | undefined> => {
   const enclosureTypeBase: EnclosureTypeBase | undefined = await getAPIRequest<EnclosureTypeBase | undefined>(
     `${API_ENDPOINTS.enclosuresService.enclosureTypes.index}/${enclosureTypeId}/base`,
     undefined
@@ -69,7 +69,7 @@ const addEnclosureType = async (prevState: FormState, formData: FormData) => {
 // TODO PUT SOMETHING HERE!!!
 const updateEnclosureType = async (prevState: FormState, formData: FormData): Promise<string[]> => {
   console.log(prevState, formData);
-
+  console.error("YOU NEED TO PUT SOMETHING HERE");
   return [];
 }
 
