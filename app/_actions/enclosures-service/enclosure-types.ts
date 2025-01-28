@@ -6,7 +6,7 @@ import { API_ENDPOINTS } from "@/config/apis";
 
 // types
 import { EnclosureTypeBase } from "@/types/enclosures-service";
-import { FormState } from "@/types/form";
+import { FormState, SelectorOption } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 
 // utils _action
@@ -25,6 +25,22 @@ export const getEnclosureTypeKeys = async (): Promise<string[]> => {
   )
 
   return enclosureTypes;
+}
+
+export const getEnclosureTypeIdentifiers = async (): Promise<SelectorOption[]> => {
+  const enclosureTypeIdentifiers: SelectorOption[] = await getAPIRequest<SelectorOption[]>(
+    API_ENDPOINTS.enclosuresService.enclosureTypes.identifiers,
+    []
+  );
+  return enclosureTypeIdentifiers;
+}
+
+export const getEnclosureTypeBaseById = async (enclosureTypeId: String): Promise<EnclosureTypeBase | undefined> => {
+  const enclosureTypeBase: EnclosureTypeBase | undefined = await getAPIRequest<EnclosureTypeBase | undefined>(
+    `${API_ENDPOINTS.enclosuresService.enclosureTypes.index}/${enclosureTypeId}/base`,
+    undefined
+  );
+  return enclosureTypeBase;
 }
 
 // Server Actions to forms
@@ -46,6 +62,10 @@ const addEnclosureType = async (prevState: FormState, formData: FormData) => {
   ]
 }
 
+// TODO PUT SOMETHING HERE!!!
+// TODO PUT SOMETHING HERE!!!
+// TODO PUT SOMETHING HERE!!!
+// TODO PUT SOMETHING HERE!!!
 // TODO PUT SOMETHING HERE!!!
 const updateEnclosureType = async (prevState: FormState, formData: FormData): Promise<string[]> => {
   console.log(prevState, formData);

@@ -4,14 +4,18 @@ import { z } from "zod";
 const Instant = z.string();
 const EnclosureType = z
   .object({
-    id: z.string().max(100),
-    description: z.string().max(500),
-    createdAt: Instant.datetime({ offset: true }).optional(),
-    updatedAt: Instant.datetime({ offset: true }).optional(),
+    id: z.string(),
+    description: z.string(),
+    createdAt: Instant.datetime({ offset: true }),
+    updatedAt: Instant.datetime({ offset: true }),
   })
+  .partial()
   .passthrough();
 const EnclosureTypeBase = z
   .object({ id: z.string().max(100), description: z.string().max(500) })
+  .passthrough();
+const ModelIdentifier = z
+  .object({ id: z.string(), label: z.string() })
   .passthrough();
 const UUID = z.string();
 const EnclosureStatus = z.enum([
@@ -28,13 +32,15 @@ const Enclosure = z
     id: UUID.regex(
       /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
     ).uuid(),
-    name: z.string().max(100),
+    name: z.string(),
     enclosureType: EnclosureType,
     capacity: z.number().int().gte(0),
     status: EnclosureStatus,
-    createdAt: Instant.datetime({ offset: true }).optional(),
-    updatedAt: Instant.datetime({ offset: true }).optional(),
+    createdAt: Instant.datetime({ offset: true }),
+    updatedAt: Instant.datetime({ offset: true }),
+    modelIdentifier: ModelIdentifier,
   })
+  .partial()
   .passthrough();
 const EnclosureBase = z
   .object({
@@ -44,24 +50,16 @@ const EnclosureBase = z
     status: EnclosureStatus,
   })
   .passthrough();
-const EnclosureIdentifier = z
-  .object({
-    id: UUID.regex(
-      /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
-    ).uuid(),
-    name: z.string(),
-  })
-  .passthrough();
 
 export const schemas = {
   Instant,
   EnclosureType,
   EnclosureTypeBase,
+  ModelIdentifier,
   UUID,
   EnclosureStatus,
   Enclosure,
   EnclosureBase,
-  EnclosureIdentifier,
 };
 
 const endpoints = makeApi([
@@ -85,6 +83,27 @@ const endpoints = makeApi([
       },
     ],
     response: z.void(),
+  },
+  {
+    method: "get",
+    path: "/api/v1/enclosure-types/:enclosureTypeId/base",
+    alias: "getApiv1enclosureTypesEnclosureTypeIdbase",
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "enclosureTypeId",
+        type: "Path",
+        schema: z.string(),
+      },
+    ],
+    response: EnclosureTypeBase,
+  },
+  {
+    method: "get",
+    path: "/api/v1/enclosure-types/identifiers",
+    alias: "getApiv1enclosureTypesidentifiers",
+    requestFormat: "json",
+    response: z.array(ModelIdentifier),
   },
   {
     method: "get",
@@ -140,8 +159,8 @@ const endpoints = makeApi([
   },
   {
     method: "get",
-    path: "/api/v1/enclosures/bases/:enclosureId",
-    alias: "getApiv1enclosuresbasesEnclosureId",
+    path: "/api/v1/enclosures/:enclosureId/base",
+    alias: "getApiv1enclosuresEnclosureIdbase",
     requestFormat: "json",
     parameters: [
       {
@@ -162,7 +181,7 @@ const endpoints = makeApi([
     path: "/api/v1/enclosures/identifiers",
     alias: "getApiv1enclosuresidentifiers",
     requestFormat: "json",
-    response: z.array(EnclosureIdentifier),
+    response: z.array(ModelIdentifier),
   },
 ]);
 

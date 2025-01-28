@@ -94,6 +94,12 @@ export default async function StaffServiceFormPage({ params }: StaffServiceFormP
     );
   } else if (formConfig.type === FORM_TYPE.UPDATE) {
 
+    // TODO SHOULD YOU ERROR HERE OR SOMETHING!!
+    // TODO SHOULD YOU ERROR HERE OR SOMETHING!!
+    // TODO SHOULD YOU ERROR HERE OR SOMETHING!!
+    if (!formConfig.model) {
+      console.log(`You are missing a model in formConfig for the update form ${formName} for the service ${service}`);
+    }
     const modelOptions: SelectorOption[] = formConfig.model ? (
       await fetchModelOptions(
         service as SERVICE,

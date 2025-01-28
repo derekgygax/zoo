@@ -121,6 +121,7 @@ export const FORM_CONFIGS: FormConfigs = {
     type: FORM_TYPE.UPDATE,
     label: "UPDATE Specie",
     zodSchemaName: FORM_SCHEMA_NAME.SPECIE_BASE,
+    model: ANIMALS_SERVICE_MODEL.SPECIE,
     fieldsRequiringFetchedData: [],
     selectionScreenUrl: SITE_URLS.staff[SERVICE.ANIMALS].index
   },
@@ -140,6 +141,7 @@ export const FORM_CONFIGS: FormConfigs = {
     label: "UPDATE Enclosure Type",
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_TYPE_BASE,
     fieldsRequiringFetchedData: [],
+    model: ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE,
     selectionScreenUrl: SITE_URLS.staff[SERVICE.ENCLOSURES].index
   },
   [FORM_NAME.ADD_ENCLOSURE]: {
@@ -177,6 +179,7 @@ export const FORM_CONFIGS: FormConfigs = {
     label: "Update Storage Unit Type",
     zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE,
     fieldsRequiringFetchedData: [],
+    model: FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE,
     selectionScreenUrl: SITE_URLS.staff[SERVICE.FOOD].index
   },
   [FORM_NAME.ADD_STORAGE_UNIT]: {
@@ -214,6 +217,7 @@ export const FORM_CONFIGS: FormConfigs = {
     label: "Update Food Type",
     zodSchemaName: FORM_SCHEMA_NAME.FOOD_TYPE_BASE,
     fieldsRequiringFetchedData: [],
+    model: FOOD_SERVICE_MODEL.FOOD_TYPE,
     selectionScreenUrl: SITE_URLS.staff[SERVICE.FOOD].index
   },
   [FORM_NAME.ADD_FOOD_STOCK]: {
@@ -232,6 +236,7 @@ export const FORM_CONFIGS: FormConfigs = {
     label: "Update Food Stock",
     zodSchemaName: FORM_SCHEMA_NAME.FOOD_STOCK_BASE,
     fieldsRequiringFetchedData: foodServiceFieldsRequiringFetching[FORM_SCHEMA_NAME.FOOD_STOCK_BASE],
+    model: FOOD_SERVICE_MODEL.FOOD_STOCK,
     selectionScreenUrl: SITE_URLS.staff[SERVICE.FOOD].index
   },
   [FORM_NAME.ADD_STAFF]: {
@@ -407,11 +412,11 @@ export const SERVICE_MODEL_SELECTOR_MAPPING: ServiceModelSelectorMapper = {
   [SERVICE.ENCLOSURES]: {
     [SERVICE_MODELS[SERVICE.ENCLOSURES].ENCLOSURE]: {
       valueKey: "id",
-      labelKey: "name"
+      labelKey: "label"
     },
     [SERVICE_MODELS[SERVICE.ENCLOSURES].ENCLOSURE_TYPE]: {
       valueKey: "id",
-      labelKey: "name"
+      labelKey: "label"
     },
   },
   [SERVICE.BREEDING]: {
@@ -423,11 +428,11 @@ export const SERVICE_MODEL_SELECTOR_MAPPING: ServiceModelSelectorMapper = {
   [SERVICE.STAFF]: {
     [SERVICE_MODELS[SERVICE.STAFF].STAFF]: {
       valueKey: "id",
-      labelFormatter: (item: StaffBase) => `${item.firstName} ${item.lastName}`
+      labelKey: "label"
     },
     [SERVICE_MODELS[SERVICE.STAFF].DEPARTMENT]: {
       valueKey: "id",
-      labelKey: "name"
+      labelKey: "label"
     },
     [SERVICE_MODELS[SERVICE.STAFF].STAFF_DEPARTMENT]: {
       valueKey: "id",

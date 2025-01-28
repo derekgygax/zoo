@@ -4,45 +4,32 @@
     "schemas" : {
       "Enclosure" : {
         "type" : "object",
-        "required" : [ "id", "name", "enclosureType", "capacity", "status" ],
         "properties" : {
           "id" : {
-            "$ref" : "#/components/schemas/UUID",
-            "type" : "string",
-            "description" : "Unique identifier for the enclosure",
-            "title" : "Enclosure ID"
+            "$ref" : "#/components/schemas/UUID"
           },
           "name" : {
-            "type" : "string",
-            "maxLength" : 100,
-            "description" : "Name of the enclosure",
-            "title" : "Name"
+            "type" : "string"
           },
           "enclosureType" : {
-            "$ref" : "#/components/schemas/EnclosureType",
-            "type" : "object",
-            "format" : "selector",
-            "description" : "The type of the enclosure, such as 'jungle', 'desert', or 'aquarium'",
-            "title" : "Enclosure Type"
+            "$ref" : "#/components/schemas/EnclosureType"
           },
           "capacity" : {
             "type" : "integer",
             "format" : "int32",
-            "description" : "The maximum number of animals the enclosure can hold",
-            "title" : "Capacity",
             "minimum" : 0
           },
           "status" : {
-            "$ref" : "#/components/schemas/EnclosureStatus",
-            "type" : "string",
-            "description" : "The current status of the enclosure",
-            "title" : "Status"
+            "$ref" : "#/components/schemas/EnclosureStatus"
           },
           "createdAt" : {
             "$ref" : "#/components/schemas/Instant"
           },
           "updatedAt" : {
             "$ref" : "#/components/schemas/Instant"
+          },
+          "modelIdentifier" : {
+            "$ref" : "#/components/schemas/ModelIdentifier"
           }
         }
       },
@@ -78,43 +65,18 @@
           }
         }
       },
-      "EnclosureIdentifier" : {
-        "type" : "object",
-        "required" : [ "id", "name" ],
-        "properties" : {
-          "id" : {
-            "$ref" : "#/components/schemas/UUID",
-            "type" : "string",
-            "description" : "Unique identifier of the Enclosure",
-            "title" : "ID"
-          },
-          "name" : {
-            "type" : "string",
-            "description" : "Name of the enclosure",
-            "title" : "Name"
-          }
-        }
-      },
       "EnclosureStatus" : {
         "type" : "string",
         "enum" : [ "OPEN", "UNDER_MAINTENANCE", "CLOSED", "TEMPORARILY_CLOSED", "AWAITING_CLEANING", "BEING_RENOVATED", "EMERGENCY_LOCKDOWN" ]
       },
       "EnclosureType" : {
         "type" : "object",
-        "required" : [ "id", "description" ],
         "properties" : {
           "id" : {
-            "type" : "string",
-            "examples" : [ "jungle" ],
-            "maxLength" : 100,
-            "description" : "Unique identifier for the enclosure type, such as 'jungle', 'desert', or 'aquarium'.",
-            "title" : "Enclosure Type"
+            "type" : "string"
           },
           "description" : {
-            "type" : "string",
-            "maxLength" : 500,
-            "description" : "Description of the type",
-            "title" : "Enclosure Type Description"
+            "type" : "string"
           },
           "createdAt" : {
             "$ref" : "#/components/schemas/Instant"
@@ -148,6 +110,22 @@
         "format" : "date-time",
         "examples" : [ "2022-03-10T16:15:50Z" ]
       },
+      "ModelIdentifier" : {
+        "type" : "object",
+        "required" : [ "id", "label" ],
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Unique identifier of that instance of the Model as a string",
+            "title" : "ID"
+          },
+          "label" : {
+            "type" : "string",
+            "description" : "A human readable label to identify that instance of the Model",
+            "title" : "Label"
+          }
+        }
+      },
       "UUID" : {
         "type" : "string",
         "format" : "uuid",
@@ -158,7 +136,7 @@
       "SecurityScheme" : {
         "type" : "openIdConnect",
         "description" : "Authentication",
-        "openIdConnectUrl" : "http://localhost:57940/realms/quarkus/.well-known/openid-configuration"
+        "openIdConnectUrl" : "http://localhost:59201/realms/quarkus/.well-known/openid-configuration"
       }
     }
   },
@@ -203,6 +181,27 @@
         "tags" : [ "Enclosure Type Resource" ]
       }
     },
+    "/api/v1/enclosure-types/identifiers" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ModelIdentifier"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get All Enclosure Type Identifiers",
+        "tags" : [ "Enclosure Type Resource" ]
+      }
+    },
     "/api/v1/enclosure-types/ids" : {
       "get" : {
         "responses" : {
@@ -221,6 +220,32 @@
           }
         },
         "summary" : "Get Enclosure Type Ids",
+        "tags" : [ "Enclosure Type Resource" ]
+      }
+    },
+    "/api/v1/enclosure-types/{enclosureTypeId}/base" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "enclosureTypeId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/EnclosureTypeBase"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Enclosure Type Base By Id",
         "tags" : [ "Enclosure Type Resource" ]
       }
     },
@@ -264,32 +289,6 @@
         "tags" : [ "Enclosure Resource" ]
       }
     },
-    "/api/v1/enclosures/bases/{enclosureId}" : {
-      "get" : {
-        "parameters" : [ {
-          "name" : "enclosureId",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/EnclosureBase"
-                }
-              }
-            }
-          }
-        },
-        "summary" : "Get Enclosure Base By Id",
-        "tags" : [ "Enclosure Resource" ]
-      }
-    },
     "/api/v1/enclosures/identifiers" : {
       "get" : {
         "responses" : {
@@ -300,7 +299,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/EnclosureIdentifier"
+                    "$ref" : "#/components/schemas/ModelIdentifier"
                   }
                 }
               }
@@ -337,6 +336,32 @@
           }
         },
         "summary" : "Update Enclosure",
+        "tags" : [ "Enclosure Resource" ]
+      }
+    },
+    "/api/v1/enclosures/{enclosureId}/base" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "enclosureId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/EnclosureBase"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Enclosure Base By Id",
         "tags" : [ "Enclosure Resource" ]
       }
     }

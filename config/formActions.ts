@@ -23,7 +23,7 @@ import {
 // server actions
 import { addAnimalAction, getAnimalBase, getAnimalIdentifiers, updateAnimalAction } from "@/app/_actions/animals-service/animals";
 import { addSpecieAction, getSpecie, getSpecieIds, updateSpecieAction } from "@/app/_actions/animals-service/specie";
-import { addEnclosureTypeAction, getEnclosureTypeKeys, updateEnclosureTypeAction } from "@/app/_actions/enclosures-service/enclosure-types";
+import { addEnclosureTypeAction, getEnclosureTypeBaseById, getEnclosureTypeIdentifiers, getEnclosureTypeKeys, updateEnclosureTypeAction } from "@/app/_actions/enclosures-service/enclosure-types";
 import { addFoodTypeAction, getFoodTypeIds, updateFoodTypeAction } from "@/app/_actions/food-service/food-type";
 import { addStorageUnitTypeAction, getStorageUnitTypeIds, updateStorageUnitTypeAction } from "@/app/_actions/food-service/storage-unit-type";
 import { addStorageUnitAction, getStorageUnitBase, getStorageUnitIdentifiers, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
@@ -101,7 +101,7 @@ export const MODEL_OPTIONS_FETCHERS: {
   },
   [SERVICE.ENCLOSURES]: {
     [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: getEnclosureIdentifiers,
-    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE]: getEnclosureIdentifiers
+    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE]: getEnclosureTypeIdentifiers
   },
   [SERVICE.BREEDING]: {
     [BREEDING_SERVICE_MODEL.LITTER]: getAnimalIdentifiers
@@ -143,7 +143,7 @@ export const MODEL_FETCHERS: {
   },
   [SERVICE.ENCLOSURES]: {
     [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: getEnclosureBase,
-    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE]: getEnclosureBase
+    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE]: getEnclosureTypeBaseById
   },
   [SERVICE.BREEDING]: {
     [BREEDING_SERVICE_MODEL.LITTER]: getAnimalBase

@@ -25,6 +25,9 @@ export const fetchModelOptions = async <S extends SERVICE, T>(
     const modelOptions: T[] = await modelOptionsFetcher();
 
     const modelToOptionsMapper: ModelSelectorMapper = SERVICE_MODEL_SELECTOR_MAPPING[service][modelName];
+    if (modelToOptionsMapper === undefined) {
+      console.error(`There is no ModelSelectorMapper for the server ${service} and model ${modelName}`);
+    }
 
     return toSelectorOptions(
       `service ${service} and model ${modelName}`,
@@ -55,7 +58,7 @@ export const fetchModel = async <S extends SERVICE, T>(
     return model;
 
   } catch (err) {
-    console.error(`Error when performing fetchFormIdentifier with service = ${service} and model = ${modelName}, ${err}`)
+    console.error(`Error when performing fetchModel with service = ${service} and model = ${modelName}, ${err}`)
     return undefined;
   }
 };
