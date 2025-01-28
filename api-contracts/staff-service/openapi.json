@@ -68,6 +68,22 @@
         "format" : "date",
         "examples" : [ "2022-03-10" ]
       },
+      "ModelIdentifier" : {
+        "type" : "object",
+        "required" : [ "id", "label" ],
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Unique identifier of that instance of the Model as a string",
+            "title" : "ID"
+          },
+          "label" : {
+            "type" : "string",
+            "description" : "A human readable label to identify that instance of the Model",
+            "title" : "Label"
+          }
+        }
+      },
       "Staff" : {
         "type" : "object",
         "properties" : {
@@ -176,6 +192,9 @@
           },
           "updatedAt" : {
             "$ref" : "#/components/schemas/Instant"
+          },
+          "modelIdentifier" : {
+            "$ref" : "#/components/schemas/ModelIdentifier"
           }
         }
       },
@@ -201,23 +220,6 @@
             "type" : "string",
             "description" : "Role of the staff member in the department",
             "title" : "Role"
-          }
-        }
-      },
-      "StaffDepartmentIdentifierResponse" : {
-        "type" : "object",
-        "required" : [ "id", "label" ],
-        "properties" : {
-          "id" : {
-            "$ref" : "#/components/schemas/UUID",
-            "type" : "string",
-            "description" : "Unique identifier of the Staff Department combination",
-            "title" : "ID"
-          },
-          "label" : {
-            "type" : "string",
-            "description" : "A human readable label identifiying the Staff Department combination",
-            "title" : "Label"
           }
         }
       },
@@ -420,6 +422,122 @@
         "tags" : [ "Staff Resource" ]
       }
     },
+    "/api/v1/staff-departments" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/StaffDepartment"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get All Staff Departments",
+        "tags" : [ "Staff Department Resource" ]
+      },
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/StaffDepartmentBase"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          }
+        },
+        "summary" : "Add Department",
+        "tags" : [ "Staff Department Resource" ]
+      }
+    },
+    "/api/v1/staff-departments/identifiers" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ModelIdentifier"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get All Staff Department Identifiers",
+        "tags" : [ "Staff Department Resource" ]
+      }
+    },
+    "/api/v1/staff-departments/{staffDepartmentId}" : {
+      "put" : {
+        "parameters" : [ {
+          "name" : "staffDepartmentId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/StaffDepartmentBase"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "summary" : "Update Department",
+        "tags" : [ "Staff Department Resource" ]
+      }
+    },
+    "/api/v1/staff-departments/{staffDepartmentId}/base" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "staffDepartmentId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/components/schemas/UUID"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StaffDepartmentBase"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Staff Department Base By Id",
+        "tags" : [ "Staff Department Resource" ]
+      }
+    },
     "/api/v1/staff/identifiers" : {
       "get" : {
         "responses" : {
@@ -494,122 +612,6 @@
         },
         "summary" : "Get Staff Base By Id",
         "tags" : [ "Staff Resource" ]
-      }
-    },
-    "/api/vi/staff-departments" : {
-      "get" : {
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/StaffDepartment"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "summary" : "Get All Staff Departments",
-        "tags" : [ "Staff Department Resource" ]
-      },
-      "post" : {
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/StaffDepartmentBase"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "201" : {
-            "description" : "Created"
-          }
-        },
-        "summary" : "Add Department",
-        "tags" : [ "Staff Department Resource" ]
-      }
-    },
-    "/api/vi/staff-departments/identifiers" : {
-      "get" : {
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/StaffDepartmentIdentifierResponse"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "summary" : "Get All Staff Department Identifiers",
-        "tags" : [ "Staff Department Resource" ]
-      }
-    },
-    "/api/vi/staff-departments/{staffDepartmentId}" : {
-      "put" : {
-        "parameters" : [ {
-          "name" : "staffDepartmentId",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/StaffDepartmentBase"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "204" : {
-            "description" : "No Content"
-          }
-        },
-        "summary" : "Update Department",
-        "tags" : [ "Staff Department Resource" ]
-      }
-    },
-    "/api/vi/staff-departments/{staffDepartmentId}/base" : {
-      "get" : {
-        "parameters" : [ {
-          "name" : "staffDepartmentId",
-          "in" : "path",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/components/schemas/UUID"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/StaffDepartmentBase"
-                }
-              }
-            }
-          }
-        },
-        "summary" : "Get Staff Department Base By Id",
-        "tags" : [ "Staff Department Resource" ]
       }
     }
   },

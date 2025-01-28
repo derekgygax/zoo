@@ -6,6 +6,7 @@ import { SchemasSelectors} from "@/types/script";
   "DepartmentIdentifier": [],
   "Instant": [],
   "LocalDate": [],
+  "ModelIdentifier": [],
   "Staff": [],
   "StaffBase": [],
   "StaffDepartment": [],
@@ -13,7 +14,6 @@ import { SchemasSelectors} from "@/types/script";
     "staffId",
     "departmentId"
   ],
-  "StaffDepartmentIdentifierResponse": [],
   "StaffIdentifier": [],
   "Title": [],
   "UUID": []

@@ -69,14 +69,8 @@ const StaffBase = z
     startDate: z.string(),
   })
   .passthrough();
-const StaffIdentifier = z
-  .object({
-    id: UUID.regex(
-      /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
-    ).uuid(),
-    firstName: z.string().max(100),
-    lastName: z.string().max(100),
-  })
+const ModelIdentifier = z
+  .object({ id: z.string(), label: z.string() })
   .passthrough();
 const StaffDepartment = z
   .object({
@@ -88,6 +82,7 @@ const StaffDepartment = z
     role: z.string(),
     createdAt: Instant.datetime({ offset: true }),
     updatedAt: Instant.datetime({ offset: true }),
+    modelIdentifier: ModelIdentifier,
   })
   .partial()
   .passthrough();
@@ -106,12 +101,13 @@ const StaffDepartmentBase = z
     role: z.string(),
   })
   .passthrough();
-const StaffDepartmentIdentifierResponse = z
+const StaffIdentifier = z
   .object({
     id: UUID.regex(
       /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
     ).uuid(),
-    label: z.string(),
+    firstName: z.string().max(100),
+    lastName: z.string().max(100),
   })
   .passthrough();
 
@@ -125,10 +121,10 @@ export const schemas = {
   LocalDate,
   Staff,
   StaffBase,
-  StaffIdentifier,
+  ModelIdentifier,
   StaffDepartment,
   StaffDepartmentBase,
-  StaffDepartmentIdentifierResponse,
+  StaffIdentifier,
 };
 
 const endpoints = makeApi([
@@ -225,6 +221,77 @@ const endpoints = makeApi([
     response: z.void(),
   },
   {
+    method: "get",
+    path: "/api/v1/staff-departments",
+    alias: "getApiv1staffDepartments",
+    requestFormat: "json",
+    response: z.array(StaffDepartment),
+  },
+  {
+    method: "post",
+    path: "/api/v1/staff-departments",
+    alias: "postApiv1staffDepartments",
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "body",
+        type: "Body",
+        schema: StaffDepartmentBase,
+      },
+    ],
+    response: z.void(),
+  },
+  {
+    method: "put",
+    path: "/api/v1/staff-departments/:staffDepartmentId",
+    alias: "putApiv1staffDepartmentsStaffDepartmentId",
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "body",
+        type: "Body",
+        schema: StaffDepartmentBase,
+      },
+      {
+        name: "staffDepartmentId",
+        type: "Path",
+        schema: z
+          .string()
+          .regex(
+            /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
+          )
+          .uuid(),
+      },
+    ],
+    response: z.void(),
+  },
+  {
+    method: "get",
+    path: "/api/v1/staff-departments/:staffDepartmentId/base",
+    alias: "getApiv1staffDepartmentsStaffDepartmentIdbase",
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "staffDepartmentId",
+        type: "Path",
+        schema: z
+          .string()
+          .regex(
+            /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
+          )
+          .uuid(),
+      },
+    ],
+    response: StaffDepartmentBase,
+  },
+  {
+    method: "get",
+    path: "/api/v1/staff-departments/identifiers",
+    alias: "getApiv1staffDepartmentsidentifiers",
+    requestFormat: "json",
+    response: z.array(ModelIdentifier),
+  },
+  {
     method: "put",
     path: "/api/v1/staff/:staffId",
     alias: "putApiv1staffStaffId",
@@ -273,77 +340,6 @@ const endpoints = makeApi([
     alias: "getApiv1staffidentifiers",
     requestFormat: "json",
     response: z.array(StaffIdentifier),
-  },
-  {
-    method: "get",
-    path: "/api/vi/staff-departments",
-    alias: "getApivistaffDepartments",
-    requestFormat: "json",
-    response: z.array(StaffDepartment),
-  },
-  {
-    method: "post",
-    path: "/api/vi/staff-departments",
-    alias: "postApivistaffDepartments",
-    requestFormat: "json",
-    parameters: [
-      {
-        name: "body",
-        type: "Body",
-        schema: StaffDepartmentBase,
-      },
-    ],
-    response: z.void(),
-  },
-  {
-    method: "put",
-    path: "/api/vi/staff-departments/:staffDepartmentId",
-    alias: "putApivistaffDepartmentsStaffDepartmentId",
-    requestFormat: "json",
-    parameters: [
-      {
-        name: "body",
-        type: "Body",
-        schema: StaffDepartmentBase,
-      },
-      {
-        name: "staffDepartmentId",
-        type: "Path",
-        schema: z
-          .string()
-          .regex(
-            /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
-          )
-          .uuid(),
-      },
-    ],
-    response: z.void(),
-  },
-  {
-    method: "get",
-    path: "/api/vi/staff-departments/:staffDepartmentId/base",
-    alias: "getApivistaffDepartmentsStaffDepartmentIdbase",
-    requestFormat: "json",
-    parameters: [
-      {
-        name: "staffDepartmentId",
-        type: "Path",
-        schema: z
-          .string()
-          .regex(
-            /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
-          )
-          .uuid(),
-      },
-    ],
-    response: StaffDepartmentBase,
-  },
-  {
-    method: "get",
-    path: "/api/vi/staff-departments/identifiers",
-    alias: "getApivistaffDepartmentsidentifiers",
-    requestFormat: "json",
-    response: z.array(StaffDepartmentIdentifierResponse),
   },
 ]);
 

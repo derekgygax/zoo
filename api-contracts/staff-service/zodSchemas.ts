@@ -74,10 +74,9 @@ const StaffBase = z.object({
     message: "Invalid date or out of range (1900-2100)"
   }).describe("{\"stringMeta\":{\"isDate\":true,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Start Date\"}")
 }).passthrough();
-const StaffIdentifier = z.object({
-  id: UUID.regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
-  firstName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"First Name\"}"),
-  lastName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Last Name\"}")
+const ModelIdentifier = z.object({
+  id: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
+  label: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Label\"}")
 }).passthrough();
 const StaffDepartment = z.object({
   id: UUID.regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid().describe("{\"needsCoercion\":false,\"title\":\"id\"}"),
@@ -89,16 +88,18 @@ const StaffDepartment = z.object({
   }).describe("{\"needsCoercion\":false,\"title\":\"createdAt\"}"),
   updatedAt: Instant.datetime({
     offset: true
-  }).describe("{\"needsCoercion\":false,\"title\":\"updatedAt\"}")
+  }).describe("{\"needsCoercion\":false,\"title\":\"updatedAt\"}"),
+  modelIdentifier: ModelIdentifier.describe("{\"needsCoercion\":false,\"title\":\"modelIdentifier\"}")
 }).partial().passthrough();
 const StaffDepartmentBase = z.object({
   staffId: z.string().trim().regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Staff\"}"),
   departmentId: z.string().trim().regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":true,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Department\"}"),
   role: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Role\"}")
 }).passthrough();
-const StaffDepartmentIdentifierResponse = z.object({
+const StaffIdentifier = z.object({
   id: UUID.regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"ID\"}"),
-  label: z.string().trim().describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Label\"}")
+  firstName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"First Name\"}"),
+  lastName: z.string().trim().max(100).describe("{\"stringMeta\":{\"isDate\":false,\"isSelector\":false,\"isEmail\":false,\"maxLength\":100},\"needsCoercion\":false,\"title\":\"Last Name\"}")
 }).passthrough();
 export const schemas = {
   UUID,
@@ -110,10 +111,10 @@ export const schemas = {
   LocalDate,
   Staff,
   StaffBase,
-  StaffIdentifier,
+  ModelIdentifier,
   StaffDepartment,
   StaffDepartmentBase,
-  StaffDepartmentIdentifierResponse
+  StaffIdentifier
 };
 const endpoints = makeApi([{
   method: "get",
@@ -182,6 +183,55 @@ const endpoints = makeApi([{
   }],
   response: z.void()
 }, {
+  method: "get",
+  path: "/api/v1/staff-departments",
+  alias: "getApiv1staffDepartments",
+  requestFormat: "json",
+  response: z.array(StaffDepartment)
+}, {
+  method: "post",
+  path: "/api/v1/staff-departments",
+  alias: "postApiv1staffDepartments",
+  requestFormat: "json",
+  parameters: [{
+    name: "body",
+    type: "Body",
+    schema: StaffDepartmentBase
+  }],
+  response: z.void()
+}, {
+  method: "put",
+  path: "/api/v1/staff-departments/:staffDepartmentId",
+  alias: "putApiv1staffDepartmentsStaffDepartmentId",
+  requestFormat: "json",
+  parameters: [{
+    name: "body",
+    type: "Body",
+    schema: StaffDepartmentBase
+  }, {
+    name: "staffDepartmentId",
+    type: "Path",
+    schema: z.string().regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid()
+  }],
+  response: z.void()
+}, {
+  method: "get",
+  path: "/api/v1/staff-departments/:staffDepartmentId/base",
+  alias: "getApiv1staffDepartmentsStaffDepartmentIdbase",
+  requestFormat: "json",
+  parameters: [{
+    name: "staffDepartmentId",
+    type: "Path",
+    schema: z.string().regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid()
+  }],
+  response: StaffDepartmentBase
+}, {
+  method: "get",
+  path: "/api/v1/staff-departments/identifiers",
+  alias: "getApiv1staffDepartmentsidentifiers",
+  requestFormat: "json",
+  response: z.array(ModelIdentifier)
+}, {
   method: "put",
   path: "/api/v1/staff/:staffId",
   alias: "putApiv1staffStaffId",
@@ -213,55 +263,6 @@ const endpoints = makeApi([{
   alias: "getApiv1staffidentifiers",
   requestFormat: "json",
   response: z.array(StaffIdentifier)
-}, {
-  method: "get",
-  path: "/api/vi/staff-departments",
-  alias: "getApivistaffDepartments",
-  requestFormat: "json",
-  response: z.array(StaffDepartment)
-}, {
-  method: "post",
-  path: "/api/vi/staff-departments",
-  alias: "postApivistaffDepartments",
-  requestFormat: "json",
-  parameters: [{
-    name: "body",
-    type: "Body",
-    schema: StaffDepartmentBase
-  }],
-  response: z.void()
-}, {
-  method: "put",
-  path: "/api/vi/staff-departments/:staffDepartmentId",
-  alias: "putApivistaffDepartmentsStaffDepartmentId",
-  requestFormat: "json",
-  parameters: [{
-    name: "body",
-    type: "Body",
-    schema: StaffDepartmentBase
-  }, {
-    name: "staffDepartmentId",
-    type: "Path",
-    schema: z.string().regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid()
-  }],
-  response: z.void()
-}, {
-  method: "get",
-  path: "/api/vi/staff-departments/:staffDepartmentId/base",
-  alias: "getApivistaffDepartmentsStaffDepartmentIdbase",
-  requestFormat: "json",
-  parameters: [{
-    name: "staffDepartmentId",
-    type: "Path",
-    schema: z.string().regex(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/).uuid()
-  }],
-  response: StaffDepartmentBase
-}, {
-  method: "get",
-  path: "/api/vi/staff-departments/identifiers",
-  alias: "getApivistaffDepartmentsidentifiers",
-  requestFormat: "json",
-  response: z.array(StaffDepartmentIdentifierResponse)
 }]);
 export const api = new Zodios(endpoints);
 export function createApiClient(baseUrl: string, options?: ZodiosOptions) {
