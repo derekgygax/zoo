@@ -306,7 +306,7 @@ export const FORM_CONFIGS: FormConfigs = {
 // Keep track of the from dependencies and point
 // out which service and model each of those dependencies
 // is part of
-export const FORM_DEPENDENCIES: Record<FORM_DEPENDENCY_FIELD, { service: SERVICE; model: ServiceModel<SERVICE> }> = {
+export const FORM_FIELD_TO_SERVICE_MODEL: Record<FORM_DEPENDENCY_FIELD, { service: SERVICE; model: ServiceModel<SERVICE> }> = {
   [FORM_DEPENDENCY_FIELD.SPECIE_ID]: {
     service: SERVICE.ANIMALS,
     model: ANIMALS_SERVICE_MODEL.SPECIE

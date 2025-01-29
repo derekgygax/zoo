@@ -6,7 +6,8 @@ import { ModelIdentifier, ServiceModel } from "@/types/serviceModels"
 
 // config
 import { MODEL_FETCHERS, MODEL_OPTIONS_FETCHERS } from "@/config/formActions"
-import { SERVICE } from "@/config/master"
+import { SERVICE, FORM_DEPENDENCY_FIELD } from "@/config/master";
+import { FORM_FIELD_TO_SERVICE_MODEL } from "@/config/forms";
 
 export const fetchModelOptions = async <S extends SERVICE>(
   service: S,
@@ -46,3 +47,19 @@ export const fetchModel = async <S extends SERVICE, T>(
     return undefined;
   }
 };
+
+export const fetchFormDependencies = async (
+  fieldsRequiringDependencies: FORM_DEPENDENCY_FIELD[]
+): Promise<Record<FORM_DEPENDENCY_FIELD, SelectorOption[]>> => {
+
+  const selectorsOptions: Record<FORM_DEPENDENCY_FIELD, SelectorOption[]> = {} as Record<FORM_DEPENDENCY_FIELD, SelectorOption[]>;
+
+  for (const field of fieldsRequiringDependencies) {
+    selectorsOptions[field] = await fetchModelOptions(
+      FORM_FIELD_TO_SERVICE_MODEL[field].service,
+      FORM_FIELD_TO_SERVICE_MODEL[field].model
+    );
+  }
+
+  return selectorsOptions;
+}
