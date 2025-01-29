@@ -7,7 +7,7 @@ import { OpenAPIV3 } from 'openapi-types';
 
 // master config
 import {
-  FIELD_REQUIRING_FETCHED_DATA,
+  FORM_DEPENDENCY_FIELD,
   MASTER_VARIABLES_NAMES
 } from '@/config/master';
 
@@ -62,10 +62,10 @@ const getSchemasMeta = (openApiSpec: OpenAPIV3.Document): {
           properties.type === "string"
           && properties.format === "selector"
         ) {
-          if (Object.values(FIELD_REQUIRING_FETCHED_DATA).includes(fieldName as FIELD_REQUIRING_FETCHED_DATA)) {
-            schemasSelectors[schemaName].push(fieldName as FIELD_REQUIRING_FETCHED_DATA);
+          if (Object.values(FORM_DEPENDENCY_FIELD).includes(fieldName as FORM_DEPENDENCY_FIELD)) {
+            schemasSelectors[schemaName].push(fieldName as FORM_DEPENDENCY_FIELD);
           } else {
-            console.error(`The field '${fieldName}' in the schema '${schemaName}' is NOT in ${MASTER_VARIABLES_NAMES.fieldRequiringFetchedData} in @config/master and MUST be there for ZOO automation to work.`)
+            console.error(`The field '${fieldName}' in the schema '${schemaName}' is NOT in ${MASTER_VARIABLES_NAMES.formDependencyField} in @config/master and MUST be there for ZOO automation to work.`)
           }
         }
       }

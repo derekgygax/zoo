@@ -113,11 +113,8 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 
 1. **Define Fetch Dependencies**:  
    If the form requires dropdowns or fields populated by fetched data:
-   - Update `FIELD_REQUIRING_FETCHED_DATA` in `config/master.ts`.
+   - Update `FORM_DEPENDENCY_FIELD` in `config/master.ts`.
 
-2. **Define Field Labels and Values**:  
-   In `config/form.ts`, update:
-   - `DependencyFieldKeys` and `FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS` to define how the fields will display labels and values on the front end.
 
 3. **Generate API Contracts**:  
    Run the following command to generate the latest contracts for your service:  

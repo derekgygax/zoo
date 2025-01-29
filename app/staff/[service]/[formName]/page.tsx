@@ -9,8 +9,7 @@ import { FormConfig, SelectorOption } from "@/types/form";
 
 // server actions
 import { formServerAction } from "@/app/_actions/utils/server/formHandlers";
-import { fetchFormDependencies } from "@/app/_actions/utils/server/formDependencies";
-import { fetchModelOptions } from "@/app/_actions/utils/server/formModelFetchers";
+import { fetchFormDependencies, fetchModelOptions } from "@/app/_actions/utils/server/formModels";
 
 // global components
 import { Title } from "@/app/_components/title/Title";

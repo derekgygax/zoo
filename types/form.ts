@@ -1,7 +1,7 @@
 
 // master config
 import {
-  FIELD_REQUIRING_FETCHED_DATA,
+  FORM_DEPENDENCY_FIELD,
   SERVICE
 } from "@/config/master";
 
@@ -36,7 +36,7 @@ export type FormConfig<K extends FORM_NAME> = {
   type: FORM_TYPE;
   label: string;
   zodSchemaName: FORM_SCHEMA_NAME;
-  fieldsRequiringFetchedData: FIELD_REQUIRING_FETCHED_DATA[];
+  fieldsRequiringFetchedData: FORM_DEPENDENCY_FIELD[];
   // TODO lazy typing, can make stronger
   model?: ServiceModel<SERVICE>;
   // TODO fix this name. its a dumb shit you put in when you were tired

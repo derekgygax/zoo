@@ -2,15 +2,16 @@
 
 // types
 import { DepartmentBase } from "@/types/staff-service";
+import { ModelIdentifier } from "@/types/serviceModels";
+import { FormState } from "@/types/form"; import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
+import { HTTP_METHOD } from "@/types/httpMethod";
 
 // API endpoints
 import { API_ENDPOINTS } from "@/config/apis";
 
 // aciton utils
-import { processFormAction, deserializeFormData } from "../utils/general";
-import { FormState, SelectorOption } from "@/types/form"; import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
+import { processFormAction, deserializeFormData } from "@/app/_actions/utils/general";
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
-import { HTTP_METHOD } from "@/types/httpMethod";
 
 // TODO ID should be UUID!!
 // put that everywhere, even where the id is retrieved!! before calling this function!!
@@ -23,8 +24,8 @@ export const getDepartmentBaseById = async (departmentId: string): Promise<Depar
   return department;
 }
 
-export const getDepartmentIdentifiers = async (): Promise<SelectorOption[]> => {
-  const departmentIdentifiers: SelectorOption[] = await getAPIRequest<SelectorOption[]>(
+export const getDepartmentIdentifiers = async (): Promise<ModelIdentifier[]> => {
+  const departmentIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
     API_ENDPOINTS.staffService.departments.identifiers,
     []
   );

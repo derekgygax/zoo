@@ -7,8 +7,9 @@ import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { API_ENDPOINTS } from "@/config/apis";
 
 // types
-import { FormState, SelectorOption } from "@/types/form";
+import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
+import { ModelIdentifier } from "@/types/serviceModels";
 
 // action utils
 import { processFormAction, deserializeFormData } from "@/app/_actions/utils/general";
@@ -40,8 +41,8 @@ export const getSpecies = async (): Promise<Specie[]> => {
   return species
 }
 
-export const getSpecieIdentifiers = async (): Promise<SelectorOption[]> => {
-  const specieIdentifiers: SelectorOption[] = await getAPIRequest<SelectorOption[]>(
+export const getSpecieIdentifiers = async (): Promise<ModelIdentifier[]> => {
+  const specieIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
     API_ENDPOINTS.animalsService.species.identifiers,
     []
   )

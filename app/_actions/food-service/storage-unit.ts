@@ -9,13 +9,14 @@ import { API_ENDPOINTS } from "@/config/apis";
 // types
 import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
-import { StorageUnitBase, StorageUnitIdentifier } from "@/types/food-service";
+import { StorageUnitBase } from "@/types/food-service";
 
 // action utils
 import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general";
 
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
+import { ModelIdentifier } from "@/types/animals-service";
 
 export const getStorageUnitBaseById = async (storageUnitId: string): Promise<StorageUnitBase | undefined> => {
   const storageUnit: StorageUnitBase | undefined = await getAPIRequest(
@@ -25,8 +26,8 @@ export const getStorageUnitBaseById = async (storageUnitId: string): Promise<Sto
   return storageUnit;
 }
 
-export const getStorageUnitIdentifiers = async (): Promise<StorageUnitIdentifier[]> => {
-  const storageUnitIdentifiers: StorageUnitIdentifier[] = await getAPIRequest<StorageUnitIdentifier[]>(
+export const getStorageUnitIdentifiers = async (): Promise<ModelIdentifier[]> => {
+  const storageUnitIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
     API_ENDPOINTS.foodService.storageUnits.identifiers,
     []
   );

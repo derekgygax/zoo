@@ -1,6 +1,6 @@
 
 // master config
-import { FIELD_REQUIRING_FETCHED_DATA } from "@/config/master";
+import { FORM_DEPENDENCY_FIELD } from "@/config/master";
 
 export interface FieldSchemaMeta {
   title: string;
@@ -15,4 +15,4 @@ export interface FieldSchemaMeta {
 
 export type SchemaMeta = Record<string, FieldSchemaMeta>;
 export type SchemasMeta = Record<string, SchemaMeta>;
-export type SchemasSelectors = Record<string, FIELD_REQUIRING_FETCHED_DATA[]>;
+export type SchemasSelectors = Record<string, FORM_DEPENDENCY_FIELD[]>;

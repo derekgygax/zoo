@@ -1,13 +1,10 @@
 
 // types
-import {
-  FormState,
-  SelectorOption,
-} from "@/types/form";
-import { ServiceModel } from "@/types/serviceModels";
+import { FormState } from "@/types/form";
+import { ModelIdentifier, ServiceModel } from "@/types/serviceModels";
 
 // master config
-import { FIELD_REQUIRING_FETCHED_DATA, SERVICE } from "@/config/master";
+import { FORM_DEPENDENCY_FIELD, SERVICE } from "@/config/master";
 
 // configs
 import { FORM_NAME } from "@/config/forms";
@@ -22,17 +19,16 @@ import {
 
 // server actions
 import { addAnimalAction, getAnimalBase, getAnimalIdentifiers, updateAnimalAction } from "@/app/_actions/animals-service/animals";
-import { addSpecieAction, getSpecieBaseById, getSpecieIdentifiers, getSpecieIds, updateSpecieAction } from "@/app/_actions/animals-service/specie";
-import { addEnclosureTypeAction, getEnclosureTypeBaseById, getEnclosureTypeIdentifiers, getEnclosureTypeKeys, updateEnclosureTypeAction } from "@/app/_actions/enclosures-service/enclosure-types";
-import { addFoodTypeAction, getFoodTypeBaseById, getFoodTypeIdentifiers, getFoodTypeIds, updateFoodTypeAction } from "@/app/_actions/food-service/food-type";
-import { addStorageUnitTypeAction, getStorageUnitTypeBaseById, getStorageUnitTypeIdentifiers, getStorageUnitTypeIds, updateStorageUnitTypeAction } from "@/app/_actions/food-service/storage-unit-type";
+import { addSpecieAction, getSpecieBaseById, getSpecieIdentifiers, updateSpecieAction } from "@/app/_actions/animals-service/specie";
+import { addEnclosureTypeAction, getEnclosureTypeBaseById, getEnclosureTypeIdentifiers, updateEnclosureTypeAction } from "@/app/_actions/enclosures-service/enclosure-types";
+import { addFoodTypeAction, getFoodTypeBaseById, getFoodTypeIdentifiers, updateFoodTypeAction } from "@/app/_actions/food-service/food-type";
+import { addStorageUnitTypeAction, getStorageUnitTypeBaseById, getStorageUnitTypeIdentifiers, updateStorageUnitTypeAction } from "@/app/_actions/food-service/storage-unit-type";
 import { addStorageUnitAction, getStorageUnitBaseById, getStorageUnitIdentifiers, updateStorageUnitAction } from "@/app/_actions/food-service/storage-unit";
 import { addEnclosureAction, getEnclosureBase, getEnclosureIdentifiers, updateEnclosureAction } from "@/app/_actions/enclosures-service/enclosures";
 import { addFoodStockAction, getFoodStockBaseById, getFoodStockIdentifiers, updateFoodStockAction } from "@/app/_actions/food-service/food-stock";
 import { addStaffAction, getStaffBaseById, getStaffIdentifiers, udpateStaffAction } from "@/app/_actions/staff-service/staff";
 import { addDepartmentAction, getDepartmentBaseById, getDepartmentIdentifiers, updateDepartmentAction } from "@/app/_actions/staff-service/departments";
 import { addStaffDepartmentAction, getStaffDepartmentBaseById, getStaffDepartmentIdentifiers, updateStaffDepartmentAction } from "@/app/_actions/staff-service/staff-departments";
-
 
 export const FORM_ACTIONS: Record<FORM_NAME, (prevState: FormState, formData: FormData) => Promise<FormState>> = {
   [FORM_NAME.ADD_ANIMAL]: addAnimalAction,
@@ -59,33 +55,10 @@ export const FORM_ACTIONS: Record<FORM_NAME, (prevState: FormState, formData: Fo
   [FORM_NAME.UPDATE_STAFF_DEPARTMENT]: updateStaffDepartmentAction,
 }
 
-// TODO Do you want to separate by SERVICE HERE ... ?
-// TODO this name has to be better!!!
-// TODO or figure some shit out
-// Write the fucking doc string shit
-// So you can remember what this is for
-// This is a reference object about filling the drop downs
-// that show up in the form
-// NOT! the udpate selector where you chose what you want to 
-// update but actually in the form
-// Like, what specie is this animal
-export const FORM_DEPENDENCY_FETCHERS: Record<FIELD_REQUIRING_FETCHED_DATA, () => Promise<unknown[]>> = {
-  [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: getSpecieIds,
-  [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: getEnclosureTypeKeys,
-  [FIELD_REQUIRING_FETCHED_DATA.FOOD_TYPE]: getFoodTypeIds,
-  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT]: getStorageUnitIdentifiers,
-  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT_TYPE]: getStorageUnitTypeIds,
-  [FIELD_REQUIRING_FETCHED_DATA.DEPARTMENT]: getDepartmentIdentifiers,
-  [FIELD_REQUIRING_FETCHED_DATA.STAFF]: getStaffIdentifiers
-}
-
-// TODO this most likely does NOT go here
-// TODO A lot of these functions are just place holders
-// you need to change them to the correct functions!!!
 // This is a reference object
 // How to retrieve the values of the model you are updating
 export const MODEL_OPTIONS_FETCHERS: {
-  [S in SERVICE]: Record<ServiceModel<S>, () => Promise<unknown[]>>
+  [S in SERVICE]: Record<ServiceModel<S>, () => Promise<ModelIdentifier[]>>
 } = {
   [SERVICE.ANIMALS]: {
     [ANIMALS_SERVICE_MODEL.ANIMAL]: getAnimalIdentifiers,
@@ -116,16 +89,6 @@ export const MODEL_OPTIONS_FETCHERS: {
   }
 };
 
-// TODO this most likely does NOT go here
-// TODO A lot of these functions are just place holders
-// you need to change them to the correct functions!!!
-// ALSO: These should all be BASE!!!!
-// ALSO: These should all be BASE!!!!
-// ALSO: These should all be BASE!!!!
-// ALSO: These should all be BASE!!!!
-// ALSO: These should all be BASE!!!!
-// This is a reference object of how to retrieve the value of the 
-// model you are updated to preFill the form
 export const MODEL_FETCHERS: {
   [S in SERVICE]: Record<ServiceModel<S>, (id: string) => Promise<unknown>>
 } = {
