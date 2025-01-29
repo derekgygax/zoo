@@ -7,9 +7,10 @@ import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { API_ENDPOINTS } from "@/config/apis";
 
 // types
-import { FormState, SelectorOption } from "@/types/form";
+import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 import { FoodTypeBase } from "@/types/food-service";
+import { ModelIdentifier } from "@/types/serviceModels";
 
 // action utils
 import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general";
@@ -27,8 +28,8 @@ export const getFoodTypeIds = async (): Promise<string[]> => {
   return foodTypes
 }
 
-export const getFoodTypeIdentifiers = async (): Promise<SelectorOption[]> => {
-  const foodTypeIdentifiers: SelectorOption[] = await getAPIRequest<SelectorOption[]>(
+export const getFoodTypeIdentifiers = async (): Promise<ModelIdentifier[]> => {
+  const foodTypeIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
     API_ENDPOINTS.foodService.foodTypes.identifiers,
     []
   );

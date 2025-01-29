@@ -7,9 +7,10 @@ import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { API_ENDPOINTS } from "@/config/apis";
 
 // types
-import { FormState, SelectorOption } from "@/types/form";
+import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 import { StorageUnitTypeBase } from "@/types/food-service";
+import { ModelIdentifier } from "@/types/serviceModels";
 
 // action utils
 import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general";
@@ -26,8 +27,8 @@ export const getStorageUnitTypeIds = async (): Promise<string[]> => {
   return storageUnitTypes
 }
 
-export const getStorageUnitTypeIdentifiers = async (): Promise<SelectorOption[]> => {
-  const storageUnitIdentifiers: SelectorOption[] = await getAPIRequest<SelectorOption[]>(
+export const getStorageUnitTypeIdentifiers = async (): Promise<ModelIdentifier[]> => {
+  const storageUnitIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
     API_ENDPOINTS.foodService.storageUnitTypes.identifiers,
     []
   );

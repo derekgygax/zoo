@@ -6,8 +6,9 @@ import { API_ENDPOINTS } from "@/config/apis";
 
 // types
 import { EnclosureTypeBase } from "@/types/enclosures-service";
-import { FormState, SelectorOption } from "@/types/form";
+import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
+import { ModelIdentifier } from "@/types/serviceModels";
 
 // utils _action
 import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general";
@@ -27,8 +28,8 @@ export const getEnclosureTypeKeys = async (): Promise<string[]> => {
   return enclosureTypes;
 }
 
-export const getEnclosureTypeIdentifiers = async (): Promise<SelectorOption[]> => {
-  const enclosureTypeIdentifiers: SelectorOption[] = await getAPIRequest<SelectorOption[]>(
+export const getEnclosureTypeIdentifiers = async (): Promise<ModelIdentifier[]> => {
+  const enclosureTypeIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
     API_ENDPOINTS.enclosuresService.enclosureTypes.identifiers,
     []
   );

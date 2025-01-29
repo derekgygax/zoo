@@ -1,16 +1,18 @@
 "use server"
 
 // types
-import { StaffBase, StaffIdentifier } from "@/types/staff-service";
+import { StaffBase } from "@/types/staff-service";
+import { ModelIdentifier } from "@/types/serviceModels";
+import { HTTP_METHOD } from "@/types/httpMethod";
+import { FormState } from "@/types/form";
 
 // API endpoints
 import { API_ENDPOINTS } from "@/config/apis";
 
 // aciton utils
-import { processFormAction, deserializeFormData } from "../utils/general";
-import { FormState } from "@/types/form"; import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
+import { processFormAction, deserializeFormData } from "@/app/_actions/utils/general";
+import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
-import { HTTP_METHOD } from "@/types/httpMethod";
 
 // TODO ID should be UUID!!
 // put that everywhere, even where the id is retrieved!! before calling this function!!
@@ -24,8 +26,8 @@ export const getStaffBaseById = async (staffId: string): Promise<StaffBase | und
   return staff;
 }
 
-export const getStaffIdentifiers = async (): Promise<StaffIdentifier[]> => {
-  const staffIdentifiers: StaffIdentifier[] = await getAPIRequest<StaffIdentifier[]>(
+export const getStaffIdentifiers = async (): Promise<ModelIdentifier[]> => {
+  const staffIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
     API_ENDPOINTS.staffService.staff.identifiers,
     []
   );
