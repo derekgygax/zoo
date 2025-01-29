@@ -1,6 +1,6 @@
 
 // master config
-import { FIELD_REQUIRING_FETCHED_DATA, SERVICE } from "@/config/master";
+import { FORM_DEPENDENCY_FIELD, SERVICE } from "@/config/master";
 
 // service models config
 import {
@@ -29,7 +29,7 @@ import { ZodSchema } from "@/types/zodSchema";
 // TODO this is dangerous with all the imports
 // TODO get rid of them as you build the API gateway
 // and start combining things
-import { ModelIdentifier } from "@/types/serviceModels";
+import { ModelIdentifier, ServiceModel } from "@/types/serviceModels";
 
 // fields requiring fetched data
 import { fieldsRequiringFetchedData as animalServiceFieldsRequiringFetching } from "@/api-contracts/animals-service/fieldsRequiringFetchedData";
@@ -301,66 +301,39 @@ export const FORM_CONFIGS: FormConfigs = {
     model: STAFF_SERVICE_MODEL.STAFF_DEPARTMENT,
     selectionScreenUrl: SITE_URLS.staff[SERVICE.STAFF].index
   },
-
 }
 
-
-// This just becomes the string for FIELD_REQUIRING_FETCHED_DATA.SPECIE
-// NOT referenced to FIELD_REQUIRING_FETCHED_DATA.SPECIE
-// TODO NO USE ModelIdentifier
-// retard retard retard
-type DependencyFieldKeys = {
-  [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: FetchDataKey<SpecieBase>;
-  [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: FetchDataKey<EnclosureTypeBase>;
-  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT_TYPE]: FetchDataKey<StorageUnitTypeBase>;
-  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT]: FetchDataKey<ModelIdentifier>;
-  [FIELD_REQUIRING_FETCHED_DATA.FOOD_TYPE]: FetchDataKey<FoodTypeBase>;
-  [FIELD_REQUIRING_FETCHED_DATA.STAFF]: FetchDataKey<ModelIdentifier>
-  [FIELD_REQUIRING_FETCHED_DATA.DEPARTMENT]: FetchDataKey<ModelIdentifier>
-};
-
-export const FORM_FIELD_REQUIRING_FETCHED_DATA_KEYS: DependencyFieldKeys = {
-  // for this one it is for naught because you are just getting a string
-  // but hey, put it here so you remember to follow how its structured
-  // you are going to hardcode stuff in here ... the names of
-  [FIELD_REQUIRING_FETCHED_DATA.SPECIE]: {
-    label: "id",
-    value: "id"
+// Keep track of the from dependencies and point
+// out which service and model each of those dependencies
+// is part of
+export const FORM_DEPENDENCIES: Record<FORM_DEPENDENCY_FIELD, { service: SERVICE; model: ServiceModel<SERVICE> }> = {
+  [FORM_DEPENDENCY_FIELD.SPECIE_ID]: {
+    service: SERVICE.ANIMALS,
+    model: ANIMALS_SERVICE_MODEL.SPECIE
   },
-  // for this one it is for naught because you are just getting a string
-  // but hey, put it here so you remember to follow how its structured
-  // you are going to hardcode stuff in here ... the names of
-  [FIELD_REQUIRING_FETCHED_DATA.ENCLOSURE_TYPE]: {
-    label: "id",
-    value: "id"
+  [FORM_DEPENDENCY_FIELD.ENCLOSURE_TYPE_ID]: {
+    service: SERVICE.ENCLOSURES,
+    model: ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE
   },
-  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT_TYPE]: {
-    label: "id",
-    value: "id"
+  [FORM_DEPENDENCY_FIELD.FOOD_TYPE_ID]: {
+    service: SERVICE.FOOD,
+    model: FOOD_SERVICE_MODEL.FOOD_TYPE
   },
-  [FIELD_REQUIRING_FETCHED_DATA.STORAGE_UNIT]: {
-    label: "label",
-    value: "id"
+  [FORM_DEPENDENCY_FIELD.STORAGE_UNIT_ID]: {
+    service: SERVICE.FOOD,
+    model: FOOD_SERVICE_MODEL.STORAGE_UNIT
   },
-  [FIELD_REQUIRING_FETCHED_DATA.FOOD_TYPE]: {
-    label: "id",
-    value: "id"
+  [FORM_DEPENDENCY_FIELD.STORAGE_UNIT_TYPE_ID]: {
+    service: SERVICE.FOOD,
+    model: FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE
   },
-  // TODO Fix this the fuck up!!
-  // TODO Fix this the fuck up!!
-  // TODO Fix this the fuck up!!
-  // TODO Fix this the fuck up!!
-  [FIELD_REQUIRING_FETCHED_DATA.STAFF]: {
-    label: "label",
-    value: "id"
+  [FORM_DEPENDENCY_FIELD.DEPARTMENT_ID]: {
+    service: SERVICE.STAFF,
+    model: STAFF_SERVICE_MODEL.DEPARTMENT
   },
-  // TODO Fix this the fuck up!!
-  // TODO Fix this the fuck up!!
-  // TODO Fix this the fuck up!!
-  // TODO Fix this the fuck up!!
-  [FIELD_REQUIRING_FETCHED_DATA.DEPARTMENT]: {
-    label: "label",
-    value: "id"
+  [FORM_DEPENDENCY_FIELD.STAFF_ID]: {
+    service: SERVICE.STAFF,
+    model: STAFF_SERVICE_MODEL.STAFF
   }
 }
 

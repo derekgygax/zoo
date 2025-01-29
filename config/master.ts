@@ -44,18 +44,18 @@ export const API_BASE_URLS: Record<SERVICE, string> = {
 // TODO you may need to fix the variable names going all over
 // fieldsRequiringDependencies vs fieldsRequiringFetchedData
 // make it consistent ... BUT not for now, do that when it becomes a problem
-export enum FIELD_REQUIRING_FETCHED_DATA {
-  SPECIE = "specie_id",
-  ENCLOSURE_TYPE = "enclosureTypeId",
-  STORAGE_UNIT_TYPE = "storage_unit_type_id",
-  STORAGE_UNIT = "storage_unit_id",
-  FOOD_TYPE = "food_type_id",
-  STAFF = "staffId",
-  DEPARTMENT = "departmentId"
+export enum FORM_DEPENDENCY_FIELD {
+  SPECIE_ID = "specie_id",
+  ENCLOSURE_TYPE_ID = "enclosureTypeId",
+  STORAGE_UNIT_TYPE_ID = "storage_unit_type_id",
+  STORAGE_UNIT_ID = "storage_unit_id",
+  FOOD_TYPE_ID = "food_type_id",
+  STAFF_ID = "staffId",
+  DEPARTMENT_ID = "departmentId"
 }
 
 // The variable name above so if people run the generate-api-contracts
 // and it doesn't work it gives them reasons and how to fix the problems
 export const MASTER_VARIABLES_NAMES = {
-  fieldRequiringFetchedData: "FIELD_REQUIRING_FETCHED_DATA"
+  formDependencyField: "FORM_DEPENDENCY_FIELD"
 }
