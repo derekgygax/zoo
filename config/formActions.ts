@@ -4,7 +4,7 @@ import {
   FormState,
   SelectorOption,
 } from "@/types/form";
-import { ServiceModel } from "@/types/serviceModels";
+import { ModelIdentifier, ServiceModel } from "@/types/serviceModels";
 
 // master config
 import { FIELD_REQUIRING_FETCHED_DATA, SERVICE } from "@/config/master";
@@ -85,7 +85,7 @@ export const FORM_DEPENDENCY_FETCHERS: Record<FIELD_REQUIRING_FETCHED_DATA, () =
 // This is a reference object
 // How to retrieve the values of the model you are updating
 export const MODEL_OPTIONS_FETCHERS: {
-  [S in SERVICE]: Record<ServiceModel<S>, () => Promise<unknown[]>>
+  [S in SERVICE]: Record<ServiceModel<S>, () => Promise<ModelIdentifier[]>>
 } = {
   [SERVICE.ANIMALS]: {
     [ANIMALS_SERVICE_MODEL.ANIMAL]: getAnimalIdentifiers,
