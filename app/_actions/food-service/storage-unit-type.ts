@@ -13,7 +13,7 @@ import { StorageUnitTypeBase } from "@/types/food-service";
 import { ModelIdentifier } from "@/types/serviceModels";
 
 // action utils
-import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general";
+import { deserializeFormData } from "@/app/_actions/utils";
 
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
@@ -43,10 +43,10 @@ export const getStorageUnitTypeBaseById = async (storageUnitTypeId: string): Pro
   return storageUnitType;
 }
 
-const addStorageUnitType = async (prevState: FormState, formData: FormData) => {
+export const addStorageUnitType = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE];
 
-  const storageUnitType: StorageUnitTypeBase = deserializeFormData(formData, zodSchema) as StorageUnitTypeBase;
+  const storageUnitType: StorageUnitTypeBase = await deserializeFormData(formData, zodSchema) as StorageUnitTypeBase;
 
   await sendAPIRequest(
     API_ENDPOINTS.foodService.storageUnitTypes.index,
@@ -60,12 +60,8 @@ const addStorageUnitType = async (prevState: FormState, formData: FormData) => {
 }
 
 // TODO PUT SOMETHING HERE!!!
-const updateStorageUnitType = async (prevState: FormState, formData: FormData): Promise<string[]> => {
+export const updateStorageUnitType = async (prevState: FormState, formData: FormData): Promise<string[]> => {
   console.log(prevState, formData);
   console.error("ADD FOR updateStorageUnitType");
   return [];
 }
-
-
-export const addStorageUnitTypeAction = processFormAction(addStorageUnitType);
-export const updateStorageUnitTypeAction = processFormAction(updateStorageUnitType);

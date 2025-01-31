@@ -13,7 +13,7 @@ import { FoodTypeBase } from "@/types/food-service";
 import { ModelIdentifier } from "@/types/serviceModels";
 
 // action utils
-import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general";
+import { deserializeFormData } from "@/app/_actions/utils";
 
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
@@ -44,10 +44,10 @@ export const getFoodTypeBaseById = async (foodTypeId: string): Promise<FoodTypeB
   return foodType;
 }
 
-const addFoodType = async (prevState: FormState, formData: FormData) => {
+export const addFoodType = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.FOOD_TYPE_BASE];
 
-  const foodType: FoodTypeBase = deserializeFormData(formData, zodSchema) as FoodTypeBase;
+  const foodType: FoodTypeBase = await deserializeFormData(formData, zodSchema) as FoodTypeBase;
 
   await sendAPIRequest(
     API_ENDPOINTS.foodService.foodTypes.index,
@@ -61,12 +61,8 @@ const addFoodType = async (prevState: FormState, formData: FormData) => {
 }
 
 // TODO PUT SOMETHING HERE!
-const updateFoodType = async (prevState: FormState, formData: FormData): Promise<string[]> => {
+export const updateFoodType = async (prevState: FormState, formData: FormData): Promise<string[]> => {
   console.log(prevState, formData);
   console.error("Put something in updateFoodType");
   return [];
 }
-
-
-export const addFoodTypeAction = processFormAction(addFoodType);
-export const updateFoodTypeAction = processFormAction(updateFoodType);

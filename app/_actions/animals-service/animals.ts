@@ -12,7 +12,7 @@ import { HTTP_METHOD } from "@/types/httpMethod";
 import { ModelIdentifier } from "@/types/serviceModels";
 
 // action utils
-import { processFormAction, deserializeFormData } from "@/app/_actions/utils/general";
+import { deserializeFormData } from "@/app/_actions/utils";
 
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
@@ -41,10 +41,10 @@ export const getAnimalIdentifiers = async (): Promise<ModelIdentifier[]> => {
 
 // Server Actions to forms
 // The functional part of the action
-const addAnimal = async (prevState: FormState, formData: FormData) => {
+export const addAnimal = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.ANIMAL_BASE];
 
-  const animal: AnimalBase = deserializeFormData(formData, zodSchema) as AnimalBase;
+  const animal: AnimalBase = await deserializeFormData(formData, zodSchema) as AnimalBase;
 
   await sendAPIRequest(
     API_ENDPOINTS.animalsService.animals.index,
@@ -57,11 +57,11 @@ const addAnimal = async (prevState: FormState, formData: FormData) => {
   ];
 }
 
-const updateAnimal = async (prevState: FormState, formData: FormData) => {
+export const updateAnimal = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.ANIMAL_BASE];
 
   const animalId = formData.get("id");
-  const animal: AnimalBase = deserializeFormData(formData, zodSchema) as AnimalBase;
+  const animal: AnimalBase = await deserializeFormData(formData, zodSchema) as AnimalBase;
 
   await sendAPIRequest(
     `${API_ENDPOINTS.animalsService.animals.index}/${animalId}`,
@@ -73,8 +73,3 @@ const updateAnimal = async (prevState: FormState, formData: FormData) => {
     `${animal.name} the ${animal.specie_id} updated.`
   ];
 }
-
-
-// Add the catch wrapping and processing the state returning
-export const addAnimalAction = processFormAction(addAnimal);
-export const updateAnimalAction = processFormAction(updateAnimal);

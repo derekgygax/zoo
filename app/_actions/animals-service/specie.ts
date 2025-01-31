@@ -12,7 +12,7 @@ import { HTTP_METHOD } from "@/types/httpMethod";
 import { ModelIdentifier } from "@/types/serviceModels";
 
 // action utils
-import { processFormAction, deserializeFormData } from "@/app/_actions/utils/general";
+import { deserializeFormData } from "@/app/_actions/utils";
 
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
@@ -79,10 +79,10 @@ export const getSpecieIds = async (): Promise<string[]> => {
 
 // Server Actions to forms
 // The functional part of the action
-const addSpecie = async (prevState: FormState, formData: FormData) => {
+export const addSpecie = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.SPECIE_BASE];
 
-  const specie: SpecieBase = deserializeFormData(formData, zodSchema) as SpecieBase;
+  const specie: SpecieBase = await deserializeFormData(formData, zodSchema) as SpecieBase;
 
   await sendAPIRequest(
     API_ENDPOINTS.animalsService.species.index,
@@ -99,11 +99,11 @@ const addSpecie = async (prevState: FormState, formData: FormData) => {
 // Do NOT send the whole specie!!
 // You can NOT change the specie id idjet!!
 // TODO FIX FIX FIX
-const udpateSpecie = async (prevState: FormState, formData: FormData) => {
+export const updateSpecie = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.SPECIE_BASE];
 
   const specieId = formData.get("id");
-  const specie: SpecieBase = deserializeFormData(formData, zodSchema) as SpecieBase;
+  const specie: SpecieBase = await deserializeFormData(formData, zodSchema) as SpecieBase;
 
   await sendAPIRequest(
     `${API_ENDPOINTS.animalsService.species.index}/${specieId}`,
@@ -115,8 +115,3 @@ const udpateSpecie = async (prevState: FormState, formData: FormData) => {
     `The ${specie.id} has been updated`
   ];
 }
-
-
-// Add the catch wrapping and processing the state returning
-export const addSpecieAction = processFormAction(addSpecie);
-export const updateSpecieAction = processFormAction(udpateSpecie);

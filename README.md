@@ -143,7 +143,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 
 9. **Handle Form Actions**:  
    - Define a server action to handle the form submission in the `app/_actions` folder.  
-   - Ensure the action is properly registered in `processFormAction()` at the bottom of the file.
+   - Add it to FORM_ACTIONS in config/formActions
 
 10. **Configure the Form Page**:  
     In the `page.tsx` file:

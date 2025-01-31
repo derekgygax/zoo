@@ -10,7 +10,7 @@ import { FormState } from "@/types/form";
 import { API_ENDPOINTS } from "@/config/apis";
 
 // aciton utils
-import { processFormAction, deserializeFormData } from "@/app/_actions/utils/general";
+import { deserializeFormData } from "@/app/_actions/utils";
 import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
@@ -31,10 +31,10 @@ export const getStaffDepartmentIdentifiers = async (): Promise<ModelIdentifier[]
   return staffDepartmentIdentifiers;
 }
 
-const addStaffDepartment = async (prevState: FormState, formData: FormData) => {
+export const addStaffDepartment = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.STAFF_DEPARTMENT_BASE];
 
-  const staffDepartment: StaffDepartmentBase = deserializeFormData(formData, zodSchema) as StaffDepartmentBase;
+  const staffDepartment: StaffDepartmentBase = await deserializeFormData(formData, zodSchema) as StaffDepartmentBase;
 
   console.log(staffDepartment);
   console.log(API_ENDPOINTS.staffService.staffDepartments.index);
@@ -55,11 +55,11 @@ const addStaffDepartment = async (prevState: FormState, formData: FormData) => {
 
 }
 
-const updateStaffDepartment = async (prevState: FormState, formData: FormData) => {
+export const updateStaffDepartment = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.STAFF_DEPARTMENT_BASE];
 
   const staffDepartmentId = formData.get("id");
-  const staffDepartment: StaffDepartmentBase = deserializeFormData(formData, zodSchema) as StaffDepartmentBase;
+  const staffDepartment: StaffDepartmentBase = await deserializeFormData(formData, zodSchema) as StaffDepartmentBase;
 
   await sendAPIRequest(
     `${API_ENDPOINTS.staffService.staffDepartments.index}/${staffDepartmentId}`,
@@ -71,6 +71,3 @@ const updateStaffDepartment = async (prevState: FormState, formData: FormData) =
     `The Staff member in the been added to the department`
   ];
 }
-
-export const addStaffDepartmentAction = processFormAction(addStaffDepartment);
-export const updateStaffDepartmentAction = processFormAction(updateStaffDepartment);

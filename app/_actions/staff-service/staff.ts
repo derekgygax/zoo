@@ -10,7 +10,7 @@ import { FormState } from "@/types/form";
 import { API_ENDPOINTS } from "@/config/apis";
 
 // aciton utils
-import { processFormAction, deserializeFormData } from "@/app/_actions/utils/general";
+import { deserializeFormData } from "@/app/_actions/utils";
 import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
@@ -34,10 +34,10 @@ export const getStaffIdentifiers = async (): Promise<ModelIdentifier[]> => {
   return staffIdentifiers;
 }
 
-const addStaff = async (prevState: FormState, formData: FormData) => {
+export const addStaff = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.STAFF_BASE];
 
-  const staff: StaffBase = deserializeFormData(formData, zodSchema) as StaffBase;
+  const staff: StaffBase = await deserializeFormData(formData, zodSchema) as StaffBase;
 
   await sendAPIRequest(
     API_ENDPOINTS.staffService.staff.index,
@@ -51,11 +51,11 @@ const addStaff = async (prevState: FormState, formData: FormData) => {
 
 }
 
-const updateStaff = async (prevState: FormState, formData: FormData) => {
+export const updateStaff = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.STAFF_BASE];
 
   const staffId = formData.get("id");
-  const staff: StaffBase = deserializeFormData(formData, zodSchema) as StaffBase;
+  const staff: StaffBase = await deserializeFormData(formData, zodSchema) as StaffBase;
 
   await sendAPIRequest(
     `${API_ENDPOINTS.staffService.staff.index}/${staffId}`,
@@ -67,6 +67,3 @@ const updateStaff = async (prevState: FormState, formData: FormData) => {
     `${staff.firstName} ${staff.lastName} the ${staff.title} updated`
   ];
 }
-
-export const addStaffAction = processFormAction(addStaff);
-export const udpateStaffAction = processFormAction(updateStaff);

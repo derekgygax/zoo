@@ -13,7 +13,7 @@ import { FoodStockBase } from "@/types/food-service";
 import { ModelIdentifier } from "@/types/serviceModels";
 
 // action utils
-import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general";
+import { deserializeFormData } from "@/app/_actions/utils";
 
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
@@ -34,10 +34,10 @@ export const getFoodStockBaseById = async (foodStockId: string): Promise<FoodSto
   return foodStock;
 }
 
-const addFoodStock = async (prevState: FormState, formData: FormData) => {
+export const addFoodStock = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.FOOD_STOCK_BASE];
 
-  const foodStock: FoodStockBase = deserializeFormData(formData, zodSchema) as FoodStockBase;
+  const foodStock: FoodStockBase = await deserializeFormData(formData, zodSchema) as FoodStockBase;
 
   await sendAPIRequest(
     API_ENDPOINTS.foodService.foodStocks.index,
@@ -51,12 +51,8 @@ const addFoodStock = async (prevState: FormState, formData: FormData) => {
 }
 
 // TODO PUT SOMETHING HERE!!!
-const updateFoodStock = async (prevState: FormState, formData: FormData): Promise<string[]> => {
+export const updateFoodStock = async (prevState: FormState, formData: FormData): Promise<string[]> => {
   console.log(prevState, formData);
   console.error("PUT SOMETHING in updateFoodStock");
   return [];
 }
-
-
-export const addFoodStockAction = processFormAction(addFoodStock);
-export const updateFoodStockAction = processFormAction(updateFoodStock);

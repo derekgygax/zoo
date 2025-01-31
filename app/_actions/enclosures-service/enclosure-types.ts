@@ -11,7 +11,7 @@ import { HTTP_METHOD } from "@/types/httpMethod";
 import { ModelIdentifier } from "@/types/serviceModels";
 
 // utils _action
-import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general";
+import { deserializeFormData } from "@/app/_actions/utils";
 
 // utils lib
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
@@ -46,10 +46,10 @@ export const getEnclosureTypeBaseById = async (enclosureTypeId: string): Promise
 
 // Server Actions to forms
 // The functional part of the action
-const addEnclosureType = async (prevState: FormState, formData: FormData) => {
+export const addEnclosureType = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.ENCLOSURE_TYPE_BASE];
 
-  const enclosureType: EnclosureTypeBase = deserializeFormData(formData, zodSchema) as EnclosureTypeBase;
+  const enclosureType: EnclosureTypeBase = await deserializeFormData(formData, zodSchema) as EnclosureTypeBase;
 
   await sendAPIRequest(
     API_ENDPOINTS.enclosuresService.enclosureTypes.index,
@@ -68,12 +68,8 @@ const addEnclosureType = async (prevState: FormState, formData: FormData) => {
 // TODO PUT SOMETHING HERE!!!
 // TODO PUT SOMETHING HERE!!!
 // TODO PUT SOMETHING HERE!!!
-const updateEnclosureType = async (prevState: FormState, formData: FormData): Promise<string[]> => {
+export const updateEnclosureType = async (prevState: FormState, formData: FormData): Promise<string[]> => {
   console.log(prevState, formData);
   console.error("YOU NEED TO PUT SOMETHING HERE");
   return [];
 }
-
-
-export const addEnclosureTypeAction = processFormAction(addEnclosureType);
-export const updateEnclosureTypeAction = processFormAction(updateEnclosureType);

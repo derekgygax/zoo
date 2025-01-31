@@ -10,7 +10,7 @@ import { HTTP_METHOD } from "@/types/httpMethod";
 import { API_ENDPOINTS } from "@/config/apis";
 
 // aciton utils
-import { processFormAction, deserializeFormData } from "@/app/_actions/utils/general";
+import { deserializeFormData } from "@/app/_actions/utils";
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
 // TODO ID should be UUID!!
@@ -32,10 +32,10 @@ export const getDepartmentIdentifiers = async (): Promise<ModelIdentifier[]> => 
   return departmentIdentifiers;
 }
 
-const addDepartment = async (prevState: FormState, formData: FormData) => {
+export const addDepartment = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.DEPARTMENT_BASE];
 
-  const department: DepartmentBase = deserializeFormData(formData, zodSchema) as DepartmentBase;
+  const department: DepartmentBase = await deserializeFormData(formData, zodSchema) as DepartmentBase;
 
   await sendAPIRequest(
     API_ENDPOINTS.staffService.departments.index,
@@ -49,11 +49,11 @@ const addDepartment = async (prevState: FormState, formData: FormData) => {
 
 }
 
-const updateDepartment = async (prevState: FormState, formData: FormData) => {
+export const updateDepartment = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.DEPARTMENT_BASE];
 
   const departmentId = formData.get("id");
-  const department: DepartmentBase = deserializeFormData(formData, zodSchema) as DepartmentBase;
+  const department: DepartmentBase = await deserializeFormData(formData, zodSchema) as DepartmentBase;
 
   await sendAPIRequest(
     `${API_ENDPOINTS.staffService.departments.index}/${departmentId}`,
@@ -65,6 +65,3 @@ const updateDepartment = async (prevState: FormState, formData: FormData) => {
     `${department.name} updated`
   ];
 }
-
-export const addDepartmentAction = processFormAction(addDepartment);
-export const updateDepartmentAction = processFormAction(updateDepartment);

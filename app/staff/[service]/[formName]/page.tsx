@@ -8,8 +8,8 @@ import { FORM_CONFIGS, FORM_NAME, FORM_TYPE } from "@/config/forms";
 import { FormConfig, SelectorOption } from "@/types/form";
 
 // server actions
-import { formServerAction } from "@/app/_actions/utils/server/formHandlers";
-import { fetchFormDependencies, fetchModelOptions } from "@/app/_actions/utils/server/formModels";
+import { formServerAction } from "@/app/_actions/formHandlers";
+import { fetchFormDependencies, fetchModelOptions } from "@/app/_actions/formModels";
 
 // global components
 import { Title } from "@/app/_components/title/Title";

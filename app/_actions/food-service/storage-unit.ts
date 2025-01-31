@@ -12,7 +12,7 @@ import { HTTP_METHOD } from "@/types/httpMethod";
 import { StorageUnitBase } from "@/types/food-service";
 
 // action utils
-import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general";
+import { deserializeFormData } from "@/app/_actions/utils";
 
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
@@ -38,7 +38,7 @@ export const addStorageUnit = async (prevState: FormState, formData: FormData) =
 
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.STORAGE_UNIT_BASE];
 
-  const storageUnit: StorageUnitBase = deserializeFormData(formData, zodSchema) as StorageUnitBase;
+  const storageUnit: StorageUnitBase = await deserializeFormData(formData, zodSchema) as StorageUnitBase;
 
   await sendAPIRequest(
     API_ENDPOINTS.foodService.storageUnits.index,
@@ -52,12 +52,8 @@ export const addStorageUnit = async (prevState: FormState, formData: FormData) =
 }
 
 // TODO PUT SOMETHING HERE!!!
-const updateStorageUnit = async (prevState: FormState, formData: FormData): Promise<string[]> => {
+export const updateStorageUnit = async (prevState: FormState, formData: FormData): Promise<string[]> => {
   console.log(prevState, formData);
   console.error("ADD FOR updateStorageUnit");
   return [];
 }
-
-
-export const addStorageUnitAction = processFormAction(addStorageUnit);
-export const updateStorageUnitAction = processFormAction(updateStorageUnit);

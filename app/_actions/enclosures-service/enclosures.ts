@@ -11,7 +11,7 @@ import { HTTP_METHOD } from "@/types/httpMethod";
 import { ModelIdentifier } from "@/types/serviceModels";
 
 // server actions
-import { deserializeFormData, processFormAction } from "@/app/_actions/utils/general"
+import { deserializeFormData } from "@/app/_actions/utils"
 
 // utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
@@ -34,10 +34,10 @@ export const getEnclosureIdentifiers = async (): Promise<ModelIdentifier[]> => {
 }
 
 // Form server actions
-const addEnclosure = async (prevState: FormState, formData: FormData) => {
+export const addEnclosure = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.ENCLOSURE_BASE];
 
-  const enclosure: EnclosureBase = deserializeFormData(formData, zodSchema) as EnclosureBase;
+  const enclosure: EnclosureBase = await deserializeFormData(formData, zodSchema) as EnclosureBase;
 
   await sendAPIRequest(
     API_ENDPOINTS.enclosuresService.enclosures.index,
@@ -50,12 +50,12 @@ const addEnclosure = async (prevState: FormState, formData: FormData) => {
   ];
 }
 
-const updateEnclosure = async (prevState: FormState, formData: FormData) => {
+export const updateEnclosure = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.ENCLOSURE_BASE];
 
   const enclosureId = formData.get("id");
 
-  const enclosure: EnclosureBase = deserializeFormData(formData, zodSchema) as EnclosureBase;
+  const enclosure: EnclosureBase = await deserializeFormData(formData, zodSchema) as EnclosureBase;
 
   await sendAPIRequest(
     `${API_ENDPOINTS.enclosuresService.enclosures.index}/${enclosureId}`,
@@ -67,6 +67,3 @@ const updateEnclosure = async (prevState: FormState, formData: FormData) => {
     `The enclosure ${enclosure.name} of type ${enclosure.enclosureTypeId} has been updated`
   ]
 }
-
-export const addEnclosureAction = processFormAction(addEnclosure);
-export const updateEnclosureAction = processFormAction(updateEnclosure);

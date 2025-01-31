@@ -9,7 +9,6 @@ import {
 import { FORM_ACTIONS } from "@/config/formActions";
 
 
-// TODO MAYBE GIVE THIS A BETTER NAME
 export const formServerAction = async (prevState: FormState, formData: FormData): Promise<FormState> => {
 
   // This is a hidden field in the form
@@ -19,7 +18,23 @@ export const formServerAction = async (prevState: FormState, formData: FormData)
 
   const action = FORM_ACTIONS[formName];
 
-  const formState: FormState = await action(prevState, formData);
+  try {
+    const message: string[] = await action(prevState, formData);
 
-  return formState;
+    return {
+      success: true,
+      message: message
+    }
+  } catch (err: unknown) {
+
+    console.error(err);
+    const message: string = (err as Error)?.message || "An error occurred";
+
+    return {
+      success: false,
+      message: [
+        message
+      ]
+    }
+  }
 }
