@@ -16,7 +16,7 @@ export const Header = async () => {
   const user: User | null = await getLoggedInUser();
 
   return (
-    <header>
+    <header className={styles.header}>
       <nav className={styles.nav}>
         {user ? (
           <div className={styles.logout}>
