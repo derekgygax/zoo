@@ -81,25 +81,40 @@ export const sendAPIRequest = async (
   //   }
   // ).trim();
 
-  const response = await fetch(
-    url,
-    {
-      method: method,
-      headers: {
-        // 'Authorization': `Bearer ${signedToken}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body)
-    }
-  );
+  // TODO this is some absolute bullshit that you do NOT want
+  // to keep around but for some reason it is NECESSARY for kong to work
+  // I am sure you are doing something fucked
+  // but this is your solution for now
+  // TODO IDK why it needs that trailing / but it stupidly DOES!
+  // TODO i am sure it is your fault but you can't think of why!!
+  url = url + "/"
 
-  if (response.ok) {
-    // console.log('Response data:', response);
-  } else {
-    console.error("The sendAPIRequest did not work");
-    console.error(url);
-    console.error(response);
-    const errorText = await response.text();
-    throw new Error(`Error: ${response.status} ${response.statusText} - ${errorText}`);
+  try {
+
+    const response = await fetch(
+      url,
+      {
+        method: method,
+        headers: {
+          // 'Authorization': `Bearer ${signedToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body)
+      }
+    );
+
+    if (response.ok) {
+      // console.log('Response data:', response);
+    } else {
+      console.error("The sendAPIRequest did not work");
+      console.error(url);
+      console.error(response);
+      const errorText = await response.text();
+      throw new Error(`Error: ${response.status} ${response.statusText} - ${errorText}`);
+    }
+  } catch (err) {
+    console.error(err);
+    throw err;
   }
+
 }
