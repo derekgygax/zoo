@@ -68,16 +68,28 @@ export async function exchangeCodeForToken(code: string): Promise<string> {
   return data.access_token; // Return JWT token
 }
 
+export async function getJWT(): Promise<string | null> {
+
+  const cookieStore = await cookies();
+
+  const jwtToken = cookieStore.get("keycloak_token")?.value;
+
+  if (!jwtToken) {
+    return null
+  }
+  return jwtToken;
+}
+
 
 /**
  * Retrieves and decodes the JWT stored in cookies.
  * @returns The decoded JWT payload or null if invalid/missing.
  */
 async function getDecodedJWT(): Promise<jwt.JwtPayload | null> {
-  const cookieStore = await cookies();
-  const jwtToken = cookieStore.get("keycloak_token")?.value;
-
-  if (!jwtToken) return null;
+  const jwtToken = await getJWT();
+  if (!jwtToken) {
+    return null;
+  }
 
   try {
     return jwt.decode(jwtToken) as jwt.JwtPayload;
