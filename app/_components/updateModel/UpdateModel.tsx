@@ -21,7 +21,7 @@ import { formServerAction } from "@/app/_actions/formHandlers";
 import { fetchModel } from "@/app/_actions/formModels";
 
 // client components
-import { ZodForm } from "@/app/_client_components/zodForm/ZodForm";
+import { ZodForm } from "@/app/_components/zodForm/ZodForm";
 
 
 interface ModelState<T> {

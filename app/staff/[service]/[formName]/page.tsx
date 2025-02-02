@@ -13,11 +13,11 @@ import { fetchFormDependencies, fetchModelOptions } from "@/app/_actions/formMod
 
 // global components
 import { Title } from "@/app/_components/title/Title";
-import { ZodForm } from "@/app/_client_components/zodForm/ZodForm";
+import { ZodForm } from "@/app/_components/zodForm/ZodForm";
 
 // local client components
 // TODO I HATE THIS STRUCTURING!!!
-import { UpdateForm } from "@/app/_client_components/updateModel/UpdateModel";
+import { UpdateForm } from "@/app/_components/updateModel/UpdateModel";
 
 // layouts
 import { PageSection } from "@/app/_layouts/pageSection/PageSection";
