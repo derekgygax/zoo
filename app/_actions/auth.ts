@@ -101,6 +101,6 @@ export async function getLoggedInUser(): Promise<User | null> {
   return {
     name: decodedToken.name ?? "Unknown User",
     email: decodedToken.email ?? "No Email",
-    roles: decodedToken.roles ?? [],
+    roles: decodedToken.realm_access.roles ?? [],
   };
 }
