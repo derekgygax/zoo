@@ -2,9 +2,14 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import jwt from "jsonwebtoken";
+
+// types
+import { User } from "@/types/auth";
+
 
 export async function loginWithKeycloak(): Promise<void> {
-  const url: string = `${process.env.KEYCLOAK_URL}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/auth?` +
+  const url: string = `${process.env.KEYCLOAK}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/auth?` +
     new URLSearchParams({
       client_id: process.env.KEYCLOAK_CLIENT_ID as string,
       redirect_uri: process.env.KEYCLOAK_REDIRECT_URI as string,
@@ -22,7 +27,6 @@ export async function logoutWithKeycloak(): Promise<void> {
 
   cookie.delete("keycloak_token");
 
-  const logoutUrl = `${process.env.KEYCLOAK_URL}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/logout?client_id=${process.env.KEYCLOAK_CLIENT_ID}&post_logout_redirect_uri=http://localhost:3000`;
 
   const formData = new URLSearchParams();
   formData.append("client_id", process.env.KEYCLOAK_CLIENT_ID!);
@@ -32,20 +36,17 @@ export async function logoutWithKeycloak(): Promise<void> {
     formData.append("refresh_token", refreshToken);
   }
 
-  const res = await fetch(`${process.env.KEYCLOAK_URL}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/logout`, {
+  await fetch(`${process.env.KEYCLOAK}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/logout`, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: formData
   });
 
-  console.log(res);
-  redirect(logoutUrl);
+  redirect("/");
 }
 
-
-
 export async function exchangeCodeForToken(code: string): Promise<string> {
-  const response = await fetch(`${process.env.KEYCLOAK_URL}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/token`, {
+  const response = await fetch(`${process.env.KEYCLOAK}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -67,13 +68,39 @@ export async function exchangeCodeForToken(code: string): Promise<string> {
   return data.access_token; // Return JWT token
 }
 
-export async function storeTokenInCookie(token: string) {
-  const cookie = await cookies();
-  cookie.set("access_token", token, {
-    httpOnly: true, // Prevents access from JavaScript (XSS protection)
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: 3600,
-    path: "/",
-  });
+
+/**
+ * Retrieves and decodes the JWT stored in cookies.
+ * @returns The decoded JWT payload or null if invalid/missing.
+ */
+async function getDecodedJWT(): Promise<jwt.JwtPayload | null> {
+  const cookieStore = await cookies();
+  const jwtToken = cookieStore.get("keycloak_token")?.value;
+
+  if (!jwtToken) return null;
+
+  try {
+    return jwt.decode(jwtToken) as jwt.JwtPayload;
+  } catch {
+    return null;
+  }
+}
+
+
+/**
+ * Extracts user information from the decoded JWT.
+ * @returns The user object or null if no valid JWT exists.
+ */
+export async function getLoggedInUser(): Promise<User | null> {
+  const decodedToken = await getDecodedJWT();
+
+  if (!decodedToken) return null;
+
+  // TODO figure out when you want roles
+  // pushed back and if you even do
+  return {
+    name: decodedToken.name ?? "Unknown User",
+    email: decodedToken.email ?? "No Email",
+    roles: decodedToken.roles ?? [],
+  };
 }

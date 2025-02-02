@@ -31,3 +31,47 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+.button {
+  cursor: pointer;
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  background-color: #f0f0f0;
+  color: #333;
+  font-size: 1.15rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    background-color: #333; // Dark background on hover
+    color: #fff; // White text on hover
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Add subtle shadow
+  }
+
+  &:active {
+    background-color: #555; // Slightly lighter gray for active state
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Reduced shadow
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #0078d4; // Focus border color (accessible blue)
+    box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.5); // Blue glow
+  }
+
+  &:disabled {
+    background-color: #e0e0e0;
+    color: #aaa;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+
+.disabledButton {
+  border: 1px solid vars.$grey;
+  background-color: vars.$light-grey;
+  color: black;
+}

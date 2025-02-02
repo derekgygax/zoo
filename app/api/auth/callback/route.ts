@@ -6,12 +6,12 @@ export async function GET(req: Request) {
   const code = searchParams.get("code");
 
   if (!code) {
-    return NextResponse.redirect("/auth/login?error=NoCode");
+    return NextResponse.redirect("/login?error=NoCode");
   }
 
   // Exchange the code for a token
   const tokenResponse = await fetch(
-    `${process.env.KEYCLOAK_URL}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/token`,
+    `${process.env.KEYCLOAK}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/token`,
     {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -30,10 +30,12 @@ export async function GET(req: Request) {
   }
 
   const tokenData = await tokenResponse.json();
-  console.log(tokenData);
   const response = NextResponse.redirect(new URL("/", req.url));
 
-  // Store the JWT in an HTTP-only cookie
+  // Store the tokens in an HTTP-only cookie
+  // MUST happen here
+  // cookies can only be set in response spots
+  // the import { cookies } from "next/headers"; is READ ONLY
   response.cookies.set("keycloak_token", tokenData.access_token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",

@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { useFormStatus } from "react-dom";
 
 // styles
-import styles from './SubmitFormButton.module.scss';
+import globalStyles from "@/styles/globals.module.scss";
 
 interface SubmitFormButtonProps {
   className?: string;
@@ -26,8 +26,8 @@ export const SubmitFormButton = (
     <button
       className={
         classNames(
-          pending || disabled ? styles.disabledButton : undefined,
-          styles.button,
+          pending || disabled ? globalStyles.disabledButton : undefined,
+          globalStyles.button,
           className
         )
       }

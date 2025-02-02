@@ -1,5 +1,6 @@
 
 export const enum ROLE {
   STAFF,
-  ADMIN
+  ADMIN,
+  GUEST
 }

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
-
-// PREEMPTIVE OPTIMIZATION IS THE ROOT OF EVIL
+import { Header } from "@/app/_components/header/Header";
 
 // global base styles to whole webiste
 import '@/styles/_base.scss'
@@ -19,6 +18,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
+        <Header />
         {children}
       </body>
     </html>
