@@ -1,34 +1,22 @@
 
 // types
 import { FormState } from "@/types/form";
-import { ModelIdentifier, ServiceModel } from "@/types/serviceModels";
-
-// master config
-import { FORM_DEPENDENCY_FIELD, SERVICE } from "@/config/master";
 
 // configs
 import { FORM_NAME } from "@/config/forms";
-import {
-  ANIMALS_SERVICE_MODEL,
-  FOOD_SERVICE_MODEL,
-  ENCLOSURES_SERVICE_MODEL,
-  BREEDING_SERVICE_MODEL,
-  REPORTS_SERVICE_MODEL,
-  STAFF_SERVICE_MODEL
-} from "./serviceModels";
 
 // server actions
-import { addAnimal, getAnimalIdentifiers, updateAnimal } from "@/app/_actions/animals-service/animals";
-import { addSpecie, getSpecieIdentifiers, updateSpecie } from "@/app/_actions/animals-service/specie";
-import { addEnclosureType, getEnclosureTypeIdentifiers, updateEnclosureType } from "@/app/_actions/enclosures-service/enclosure-types";
-import { addFoodType, getFoodTypeIdentifiers, updateFoodType } from "@/app/_actions/food-service/food-type";
-import { addStorageUnitType, getStorageUnitTypeIdentifiers, updateStorageUnitType } from "@/app/_actions/food-service/storage-unit-type";
-import { addStorageUnit, getStorageUnitIdentifiers, updateStorageUnit } from "@/app/_actions/food-service/storage-unit";
-import { addEnclosure, getEnclosureIdentifiers, updateEnclosure } from "@/app/_actions/enclosures-service/enclosures";
-import { addFoodStock, getFoodStockIdentifiers, updateFoodStock } from "@/app/_actions/food-service/food-stock";
-import { addStaff, getStaffIdentifiers, updateStaff } from "@/app/_actions/staff-service/staff";
-import { addDepartment, getDepartmentIdentifiers, updateDepartment } from "@/app/_actions/staff-service/departments";
-import { addStaffDepartment, getStaffDepartmentIdentifiers, updateStaffDepartment } from "@/app/_actions/staff-service/staff-departments";
+import { addAnimal, updateAnimal } from "@/app/_actions/animals-service/animals";
+import { addSpecie, updateSpecie } from "@/app/_actions/animals-service/specie";
+import { addEnclosureType, updateEnclosureType } from "@/app/_actions/enclosures-service/enclosure-types";
+import { addFoodType, updateFoodType } from "@/app/_actions/food-service/food-type";
+import { addStorageUnitType, updateStorageUnitType } from "@/app/_actions/food-service/storage-unit-type";
+import { addStorageUnit, updateStorageUnit } from "@/app/_actions/food-service/storage-unit";
+import { addEnclosure, updateEnclosure } from "@/app/_actions/enclosures-service/enclosures";
+import { addFoodStock, updateFoodStock } from "@/app/_actions/food-service/food-stock";
+import { addStaff, updateStaff } from "@/app/_actions/staff-service/staff";
+import { addDepartment, updateDepartment } from "@/app/_actions/staff-service/departments";
+import { addStaffDepartment, updateStaffDepartment } from "@/app/_actions/staff-service/staff-departments";
 
 export const FORM_ACTIONS: Record<FORM_NAME, (prevState: FormState, formData: FormData) => Promise<string[]>> = {
   [FORM_NAME.ADD_ANIMAL]: addAnimal,
