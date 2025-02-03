@@ -24,7 +24,7 @@ import { AnimalBase } from "@/types/animals-service";
 export const getAnimalBase = async (animalId: string): Promise<AnimalBase | undefined> => {
 
   const animal: AnimalBase | undefined = await getAPIRequest(
-    `${API_ENDPOINTS.animalsService.animals.index}/${animalId}`,
+    `${API_ENDPOINTS.animalsService.animals.index}/${animalId}/base`,
     undefined
   );
 

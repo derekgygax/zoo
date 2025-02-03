@@ -5,9 +5,12 @@ import { SelectorOption } from "@/types/form"
 import { ModelIdentifier, ServiceModel } from "@/types/serviceModels"
 
 // config
-import { MODEL_FETCHERS, MODEL_OPTIONS_FETCHERS } from "@/config/formActions"
+import {
+  MODEL_OPTIONS_FETCHERS
+} from "@/config/formActions"
 import { SERVICE, FORM_DEPENDENCY_FIELD } from "@/config/master";
 import { FORM_FIELD_TO_SERVICE_MODEL } from "@/config/forms";
+import { getServiceModelBaseById } from "./serviceHandlers";
 
 export const fetchModelOptions = async <S extends SERVICE>(
   service: S,
@@ -38,8 +41,7 @@ export const fetchModel = async <S extends SERVICE, T>(
 ): Promise<T | undefined> => {
   try {
 
-    const modelFetcher = MODEL_FETCHERS[service][modelName] as (id: string) => Promise<T | undefined>;
-    const model: T | undefined = await modelFetcher(modelId);
+    const model: T | undefined = await getServiceModelBaseById(service, modelName, modelId);
     return model;
 
   } catch (err) {

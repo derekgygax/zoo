@@ -88,35 +88,3 @@ export const MODEL_OPTIONS_FETCHERS: {
     [STAFF_SERVICE_MODEL.STAFF_DEPARTMENT]: getStaffDepartmentIdentifiers
   }
 };
-
-export const MODEL_FETCHERS: {
-  [S in SERVICE]: Record<ServiceModel<S>, (id: string) => Promise<unknown>>
-} = {
-  [SERVICE.ANIMALS]: {
-    [ANIMALS_SERVICE_MODEL.ANIMAL]: getAnimalBase,
-    [ANIMALS_SERVICE_MODEL.EVENT]: getAnimalBase,
-    [ANIMALS_SERVICE_MODEL.MEDICAL_RECORD]: getAnimalBase,
-    [ANIMALS_SERVICE_MODEL.SPECIE]: getSpecieBaseById
-  },
-  [SERVICE.FOOD]: {
-    [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitBaseById,
-    [FOOD_SERVICE_MODEL.FOOD_STOCK]: getFoodStockBaseById,
-    [FOOD_SERVICE_MODEL.FOOD_TYPE]: getFoodTypeBaseById,
-    [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnitTypeBaseById,
-  },
-  [SERVICE.ENCLOSURES]: {
-    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: getEnclosureBase,
-    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE]: getEnclosureTypeBaseById
-  },
-  [SERVICE.BREEDING]: {
-    [BREEDING_SERVICE_MODEL.LITTER]: getAnimalBase
-  },
-  [SERVICE.REPORTS]: {
-    [REPORTS_SERVICE_MODEL.REPORT]: getAnimalBase
-  },
-  [SERVICE.STAFF]: {
-    [STAFF_SERVICE_MODEL.STAFF]: getStaffBaseById,
-    [STAFF_SERVICE_MODEL.DEPARTMENT]: getDepartmentBaseById,
-    [STAFF_SERVICE_MODEL.STAFF_DEPARTMENT]: getStaffDepartmentBaseById
-  }
-}

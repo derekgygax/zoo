@@ -1,5 +1,47 @@
 // master config
 import { SERVICE, API_BASE_URLS } from "@/config/master";
+import {
+  ANIMALS_SERVICE_MODEL,
+  FOOD_SERVICE_MODEL,
+  ENCLOSURES_SERVICE_MODEL,
+  BREEDING_SERVICE_MODEL,
+  REPORTS_SERVICE_MODEL,
+  STAFF_SERVICE_MODEL
+} from "./serviceModels";
+import { ServiceModel } from "@/types/serviceModels";
+
+
+export const API_MODEL_ENDPOINTS: {
+  [S in SERVICE]: Record<ServiceModel<S>, string>
+} = {
+  [SERVICE.ANIMALS]: {
+    [ANIMALS_SERVICE_MODEL.ANIMAL]: "api/v1/animals",
+    [ANIMALS_SERVICE_MODEL.EVENT]: "api/v1/events",
+    [ANIMALS_SERVICE_MODEL.MEDICAL_RECORD]: "api/v1/medical-records",
+    [ANIMALS_SERVICE_MODEL.SPECIE]: "api/v1/species"
+  },
+  [SERVICE.FOOD]: {
+    [FOOD_SERVICE_MODEL.STORAGE_UNIT]: "/api/v1/storage-units",
+    [FOOD_SERVICE_MODEL.FOOD_STOCK]: "/api/v1/food-stocks",
+    [FOOD_SERVICE_MODEL.FOOD_TYPE]: "/api/v1/food-types",
+    [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: "/api/v1/storage-unit-types",
+  },
+  [SERVICE.ENCLOSURES]: {
+    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: "/api/v1/enclosures",
+    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE]: "/api/v1/enclosure-types"
+  },
+  [SERVICE.BREEDING]: {
+    [BREEDING_SERVICE_MODEL.LITTER]: "/api/v1/litters"
+  },
+  [SERVICE.REPORTS]: {
+    [REPORTS_SERVICE_MODEL.REPORT]: "/api/v1/reports"
+  },
+  [SERVICE.STAFF]: {
+    [STAFF_SERVICE_MODEL.STAFF]: "/api/v1/staff",
+    [STAFF_SERVICE_MODEL.DEPARTMENT]: "/api/v1/departments",
+    [STAFF_SERVICE_MODEL.STAFF_DEPARTMENT]: "/api/v1/staff-departments"
+  }
+}
 
 const API_INDEX = {
   animalsService: {
