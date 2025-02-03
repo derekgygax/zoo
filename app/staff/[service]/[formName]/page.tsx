@@ -17,7 +17,7 @@ import { ZodForm } from "@/app/_components/zodForm/ZodForm";
 
 // local client components
 // TODO I HATE THIS STRUCTURING!!!
-import { UpdateForm } from "@/app/_components/updateModel/UpdateModel";
+import { UpdateModel } from "@/app/_components/updateModel/UpdateModel";
 
 // layouts
 import { PageSection } from "@/app/_layouts/pageSection/PageSection";
@@ -72,7 +72,7 @@ export default async function StaffServiceFormPage({ params }: StaffServiceFormP
   // Add:
   //    Directly put in the form
   // Update:
-  //    Go to the UpdateForm Component to retrieve the options for the modle
+  //    Go to the UpdateModel Component to retrieve the options for the modle
   let pageContent: React.ReactNode;
   if (formConfig.type === FORM_TYPE.ADD) {
     pageContent = (
@@ -86,6 +86,18 @@ export default async function StaffServiceFormPage({ params }: StaffServiceFormP
           {
             name: "formName",
             value: formConfig.name
+          },
+          {
+            name: "service",
+            value: service
+          },
+          {
+            name: "model",
+            value: formConfig.model
+          },
+          {
+            name: "formType",
+            value: formConfig.type
           }
         ]}
         zodSchemaName={formConfig.zodSchemaName}
@@ -107,7 +119,7 @@ export default async function StaffServiceFormPage({ params }: StaffServiceFormP
     ) : [];
 
     pageContent = (
-      <UpdateForm
+      <UpdateModel
         modelOptions={modelOptions}
         formConfig={formConfig}
         dependenciesOptions={dependenciesOptions}

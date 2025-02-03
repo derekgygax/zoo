@@ -2,14 +2,20 @@
 
 // config
 import { SERVICE } from "@/config/master";
+import { API_MODEL_ENDPOINTS } from "@/config/apis";
+import { FORM_SCHEMA_NAME, MODEL_TO_FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 
 // types
+import { HTTP_METHOD } from "@/types/httpMethod";
+import { ModelIdentifier } from "@/types/serviceModels";
 import { ServiceModel } from "@/types/serviceModels";
-import { API_MODEL_ENDPOINTS } from "@/config/apis";
 
-import { getAPIRequest } from "@/lib/utils/server/api";
-import { ModelIdentifier } from "@/types/animals-service";
+// server action utils
+import { deserializeFormData } from "@/app/_actions/utils";
 
+// lib utils
+import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
+import { snakeToTitleCase } from "@/lib/utils/general";
 
 export const getServiceModelBaseById = async <T, S extends SERVICE>(
   service: S,
@@ -36,4 +42,58 @@ export const getModelIdentifiers = async<S extends SERVICE>(
   );
 
   return modelIdentifiers;
+}
+
+const saveModel = async<T, S extends SERVICE>(
+  service: S,
+  modelName: ServiceModel<S>,
+  formData: FormData,
+  endPoint: string,
+  httpMethod: HTTP_METHOD
+) => {
+  const zodSchema = ZOD_SCHEMAS[MODEL_TO_FORM_SCHEMA_NAME[modelName] as FORM_SCHEMA_NAME];
+
+  const model: T = await deserializeFormData(formData, zodSchema) as T;
+
+  await sendAPIRequest(
+    endPoint,
+    httpMethod,
+    model
+  );
+
+  return [
+    `${snakeToTitleCase(modelName)} in the ${service} saved.`
+  ];
+}
+
+export const addModel = async<T, S extends SERVICE>(
+  service: S,
+  modelName: ServiceModel<S>,
+  formData: FormData,
+) => {
+
+  return saveModel<T, S>(
+    service,
+    modelName,
+    formData,
+    `${process.env.API_GATEWAY}/${service}/${API_MODEL_ENDPOINTS[service][modelName]}`,
+    HTTP_METHOD.POST
+  )
+}
+
+export const updateModel = async<T, S extends SERVICE>(
+  service: S,
+  modelName: ServiceModel<S>,
+  formData: FormData,
+) => {
+
+  const modelId = formData.get("id");
+
+  return saveModel<T, S>(
+    service,
+    modelName,
+    formData,
+    `${process.env.API_GATEWAY}/${service}/${API_MODEL_ENDPOINTS[service][modelName]}/${modelId}`,
+    HTTP_METHOD.PUT
+  )
 }

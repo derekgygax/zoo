@@ -35,7 +35,7 @@ interface UpdateFormProps {
   dependenciesOptions: Record<string, SelectorOption[]>;
 }
 
-export const UpdateForm = <T extends Record<string, unknown> | undefined>({ modelOptions, formConfig, dependenciesOptions }: UpdateFormProps) => {
+export const UpdateModel = <T extends Record<string, unknown> | undefined>({ modelOptions, formConfig, dependenciesOptions }: UpdateFormProps) => {
 
   const router = useRouter();
 
@@ -89,6 +89,18 @@ export const UpdateForm = <T extends Record<string, unknown> | undefined>({ mode
     {
       name: "formName",
       value: formConfig.name
+    },
+    {
+      name: "service",
+      value: formConfig.service
+    },
+    {
+      name: "model",
+      value: formConfig.model
+    },
+    {
+      name: "formType",
+      value: formConfig.type
     }
   ] : [];
 

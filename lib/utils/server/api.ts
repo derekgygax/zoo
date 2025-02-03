@@ -81,13 +81,7 @@ export const sendAPIRequest = async (
   //   }
   // ).trim();
 
-  // TODO this is some absolute bullshit that you do NOT want
-  // to keep around but for some reason it is NECESSARY for kong to work
-  // I am sure you are doing something fucked
-  // but this is your solution for now
-  // TODO IDK why it needs that trailing / but it stupidly DOES!
-  // TODO i am sure it is your fault but you can't think of why!!
-  url = url + "/"
+  console.log("\n", url, "\n");
 
   try {
 

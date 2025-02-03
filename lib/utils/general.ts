@@ -5,6 +5,13 @@ export const capitalizeFirstLetter = (s: string): string => {
   return s.charAt(0).toUpperCase() + s.slice(1)
 };
 
+export const snakeToTitleCase = (snakeCase: string): string => {
+  return snakeCase
+    .split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 export const toSelectorOptions = <T>(
   field: string,
   items: T[] | string[],

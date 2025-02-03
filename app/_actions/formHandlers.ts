@@ -1,12 +1,14 @@
 "use server"
 
-import { FORM_NAME } from "@/config/forms";
+import { SERVICE } from "@/config/master";
 // types
 import {
   FormState,
 } from "@/types/form";
 
-import { FORM_ACTIONS } from "@/config/formActions";
+import { ServiceModel } from "@/types/serviceModels";
+import { addModel, updateModel } from "./serviceHandlers";
+import { FORM_TYPE } from "@/config/forms";
 
 
 export const formServerAction = async (prevState: FormState, formData: FormData): Promise<FormState> => {
@@ -14,12 +16,16 @@ export const formServerAction = async (prevState: FormState, formData: FormData)
   // This is a hidden field in the form
   // so you know what you are working with
   // and can direct it the correct way
-  const formName = formData.get("formName") as FORM_NAME;
-
-  const action = FORM_ACTIONS[formName];
+  const service = formData.get("service") as SERVICE;
+  const modelName = formData.get("model") as ServiceModel<SERVICE>;
+  const formType = formData.get("formType") as FORM_TYPE;
 
   try {
-    const message: string[] = await action(prevState, formData);
+    const message: string[] = formType == FORM_TYPE.ADD ? (
+      await addModel(service, modelName, formData)
+    ) : (
+      await updateModel(service, modelName, formData)
+    );
 
     return {
       success: true,

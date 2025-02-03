@@ -5,8 +5,10 @@ import { FORM_DEPENDENCY_FIELD, SERVICE } from "@/config/master";
 // service models config
 import {
   ANIMALS_SERVICE_MODEL,
+  BREEDING_SERVICE_MODEL,
   ENCLOSURES_SERVICE_MODEL,
   FOOD_SERVICE_MODEL,
+  REPORTS_SERVICE_MODEL,
   SERVICE_MODELS,
   STAFF_SERVICE_MODEL,
 } from "./serviceModels";
@@ -57,6 +59,28 @@ export enum FORM_SCHEMA_NAME {
   STAFF_DEPARTMENT_BASE = "StaffDepartmentBase"
 }
 
+// TODO
+// temporary just to make it easy for now
+// ALSO THINGS ARE FUCKED
+export const MODEL_TO_FORM_SCHEMA_NAME: Record<ServiceModel<SERVICE>, FORM_SCHEMA_NAME> = {
+  [ANIMALS_SERVICE_MODEL.ANIMAL]: FORM_SCHEMA_NAME.ANIMAL_BASE,
+  [ANIMALS_SERVICE_MODEL.SPECIE]: FORM_SCHEMA_NAME.SPECIE_BASE,
+  [ANIMALS_SERVICE_MODEL.EVENT]: FORM_SCHEMA_NAME.SPECIE_BASE,
+  [ANIMALS_SERVICE_MODEL.MEDICAL_RECORD]: FORM_SCHEMA_NAME.SPECIE_BASE,
+  [ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE]: FORM_SCHEMA_NAME.ENCLOSURE_TYPE_BASE,
+  [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: FORM_SCHEMA_NAME.ENCLOSURE_BASE,
+  [FOOD_SERVICE_MODEL.FOOD_STOCK]: FORM_SCHEMA_NAME.FOOD_STOCK_BASE,
+  [FOOD_SERVICE_MODEL.FOOD_TYPE]: FORM_SCHEMA_NAME.FOOD_TYPE_BASE,
+  [FOOD_SERVICE_MODEL.STORAGE_UNIT]: FORM_SCHEMA_NAME.STORAGE_UNIT_BASE,
+  [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE,
+  [STAFF_SERVICE_MODEL.DEPARTMENT]: FORM_SCHEMA_NAME.DEPARTMENT_BASE,
+  [STAFF_SERVICE_MODEL.STAFF]: FORM_SCHEMA_NAME.STAFF_BASE,
+  [STAFF_SERVICE_MODEL.STAFF_DEPARTMENT]: FORM_SCHEMA_NAME.STAFF_DEPARTMENT_BASE,
+  [BREEDING_SERVICE_MODEL.LITTER]: FORM_SCHEMA_NAME.ANIMAL_BASE,
+  [REPORTS_SERVICE_MODEL.REPORT]: FORM_SCHEMA_NAME.ANIMAL_BASE,
+}
+
+
 // THESE NEED TO BE SEPARATED BY MODEL!!!
 // STORAGE UNIT IS LIKE HUH!!
 export enum FORM_NAME {
@@ -97,6 +121,7 @@ export const FORM_CONFIGS: FormConfigs = {
     name: FORM_NAME.ADD_ANIMAL,
     type: FORM_TYPE.ADD,
     label: "Add Animal",
+    model: ANIMALS_SERVICE_MODEL.ANIMAL,
     zodSchemaName: FORM_SCHEMA_NAME.ANIMAL_BASE,
     fieldsRequiringFetchedData: animalServiceFieldsRequiringFetching[FORM_SCHEMA_NAME.ANIMAL_BASE],
     selectionScreenUrl: SITE_URLS.staff[SERVICE.ANIMALS].index
@@ -116,6 +141,7 @@ export const FORM_CONFIGS: FormConfigs = {
     name: FORM_NAME.ADD_SPECIE,
     type: FORM_TYPE.ADD,
     label: "Add Specie",
+    model: ANIMALS_SERVICE_MODEL.SPECIE,
     zodSchemaName: FORM_SCHEMA_NAME.SPECIE_BASE,
     fieldsRequiringFetchedData: [],
     selectionScreenUrl: SITE_URLS.staff[SERVICE.ANIMALS].index
@@ -135,6 +161,7 @@ export const FORM_CONFIGS: FormConfigs = {
     name: FORM_NAME.ADD_ENCLOSURE_TYPE,
     type: FORM_TYPE.ADD,
     label: "Add Enclosure Type",
+    model: ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE,
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_TYPE_BASE,
     fieldsRequiringFetchedData: [],
     selectionScreenUrl: SITE_URLS.staff[SERVICE.ENCLOSURES].index
@@ -154,6 +181,7 @@ export const FORM_CONFIGS: FormConfigs = {
     name: FORM_NAME.ADD_ENCLOSURE,
     type: FORM_TYPE.ADD,
     label: "Add Enclosure",
+    model: ENCLOSURES_SERVICE_MODEL.ENCLOSURE,
     zodSchemaName: FORM_SCHEMA_NAME.ENCLOSURE_BASE,
     fieldsRequiringFetchedData: enclosureServiceFieldsRequiringFetching[FORM_SCHEMA_NAME.ENCLOSURE_BASE],
     selectionScreenUrl: SITE_URLS.staff[SERVICE.ENCLOSURES].index
@@ -173,6 +201,7 @@ export const FORM_CONFIGS: FormConfigs = {
     name: FORM_NAME.ADD_STORAGE_UNIT_TYPE,
     type: FORM_TYPE.ADD,
     label: "Add Storage Unit Type",
+    model: FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE,
     zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE,
     fieldsRequiringFetchedData: [],
     selectionScreenUrl: SITE_URLS.staff[SERVICE.FOOD].index
@@ -192,6 +221,7 @@ export const FORM_CONFIGS: FormConfigs = {
     name: FORM_NAME.ADD_STORAGE_UNIT,
     type: FORM_TYPE.ADD,
     label: "Add Storage Unit",
+    model: FOOD_SERVICE_MODEL.STORAGE_UNIT,
     zodSchemaName: FORM_SCHEMA_NAME.STORAGE_UNIT_BASE,
     fieldsRequiringFetchedData: foodServiceFieldsRequiringFetching[FORM_SCHEMA_NAME.STORAGE_UNIT_BASE],
     selectionScreenUrl: SITE_URLS.staff[SERVICE.FOOD].index
@@ -211,6 +241,7 @@ export const FORM_CONFIGS: FormConfigs = {
     name: FORM_NAME.ADD_FOOD_TYPE,
     type: FORM_TYPE.ADD,
     label: "Add Food Type",
+    model: FOOD_SERVICE_MODEL.FOOD_TYPE,
     zodSchemaName: FORM_SCHEMA_NAME.FOOD_TYPE_BASE,
     fieldsRequiringFetchedData: [],
     selectionScreenUrl: SITE_URLS.staff[SERVICE.FOOD].index
@@ -230,6 +261,7 @@ export const FORM_CONFIGS: FormConfigs = {
     name: FORM_NAME.ADD_FOOD_STOCK,
     type: FORM_TYPE.ADD,
     label: "Add Food Stock",
+    model: FOOD_SERVICE_MODEL.FOOD_STOCK,
     zodSchemaName: FORM_SCHEMA_NAME.FOOD_STOCK_BASE,
     fieldsRequiringFetchedData: foodServiceFieldsRequiringFetching[FORM_SCHEMA_NAME.FOOD_STOCK_BASE],
     selectionScreenUrl: SITE_URLS.staff[SERVICE.FOOD].index
@@ -249,6 +281,7 @@ export const FORM_CONFIGS: FormConfigs = {
     name: FORM_NAME.ADD_STAFF,
     type: FORM_TYPE.ADD,
     label: "Add Staff Member",
+    model: STAFF_SERVICE_MODEL.STAFF,
     zodSchemaName: FORM_SCHEMA_NAME.STAFF_BASE,
     fieldsRequiringFetchedData: [],
     selectionScreenUrl: SITE_URLS.staff[SERVICE.STAFF].index
@@ -268,6 +301,7 @@ export const FORM_CONFIGS: FormConfigs = {
     name: FORM_NAME.ADD_DEPARTMENT,
     type: FORM_TYPE.ADD,
     label: "Add Department",
+    model: STAFF_SERVICE_MODEL.DEPARTMENT,
     zodSchemaName: FORM_SCHEMA_NAME.DEPARTMENT_BASE,
     fieldsRequiringFetchedData: [],
     selectionScreenUrl: SITE_URLS.staff[SERVICE.STAFF].index
@@ -287,6 +321,7 @@ export const FORM_CONFIGS: FormConfigs = {
     name: FORM_NAME.ADD_STAFF_DEPARTMENT,
     type: FORM_TYPE.ADD,
     label: "Add Staff to a Department",
+    model: STAFF_SERVICE_MODEL.STAFF_DEPARTMENT,
     zodSchemaName: FORM_SCHEMA_NAME.STAFF_DEPARTMENT_BASE,
     fieldsRequiringFetchedData: staffServiceFieldsRequiringFetching[FORM_SCHEMA_NAME.STAFF_DEPARTMENT_BASE],
     selectionScreenUrl: SITE_URLS.staff[SERVICE.STAFF].index

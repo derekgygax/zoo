@@ -38,7 +38,7 @@ export type FormConfig<K extends FORM_NAME> = {
   zodSchemaName: FORM_SCHEMA_NAME;
   fieldsRequiringFetchedData: FORM_DEPENDENCY_FIELD[];
   // TODO lazy typing, can make stronger
-  model?: ServiceModel<SERVICE>;
+  model: ServiceModel<SERVICE>;
   // TODO fix this name. its a dumb shit you put in when you were tired
   selectionScreenUrl: string;
 };
