@@ -3,7 +3,7 @@
 // config
 import { SERVICE } from "@/config/master";
 import { API_MODEL_ENDPOINTS } from "@/config/apis";
-import { FORM_SCHEMA_NAME, MODEL_TO_FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
+import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 
 // types
 import { HTTP_METHOD } from "@/types/httpMethod";
@@ -48,10 +48,11 @@ const saveModel = async<T, S extends SERVICE>(
   service: S,
   modelName: ServiceModel<S>,
   formData: FormData,
+  zodSchemaName: FORM_SCHEMA_NAME,
   endPoint: string,
   httpMethod: HTTP_METHOD
 ) => {
-  const zodSchema = ZOD_SCHEMAS[MODEL_TO_FORM_SCHEMA_NAME[modelName] as FORM_SCHEMA_NAME];
+  const zodSchema = ZOD_SCHEMAS[zodSchemaName];
 
   const model: T = await deserializeFormData(formData, zodSchema) as T;
 
@@ -69,6 +70,7 @@ const saveModel = async<T, S extends SERVICE>(
 export const addModel = async<T, S extends SERVICE>(
   service: S,
   modelName: ServiceModel<S>,
+  zodSchemaName: FORM_SCHEMA_NAME,
   formData: FormData,
 ) => {
 
@@ -76,6 +78,7 @@ export const addModel = async<T, S extends SERVICE>(
     service,
     modelName,
     formData,
+    zodSchemaName,
     `${process.env.API_GATEWAY}/${service}/${API_MODEL_ENDPOINTS[service][modelName]}`,
     HTTP_METHOD.POST
   )
@@ -84,6 +87,7 @@ export const addModel = async<T, S extends SERVICE>(
 export const updateModel = async<T, S extends SERVICE>(
   service: S,
   modelName: ServiceModel<S>,
+  zodSchemaName: FORM_SCHEMA_NAME,
   formData: FormData,
 ) => {
 
@@ -93,6 +97,7 @@ export const updateModel = async<T, S extends SERVICE>(
     service,
     modelName,
     formData,
+    zodSchemaName,
     `${process.env.API_GATEWAY}/${service}/${API_MODEL_ENDPOINTS[service][modelName]}/${modelId}`,
     HTTP_METHOD.PUT
   )
