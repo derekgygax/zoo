@@ -10,21 +10,12 @@ import { API_ENDPOINTS } from "@/config/apis";
 import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 import { StorageUnitTypeBase } from "@/types/food-service";
-import { ModelIdentifier } from "@/types/serviceModels";
 
 // action utils
 import { deserializeFormData } from "@/app/_actions/utils";
 
 // lib utils
-import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
-
-export const getStorageUnitTypeIdentifiers = async (): Promise<ModelIdentifier[]> => {
-  const storageUnitIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
-    API_ENDPOINTS.foodService.storageUnitTypes.identifiers,
-    []
-  );
-  return storageUnitIdentifiers;
-}
+import { sendAPIRequest } from "@/lib/utils/server/api";
 
 export const addStorageUnitType = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.STORAGE_UNIT_TYPE_BASE];

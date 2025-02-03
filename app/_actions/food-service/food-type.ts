@@ -10,31 +10,12 @@ import { API_ENDPOINTS } from "@/config/apis";
 import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
 import { FoodTypeBase } from "@/types/food-service";
-import { ModelIdentifier } from "@/types/serviceModels";
 
 // action utils
 import { deserializeFormData } from "@/app/_actions/utils";
 
 // lib utils
-import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
-
-
-export const getFoodTypeIds = async (): Promise<string[]> => {
-  const foodTypes: string[] = await getAPIRequest(
-    API_ENDPOINTS.foodService.foodTypes.ids,
-    []
-  );
-
-  return foodTypes
-}
-
-export const getFoodTypeIdentifiers = async (): Promise<ModelIdentifier[]> => {
-  const foodTypeIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
-    API_ENDPOINTS.foodService.foodTypes.identifiers,
-    []
-  );
-  return foodTypeIdentifiers;
-}
+import { sendAPIRequest } from "@/lib/utils/server/api";
 
 export const addFoodType = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.FOOD_TYPE_BASE];

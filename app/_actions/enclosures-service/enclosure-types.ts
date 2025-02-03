@@ -8,22 +8,12 @@ import { API_ENDPOINTS } from "@/config/apis";
 import { EnclosureTypeBase } from "@/types/enclosures-service";
 import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
-import { ModelIdentifier } from "@/types/serviceModels";
 
 // utils _action
 import { deserializeFormData } from "@/app/_actions/utils";
 
 // utils lib
-import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
-
-
-export const getEnclosureTypeIdentifiers = async (): Promise<ModelIdentifier[]> => {
-  const enclosureTypeIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
-    API_ENDPOINTS.enclosuresService.enclosureTypes.identifiers,
-    []
-  );
-  return enclosureTypeIdentifiers;
-}
+import { sendAPIRequest } from "@/lib/utils/server/api";
 
 // Server Actions to forms
 // The functional part of the action

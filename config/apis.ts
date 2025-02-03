@@ -21,25 +21,25 @@ export const API_MODEL_ENDPOINTS: {
     [ANIMALS_SERVICE_MODEL.SPECIE]: "api/v1/species"
   },
   [SERVICE.FOOD]: {
-    [FOOD_SERVICE_MODEL.STORAGE_UNIT]: "/api/v1/storage-units",
-    [FOOD_SERVICE_MODEL.FOOD_STOCK]: "/api/v1/food-stocks",
-    [FOOD_SERVICE_MODEL.FOOD_TYPE]: "/api/v1/food-types",
+    [FOOD_SERVICE_MODEL.STORAGE_UNIT]: "api/v1/storage-units",
+    [FOOD_SERVICE_MODEL.FOOD_STOCK]: "api/v1/food-stocks",
+    [FOOD_SERVICE_MODEL.FOOD_TYPE]: "api/v1/food-types",
     [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: "/api/v1/storage-unit-types",
   },
   [SERVICE.ENCLOSURES]: {
-    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: "/api/v1/enclosures",
-    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE]: "/api/v1/enclosure-types"
+    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: "api/v1/enclosures",
+    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE]: "api/v1/enclosure-types"
   },
   [SERVICE.BREEDING]: {
-    [BREEDING_SERVICE_MODEL.LITTER]: "/api/v1/litters"
+    [BREEDING_SERVICE_MODEL.LITTER]: "api/v1/litters"
   },
   [SERVICE.REPORTS]: {
-    [REPORTS_SERVICE_MODEL.REPORT]: "/api/v1/reports"
+    [REPORTS_SERVICE_MODEL.REPORT]: "api/v1/reports"
   },
   [SERVICE.STAFF]: {
-    [STAFF_SERVICE_MODEL.STAFF]: "/api/v1/staff",
-    [STAFF_SERVICE_MODEL.DEPARTMENT]: "/api/v1/departments",
-    [STAFF_SERVICE_MODEL.STAFF_DEPARTMENT]: "/api/v1/staff-departments"
+    [STAFF_SERVICE_MODEL.STAFF]: "api/v1/staff",
+    [STAFF_SERVICE_MODEL.DEPARTMENT]: "api/v1/departments",
+    [STAFF_SERVICE_MODEL.STAFF_DEPARTMENT]: "api/v1/staff-departments"
   }
 }
 

@@ -8,21 +8,12 @@ import { API_ENDPOINTS } from "@/config/apis";
 import { EnclosureBase } from "@/types/enclosures-service";
 import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
-import { ModelIdentifier } from "@/types/serviceModels";
 
 // server actions
 import { deserializeFormData } from "@/app/_actions/utils"
 
 // utils
-import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
-
-export const getEnclosureIdentifiers = async (): Promise<ModelIdentifier[]> => {
-  const enclosureIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
-    API_ENDPOINTS.enclosuresService.enclosures.identifiers,
-    []
-  );
-  return enclosureIdentifiers;
-}
+import { sendAPIRequest } from "@/lib/utils/server/api";
 
 // Form server actions
 export const addEnclosure = async (prevState: FormState, formData: FormData) => {

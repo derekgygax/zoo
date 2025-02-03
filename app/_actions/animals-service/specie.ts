@@ -9,7 +9,6 @@ import { API_ENDPOINTS } from "@/config/apis";
 // types
 import { FormState } from "@/types/form";
 import { HTTP_METHOD } from "@/types/httpMethod";
-import { ModelIdentifier } from "@/types/serviceModels";
 
 // action utils
 import { deserializeFormData } from "@/app/_actions/utils";
@@ -18,36 +17,7 @@ import { deserializeFormData } from "@/app/_actions/utils";
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
 // types
-import { Specie, SpecieBase } from "@/types/animals-service";
-
-
-export const getSpecies = async (): Promise<Specie[]> => {
-
-  const species: Specie[] = await getAPIRequest(
-    API_ENDPOINTS.animalsService.species.index,
-    []
-  );
-
-  return species
-}
-
-export const getSpecieIdentifiers = async (): Promise<ModelIdentifier[]> => {
-  const specieIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
-    API_ENDPOINTS.animalsService.species.identifiers,
-    []
-  )
-  return specieIdentifiers;
-}
-
-export const getSpeciesBases = async (): Promise<SpecieBase[]> => {
-
-  const species: SpecieBase[] = await getAPIRequest(
-    API_ENDPOINTS.animalsService.species.bases,
-    []
-  );
-
-  return species
-}
+import { SpecieBase } from "@/types/animals-service";
 
 export const getSpecieBaseById = async (specieId: string): Promise<SpecieBase | undefined> => {
   const specie: SpecieBase | undefined = await getAPIRequest<SpecieBase | undefined>(

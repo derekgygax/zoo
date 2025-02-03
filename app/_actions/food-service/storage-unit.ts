@@ -15,16 +15,7 @@ import { StorageUnitBase } from "@/types/food-service";
 import { deserializeFormData } from "@/app/_actions/utils";
 
 // lib utils
-import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
-import { ModelIdentifier } from "@/types/animals-service";
-
-export const getStorageUnitIdentifiers = async (): Promise<ModelIdentifier[]> => {
-  const storageUnitIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
-    API_ENDPOINTS.foodService.storageUnits.identifiers,
-    []
-  );
-  return storageUnitIdentifiers;
-}
+import { sendAPIRequest } from "@/lib/utils/server/api";
 
 export const addStorageUnit = async (prevState: FormState, formData: FormData) => {
 

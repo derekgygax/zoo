@@ -2,7 +2,6 @@
 
 // types
 import { StaffDepartmentBase } from "@/types/staff-service";
-import { ModelIdentifier } from "@/types/serviceModels";
 import { HTTP_METHOD } from "@/types/httpMethod";
 import { FormState } from "@/types/form";
 
@@ -12,15 +11,7 @@ import { API_ENDPOINTS } from "@/config/apis";
 // aciton utils
 import { deserializeFormData } from "@/app/_actions/utils";
 import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
-import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
-
-export const getStaffDepartmentIdentifiers = async (): Promise<ModelIdentifier[]> => {
-  const staffDepartmentIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
-    API_ENDPOINTS.staffService.staffDepartments.identifiers,
-    []
-  );
-  return staffDepartmentIdentifiers;
-}
+import { sendAPIRequest } from "@/lib/utils/server/api";
 
 export const addStaffDepartment = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.STAFF_DEPARTMENT_BASE];

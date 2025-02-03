@@ -54,37 +54,3 @@ export const FORM_ACTIONS: Record<FORM_NAME, (prevState: FormState, formData: Fo
   [FORM_NAME.ADD_STAFF_DEPARTMENT]: addStaffDepartment,
   [FORM_NAME.UPDATE_STAFF_DEPARTMENT]: updateStaffDepartment,
 }
-
-// This is a reference object
-// How to retrieve the values of the model you are updating
-export const MODEL_OPTIONS_FETCHERS: {
-  [S in SERVICE]: Record<ServiceModel<S>, () => Promise<ModelIdentifier[]>>
-} = {
-  [SERVICE.ANIMALS]: {
-    [ANIMALS_SERVICE_MODEL.ANIMAL]: getAnimalIdentifiers,
-    [ANIMALS_SERVICE_MODEL.EVENT]: getAnimalIdentifiers,
-    [ANIMALS_SERVICE_MODEL.MEDICAL_RECORD]: getAnimalIdentifiers,
-    [ANIMALS_SERVICE_MODEL.SPECIE]: getSpecieIdentifiers
-  },
-  [SERVICE.FOOD]: {
-    [FOOD_SERVICE_MODEL.STORAGE_UNIT]: getStorageUnitIdentifiers,
-    [FOOD_SERVICE_MODEL.FOOD_STOCK]: getFoodStockIdentifiers,
-    [FOOD_SERVICE_MODEL.FOOD_TYPE]: getFoodTypeIdentifiers,
-    [FOOD_SERVICE_MODEL.STORAGE_UNIT_TYPE]: getStorageUnitTypeIdentifiers,
-  },
-  [SERVICE.ENCLOSURES]: {
-    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE]: getEnclosureIdentifiers,
-    [ENCLOSURES_SERVICE_MODEL.ENCLOSURE_TYPE]: getEnclosureTypeIdentifiers
-  },
-  [SERVICE.BREEDING]: {
-    [BREEDING_SERVICE_MODEL.LITTER]: getAnimalIdentifiers
-  },
-  [SERVICE.REPORTS]: {
-    [REPORTS_SERVICE_MODEL.REPORT]: getAnimalIdentifiers
-  },
-  [SERVICE.STAFF]: {
-    [STAFF_SERVICE_MODEL.STAFF]: getStaffIdentifiers,
-    [STAFF_SERVICE_MODEL.DEPARTMENT]: getDepartmentIdentifiers,
-    [STAFF_SERVICE_MODEL.STAFF_DEPARTMENT]: getStaffDepartmentIdentifiers
-  }
-};

@@ -15,19 +15,10 @@ import { ModelIdentifier } from "@/types/serviceModels";
 import { deserializeFormData } from "@/app/_actions/utils";
 
 // lib utils
-import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
+import { sendAPIRequest } from "@/lib/utils/server/api";
 
 // types
 import { AnimalBase } from "@/types/animals-service";
-
-
-export const getAnimalIdentifiers = async (): Promise<ModelIdentifier[]> => {
-  const animalIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
-    API_ENDPOINTS.animalsService.animals.identifiers,
-    []
-  );
-  return animalIdentifiers;
-}
 
 // Server Actions to forms
 // The functional part of the action
