@@ -36,14 +36,6 @@ export const getFoodTypeIdentifiers = async (): Promise<ModelIdentifier[]> => {
   return foodTypeIdentifiers;
 }
 
-export const getFoodTypeBaseById = async (foodTypeId: string): Promise<FoodTypeBase | undefined> => {
-  const foodType: FoodTypeBase | undefined = await getAPIRequest<FoodTypeBase | undefined>(
-    `${API_ENDPOINTS.foodService.foodTypes.index}/${foodTypeId}/base`,
-    undefined
-  );
-  return foodType;
-}
-
 export const addFoodType = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.FOOD_TYPE_BASE];
 

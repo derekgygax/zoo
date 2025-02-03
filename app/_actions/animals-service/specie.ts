@@ -20,16 +20,6 @@ import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 // types
 import { Specie, SpecieBase } from "@/types/animals-service";
 
-// A simple request call to get the animal by the id
-export const getSpecie = async (specieId: string): Promise<SpecieBase | undefined> => {
-
-  const specie: SpecieBase | undefined = await getAPIRequest(
-    `${API_ENDPOINTS.animalsService.species.index}/${specieId}`,
-    undefined
-  );
-
-  return specie;
-}
 
 export const getSpecies = async (): Promise<Specie[]> => {
 

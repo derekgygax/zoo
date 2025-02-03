@@ -13,17 +13,6 @@ import { API_ENDPOINTS } from "@/config/apis";
 import { deserializeFormData } from "@/app/_actions/utils";
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
-// TODO ID should be UUID!!
-// put that everywhere, even where the id is retrieved!! before calling this function!!
-export const getDepartmentBaseById = async (departmentId: string): Promise<DepartmentBase | undefined> => {
-  const department: DepartmentBase | undefined = await getAPIRequest(
-    `${API_ENDPOINTS.staffService.departments.index}/${departmentId}/base`,
-    undefined
-  )
-
-  return department;
-}
-
 export const getDepartmentIdentifiers = async (): Promise<ModelIdentifier[]> => {
   const departmentIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
     API_ENDPOINTS.staffService.departments.identifiers,

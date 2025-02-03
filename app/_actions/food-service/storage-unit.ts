@@ -18,14 +18,6 @@ import { deserializeFormData } from "@/app/_actions/utils";
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 import { ModelIdentifier } from "@/types/animals-service";
 
-export const getStorageUnitBaseById = async (storageUnitId: string): Promise<StorageUnitBase | undefined> => {
-  const storageUnit: StorageUnitBase | undefined = await getAPIRequest(
-    `${API_ENDPOINTS.foodService.storageUnits.index}/${storageUnitId}/base`,
-    undefined
-  )
-  return storageUnit;
-}
-
 export const getStorageUnitIdentifiers = async (): Promise<ModelIdentifier[]> => {
   const storageUnitIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
     API_ENDPOINTS.foodService.storageUnits.identifiers,

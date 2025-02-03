@@ -17,31 +17,12 @@ import { deserializeFormData } from "@/app/_actions/utils";
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
 
-// Get the enclosure types from the enclosures service
-export const getEnclosureTypeKeys = async (): Promise<string[]> => {
-
-  const enclosureTypes: string[] = await getAPIRequest(
-    API_ENDPOINTS.enclosuresService.enclosureTypes.ids,
-    []
-  )
-
-  return enclosureTypes;
-}
-
 export const getEnclosureTypeIdentifiers = async (): Promise<ModelIdentifier[]> => {
   const enclosureTypeIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
     API_ENDPOINTS.enclosuresService.enclosureTypes.identifiers,
     []
   );
   return enclosureTypeIdentifiers;
-}
-
-export const getEnclosureTypeBaseById = async (enclosureTypeId: string): Promise<EnclosureTypeBase | undefined> => {
-  const enclosureTypeBase: EnclosureTypeBase | undefined = await getAPIRequest<EnclosureTypeBase | undefined>(
-    `${API_ENDPOINTS.enclosuresService.enclosureTypes.index}/${enclosureTypeId}/base`,
-    undefined
-  );
-  return enclosureTypeBase;
 }
 
 // Server Actions to forms

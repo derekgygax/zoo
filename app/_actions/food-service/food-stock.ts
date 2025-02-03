@@ -26,14 +26,6 @@ export const getFoodStockIdentifiers = async (): Promise<ModelIdentifier[]> => {
   return foodStockIdentifiers;
 }
 
-export const getFoodStockBaseById = async (foodStockId: string): Promise<FoodStockBase | undefined> => {
-  const foodStock: FoodStockBase | undefined = await getAPIRequest<FoodStockBase | undefined>(
-    `${API_ENDPOINTS.foodService.foodStocks.index}/${foodStockId}/base`,
-    undefined
-  );
-  return foodStock;
-}
-
 export const addFoodStock = async (prevState: FormState, formData: FormData) => {
   const zodSchema = ZOD_SCHEMAS[FORM_SCHEMA_NAME.FOOD_STOCK_BASE];
 

@@ -14,15 +14,6 @@ import { deserializeFormData } from "@/app/_actions/utils";
 import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
-export const getStaffDepartmentBaseById = async (staffDepartmentId: string): Promise<StaffDepartmentBase | undefined> => {
-  const staffDepartment: StaffDepartmentBase | undefined = await getAPIRequest(
-    `${API_ENDPOINTS.staffService.staffDepartments.index}/${staffDepartmentId}/base`,
-    undefined
-  )
-
-  return staffDepartment;
-}
-
 export const getStaffDepartmentIdentifiers = async (): Promise<ModelIdentifier[]> => {
   const staffDepartmentIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
     API_ENDPOINTS.staffService.staffDepartments.identifiers,

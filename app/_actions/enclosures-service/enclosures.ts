@@ -16,15 +16,6 @@ import { deserializeFormData } from "@/app/_actions/utils"
 // utils
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
-
-export const getEnclosureBase = async (enclosureId: string): Promise<EnclosureBase | undefined> => {
-  const enclosure: EnclosureBase | undefined = await getAPIRequest(
-    `${API_ENDPOINTS.enclosuresService.enclosures.index}/${enclosureId}/base`,
-    undefined
-  )
-  return enclosure;
-}
-
 export const getEnclosureIdentifiers = async (): Promise<ModelIdentifier[]> => {
   const enclosureIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
     API_ENDPOINTS.enclosuresService.enclosures.identifiers,

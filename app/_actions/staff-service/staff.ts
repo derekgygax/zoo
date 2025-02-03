@@ -14,18 +14,6 @@ import { deserializeFormData } from "@/app/_actions/utils";
 import { FORM_SCHEMA_NAME, ZOD_SCHEMAS } from "@/config/forms";
 import { getAPIRequest, sendAPIRequest } from "@/lib/utils/server/api";
 
-// TODO ID should be UUID!!
-// put that everywhere, even where the id is retrieved!! before calling this function!!
-export const getStaffBaseById = async (staffId: string): Promise<StaffBase | undefined> => {
-  console.log(staffId, `${API_ENDPOINTS.staffService.staff.index}/${staffId}/base`);
-  const staff: StaffBase | undefined = await getAPIRequest(
-    `${API_ENDPOINTS.staffService.staff.index}/${staffId}/base`,
-    undefined
-  )
-
-  return staff;
-}
-
 export const getStaffIdentifiers = async (): Promise<ModelIdentifier[]> => {
   const staffIdentifiers: ModelIdentifier[] = await getAPIRequest<ModelIdentifier[]>(
     API_ENDPOINTS.staffService.staff.identifiers,
