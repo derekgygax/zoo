@@ -69,6 +69,13 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 
 ---
 
+### Run Tests
+```bash
+bun run test
+```
+
+---
+
 ### Scripts Overview
 
 | Command                                | Description                                                                                     |
@@ -78,7 +85,8 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 | `bun run start`                        | Start the production server.                                                                   |
 | `bun run lint`                         | Run ESLint for code quality checks.                                                            |
 | `bun run generate-api-contracts`| Generate API contracts. Use `-s` to specify services (space-separated or `all`) and `-t` for tasks (e.g., `openapi`, `types`, `zod`, `configure-schemas`). |
-
+| `bun run test`   | Run all Jest tests.              |
+| `bun run test:watch` | Run Jest in watch mode.        |
 
 ### Example Usage for `generate-api-contracts`
 - Default does all services and all tasks:
