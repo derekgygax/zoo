@@ -216,3 +216,130 @@ For any inquiries or issues, please reach out via [GitHub Issues](https://github
 - **Recommended**: Use `bun` for all scripts to ensure speed and compatibility.
 - Run `bun run generate-all-api-contracts` whenever the backend schemas change.
 
+---
+
+## GitHub Actions and Protection
+
+### GitHub Actions CI Workflow
+A GitHub Actions workflow automates testing and linting on every push and pull request to `main` or `develop`.
+
+#### Creating the Workflow
+1. Create the `.github/workflows` directory in your project root folder if not already there:
+   ```sh
+   mkdir -p .github/workflows
+   ```
+2. Create a new file:
+   ```sh
+   touch .github/workflows/ci.yml
+   ```
+3. Add the following contents to `ci.yml`:
+   ```yaml
+   name: CI
+
+   on:
+     push:
+       branches:
+         - main
+         - develop
+     pull_request:
+       branches:
+         - main
+         - develop
+
+   jobs:
+     test:
+       runs-on: ubuntu-latest
+
+       steps:
+         - name: Checkout code
+           uses: actions/checkout@v4
+
+         - name: Set up Bun
+           uses: oven-sh/setup-bun@v1
+           with:
+             bun-version: latest
+
+         - name: Install dependencies
+           run: bun install
+
+         - name: Run linting
+           run: bun run lint
+
+         - name: Run tests
+           run: bun run test
+   ```
+
+### How It Works
+- Runs on `push` to `main` and `develop` and on `pull_request` to these branches.
+- Checks out the latest code.
+- Installs dependencies using Bun.
+- Runs `bun run lint` to check for linting errors.
+- Runs `bun run test` to execute all tests.
+- If tests or linting fail, the workflow marks the PR as failing, preventing merging.
+- If all checks pass, the PR is marked as successful and is allowed to merge.
+
+### Handling CI Results
+#### If Tests Pass
+- The GitHub Actions workflow succeeds.
+- The PR receives a green checkmark, and merging is allowed.
+
+#### If Tests Fail
+- The PR is marked as failing, preventing merging.
+- Logs of failed tests are available in the GitHub Actions tab.
+- The push still occurs, but merging is blocked until the issue is resolved.
+
+### Local Pre-Push Hook
+To prevent pushing broken code locally before GitHub checks, add a Git hook.
+
+1. Create a `pre-push` file in `.git/hooks/`:
+   ```sh
+   touch .git/hooks/pre-push
+   ```
+2. Add the following script:
+   ```sh
+    #!/bin/sh
+
+    echo "Running pre-push checks..."
+
+    # Run linting
+    bun run lint
+    if [ $? -ne 0 ]; then
+        echo "❌ Linting failed. Fix errors before pushing."
+        exit 1
+    fi
+
+    # Run tests
+    bun run test
+    if [ $? -ne 0 ]; then
+        echo "❌ Tests failed. Fix errors before pushing."
+        exit 1
+    fi
+
+    echo "✅ All checks passed. Pushing..."
+    exit 0
+   ```
+3. Make the script executable:
+   ```sh
+   chmod +x .git/hooks/pre-push
+   ```
+
+This prevents local pushes if linting or tests fail before the code reaches GitHub.
+
+### Branch Protection Rules
+GitHub branch protection ensures that changes cannot be merged into `main` or `develop` unless they pass all required checks.
+
+1. Navigate to the repository on GitHub.
+2. Click on `Settings` → `Branches`.
+3. Under `Branch Protection Rules`, click `Add Rule`.
+4. In `Branch name pattern`, enter `main` (repeat for `develop`).
+5. Enable the following options:
+   - `Require a pull request before merging`
+   - `Require status checks to pass before merging`
+   - In `Status checks`, add:
+     - `test` (runs `bun run test`)
+     - `lint` (runs `bun run lint`)
+   - `Require branches to be up to date before merging`
+   - `Do not allow bypassing the above settings`
+6. Click `Save Changes`.
+
+This ensures that pull requests must pass tests before merging.
