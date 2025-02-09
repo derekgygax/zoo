@@ -45,3 +45,5 @@ next-env.d.ts
 # bun lock file
 bun.lockb
 bun.lock
+
+.swc/
