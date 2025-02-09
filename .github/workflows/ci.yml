@@ -28,7 +28,7 @@ jobs:
         uses: actions/cache@v3
         id: bun-cache
         with:
-          path: ~/.bun
+          path: ~/.bun/install/cache
           key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb', 'package.json') }}
           restore-keys: |
             ${{ runner.os }}-bun-
@@ -45,19 +45,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-
-      - name: Restore Bun dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.bun
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb', 'package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-bun-
-
       - name: Run linting
         run: bun run lint
 
@@ -68,19 +55,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-
-      - name: Restore Bun dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.bun
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb', 'package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-bun-
 
       - name: Run tests
         run: bun run test
