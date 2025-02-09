@@ -24,6 +24,7 @@ jobs:
 
       - name: Cache Bun dependencies
         uses: actions/cache@v3
+        id: bun-cache
         with:
           path: ~/.bun/install/cache
           key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb') }}
@@ -50,6 +51,7 @@ jobs:
 
       - name: Cache Bun dependencies
         uses: actions/cache@v3
+        id: bun-cache
         with:
           path: ~/.bun/install/cache
           key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb') }}
