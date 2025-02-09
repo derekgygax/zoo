@@ -11,9 +11,10 @@ on:
       - develop
 
 jobs:
-  lint:
+  setup:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    outputs:
+      cache-hit: ${{ steps.bun-cache.outputs.cache-hit }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,20 +29,41 @@ jobs:
         id: bun-cache
         with:
           path: ~/.bun
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb', 'package.json') }}-${{ github.run_id }}
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb', 'package.json') }}
           restore-keys: |
             ${{ runner.os }}-bun-
 
       - name: Install dependencies
         if: steps.bun-cache.outputs.cache-hit != 'true'
-        run: bun install --frozen-lockfile || echo "Cache hit, skipping install"
+        run: bun install --frozen-lockfile
+
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Restore Bun dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.bun
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb', 'package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
 
       - name: Run linting
         run: bun run lint
 
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     needs: lint
     steps:
       - name: Checkout code
@@ -52,18 +74,13 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Cache Bun dependencies
+      - name: Restore Bun dependencies
         uses: actions/cache@v3
-        id: bun-cache
         with:
           path: ~/.bun
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb', 'package.json') }}-${{ github.run_id }}
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb', 'package.json') }}
           restore-keys: |
             ${{ runner.os }}-bun-
-
-      - name: Install dependencies
-        if: steps.bun-cache.outputs.cache-hit != 'true'
-        run: bun install --frozen-lockfile || echo "Cache hit, skipping install"
 
       - name: Run tests
         run: bun run test
