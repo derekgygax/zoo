@@ -343,3 +343,58 @@ GitHub branch protection ensures that changes cannot be merged into `main` or `d
 6. Click `Save Changes`.
 
 This ensures that pull requests must pass tests before merging.
+
+---
+
+## Pull Request Workflow
+
+### 1. Create a New Branch
+Before making changes, create a new branch from `main`:
+```sh
+ git checkout -b feature-branch-name
+```
+Make your changes and commit them:
+```sh
+ git add .
+ git commit -m "Description of changes"
+```
+Push the branch to GitHub:
+```sh
+ git push origin feature-branch-name
+```
+
+### 2. Open a Pull Request
+1. Navigate to the repository on GitHub.
+2. Click on the **Pull requests** tab.
+3. Click **New pull request**.
+4. Select the **base branch** (`main`) and the **compare branch** (your feature branch).
+5. Add a **title** and **description** summarizing your changes.
+6. Click **Create pull request**.
+
+### 3. Review and Approvals
+- Tests and linting will automatically run.
+- The pull request must pass all **required status checks** before merging.
+- If reviews are required, reviewers must approve before merging.
+- As the **CODEOWNER**, you can approve your own PR, but other developers cannot approve their own.
+
+### 4. Merge the Pull Request
+Once the pull request is approved and all checks have passed:
+1. Click **Merge pull request**.
+2. Confirm the merge.
+3. Delete the branch (optional) if it is no longer needed:
+```sh
+ git branch -d feature-branch-name
+ git push origin --delete feature-branch-name
+```
+
+### 5. View Past Pull Requests
+- Navigate to the **Pull requests** tab in the repository.
+- Click **Closed** to see past merged or closed PRs.
+- Each PR keeps a record of:
+  - Who created it
+  - When it was merged
+  - Discussions and status checks
+  - Associated commits and history
+
+This ensures that all changes to `main` go through proper review, testing, and approvals.
+
