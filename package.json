@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next lint && next dev",
-    "build": "next lint && next build",
+    "prebuild": "bun run lint",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "generate-api-contracts": "bun run scripts/build-api-contracts.ts",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:ci": "jest --coverage --runInBand"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -23,7 +25,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.1",
-    "sass": "latest",
+    "sass": "1.84",
     "swagger-client": "^3.32.2",
     "zod": "^3.24.1"
   },
@@ -38,6 +40,7 @@
     "@testing-library/react": "^16.2.0",
     "@types/babel__generator": "^7.6.8",
     "@types/babel__traverse": "^7.20.6",
+    "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.1",
