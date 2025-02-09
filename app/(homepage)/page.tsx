@@ -7,7 +7,7 @@ export default function HomePage() {
     <main>
       <PageSection>
         <h1>ZOO</h1>
-        <Link href={SITE_URLS.staff.index}>Staff DB Change</Link>
+        <Link href={SITE_URLS.staff.index}>DB Changes</Link>
       </PageSection>
     </main>
   );
