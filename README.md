@@ -325,21 +325,31 @@ To prevent pushing broken code locally before GitHub checks, add a Git hook.
 
 This prevents local pushes if linting or tests fail before the code reaches GitHub.
 
-### Branch Protection Rules
-GitHub branch protection ensures that changes cannot be merged into `main` or `develop` unless they pass all required checks.
+### Branch Protection Rules  
 
-1. Navigate to the repository on GitHub.
-2. Click on `Settings` → `Branches`.
-3. Under `Branch Protection Rules`, click `Add Rule`.
-4. In `Branch name pattern`, enter `main` (repeat for `develop`).
-5. Enable the following options:
-   - `Require a pull request before merging`
-   - `Require status checks to pass before merging`
-   - In `Status checks`, add:
-     - `test` (runs `bun run test`)
-     - `lint` (runs `bun run lint`)
-   - `Require branches to be up to date before merging`
-   - `Do not allow bypassing the above settings`
-6. Click `Save Changes`.
+1. **Go to Repository Settings**  
+  - Navigate to the repository on GitHub.  
+  - Click on **Settings** then under **Code and automation** → **Branches**.  
 
-This ensures that pull requests must pass tests before merging.
+2. **Create a New Branch Protection Ruleset**  
+  - Click **"Add branch ruleset"** (not "classic branch protection").  
+  - Set **Ruleset Name** to **"Protect Main"**.  
+  - Set **Enforcement status** to **Active**. 
+  - Under **Target branches**, add `main`.  
+  - Repeat for `develop` if needed.  
+
+3. **Configure Protection Rules**  
+   - **Require a pull request before merging**  
+   - **Set required status checks before merging**  
+    - Click **"Add status check"** and add:  
+      - `test` (runs `bun run test`)  
+      - `lint` (runs `bun run lint`)  
+  - **Require branches to be up to date before merging**  
+  - **Block force pushes** to prevent rewriting history.  
+  - **Restrict deletions** to prevent accidental branch removal.  
+  - **Require review from Code Owners**  
+
+4. **Save and Enforce the Ruleset**  
+  - Click **Save Changes** to enforce the rules.  
+
+This setup ensures that changes to `main` must go through a pull request, pass automated tests, and be approved by a `CODEOWNER` before merging.
