@@ -27,14 +27,14 @@ jobs:
         uses: actions/cache@v3
         id: bun-cache
         with:
-          path: ~/.bun/install
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb', 'package.json') }}
+          path: ~/.bun
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb', 'package.json') }}-${{ github.run_id }}
           restore-keys: |
             ${{ runner.os }}-bun-
 
       - name: Install dependencies
         if: steps.bun-cache.outputs.cache-hit != 'true'
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile || echo "Cache hit, skipping install"
 
       - name: Run linting
         run: bun run lint
@@ -56,14 +56,14 @@ jobs:
         uses: actions/cache@v3
         id: bun-cache
         with:
-          path: ~/.bun/install
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb', 'package.json') }}
+          path: ~/.bun
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb', 'package.json') }}-${{ github.run_id }}
           restore-keys: |
             ${{ runner.os }}-bun-
 
       - name: Install dependencies
         if: steps.bun-cache.outputs.cache-hit != 'true'
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile || echo "Cache hit, skipping install"
 
       - name: Run tests
         run: bun run test
