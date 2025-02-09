@@ -353,9 +353,3 @@ This prevents local pushes if linting or tests fail before the code reaches GitH
   - Click **Save Changes** to enforce the rules.  
 
 This setup ensures that changes to `main` must go through a pull request, pass automated tests, and be approved by a `CODEOWNER` before merging.
-
----
-
-## Vercel Block Deployments
-
-Need to add a thing on how to block deployments in vercel if github actions fail
