@@ -411,3 +411,9 @@ Once the pull request is approved and all checks have passed:
 ## Vercel Block Deployments
 
 Need to add a thing on how to block deployments in vercel if github actions fail
+
+---
+
+## Contact
+
+crispirzoo@gmail.com
