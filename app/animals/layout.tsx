@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { capitalizeFirstLetter } from '@/lib/utils/general';
 
 // types
-import { AnimalBase, ModelIdentifier } from '@/types/animals-service';
+import { ModelIdentifier } from '@/types/animals-service';
 
 // styles
 import styles from './layout.module.scss';
@@ -36,7 +36,7 @@ export default function AnimalsLayout({ children }: AnimalsLayoutProps) {
               <ul className={styles.genus}>
                 {animalGroup.animals.map((animal: ModelIdentifier) => {
                   return (
-                    <li className={styles.animal}>
+                    <li key={animal.id} className={styles.animal}>
                       <Link href={`/animals/${animal.id}`}>
                         {capitalizeFirstLetter(animal.label)}
                       </Link>

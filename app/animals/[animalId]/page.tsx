@@ -61,10 +61,10 @@ export default async function AnimalPage(props: AnimalPageProps) {
         )}
         panelB={Array.from(animalInfo).map(([key, value]) => {
           return (
-            <>
+            <article key={`${animal}_${key}`}>
               <h3>{capitalizeFirstLetter(key)}</h3>
               <p className={styles.info}>{value}</p>
-            </>
+            </article>
           )
         })}
         classNameSplitSections={styles.picDescription}
