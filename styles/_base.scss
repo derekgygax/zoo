@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 // This is where you define the LOCAL fonts being used in the project
 // Make all fonts LOCAL like this so you can control it
 @font-face {
@@ -51,7 +53,7 @@ a {
 
   &:active,
   &:focus {
-    color: darken($accent-color, 10%);
+    color: color.adjust($accent-color, $lightness: -10%);
     outline: none;
   }
 

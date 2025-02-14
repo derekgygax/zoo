@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 // Global for defining the width of any container for the website based on media queries
 .containerFullPage {
   padding-left: 4rem;
@@ -55,8 +57,8 @@
   }
 
   &:disabled {
-    background-color: lighten($background-color, 10%);
-    color: lighten($text-color, 30%);
+    background-color: color.adjust($background-color, $lightness: 10%);
+    color: color.adjust($text-color, $lightness: 30%);
     cursor: not-allowed;
     box-shadow: none;
   }
@@ -66,11 +68,11 @@
     color: $dark-text-color;
 
     &:hover {
-      background-color: darken($highlight-color, 10%);
+      background-color: color.adjust($highlight-color, $lightness: -10%);
     }
 
     &:active {
-      background-color: darken($highlight-color, 15%);
+      background-color: color.adjust($highlight-color, $lightness: -15%);
     }
 
     &:focus {
@@ -84,11 +86,11 @@
     color: $text-color;
 
     &:hover {
-      background-color: darken($primary-color, 10%);
+      background-color: color.adjust($primary-color, $lightness: -10%);
     }
 
     &:active {
-      background-color: darken($primary-color, 15%);
+      background-color: color.adjust($primary-color, $lightness: -15%);
       border-color: $secondary-color;
       box-shadow: 0 0 0 2px rgba(60, 91, 82, 0.5);
     }
