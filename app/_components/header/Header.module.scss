@@ -2,6 +2,9 @@
   background-color: $accent-color;
   color: $text-color;
   padding: 0.5rem;
+  height: $header-height;
+  display: flex;
+  align-items: center;
 }
 
 .logoContainer {
@@ -24,4 +27,5 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
