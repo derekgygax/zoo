@@ -8,7 +8,6 @@ import styles from './Logo.module.scss';
 // logo
 import zooLogo from '@/public/assets/logo/zoo.png';
 
-
 const logos: Record<string, StaticImageData> = {
   zoo: zooLogo,
 };
