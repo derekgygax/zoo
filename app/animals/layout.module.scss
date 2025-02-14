@@ -1,0 +1,20 @@
+.genus {
+  margin-left: 1rem;
+}
+
+.animal {
+  list-style: none;
+}
+
+.animalsLayout {
+  padding-top: 2rem;
+  display: flex;
+}
+
+.animalSelector {
+  flex: 1;
+}
+
+.animal {
+  flex: 3;
+}
