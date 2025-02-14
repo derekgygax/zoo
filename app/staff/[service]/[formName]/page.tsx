@@ -22,6 +22,9 @@ import { UpdateModel } from "@/app/_components/updateModel/UpdateModel";
 // layouts
 import { PageSection } from "@/app/_layouts/pageSection/PageSection";
 
+// styles
+import gloablStyles from '@/styles/globals.module.scss';
+
 
 interface StaffServiceFormPageParams {
   service: string;
@@ -133,6 +136,8 @@ export default async function StaffServiceFormPage({ params }: StaffServiceFormP
         title={formConfig.label}
         // TODO I HATE THIS HARD CODING!!!
         level={1}
+
+        className={gloablStyles.containerFullPage}
       />
       <PageSection>
         {pageContent}

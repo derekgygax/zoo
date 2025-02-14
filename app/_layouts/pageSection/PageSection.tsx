@@ -4,12 +4,13 @@ import classNames from "classnames";
 import globalStyles from '@/styles/globals.module.scss';
 import styles from './PageSection.module.scss';
 
-interface SectionProps {
+interface PageSectionProps {
   background?: string;
   children: React.ReactNode;
   className?: string;
   id?: string;
   innerStyle?: string;
+  ariaLabel?: string;
 }
 
 export const PageSection = ({
@@ -17,10 +18,15 @@ export const PageSection = ({
   children,
   className,
   id,
-  innerStyle
-}: SectionProps) => {
+  innerStyle,
+  ariaLabel
+}: PageSectionProps) => {
   return (
-    <section id={id} className={classNames(className, background, styles.pageSection)}>
+    <section
+      id={id}
+      className={classNames(className, background, styles.pageSection)}
+      aria-label={ariaLabel}
+    >
       <div className={classNames(innerStyle, globalStyles.containerFullPage)}>
         {children}
       </div>

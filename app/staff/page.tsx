@@ -1,4 +1,7 @@
 
+// layouts
+import { PageSection } from "../_layouts/pageSection/PageSection";
+
 // components
 import { Duties } from "../_components/duties/Duties";
 import { Title } from "../_components/title/Title";
@@ -7,7 +10,7 @@ import { Title } from "../_components/title/Title";
 import { duties, title } from "@/content/app/staff";
 
 // styles
-// import styles from "./page.module.scss";
+import globalStyles from "@/styles/globals.module.scss";
 
 export default function StaffPage() {
   return (
@@ -15,10 +18,13 @@ export default function StaffPage() {
       <Title
         title={title.label}
         level={title.level}
+        className={globalStyles.containerFullPage}
       />
-      <Duties
-        duties={duties}
-      />
+      <PageSection ariaLabel="staff-duties">
+        <Duties
+          duties={duties}
+        />
+      </PageSection>
     </main>
   )
 }
