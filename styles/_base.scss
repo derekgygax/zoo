@@ -38,3 +38,24 @@ body {
   font-family: $font-sans;
   line-height: 1.6;
 }
+
+a {
+  color: $highlight-color;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  text-decoration: underline;
+
+  &:hover {
+    color: $accent-color;
+  }
+
+  &:active,
+  &:focus {
+    color: darken($accent-color, 10%);
+    outline: none;
+  }
+
+  &:visited {
+    color: $secondary-color;
+  }
+}

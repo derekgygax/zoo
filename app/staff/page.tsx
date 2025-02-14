@@ -1,6 +1,6 @@
 
 // components
-import { Duties } from "./_components/duties/Duties";
+import { Duties } from "../_components/duties/Duties";
 import { Title } from "../_components/title/Title";
 
 // content

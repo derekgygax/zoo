@@ -4,7 +4,17 @@
   padding: 0.5rem;
 }
 
+.logoContainer {
+  display: flex;
+  width: 4rem;
+}
+
+.logo {
+  border-radius: 1rem;
+}
+
 .nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 }

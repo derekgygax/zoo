@@ -62,7 +62,7 @@
 
   &.buttonGold {
     background-color: $highlight-color;
-    color: #fff;
+    color: $dark-text-color;
 
     &:hover {
       background-color: darken($highlight-color, 10%);
@@ -80,7 +80,7 @@
 
   &.buttonGreen {
     background-color: $primary-color; // Deep green button
-    color: #fff;
+    color: $text-color;
 
     &:hover {
       background-color: darken($primary-color, 10%);
@@ -97,18 +97,8 @@
   }
 }
 
-
-
 .disabledButton {
   border: 1px solid $grey;
   background-color: $light-grey;
   color: black;
-}
-
-.link {
-  color: $card-background;
-
-  &:hover {
-    color: $highlight-color;
-  }
 }
