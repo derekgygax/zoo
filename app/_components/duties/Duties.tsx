@@ -7,9 +7,6 @@ import { SITE_URLS } from "@/config/siteUrls";
 // types
 import { Duty } from "@/types/staff";
 
-// layouts
-import { PageSection } from "@/app/_layouts/pageSection/PageSection";
-
 // styles
 import styles from "./Duties.module.scss";
 

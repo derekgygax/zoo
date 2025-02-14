@@ -32,6 +32,7 @@
 
 .button {
   cursor: pointer;
+  text-decoration: none;
   border-radius: 2rem;
   padding: 0.5rem 1rem;
   border: 1px solid transparent;
@@ -73,7 +74,7 @@
     }
 
     &:focus {
-      border-color: $accent-color;
+      border-color: none;
       box-shadow: 0 0 0 2px rgba(232, 142, 66, 0.5);
     }
   }
@@ -88,10 +89,12 @@
 
     &:active {
       background-color: darken($primary-color, 15%);
+      border-color: $secondary-color;
+      box-shadow: 0 0 0 2px rgba(60, 91, 82, 0.5);
     }
 
     &:focus {
-      border-color: $secondary-color;
+      border-color: none;
       box-shadow: 0 0 0 2px rgba(60, 91, 82, 0.5);
     }
   }

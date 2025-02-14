@@ -43,7 +43,13 @@ export const Header = async () => {
             logoClassname={styles.logo}
           />
         </Link>
-        <div>
+        <div className={styles.menu}>
+          <Link
+            href={SITE_URLS.staff.index}
+            className={classNames(globalStyles.button, globalStyles.buttonGreen)}
+          >
+            Staff Work
+          </Link>
           {user ? (
             <div className={styles.logout}>
               <span>{user.name}</span>
