@@ -1,0 +1,21 @@
+.genus {
+  margin-left: 1rem;
+}
+
+.li {
+  list-style: none;
+
+  a {
+    text-decoration: none;
+
+    &.selected {
+      text-decoration: underline;
+      font-weight: bold;
+      font-size: 1.15rem;
+    }
+  }
+}
+
+.animalSelector {
+  flex: 1;
+}
