@@ -2,8 +2,13 @@
   margin-left: 1rem;
 }
 
-.animal {
+.li {
   list-style: none;
+
+  a {
+    text-decoration: none;
+
+  }
 }
 
 .animalsLayout {
@@ -16,5 +21,5 @@
 }
 
 .animal {
-  flex: 3;
+  flex: 6;
 }

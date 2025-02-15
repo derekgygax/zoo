@@ -29,24 +29,28 @@ export default function AnimalsLayout({ children }: AnimalsLayoutProps) {
   return (
     <div className={classNames(globalStyles.containerFullPage, styles.animalsLayout)}>
       <aside className={styles.animalSelector}>
-        {mockAnimalIdentifiers.map((animalGroup: { genus: string; animals: ModelIdentifier[] }) => {
-          return (
-            <>
-              <h3>{capitalizeFirstLetter(animalGroup.genus)}</h3>
-              <ul className={styles.genus}>
-                {animalGroup.animals.map((animal: ModelIdentifier) => {
-                  return (
-                    <li key={animal.id} className={styles.animal}>
-                      <Link href={`/animals/${animal.id}`}>
-                        {capitalizeFirstLetter(animal.label)}
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ul>
-            </>
-          )
-        })}
+        <nav>
+          <ul>
+            {mockAnimalIdentifiers.map((animalGroup: { genus: string; animals: ModelIdentifier[] }) => {
+              return (
+                <li key={animalGroup.genus} className={styles.li}>
+                  <h3>{capitalizeFirstLetter(animalGroup.genus)}</h3>
+                  <ul className={styles.genus}>
+                    {animalGroup.animals.map((animal: ModelIdentifier) => {
+                      return (
+                        <li key={animal.id} className={styles.li}>
+                          <Link href={`/animals/${animal.id}`}>
+                            {capitalizeFirstLetter(animal.label)}
+                          </Link>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </li>
+              )
+            })}
+          </ul>
+        </nav>
       </aside>
       <main className={styles.animal}>
         {children}

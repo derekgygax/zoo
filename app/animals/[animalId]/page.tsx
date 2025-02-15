@@ -4,6 +4,9 @@ import Image, { StaticImageData } from "next/image";
 // types
 import { AnimalBase } from "@/types/animals-service";
 
+// utils
+import { snakeToTitleCase } from "@/lib/utils/general";
+
 // layouts
 import { SplitSection } from "@/app/_layouts/splitSection/SplitSection";
 
@@ -23,7 +26,6 @@ import monkeyPic from '@/public/assets/monkey.webp';
 
 // styles
 import styles from './page.module.scss';
-import { capitalizeFirstLetter } from "@/lib/utils/general";
 
 
 const animalPics: Record<string, StaticImageData> = {
@@ -46,29 +48,32 @@ export default async function AnimalPage(props: AnimalPageProps) {
   const animalInfo: Map<string, string> = mockAnimalsInformation.get(animalId) ?? new Map();
 
   return (
-    <section>
+    <>
       <Title
         title={animal.name}
         level={1}
       />
-      <SplitSection
-        panelA={(
-          <Image
-            src={animalPics[animal.specie_id]}
-            alt="tiger"
-            className={globalStyles.image}
-          />
-        )}
-        panelB={Array.from(animalInfo).map(([key, value]) => {
-          return (
-            <article key={`${animal}_${key}`}>
-              <h3>{capitalizeFirstLetter(key)}</h3>
-              <p className={styles.info}>{value}</p>
-            </article>
-          )
-        })}
-        classNameSplitSections={styles.picDescription}
-      />
-    </section>
+      <section>
+        <SplitSection
+          panelA={(
+            <Image
+              src={animalPics[animal.specie_id]}
+              alt="tiger"
+              className={globalStyles.image}
+            />
+          )}
+          panelB={Array.from(animalInfo).map(([key, value]) => {
+            return (
+              <article key={`${animal}_${key}`}>
+                <h3>{snakeToTitleCase(key)}</h3>
+                <p className={styles.info}>{value}</p>
+              </article>
+            )
+          })}
+          classNameSplitSections={styles.animalIntroSection}
+          classNamePanelB={styles.infoContainer}
+        />
+      </section>
+    </>
   )
 }
