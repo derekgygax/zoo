@@ -5,7 +5,7 @@ import styles from './layout.module.scss';
 import globalStyles from '@/styles/globals.module.scss';
 
 // MOCK DATA
-import { mockAnimalIdentifiers } from '@/content/app/animals/layout';
+import { mockAnimalIdentifiers } from '@/content/app/animals/animalId/layout';
 import { SelectAnimalSidebar } from '@/app/_components/selectAnimalSidebar/SelectAnimalSidebar';
 
 interface AnimalProfileLayoutProps {

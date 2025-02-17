@@ -7,13 +7,14 @@ import { SITE_URLS } from '@/config/siteUrls';
 import { capitalizeFirstLetter } from '@/lib/utils/general';
 
 // types
+import { AnimalsInCategory } from '@/types/animals-service';
 import { ModelIdentifier } from '@/types/serviceModels';
 
 // styles
 import styles from './SelectAnimalSidebar.module.scss';
 
 interface SelectAnimalSidebarProps {
-  animalsGroups: { genus: string; animals: ModelIdentifier[] }[]
+  animalsGroups: AnimalsInCategory[]
   selectedAnimalId: string
 }
 
@@ -25,12 +26,12 @@ export const SelectAnimalSidebar = ({ animalsGroups, selectedAnimalId }: SelectA
     >
       <nav aria-label="Select an animal">
         <ul>
-          {animalsGroups.map((animalGroup: { genus: string; animals: ModelIdentifier[] }) => {
+          {animalsGroups.map((category: AnimalsInCategory) => {
             return (
-              <li key={animalGroup.genus} className={styles.li}>
-                <h3>{capitalizeFirstLetter(animalGroup.genus)}</h3>
+              <li key={category.category_name} className={styles.li}>
+                <h3>{capitalizeFirstLetter(category.category_name)}</h3>
                 <ul className={styles.genus}>
-                  {animalGroup.animals.map((animal: ModelIdentifier) => {
+                  {category.animals.map((animal: ModelIdentifier) => {
                     return (
                       <li key={animal.id} className={styles.li}>
                         <Link

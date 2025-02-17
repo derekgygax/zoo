@@ -1,15 +1,38 @@
 
+import { WORDS_EXCLUDED_FROM_TITLE_CASE } from "@/config/constants";
 import { SelectorOption } from "@/types/form";
 
 export const capitalizeFirstLetter = (s: string): string => {
   return s.charAt(0).toUpperCase() + s.slice(1)
 };
 
+export const capitalizeAsTitle = (s: string): string => {
+  let words = s.trim().split(/\s+/);
+  words = words.map((word: string) => {
+    if (WORDS_EXCLUDED_FROM_TITLE_CASE.includes(word.toLowerCase())) {
+      return word.toLowerCase();
+    } else {
+      return capitalizeFirstLetter(word);
+    }
+  })
+  return words.join(" ");
+}
+
 export const snakeToTitleCase = (snakeCase: string): string => {
   return snakeCase
     .split('_')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
+}
+
+export const titleToSnakeCase = (titleCase: string): string => {
+  return titleCase
+    .replace(/\s+/g, '_')
+    .toLowerCase();
+};
+
+export const underscoreToSpace = (s: string): string => {
+  return s.replace("_", " ");
 }
 
 export const toSelectorOptions = <T>(

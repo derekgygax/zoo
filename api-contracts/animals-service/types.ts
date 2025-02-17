@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/api/v1/animals/": {
+    "/api/v1/animals": {
         parameters: {
             query?: never;
             header?: never;
@@ -12,10 +12,10 @@ export interface paths {
             cookie?: never;
         };
         /** Get Animals */
-        get: operations["get_animals_api_v1_animals__get"];
+        get: operations["get_animals_api_v1_animals_get"];
         put?: never;
         /** Add Animal */
-        post: operations["add_animal_api_v1_animals__post"];
+        post: operations["add_animal_api_v1_animals_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -39,7 +39,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/animals/{animal_id}": {
+    "/api/v1/animals/{animal_id}/base": {
         parameters: {
             query?: never;
             header?: never;
@@ -47,7 +47,40 @@ export interface paths {
             cookie?: never;
         };
         /** Get Animal Base By Id */
-        get: operations["get_animal_base_by_id_api_v1_animals__animal_id__get"];
+        get: operations["get_animal_base_by_id_api_v1_animals__animal_id__base_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/animals/{animal_id}/bio": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Animal Base By Id */
+        get: operations["get_animal_base_by_id_api_v1_animals__animal_id__bio_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/animals/{animal_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
         /** Update Animal */
         put: operations["update_animal_api_v1_animals__animal_id__put"];
         post?: never;
@@ -57,7 +90,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/species/": {
+    "/api/v1/species": {
         parameters: {
             query?: never;
             header?: never;
@@ -65,10 +98,10 @@ export interface paths {
             cookie?: never;
         };
         /** Get Species */
-        get: operations["get_species_api_v1_species__get"];
+        get: operations["get_species_api_v1_species_get"];
         put?: never;
         /** Add Specie */
-        post: operations["add_specie_api_v1_species__post"];
+        post: operations["add_specie_api_v1_species_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -153,6 +186,57 @@ export interface paths {
         get?: never;
         /** Update Specie */
         put: operations["update_specie_api_v1_species__specie_id__put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/animal-categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Animal Categories */
+        get: operations["get_animal_categories_api_v1_animal_categories_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/animal-categories/{animal_category_id}/base": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Animal Base By Id */
+        get: operations["get_animal_base_by_id_api_v1_animal_categories__animal_category_id__base_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/animal-categories/animals-by-category": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Animal Base By Id */
+        get: operations["get_animal_base_by_id_api_v1_animal_categories_animals_by_category_get"];
+        put?: never;
         post?: never;
         delete?: never;
         options?: never;
@@ -252,6 +336,136 @@ export interface components {
              */
             acquisition_date: string;
         };
+        /** AnimalBio */
+        AnimalBio: {
+            /**
+             * Name
+             * @description The name of the animal
+             */
+            name: string;
+            /**
+             * Specie
+             * Format: selector
+             * @description The type of species, such as 'dog' or 'cat'
+             */
+            specie_id: string;
+            /** Gender */
+            gender: components["schemas"]["GENDER"];
+            /** Health */
+            health: components["schemas"]["HEALTH_TYPE"];
+            /**
+             * DOB
+             * Format: date
+             */
+            dob: string;
+            /**
+             * Aquisition Date
+             * Format: date
+             */
+            acquisition_date: string;
+            /**
+             * Specie
+             * @description Specie information about the animal
+             */
+            specie: components["schemas"]["SpecieBase"];
+            /**
+             * Animal Images
+             * @description Images of the animal
+             */
+            images: components["schemas"]["AnimalImageInBio"][];
+            /**
+             * Animal Information
+             * @description Information about the animal, just stuff
+             */
+            info: components["schemas"]["InfoItem"][];
+        };
+        /** AnimalCategory */
+        AnimalCategory: {
+            /**
+             * Name
+             * @description The name of the animal category
+             */
+            name: string;
+            /**
+             * Description
+             * @description A description of the animal category
+             */
+            description: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /** AnimalCategoryBase */
+        AnimalCategoryBase: {
+            /**
+             * Name
+             * @description The name of the animal category
+             */
+            name: string;
+            /**
+             * Description
+             * @description A description of the animal category
+             */
+            description: string;
+        };
+        /** AnimalImageInBio */
+        AnimalImageInBio: {
+            /**
+             * Is Primary Image
+             * @description Boolean saying if this is the primary image for the animal
+             */
+            is_primary: boolean;
+            /**
+             * Image URL
+             * @description URL for the animal image
+             */
+            url: string;
+            /**
+             * Image Width
+             * @description Width of the image
+             */
+            width: number;
+            /**
+             * Image Height
+             * @description Height of the image
+             */
+            height: number;
+        };
+        /** AnimalsInCategory */
+        AnimalsInCategory: {
+            /**
+             * Name
+             * @description The name of the animal
+             */
+            category_name: string;
+            /**
+             * Animals
+             * @description Animals in the category by identifier. id and lable
+             */
+            animals: components["schemas"]["ModelIdentifier"][];
+        };
+        /**
+         * CONSERVATION_STATUS
+         * @enum {string}
+         */
+        CONSERVATION_STATUS: "EXTINCT" | "EXTINCT_IN_WILD" | "CRITICALLY_ENDANGERED" | "ENDANGERED" | "VULNERABLE" | "NEAR_THREATENED" | "LEAST_CONCERN" | "DATA_DEFICIENT" | "NOT_EVALUATED";
+        /**
+         * DIET_TYPE
+         * @enum {string}
+         */
+        DIET_TYPE: "HERBIVORE" | "CARNIVORE" | "OMNIVORE" | "INSECTIVORE" | "PISCIVORE";
         /**
          * GENDER
          * @enum {string}
@@ -266,6 +480,13 @@ export interface components {
         HTTPValidationError: {
             /** Detail */
             detail?: components["schemas"]["ValidationError"][];
+        };
+        /** InfoItem */
+        InfoItem: {
+            /** Title */
+            title: string;
+            /** Description */
+            description: string;
         };
         /** ModelIdentifier */
         ModelIdentifier: {
@@ -283,10 +504,30 @@ export interface components {
         /** Specie */
         Specie: {
             /**
-             * Specie
-             * @description Unique identifier for the specie, such as 'dog' or 'cat'
+             * Scientific Name
+             * @description Scientific Name of the species, like Panthera Leo
              */
-            id: string;
+            scientific_name: string;
+            /**
+             * Common Name
+             * @description Common name of the specie, like Lion
+             */
+            common_name: string;
+            /**
+             * Lifespan
+             * @description The general lifespan of the species in years, as an int
+             */
+            lifespan: number;
+            /**
+             * Diet
+             * @description The type of diet, an enum with HERBIVORE, CARNIVORE, OMNIVORE, PISCIVORE, INSECTIVORE
+             */
+            diet: components["schemas"]["DIET_TYPE"];
+            /**
+             * Conservation Statu
+             * @description The conservation status of the specie, an enum following IUCN Red List
+             */
+            conservation_status: components["schemas"]["CONSERVATION_STATUS"];
             /**
              * Specie Description
              * @description A short description about the specie
@@ -306,10 +547,30 @@ export interface components {
         /** SpecieBase */
         SpecieBase: {
             /**
-             * Specie
-             * @description Unique identifier for the specie, such as 'dog' or 'cat'
+             * Scientific Name
+             * @description Scientific Name of the species, like Panthera Leo
              */
-            id: string;
+            scientific_name: string;
+            /**
+             * Common Name
+             * @description Common name of the specie, like Lion
+             */
+            common_name: string;
+            /**
+             * Lifespan
+             * @description The general lifespan of the species in years, as an int
+             */
+            lifespan: number;
+            /**
+             * Diet
+             * @description The type of diet, an enum with HERBIVORE, CARNIVORE, OMNIVORE, PISCIVORE, INSECTIVORE
+             */
+            diet: components["schemas"]["DIET_TYPE"];
+            /**
+             * Conservation Statu
+             * @description The conservation status of the specie, an enum following IUCN Red List
+             */
+            conservation_status: components["schemas"]["CONSERVATION_STATUS"];
             /**
              * Specie Description
              * @description A short description about the specie
@@ -334,7 +595,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    get_animals_api_v1_animals__get: {
+    get_animals_api_v1_animals_get: {
         parameters: {
             query?: never;
             header?: never;
@@ -354,7 +615,7 @@ export interface operations {
             };
         };
     };
-    add_animal_api_v1_animals__post: {
+    add_animal_api_v1_animals_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -407,7 +668,7 @@ export interface operations {
             };
         };
     };
-    get_animal_base_by_id_api_v1_animals__animal_id__get: {
+    get_animal_base_by_id_api_v1_animals__animal_id__base_get: {
         parameters: {
             query?: never;
             header?: never;
@@ -425,6 +686,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["AnimalBase"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_animal_base_by_id_api_v1_animals__animal_id__bio_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                animal_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AnimalBio"];
                 };
             };
             /** @description Validation Error */
@@ -471,7 +763,7 @@ export interface operations {
             };
         };
     };
-    get_species_api_v1_species__get: {
+    get_species_api_v1_species_get: {
         parameters: {
             query?: never;
             header?: never;
@@ -491,7 +783,7 @@ export interface operations {
             };
         };
     };
-    add_specie_api_v1_species__post: {
+    add_specie_api_v1_species_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -644,6 +936,77 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_animal_categories_api_v1_animal_categories_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AnimalCategory"][];
+                };
+            };
+        };
+    };
+    get_animal_base_by_id_api_v1_animal_categories__animal_category_id__base_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                animal_category_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AnimalCategoryBase"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_animal_base_by_id_api_v1_animal_categories_animals_by_category_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AnimalsInCategory"][];
                 };
             };
         };
