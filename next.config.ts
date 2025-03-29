@@ -2,9 +2,7 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
-  // TODO FOR LOCAL!!
   images: {
-    domains: ["localhost"],
     remotePatterns: [
       {
         protocol: "http",

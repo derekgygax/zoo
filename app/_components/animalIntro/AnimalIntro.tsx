@@ -8,7 +8,7 @@ import { AnimalBio, AnimalImageInBio } from "@/types/animals-service";
 import { SplitSection } from "@/app/_layouts/splitSection/SplitSection";
 
 // components
-import { SpecieInfo } from "@/app/_components/specieInfo/SpecieInfo";
+import { IntroInfo } from "../introInfo/IntroInfo";
 
 // styles
 import globalStyles from '@/styles/globals.module.scss';
@@ -21,6 +21,8 @@ interface AnimalIntroProps {
 export const AnimalIntro = ({ animal }: AnimalIntroProps) => {
 
   const primaryImage = animal.images.find((image: AnimalImageInBio) => image.is_primary);
+
+  const { description, ...specieInfo } = animal.specie;
 
   return (
     <SplitSection
@@ -35,9 +37,19 @@ export const AnimalIntro = ({ animal }: AnimalIntroProps) => {
           />
         </figure>
       ) : null}
-      panelB={<SpecieInfo specie={animal.specie} />}
+      panelB={
+        <IntroInfo
+          info={{
+            gender: animal.gender,
+            birthday: animal.dob,
+            health: animal.health,
+            day_joined: animal.acquisition_date,
+            ...specieInfo
+          }}
+          description={description}
+        />
+      }
       classNameSplitSections={styles.animalIntroSection}
-      classNamePanelB={styles.infoContainer}
     />
   )
 }
