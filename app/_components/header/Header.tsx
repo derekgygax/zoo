@@ -7,12 +7,10 @@ import Link from 'next/link';
 import { SITE_URLS } from '@/config/siteUrls';
 
 // types
-import { User } from "@/types/auth";
+// import { User } from "@/types/auth";
 
 // components
-import { Logo } from '../logo/Logo';
-import { LoginForm } from "@/app/_components/loginForm/LoginForm"
-import { LogoutForm } from "@/app/_components/logoutForm/LogoutForm";
+import { Logo, SignInStatus } from '@/app/_components';
 
 // content
 import { content } from '@/content/app/_components/header';
@@ -20,11 +18,14 @@ import { content } from '@/content/app/_components/header';
 // styles
 import styles from './Header.module.scss';
 import globalStyles from '@/styles/globals.module.scss';
+// import { currentUser } from '@clerk/nextjs/server';
 
 
 export const Header = async () => {
 
-  const user = null;
+  // Better to use useUser() in the signInStatus
+  // The rest of the page can be static
+  // const user = await currentUser();
 
   return (
     <header className={styles.header}>
@@ -47,14 +48,15 @@ export const Header = async () => {
           >
             Staff Work
           </Link>
-          {user ? (
-            <div className={styles.logout}>
-              <span>userName</span>
-              <LogoutForm />
-            </div>
-          ) : (
-            <LoginForm />
-          )}
+          <SignInStatus
+          // BETTER TO DO THIS as useUser() in the CLIENT!!!
+          // Can keep the rest of the page as static as you would like
+          // The !!userId checks is the userId is true or false
+          // It askes is the userId NOT falsy. So it will return 
+          // true if the userId is defined and false if the userId is null, undefined, 0, "", false, or NaN
+          // isSignedIn={!!user}
+          // firstName={user?.firstName}
+          />
         </div>
       </nav>
     </header>

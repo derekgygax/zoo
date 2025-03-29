@@ -14,6 +14,8 @@
     "test:ci": "jest --coverage --runInBand"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.12.12",
+    "@clerk/types": "^4.50.1",
     "@hookform/resolvers": "^3.9.1",
     "ajv": "^8.17.1",
     "classnames": "^2.5.1",
