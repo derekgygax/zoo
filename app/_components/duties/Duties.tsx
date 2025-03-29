@@ -7,19 +7,16 @@ import { SITE_URLS } from "@/config/siteUrls";
 // types
 import { Duty } from "@/types/staff";
 
-// layouts
-import { PageSection } from "@/app/_layouts/pageSection/PageSection";
-
 // styles
 import styles from "./Duties.module.scss";
 
 interface DutiesProps {
-  duties: Duty[]
+  duties: Duty[];
 }
 
 export const Duties = ({ duties }: DutiesProps) => {
   return (
-    <PageSection>
+    <nav>
       <ul className={styles.duties}>
         {duties.map((duty: Duty, index: number) => {
           // TODO Incorporate the role based on who is signed in
@@ -35,6 +32,6 @@ export const Duties = ({ duties }: DutiesProps) => {
           )
         })}
       </ul>
-    </PageSection>
+    </nav>
   )
 }

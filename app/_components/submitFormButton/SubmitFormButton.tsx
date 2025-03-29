@@ -28,6 +28,7 @@ export const SubmitFormButton = (
         classNames(
           pending || disabled ? globalStyles.disabledButton : undefined,
           globalStyles.button,
+          globalStyles.buttonGold,
           className
         )
       }

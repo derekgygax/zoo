@@ -1,13 +1,20 @@
-import Link from "next/link";
+
+// layouts
 import { PageSection } from "../_layouts/pageSection/PageSection";
-import { SITE_URLS } from "@/config/siteUrls";
+
+// components
+import { Hero } from "../_components/hero/Hero";
+
+// styles
+import styles from './page.module.scss';
+import Link from "next/link";
 
 export default function HomePage() {
   return (
     <main>
+      <Hero backgroundStyles={styles.heroBackground} />
       <PageSection>
-        <h1>ZOO</h1>
-        <Link href={SITE_URLS.staff.index}>DB Changes</Link>
+        <Link href={"/animals"}><h1>Animals</h1></Link>
       </PageSection>
     </main>
   );

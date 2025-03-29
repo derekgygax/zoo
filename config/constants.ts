@@ -8,3 +8,8 @@ export const FORM_FIELD_DEFAULTS = {
     maxLength: 100
   }
 }
+
+export const WORDS_EXCLUDED_FROM_TITLE_CASE = [
+  "a", "an", "and", "as", "at", "but", "by", "for", "if", "in",
+  "nor", "of", "on", "or", "so", "the", "to", "up", "yet", "with"
+];

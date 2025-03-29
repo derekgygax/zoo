@@ -1,0 +1,24 @@
+.splitSections {
+  display: flex;
+  gap: 1rem;
+
+  flex-direction: column;
+
+  @media screen and (min-width: $small-width) {
+    gap: 2rem;
+    flex-direction: row;
+  }
+
+  @media screen and (min-width: $large-width) {
+    gap: 3rem;
+  }
+
+}
+
+.panelA {
+  flex: 1;
+}
+
+.panelB {
+  flex: 1;
+}

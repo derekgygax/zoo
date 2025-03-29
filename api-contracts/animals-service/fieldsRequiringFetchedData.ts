@@ -7,9 +7,19 @@ import { SchemasSelectors} from "@/types/script";
   "AnimalBase": [
     "specie_id"
   ],
+  "AnimalBio": [
+    "specie_id"
+  ],
+  "AnimalCategory": [],
+  "AnimalCategoryBase": [],
+  "AnimalImageInBio": [],
+  "AnimalsInCategory": [],
+  "CONSERVATION_STATUS": [],
+  "DIET_TYPE": [],
   "GENDER": [],
   "HEALTH_TYPE": [],
   "HTTPValidationError": [],
+  "InfoItem": [],
   "ModelIdentifier": [],
   "Specie": [],
   "SpecieBase": [],

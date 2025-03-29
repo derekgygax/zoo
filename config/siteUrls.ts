@@ -13,6 +13,7 @@ const STAFF_INDEX = {
 }
 
 export const SITE_URLS = {
+  home: "/",
   staff: {
     index: "/staff",
     [SERVICE.ANIMALS]: {
@@ -27,5 +28,8 @@ export const SITE_URLS = {
     [SERVICE.STAFF]: {
       index: `${STAFF_INDEX[SERVICE.STAFF]}`,
     }
+  },
+  animals: {
+    index: "/animals"
   }
 };

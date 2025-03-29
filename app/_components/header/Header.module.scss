@@ -1,9 +1,33 @@
 .header {
-  background-color: lightblue;
+  position: sticky;
+  top: 0;
+  background-color: $accent-color;
+  color: $text-color;
   padding: 0.5rem;
+  height: $header-height;
+  display: flex;
+  align-items: center;
+}
+
+.logoContainer {
+  display: flex;
+  width: 4rem;
+}
+
+.logo {
+  border-radius: 1rem;
+}
+
+.menu {
+  display: flex;
+  gap: 1rem;
+  width: 50%;
+  justify-content: space-between;
 }
 
 .nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
