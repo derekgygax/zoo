@@ -9,9 +9,6 @@ import { SITE_URLS } from '@/config/siteUrls';
 // types
 import { User } from "@/types/auth";
 
-// server actions
-import { getLoggedInUser } from "@/app/_actions/auth";
-
 // components
 import { Logo } from '../logo/Logo';
 import { LoginForm } from "@/app/_components/loginForm/LoginForm"
@@ -27,7 +24,7 @@ import globalStyles from '@/styles/globals.module.scss';
 
 export const Header = async () => {
 
-  const user: User | null = await getLoggedInUser();
+  const user = null;
 
   return (
     <header className={styles.header}>
@@ -52,7 +49,7 @@ export const Header = async () => {
           </Link>
           {user ? (
             <div className={styles.logout}>
-              <span>{user.name}</span>
+              <span>userName</span>
               <LogoutForm />
             </div>
           ) : (
