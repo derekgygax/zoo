@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { Header } from "@/app/_components/header/Header";
+import { ClerkProvider } from "@clerk/nextjs";
 
 // global base styles to whole webiste
 import '@/styles/_base.scss'
@@ -17,10 +18,12 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body>
-        <Header />
-        {children}
-      </body>
+      <ClerkProvider>
+        <body>
+          <Header />
+          {children}
+        </body>
+      </ClerkProvider>
     </html>
   );
 }

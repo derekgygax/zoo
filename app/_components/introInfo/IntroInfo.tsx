@@ -7,13 +7,13 @@ import { snakeToTitleCase, underscoreToSpace } from '@/lib/utils/general';
 // styles
 import styles from './IntroInfo.module.scss';
 
-interface IntroInfoProps<T extends Record<string, any>> {
+interface IntroInfoProps<T extends Record<string, unknown>> {
   info: T;
   description: string;
   className?: string;
 }
 
-export const IntroInfo = <T extends Record<string, any>>({ info, description, className }: IntroInfoProps<T>) => {
+export const IntroInfo = <T extends Record<string, unknown>>({ info, description, className }: IntroInfoProps<T>) => {
   return (
     <>
       <dl className={classNames(styles.info_dl, className)}>
