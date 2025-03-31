@@ -1,6 +1,6 @@
 
 // layouts
-import { PageSection } from "../_layouts/pageSection/PageSection";
+import { PageSection } from "../../layouts/pageSection/PageSection";
 
 // components
 import { Hero } from "../_components/hero/Hero";

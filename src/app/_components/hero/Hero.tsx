@@ -1,6 +1,6 @@
 
 // layouts
-import { PageSection } from '@/src/app/_layouts/pageSection/PageSection';
+import { PageSection } from '@/src/layouts/pageSection/PageSection';
 
 interface HeroProps {
   backgroundStyles: string;

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 // config
 import { SITE_URLS } from "@/config/siteUrls";
-import { PageSection } from "@/src/app/_layouts/pageSection/PageSection";
+import { PageSection } from "@/src/layouts/pageSection/PageSection";
 
 // TODO ERASE THIS!!
 

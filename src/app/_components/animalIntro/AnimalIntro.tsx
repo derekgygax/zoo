@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AnimalBio, AnimalImageInBio } from "@/src/types/animals-service";
 
 // layouts
-import { SplitSection } from "@/src/app/_layouts/splitSection/SplitSection";
+import { SplitSection } from "@/src/layouts/splitSection/SplitSection";
 
 // components
 import { IntroInfo } from "../introInfo/IntroInfo";

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { PageSection } from "@/src/app/_layouts/pageSection/PageSection";
+import { PageSection } from "@/src/layouts/pageSection/PageSection";
 
 describe("PageSection", () => {
   it("renders children inside the section", () => {

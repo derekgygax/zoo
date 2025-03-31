@@ -20,7 +20,7 @@ import { ZodForm } from "@/src/app/_components/zodForm/ZodForm";
 import { UpdateModel } from "@/src/app/_components/updateModel/UpdateModel";
 
 // layouts
-import { PageSection } from "@/src/app/_layouts/pageSection/PageSection";
+import { PageSection } from "@/src/layouts/pageSection/PageSection";
 
 // styles
 import gloablStyles from '@/src/styles/globals.module.scss';

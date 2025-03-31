@@ -1,5 +1,5 @@
 // import { Title } from "@/src/app/_components/title/Title";
-import { PageSection } from "@/src/app/_layouts/pageSection/PageSection";
+import { PageSection } from "@/src/layouts/pageSection/PageSection";
 import { FORM_CONFIGS, FORM_NAME } from "@/config/forms";
 import { SERVICE } from "@/config/master";
 import { SERVICE_DUTIES } from "@/config/serviceDuties";
