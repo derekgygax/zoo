@@ -11,7 +11,7 @@ import { ModelIdentifier } from "@/src/types/serviceModels";
 import { ServiceModel } from "@/src/types/serviceModels";
 
 // server action utils
-import { deserializeFormData } from "@/src/app/_actions/utils";
+import { deserializeFormData } from "@/src/actions/utils";
 
 // lib utils
 import { getAPIRequest, sendAPIRequest } from "@/src/lib/utils/server/api";

@@ -15,6 +15,9 @@ export const fetchModelOptions = async <S extends SERVICE>(
 ): Promise<SelectorOption[]> => {
   try {
 
+    console.log(service);
+    console.log(modelName);
+
     const modelOptions: ModelIdentifier[] = await getModelIdentifiers(service, modelName);
 
     return modelOptions.map((option) => {

@@ -17,8 +17,8 @@ import { FormConfig, HiddenField, SelectorOption } from "@/src/types/form";
 // config
 
 // server actions
-import { formServerAction } from "@/src/app/_actions/formHandlers";
-import { fetchModel } from "@/src/app/_actions/formModels";
+import { formServerAction } from "@/src/actions/formHandlers";
+import { fetchModel } from "@/src/actions/formModels";
 
 // client components
 import { ZodForm } from "@/src/components/zodForm/ZodForm";
