@@ -21,17 +21,17 @@ import {
   FormConfigs,
   FetchDataKey,
   ServiceModelSelectorMapper
-} from "@/types/form";
+} from "@/src/types/form";
 // TODO NO USE ModelIdentifier
 // retard retard retard
-import { SpecieBase } from "@/types/animals-service";
-import { EnclosureTypeBase } from "@/types/enclosures-service";
-import { FoodTypeBase, StorageUnitTypeBase } from "@/types/food-service";
-import { ZodSchema } from "@/types/zodSchema";
+import { SpecieBase } from "@/src/types/animals-service";
+import { EnclosureTypeBase } from "@/src/types/enclosures-service";
+import { FoodTypeBase, StorageUnitTypeBase } from "@/src/types/food-service";
+import { ZodSchema } from "@/src/types/zodSchema";
 // TODO this is dangerous with all the imports
 // TODO get rid of them as you build the API gateway
 // and start combining things
-import { ModelIdentifier, ServiceModel } from "@/types/serviceModels";
+import { ModelIdentifier, ServiceModel } from "@/src/types/serviceModels";
 
 // fields requiring fetched data
 import { fieldsRequiringFetchedData as animalServiceFieldsRequiringFetching } from "@/api-contracts/animals-service/fieldsRequiringFetchedData";

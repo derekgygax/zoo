@@ -3,7 +3,7 @@
 import { SERVICE, FRAMEWORK } from "./master";
 
 // types
-import { Services } from "@/types/service";
+import { Services } from "@/src/types/service";
 
 export const SERVICES: Services = {
   [SERVICE.ANIMALS]: {

@@ -37,7 +37,7 @@ export const SCRIPTS_CONFIG = {
       }
     },
     types: {
-      base: "types"
+      base: "src/types"
     }
   },
 };

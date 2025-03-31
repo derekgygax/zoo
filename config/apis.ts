@@ -8,7 +8,7 @@ import {
   REPORTS_SERVICE_MODEL,
   STAFF_SERVICE_MODEL
 } from "./serviceModels";
-import { ServiceModel } from "@/types/serviceModels";
+import { ServiceModel } from "@/src/types/serviceModels";
 
 
 export const API_MODEL_ENDPOINTS: {
