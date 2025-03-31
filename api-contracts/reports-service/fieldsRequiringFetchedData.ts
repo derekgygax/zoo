@@ -1,6 +1,6 @@
-import { SchemasSelectors} from "@/types/script";
+import { SchemasSelectors } from "@/src/types/script";
 
-  export const fieldsRequiringFetchedData: SchemasSelectors = {
+export const fieldsRequiringFetchedData: SchemasSelectors = {
   "EXAMPLE": [],
   "Example": []
 } as SchemasSelectors;

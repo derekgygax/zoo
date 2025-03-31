@@ -1,4 +1,4 @@
-import { ServiceDuties } from "@/types/serviceDuties";
+import { ServiceDuties } from "@/src/types/serviceDuties";
 import { FORM_NAME } from "./forms";
 import { SERVICE } from "./master";
 

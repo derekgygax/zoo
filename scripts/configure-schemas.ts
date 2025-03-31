@@ -25,7 +25,7 @@ import {
   SchemaMeta,
   SchemasMeta,
   SchemasSelectors
-} from '@/types/script';
+} from '@/src/types/script';
 
 
 const getSchemasMeta = (openApiSpec: OpenAPIV3.Document): {
@@ -160,7 +160,7 @@ const writeSchemasSelector = (schemasSelectors: SchemasSelectors, selectorFields
   const typeName = SCRIPT_TYPE_NAME.SCHEMAS_SELECTORS;
 
   // Convert schemaSelectors to a TypeScript file content with typing
-  const fileContent = `import { ${typeName}} from "@/types/script";
+  const fileContent = `import { ${typeName}} from "@/src/types/script";
 
   export const ${variableName}: ${typeName} = ${JSON.stringify(schemasSelectors, null, 2)} as ${typeName};`;
 

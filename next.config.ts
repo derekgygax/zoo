@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
-    additionalData: `@use "styles/variables" as *;`,
+    additionalData: `@use "src/styles/variables" as *;`,
     silenceDeprecations: ['legacy-js-api'],
   }
 };
