@@ -1,4 +1,4 @@
-import { SignInForm } from "../_components";
+import { SignInForm } from "../../components";
 import { PageSection } from "../../layouts/pageSection/PageSection";
 
 export default function SignInPage() {

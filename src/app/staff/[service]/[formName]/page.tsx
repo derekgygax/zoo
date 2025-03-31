@@ -12,12 +12,12 @@ import { formServerAction } from "@/src/app/_actions/formHandlers";
 import { fetchFormDependencies, fetchModelOptions } from "@/src/app/_actions/formModels";
 
 // global components
-import { Title } from "@/src/app/_components/title/Title";
-import { ZodForm } from "@/src/app/_components/zodForm/ZodForm";
+import { Title } from "@/src/components/title/Title";
+import { ZodForm } from "@/src/components/zodForm/ZodForm";
 
 // local client components
 // TODO I HATE THIS STRUCTURING!!!
-import { UpdateModel } from "@/src/app/_components/updateModel/UpdateModel";
+import { UpdateModel } from "@/src/components/updateModel/UpdateModel";
 
 // layouts
 import { PageSection } from "@/src/layouts/pageSection/PageSection";

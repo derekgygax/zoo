@@ -3,9 +3,9 @@
 import { AnimalBio } from "@/src/types/animals-service";
 
 // components
-import { AnimalIntro } from "@/src/app/_components/animalIntro/AnimalIntro";
-import { Title } from "@/src/app/_components/title/Title";
-import { AnimalInfo } from "@/src/app/_components/animalInfo/AnimalInfo";
+import { AnimalIntro } from "@/src/components/animalIntro/AnimalIntro";
+import { Title } from "@/src/components/title/Title";
+import { AnimalInfo } from "@/src/components/animalInfo/AnimalInfo";
 
 // Mock Data
 import { mockAnimalBio } from "@/src/content/app/animals/animalId/layout";

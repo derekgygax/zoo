@@ -3,8 +3,8 @@
 import { PageSection } from "../../layouts/pageSection/PageSection";
 
 // components
-import { Duties } from "../_components/duties/Duties";
-import { Title } from "../_components/title/Title";
+import { Duties } from "../../components/duties/Duties";
+import { Title } from "../../components/title/Title";
 
 // content
 import { duties, title } from "@/src/content/app/staff/page";

@@ -10,7 +10,7 @@ import { SITE_URLS } from '@/config/siteUrls';
 // import { User } from "@/src/types/auth";
 
 // components
-import { Logo, SignInStatus } from '@/src/app/_components';
+import { Logo, SignInStatus } from '@/src/components';
 
 // content
 import { content } from '@/src/content/app/_components/header';

@@ -6,7 +6,7 @@ import globalStyles from '@/src/styles/globals.module.scss';
 
 // MOCK DATA
 import { mockAnimalIdentifiers } from '@/src/content/app/animals/animalId/layout';
-import { SelectAnimalSidebar } from '@/src/app/_components/selectAnimalSidebar/SelectAnimalSidebar';
+import { SelectAnimalSidebar } from '@/src/components/selectAnimalSidebar/SelectAnimalSidebar';
 
 interface AnimalProfileLayoutProps {
   params: Promise<{

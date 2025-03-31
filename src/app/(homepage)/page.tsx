@@ -3,7 +3,7 @@
 import { PageSection } from "../../layouts/pageSection/PageSection";
 
 // components
-import { Hero } from "../_components/hero/Hero";
+import { Hero } from "../../components/hero/Hero";
 
 // styles
 import styles from './page.module.scss';

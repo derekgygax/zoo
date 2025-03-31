@@ -1,4 +1,4 @@
-import { BackToStaffPage } from "../_components/backToStaffPage/BackToStaffPage";
+import { BackToStaffPage } from "../../components/backToStaffPage/BackToStaffPage";
 
 interface StaffLayoutProps {
   children: React.ReactNode;
